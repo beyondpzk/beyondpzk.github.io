@@ -1,0 +1,71 @@
+# Basic
+title: 小郑之家~
+subtitle: 
+description: 欢迎~
+# 头像里面的标题
+avatarTitle: BEYOND
+# 头像里面的描述
+avatarDesc: Come on!
+#url: "http://beyondpzk.com/"  # 之前这个域名真心感觉不错.
+url: "https://beyondpzk.github.io/"
+
+# Comment
+#comment:
+#    disqus: leopard
+    # uyan: 2143225  # 有言id,登录有言官网申请
+
+# Social
+social:
+    #weibo: no 
+    #github
+    # twitter: 
+    mail: beyondpzk@outlook.com
+
+# leancloud 统计阅读量
+
+#leancloud:
+    #enable: true
+    #app_id: v1LPRWGNGU0JsjYSNqXgG9Ec-gzGzoHsz
+    #app_key: A0q3Qx0yQ36Bw7MaBe1kbulv
+
+# 百度统计 
+# 使用博客模板请去掉或者更换 id 
+#baidu:
+#    id: 8ba1c6be0953b6f9c2ba38e57f615421  
+
+# Google Analytics
+# 使用博客模板请去掉或者更换 id
+#ga:
+#    id: UA-84134159-3   
+#    host: auto  
+
+
+
+
+permalink: /:year/:month/:title/
+# Format
+highlighter: rouge
+
+textColor: #FF0000
+
+# supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
+cover_color: clear
+
+# The blog button should not be removed.
+blog_button:
+    title: 博客主页
+
+# Navigation buttons in the front page.s
+nav:
+    - {title: 所有文章, description: archive, url: '/archive'}   
+    - {title: 标签, description: tags, url: '/tags'}      
+    - {title: 关于我, description: about, url: '/about'}      
+    
+
+# Pagination
+#gems: [jekyll-paginate,jekyll-sitemap]
+plugins: [jekyll-paginate,jekyll-sitemap]
+paginate: 10
+paginate_path: "page/:num/"
+
+
