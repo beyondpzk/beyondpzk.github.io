@@ -10,7 +10,7 @@ title: 关于我
 
 就是这张图
 
-![avatar](/images/avatar.jpg)
+<!--![avatar](/images/avatar.jpg) 这个图片添加有一些失败.-->
 
 
 <h3> 博客 </h3>  
