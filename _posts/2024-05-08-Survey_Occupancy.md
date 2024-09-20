@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Survey_Occupancy.md
+title: Survey_Occupancy
 date: 2024-05-08
 categories: [reading]
-tags: reading
+tags: Occupancy
 ---
 <!--more-->
 
