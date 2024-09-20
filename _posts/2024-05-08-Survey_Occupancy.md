@@ -2,7 +2,7 @@
 layout: post
 title: Survey_Occupancy
 date: 2024-05-08
-<!--categories: [reading]-->
+categories: [Occupancy]
 tags: Occupancy
 ---
 <!--more-->
