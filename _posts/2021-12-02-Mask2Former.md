@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Mask2Former.md
+title: Mask2Former
 date: 2021-12-02
 categories: [Segmentation]
 tags: Segmentation

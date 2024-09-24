@@ -1,6 +1,6 @@
 ---
 layout: post
-title: MaskFormer.md
+title: MaskFormer
 date: 2021-07-13
 categories: [reading]
 tags: reading
