@@ -72,26 +72,114 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-a-post-with-plotly-js",
+            },{id: "post-drivejepa",
         
-          title: "a post with plotly.js",
+          title: "DriveJEPA",
         
-        description: "this is what included plotly.js code could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/plotly/";
+            window.location.href = "/blog/2026/DriveJEPA/";
           
         },
-      },{id: "post-a-post-with-image-galleries",
+      },{id: "post-c-radiov4",
         
-          title: "a post with image galleries",
+          title: "C_RADIOv4",
         
-        description: "this is what included image galleries could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/photo-gallery/";
+            window.location.href = "/blog/2026/C_RADIOv4/";
+          
+        },
+      },{id: "post-vlm4vla",
+        
+          title: "VLM4VLA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/VLM4VLA/";
+          
+        },
+      },{id: "post-jepa-wm",
+        
+          title: "JEPA_WM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/JEPA_WM/";
+          
+        },
+      },{id: "post-improvedmeanflows",
+        
+          title: "ImprovedMeanFlows",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/ImprovedMeanFlows/";
+          
+        },
+      },{id: "post-surveyonworldmodelsforembodiedai",
+        
+          title: "SurveyOnWorldModelsForEmbodiedAI",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/SurveyOnWorldModelsForEmbodiedAI/";
+          
+        },
+      },{id: "post-meanflows",
+        
+          title: "MeanFlows",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/MeanFlows/";
+          
+        },
+      },{id: "post-pytorch-weights-datasets",
+        
+          title: "pytorch_weights_datasets",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/pytorch_weights_datasets/";
+          
+        },
+      },{id: "post-pytorch-bug",
+        
+          title: "pytorch_bug",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/pytorch_bug/";
+          
+        },
+      },{id: "post-sparsedrive",
+        
+          title: "SparseDrive",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/SparseDrive/";
           
         },
       },{id: "post-google-gemini-updates-flash-1-5-gemma-2-and-project-astra",
@@ -105,224 +193,169 @@ ninja.data = [{
             window.open("https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/", "_blank");
           
         },
-      },{id: "post-a-post-with-tabs",
+      },{id: "post-survey-occupancy",
         
-          title: "a post with tabs",
+          title: "Survey_Occupancy",
         
-        description: "this is what included tabs in a post could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/tabs/";
+            window.location.href = "/blog/2024/Survey_Occupancy/";
           
         },
-      },{id: "post-a-post-with-typograms",
+      },{id: "post-sparsead",
         
-          title: "a post with typograms",
+          title: "SparseAD",
         
-        description: "this is what included typograms code could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/typograms/";
+            window.location.href = "/blog/2024/SparseAD/";
           
         },
-      },{id: "post-a-post-that-can-be-cited",
+      },{id: "post-vidar",
         
-          title: "a post that can be cited",
+          title: "Vidar",
         
-        description: "this is what a post that can be cited looks like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/post-citation/";
+            window.location.href = "/blog/2023/Vidar/";
           
         },
-      },{id: "post-a-post-with-pseudo-code",
+      },{id: "post-sparseocc",
         
-          title: "a post with pseudo code",
+          title: "SparseOcc",
         
-        description: "this is what included pseudo code could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/pseudocode/";
+            window.location.href = "/blog/2023/SparseOcc/";
           
         },
-      },{id: "post-a-post-with-code-diff",
+      },{id: "post-sparse4dv3",
         
-          title: "a post with code diff",
+          title: "Sparse4DV3",
         
-        description: "this is how you can display code diffs",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/code-diff/";
+            window.location.href = "/blog/2023/Sparse4DV3/";
           
         },
-      },{id: "post-a-post-with-advanced-image-components",
+      },{id: "post-renderocc",
         
-          title: "a post with advanced image components",
+          title: "RenderOcc",
         
-        description: "this is what advanced image components could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/advanced-images/";
+            window.location.href = "/blog/2023/RenderOcc/";
           
         },
-      },{id: "post-a-post-with-vega-lite",
+      },{id: "post-sparsebev",
         
-          title: "a post with vega lite",
+          title: "SparseBEV",
         
-        description: "this is what included vega lite code could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/vega-lite/";
+            window.location.href = "/blog/2023/SparseBEV/";
           
         },
-      },{id: "post-a-post-with-geojson",
+      },{id: "post-sparse4dv2",
         
-          title: "a post with geojson",
+          title: "Sparse4DV2",
         
-        description: "this is what included geojson code could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/geojson-map/";
+            window.location.href = "/blog/2023/Sparse4DV2/";
           
         },
-      },{id: "post-a-post-with-echarts",
+      },{id: "post-streampetr",
         
-          title: "a post with echarts",
+          title: "StreamPETR",
         
-        description: "this is what included echarts code could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/echarts/";
+            window.location.href = "/blog/2023/StreamPETR/";
           
         },
-      },{id: "post-a-post-with-chart-js",
+      },{id: "post-sparse4d",
         
-          title: "a post with chart.js",
+          title: "Sparse4D",
         
-        description: "this is what included chart.js code could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/chartjs/";
+            window.location.href = "/blog/2022/Sparse4D/";
           
         },
-      },{id: "post-a-post-with-tikzjax",
+      },{id: "post-flowmatching",
         
-          title: "a post with TikZJax",
+          title: "FlowMatching",
         
-        description: "this is what included TikZ code could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2023/tikzjax/";
+            window.location.href = "/blog/2022/FlowMatching/";
           
         },
-      },{id: "post-a-post-with-bibliography",
+      },{id: "post-rectifiedflow",
         
-          title: "a post with bibliography",
+          title: "RectifiedFlow",
         
-        description: "an example of a blog post with bibliography",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2023/post-bibliography/";
+            window.location.href = "/blog/2022/RectifiedFlow/";
           
         },
-      },{id: "post-a-post-with-jupyter-notebook",
+      },{id: "post-flowanddatageneration",
         
-          title: "a post with jupyter notebook",
+          title: "FlowAndDataGeneration",
         
-        description: "an example of a blog post with jupyter notebook",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2023/jupyter-notebook/";
+            window.location.href = "/blog/2022/FlowAndDataGeneration/";
           
         },
-      },{id: "post-a-post-with-custom-blockquotes",
+      },{id: "post-wayformer",
         
-          title: "a post with custom blockquotes",
+          title: "Wayformer",
         
-        description: "an example of a blog post with custom blockquotes",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2023/custom-blockquotes/";
+            window.location.href = "/blog/2022/Wayformer/";
           
         },
-      },{id: "post-a-post-with-table-of-contents-on-a-sidebar",
+      },{id: "post-petrv2",
         
-          title: "a post with table of contents on a sidebar",
+          title: "PETRV2",
         
-        description: "an example of a blog post with table of contents on a sidebar",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2023/sidebar-table-of-contents/";
-          
-        },
-      },{id: "post-a-post-with-audios",
-        
-          title: "a post with audios",
-        
-        description: "this is what included audios could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/audios/";
-          
-        },
-      },{id: "post-a-post-with-videos",
-        
-          title: "a post with videos",
-        
-        description: "this is what included videos could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/videos/";
-          
-        },
-      },{id: "post-displaying-beautiful-tables-with-bootstrap-tables",
-        
-          title: "displaying beautiful tables with Bootstrap Tables",
-        
-        description: "an example of how to use Bootstrap Tables",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/tables/";
-          
-        },
-      },{id: "post-a-post-with-table-of-contents",
-        
-          title: "a post with table of contents",
-        
-        description: "an example of a blog post with table of contents",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/table-of-contents/";
-          
-        },
-      },{id: "post-a-post-with-giscus-comments",
-        
-          title: "a post with giscus comments",
-        
-        description: "an example of a blog post with giscus comments",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2022/giscus-comments/";
+            window.location.href = "/blog/2022/PETRV2/";
           
         },
       },{id: "post-displaying-external-posts-on-your-al-folio-blog",
@@ -336,103 +369,125 @@ ninja.data = [{
             window.open("https://medium.com/@al-folio/displaying-external-posts-on-your-al-folio-blog-b60a1d241a0a?source=rss-17feae71c3c4------2", "_blank");
           
         },
-      },{id: "post-a-post-with-redirect",
+      },{id: "post-petr",
         
-          title: "a post with redirect",
+          title: "PETR",
         
-        description: "you can also redirect to assets like pdf",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/assets/pdf/example_pdf.pdf";
+            window.location.href = "/blog/2022/PETR/";
           
         },
-      },{id: "post-a-post-with-diagrams",
+      },{id: "post-mask2former",
         
-          title: "a post with diagrams",
+          title: "Mask2Former",
         
-        description: "an example of a blog post with diagrams",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2021/diagrams/";
+            window.location.href = "/blog/2021/Mask2Former/";
           
         },
-      },{id: "post-a-distill-style-blog-post",
+      },{id: "post-detr3d",
         
-          title: "a distill-style blog post",
+          title: "DETR3D",
         
-        description: "an example of a distill-style blog post and main elements",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2021/distill/";
+            window.location.href = "/blog/2021/DETR3D/";
           
         },
-      },{id: "post-a-post-with-twitter",
+      },{id: "post-maskformer",
         
-          title: "a post with twitter",
+          title: "MaskFormer",
         
-        description: "an example of a blog post with twitter",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2020/twitter/";
+            window.location.href = "/blog/2021/MaskFormer/";
           
         },
-      },{id: "post-a-post-with-disqus-comments",
+      },{id: "post-caddn",
         
-          title: "a post with disqus comments",
+          title: "CaDDN",
         
-        description: "an example of a blog post with disqus comments",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2015/disqus-comments/";
+            window.location.href = "/blog/2021/CaDDN/";
           
         },
-      },{id: "post-a-post-with-math",
+      },{id: "post-intentnet",
         
-          title: "a post with math",
+          title: "IntentNet",
         
-        description: "an example of a blog post with some math",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2015/math/";
+            window.location.href = "/blog/2021/IntentNet/";
           
         },
-      },{id: "post-a-post-with-code",
+      },{id: "post-sparsercnn",
         
-          title: "a post with code",
+          title: "SparseRCNN",
         
-        description: "an example of a blog post with some code",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2015/code/";
+            window.location.href = "/blog/2020/SparseRCNN/";
           
         },
-      },{id: "post-a-post-with-images",
+      },{id: "post-tnt",
         
-          title: "a post with images",
+          title: "TNT",
         
-        description: "this is what included images could look like",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2015/images/";
+            window.location.href = "/blog/2020/TNT/";
           
         },
-      },{id: "post-a-post-with-formatting-and-links",
+      },{id: "post-detr",
         
-          title: "a post with formatting and links",
+          title: "DETR",
         
-        description: "march &amp; april, looking forward to summer",
+        description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2015/formatting-and-links/";
+            window.location.href = "/blog/2020/DETR/";
+          
+        },
+      },{id: "post-vectornet",
+        
+          title: "VectorNet",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2020/VectorNet/";
+          
+        },
+      },{id: "post-multipath",
+        
+          title: "MultiPath",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2019/MultiPath/";
           
         },
       },{id: "books-the-godfather",
