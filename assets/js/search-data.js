@@ -149,6 +149,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/MeanFlows/";
           
         },
+      },{id: "post-pi05",
+        
+          title: "Pi05",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/Pi05/";
+          
+        },
       },{id: "post-pytorch-weights-datasets",
         
           title: "pytorch_weights_datasets",
@@ -169,6 +180,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/pytorch_bug/";
+          
+        },
+      },{id: "post-pi0",
+        
+          title: "Pi0",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/Pi0/";
           
         },
       },{id: "post-predictivewm-vs-generativewm",
