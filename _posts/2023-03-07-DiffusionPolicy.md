@@ -2,7 +2,7 @@
 layout: post
 title: DiffusionPolicy
 date: 2023-03-07
-categories: []
+categories: [VLA]
 toc:
     sidebar: left
     max_level: 4
@@ -168,3 +168,40 @@ Diffusion Policy 学习的是能量函数的**梯度** $\nabla E(x)$。
 
 **思考**：
 如果我们将 Diffusion Policy 用于导航任务（Navigation），观测空间和动作空间会有什么变化？Receding Horizon 的策略是否需要调整？
+
+# 后面与RL的结合
+
+
+在 Diffusion Policy 提出（2023年）之后，学术界立刻意识到了它的一个核心局限：**它本质上还是行为克隆（BC）**。也就是说，它只能“模仿”示教者。如果示教者做得不够好，或者环境发生了未见过的变化，它无法像强化学习（RL）那样去“探索”出更优的解。
+
+因此，**Diffusion + RL** 成为了过去两年（2023-2025）最火热的研究方向之一。主要结合方式可以归纳为以下三类流派：
+
+### 1. 离线强化学习：Diffusion 作为“演员”（Policy Head）
+这是最早期的结合方式。传统的 RL（如 SAC, PPO）通常假设策略是高斯分布（单模态）。但正如我们课上讲的，机器人动作往往是多模态的。
+
+*   **核心思想**：我们用 Diffusion Model 来替代传统 RL 中的高斯网络（Gaussian Policy）作为 Actor，用来拟合复杂的动作分布。
+*   **代表论文**：
+    *   **IDQL (Implicit Diffusion Q-Learning)** [arXiv:2304.10573](https://arxiv.org/abs/2304.10573)：这篇论文非常经典。它结合了 IQL（Implicit Q-Learning）和 Diffusion。Diffusion Model 负责从离线数据中生成“候选动作”（拟合数据分布），然后训练一个 Q-function（Critic）来评估这些动作的好坏，最后在推理时通过拒绝采样（Rejection Sampling）或者梯度引导选出 Q 值最高的动作。
+    *   **优势**：既能处理多模态数据，又能通过 Q 值找到比示教数据更好的动作。
+
+### 2. 在线微调：先模仿，后强化（RL Fine-tuning）
+这是目前最直接的思路。先用 Diffusion Policy 进行模仿学习（预训练），得到一个还不错的策略，然后把它放到环境里，用 RL 接着训练，让它根据奖励（Reward）自我进化。
+
+*   **核心挑战**：Diffusion 的生成过程是一个多步的去噪链（比如100步）。要计算 RL 的梯度（Policy Gradient）并反向传播穿过这一百步，显存消耗巨大且梯度极不稳定。
+*   **代表论文**：
+    *   **DPPO (Diffusion Policy Policy Optimization)** [arXiv:2409.00588](https://arxiv.org/abs/2409.00588)：这是2024年的一篇重磅工作，专门解决上述问题。它提出了一套完整的框架，使得我们可以用类似 PPO 的算法来微调 Diffusion Policy。实验表明，经过微调后，机器人不仅动作更流畅，而且完成任务的成功率远超原始的示教者。
+    *   **方法**：它不需要反向传播穿过整个去噪链，而是巧妙地利用了 Score Function 的性质来估计梯度，使得微调变得可行且高效。
+
+### 3. 奖励引导生成（Reward-Guided Generation）
+这种方法不改变 Diffusion Policy 的权重，而是在推理（Inference）阶段“外挂”一个导航员。
+
+*   **核心思想**：训练一个独立的价值函数 $V(s, a)$ 或分类器。在 Diffusion 去噪的每一步，我们计算 $\nabla_a V(s, a)$，用这个梯度去“推”生成的动作，让它向高价值区域偏移。
+*   **类比**：就像你在画画（Diffusion 生成），旁边站着一个老师（RL Critic）。你每画一笔，老师就提醒你“往左一点更好”，最后画出来的结果就会既像原来的风格，又符合老师的要求。
+*   **相关工作**：这种思想最早见于 **Decision Diffuser**，虽然它更多用于规划，但其核心逻辑被广泛用于机器人控制中。
+
+### 总结
+如果用一句话概括 Diffusion Policy 和 RL 的关系：
+*   **Diffusion Policy** 提供了 **“像人”**的先验（平滑、拟人、多模态）。
+*   **RL** 提供了 **“成功”**的导向（最大化奖励、适应新环境）。
+
+未来的趋势一定是二者的深度融合：**用 Diffusion 保证动作不发生灾难性的变形，用 RL 提升任务的极限性能。**
