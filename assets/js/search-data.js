@@ -171,6 +171,17 @@ ninja.data = [{
             window.location.href = "/blog/2024/pytorch_bug/";
           
         },
+      },{id: "post-predictivewm-vs-generativewm",
+        
+          title: "PredictiveWM_VS_GenerativeWM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/PredictiveWM_VS_GenerativeWM/";
+          
+        },
       },{id: "post-sparsedrive",
         
           title: "SparseDrive",
@@ -213,6 +224,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/SparseAD/";
+          
+        },
+      },{id: "post-droid",
+        
+          title: "DROID",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/DROID/";
           
         },
       },{id: "post-vidar",
@@ -290,6 +312,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2023/StreamPETR/";
+          
+        },
+      },{id: "post-diffusionpolicy",
+        
+          title: "DiffusionPolicy",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/DiffusionPolicy/";
           
         },
       },{id: "post-sparse4d",
