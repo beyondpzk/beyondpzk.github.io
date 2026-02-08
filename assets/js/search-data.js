@@ -303,6 +303,17 @@ ninja.data = [{
             window.location.href = "/blog/2023/RenderOcc/";
           
         },
+      },{id: "post-de-vs-sde",
+        
+          title: "DE_VS_SDE",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/DE_VS_SDE/";
+          
+        },
       },{id: "post-sparsebev",
         
           title: "SparseBEV",
