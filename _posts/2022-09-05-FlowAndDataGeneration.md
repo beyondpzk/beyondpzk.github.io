@@ -3,7 +3,8 @@ layout: post
 title: FlowAndDataGeneration
 date: 2022-09-05
 categories: [AIGC]
-tags: [AIGC]
+toc: 
+    sidebar: left
 ---
 
 [TOC]
@@ -25,7 +26,7 @@ tags: [AIGC]
 
 ## 第一部分：基础与离散流模型 (The Era of Discrete Flows)
 
-### 1.1 引入：生成模型的三大流派 (10 分钟)
+### 1.1 引入：生成模型的三大流派
 *   **GAN (对抗生成网络)**：
     *   优点：生成质量高，速度快。
     *   缺点：训练不稳定 (Min-Max game)，没有显式的概率密度 $p(x)$。
@@ -41,7 +42,7 @@ tags: [AIGC]
 设 $z \sim p_z(z)$ 是简单分布（如标准高斯），$x = f(z)$ 是生成的数据。如果 $f$ 是可逆函数，那么：
 $$ p_x(x) = p_z(f^{-1}(x)) \left| \det \frac{\partial f^{-1}(x)}{\partial x} \right| $$
 或者写成对数形式（更常用）：
-$$ \log p_x(x) = \log p_z(z) - \log \left| \det \frac{\partial f(z)}{\partial z} \right| $$
+$$ \log p_x(x) = \log p_z(z) - \log \left| \det \frac{\partial f^{-1}(z)}{\partial z} \right| $$
 
 > **📝 重点**：
 > 画一个“挤压气球”的图示。

@@ -2,7 +2,7 @@
 layout: post
 title: DriveJEPA
 date: 2026-01-29
-categories: [WorldModel & E2E]
+categories: [WorldModel]
 toc: 
     sidebar: left
 ---
