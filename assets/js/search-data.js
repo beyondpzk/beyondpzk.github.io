@@ -325,6 +325,17 @@ ninja.data = [{
             window.location.href = "/blog/2023/SparseBEV/";
           
         },
+      },{id: "post-rt2",
+        
+          title: "RT2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/RT2/";
+          
+        },
       },{id: "post-sparse4dv2",
         
           title: "Sparse4DV2",
@@ -356,6 +367,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2023/DiffusionPolicy/";
+          
+        },
+      },{id: "post-rt1",
+        
+          title: "RT1",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/RT1/";
           
         },
       },{id: "post-sparse4d",
