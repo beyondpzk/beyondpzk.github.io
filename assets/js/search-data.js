@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-drivejepa",
+            },{id: "post-driveworldvla",
+        
+          title: "DriveWorldVLA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/DriveWorldVLA/";
+          
+        },
+      },{id: "post-drivejepa",
         
           title: "DriveJEPA",
         
@@ -191,6 +202,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/Pi05/";
+          
+        },
+      },{id: "post-rad",
+        
+          title: "RAD",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/RAD/";
           
         },
       },{id: "post-pytorch-weights-datasets",
@@ -435,6 +457,17 @@ ninja.data = [{
             window.location.href = "/blog/2022/Sparse4D/";
           
         },
+      },{id: "post-mile",
+        
+          title: "MILE",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/MILE/";
+          
+        },
       },{id: "post-flowmatching",
         
           title: "FlowMatching",
@@ -644,6 +677,17 @@ ninja.data = [{
             window.location.href = "/blog/2020/VectorNet/";
           
         },
+      },{id: "post-dreamerv1",
+        
+          title: "DreamerV1",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2019/DreamerV1/";
+          
+        },
       },{id: "post-multipath",
         
           title: "MultiPath",
@@ -653,6 +697,28 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2019/MultiPath/";
+          
+        },
+      },{id: "post-planet",
+        
+          title: "PlaNet",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/PlaNet/";
+          
+        },
+      },{id: "post-worldmodels",
+        
+          title: "WorldModels",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/WorldModels/";
           
         },
       },{id: "books-the-godfather",
