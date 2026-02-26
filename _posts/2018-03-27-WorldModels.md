@@ -2,7 +2,7 @@
 layout: post
 title: WorldModels
 date: 2018-03-27
-categories: []
+categories: [WorldModel]
 toc:
     sidebar: left
     max_level: 4
