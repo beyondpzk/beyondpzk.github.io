@@ -578,6 +578,17 @@ ninja.data = [{
             window.location.href = "/blog/2022/PETR/";
           
         },
+      },{id: "post-transdreamer",
+        
+          title: "TransDreamer",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/TransDreamer/";
+          
+        },
       },{id: "post-mask2former",
         
           title: "Mask2Former",
