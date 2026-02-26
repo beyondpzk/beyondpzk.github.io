@@ -435,6 +435,17 @@ ninja.data = [{
             window.location.href = "/blog/2023/DiffusionPolicy/";
           
         },
+      },{id: "post-deramerv3",
+        
+          title: "DeramerV3",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/DeramerV3/";
+          
+        },
       },{id: "post-rt1",
         
           title: "RT1",
@@ -631,6 +642,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2020/SparseRCNN/";
+          
+        },
+      },{id: "post-dreamerv2",
+        
+          title: "DreamerV2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2020/DreamerV2/";
           
         },
       },{id: "post-tnt",
