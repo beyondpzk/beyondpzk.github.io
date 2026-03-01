@@ -171,6 +171,28 @@ ninja.data = [{
             window.location.href = "/blog/2025/VLA_embodedAI/";
           
         },
+      },{id: "post-airscape",
+        
+          title: "AirScape",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/AirScape/";
+          
+        },
+      },{id: "post-roboscape",
+        
+          title: "RoboScape",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/RoboScape/";
+          
+        },
       },{id: "post-autovla",
         
           title: "AutoVLA",
@@ -226,6 +248,17 @@ ninja.data = [{
             window.location.href = "/blog/2024/pytorch_weights_datasets/";
           
         },
+      },{id: "post-drivephysica",
+        
+          title: "DrivePhysica",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/DrivePhysica/";
+          
+        },
       },{id: "post-pytorch-bug",
         
           title: "pytorch_bug",
@@ -235,6 +268,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/pytorch_bug/";
+          
+        },
+      },{id: "post-infinitydrive",
+        
+          title: "InfinityDrive",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/InfinityDrive/";
           
         },
       },{id: "post-pi0",
@@ -257,6 +301,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/PredictiveWM_VS_GenerativeWM/";
+          
+        },
+      },{id: "post-drivescape",
+        
+          title: "DriveScape",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/DriveScape/";
           
         },
       },{id: "post-sparsedrive",
