@@ -567,6 +567,17 @@ ninja.data = [{
             window.location.href = "/blog/2022/Wayformer/";
           
         },
+      },{id: "post-daydreamer",
+        
+          title: "DayDreamer",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/DayDreamer/";
+          
+        },
       },{id: "post-petrv2",
         
           title: "PETRV2",
