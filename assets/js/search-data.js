@@ -182,6 +182,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/VLA_embodedAI/";
           
         },
+      },{id: "post-matrixgame2-0",
+        
+          title: "MatrixGame2.0",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/MatrixGame2.0/";
+          
+        },
       },{id: "post-autovla",
         
           title: "AutoVLA",
@@ -576,6 +587,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2022/DayDreamer/";
+          
+        },
+      },{id: "post-vpt",
+        
+          title: "VPT",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/VPT/";
           
         },
       },{id: "post-petrv2",
