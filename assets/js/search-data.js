@@ -171,28 +171,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/VLA_embodedAI/";
           
         },
-      },{id: "post-airscape",
-        
-          title: "AirScape",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/AirScape/";
-          
-        },
-      },{id: "post-roboscape",
-        
-          title: "RoboScape",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/RoboScape/";
-          
-        },
       },{id: "post-autovla",
         
           title: "AutoVLA",
@@ -248,17 +226,6 @@ ninja.data = [{
             window.location.href = "/blog/2024/pytorch_weights_datasets/";
           
         },
-      },{id: "post-drivephysica",
-        
-          title: "DrivePhysica",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/DrivePhysica/";
-          
-        },
       },{id: "post-pytorch-bug",
         
           title: "pytorch_bug",
@@ -268,17 +235,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/pytorch_bug/";
-          
-        },
-      },{id: "post-infinitydrive",
-        
-          title: "InfinityDrive",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/InfinityDrive/";
           
         },
       },{id: "post-pi0",
@@ -292,6 +248,28 @@ ninja.data = [{
             window.location.href = "/blog/2024/Pi0/";
           
         },
+      },{id: "post-e2e",
+        
+          title: "E2E",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/E2E/";
+          
+        },
+      },{id: "post-selfforcing",
+        
+          title: "SelfForcing",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/SelfForcing/";
+          
+        },
       },{id: "post-predictivewm-vs-generativewm",
         
           title: "PredictiveWM_VS_GenerativeWM",
@@ -301,17 +279,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/PredictiveWM_VS_GenerativeWM/";
-          
-        },
-      },{id: "post-drivescape",
-        
-          title: "DriveScape",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/DriveScape/";
           
         },
       },{id: "post-sparsedrive",
@@ -400,6 +367,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2023/Sparse4DV3/";
+          
+        },
+      },{id: "post-verl",
+        
+          title: "verl",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/verl/";
           
         },
       },{id: "post-renderocc",
