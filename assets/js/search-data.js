@@ -160,6 +160,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/SurveyOnWorldModelsForEmbodiedAI/";
           
         },
+      },{id: "post-longscape",
+        
+          title: "LongScape",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/LongScape/";
+          
+        },
       },{id: "post-vla-embodedai",
         
           title: "VLA_embodedAI",
