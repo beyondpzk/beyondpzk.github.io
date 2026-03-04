@@ -149,6 +149,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/JEPA_WM/";
           
         },
+      },{id: "post-vljepa",
+        
+          title: "VLJEPA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/VLJEPA/";
+          
+        },
       },{id: "post-improvedmeanflows",
         
           title: "ImprovedMeanFlows",
@@ -215,6 +226,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/AutoVLA/";
           
         },
+      },{id: "post-vjepa2",
+        
+          title: "VJEPA2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/VJEPA2/";
+          
+        },
       },{id: "post-meanflows",
         
           title: "MeanFlows",
@@ -279,6 +301,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/Pi0/";
+          
+        },
+      },{id: "post-tinyvlm",
+        
+          title: "TinyVLM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/TinyVLM/";
           
         },
       },{id: "post-e2e",
@@ -367,6 +400,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/DROID/";
+          
+        },
+      },{id: "post-vjepa",
+        
+          title: "VJEPA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/VJEPA/";
           
         },
       },{id: "post-vidar",
@@ -503,7 +547,7 @@ ninja.data = [{
         },
       },{id: "post-ijepa",
         
-          title: "Ijepa",
+          title: "IJEPA",
         
         description: "",
         section: "Posts",
