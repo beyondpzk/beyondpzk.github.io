@@ -215,6 +215,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/MatrixGame2.0/";
           
         },
+      },{id: "post-dinoworld",
+        
+          title: "DinoWorld",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/DinoWorld/";
+          
+        },
       },{id: "post-autovla",
         
           title: "AutoVLA",
@@ -290,6 +301,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/pytorch_bug/";
+          
+        },
+      },{id: "post-dinowm",
+        
+          title: "DinoWM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/DinoWM/";
           
         },
       },{id: "post-pi0",
