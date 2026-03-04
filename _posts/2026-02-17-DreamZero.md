@@ -431,3 +431,65 @@ $$ [\mathbf{C_0}, (\mathbf{Z_1}, \mathbf{Y_1}), (\mathbf{Z_2}, \mathbf{Y_2}), \d
     1.  **效率极高**：不需要预测高频噪声。
     2.  **泛化更强**：专注于物体运动和交互。
 *   **劣势**：**不可视化**。你无法直接把预测的特征解码成视频给人类看。这在调试时很不直观（你不知道机器人到底想干嘛，你只能看到一堆向量），而且无法像 DreamZero 那样做“视频生成”的 Demo。
+
+
+## why not latent space?
+
+dinov2的latent space 可以通过 RAE这种手段加一个decoder来进行可视化.为什么不直接用Dit来预测 Dinov2's latent呢?
+
+
+可以说您的观点指出了下一代具身智能（Embodied AI）基础模型（Foundation Model）极有可能的演进方向。
+
+您提到的这篇 **RAE (Representation Autoencoders, arXiv:2510.11690)** <alphaxiv-paper-citation paper="2510.11690" title="RAE Concept" page="1" first="In this work, we" last="Representation Autoencoders (RAEs)." /> 正是验证了这一思路：**用经过强语义监督（如 DINOv2/SigLIP）预训练的 Encoder + 后训练的 Decoder，来替代传统的纯重建 VAE。**
+
+如果用这种 RAE 的 Latent Space 来训练 DiT（世界模型），确实在理论上和实践上都比现在的 VAE 更有优势。我们来深度剖析一下为什么这“更好”，以及为什么 DreamZero 这种工作“还没这么做”。
+
+### 1. 为什么“DiT 预测 DINOv2 Latent”是更优解？
+
+正如您所说，让 DiT 去预测 DINOv2 的 Feature（语义特征），而不是 VAE 的 Feature（像素压缩特征），对机器人来说有巨大的优势：
+
+*   **语义与物理的解耦**：
+    *   **VAE (当前)**：DiT 必须花费大量算力去预测“地毯上的花纹”、“墙上的光斑”等高频噪声，因为 VAE 的 Loss 强迫它重建这些细节。这对机器人决策几乎是噪音。
+    *   **RAE/DINOv2 (未来)**：DINOv2 已经过滤掉了光照、纹理等无关信息，只保留了**物体类别、几何结构、空间位置**。DiT 在这个空间里做预测，实际上是在做**High-level Planning（高层规划）**，效率极高，且生成的轨迹更符合物理逻辑。
+
+*   **更鲁棒的状态表示**：
+    *   DINOv2 的特征空间是平滑且具有语义聚类特性的。在这个空间里做 Diffusion 或 Autoregression，模型更容易学到“手去抓杯子”这种**概念上的转移**，而不是“像素点从左移到右”。
+
+*   **RAE 的证明**：
+    *   RAE 论文证明了，即使是 DINOv2/SigLIP 这种判别式模型，只要配上一个强大的 Decoder，也能重建出高质量图像。这打破了“判别式特征无法用于生成”的迷思。
+
+### 2. 既然这么好，为什么 DreamZero (以及 OpenSora/Wan) 还在用 VAE？
+
+这又回到了那个极其现实的**“沉没成本”与“算力壁垒”**问题。
+
+*   **DreamZero 的底色**：
+    DreamZero **不是**从头预训练（Pre-training from scratch）的视频模型。它是**微调（Fine-tuning）**的。
+    它使用的是 **Wan2.1-14B** 的权重。
+    
+*   **权重的绑定关系**：
+    *   Wan2.1（以及 Sora, Stable Diffusion）在训练时，看了几十亿个视频/图片。
+    *   这几十亿次计算，都是基于 **特定的 VAE Latent Distribution** 进行的。
+    *   Wan2.1 的 DiT 权重里存储的“物理常识”（比如重力、流体动力学），是**紧密耦合**在那个 VAE 的特征空间里的。
+
+*   **切换代价**：
+    如果您想用 DINOv2/RAE 的 Latent，您就**不能**复用 Wan2.1 的权重。
+    这意味着您需要：
+    1.  训练一个 RAE (DINOv2 -> Decoder)。
+    2.  **从零开始**训练一个 14B 的 DiT 来预测 DINOv2 Latent。
+    3.  这需要**数千张 H100** 和**数月的时间**来“重新教会”模型理解物理世界。
+
+**结论**：DreamZero 之所以用 VAE，是为了**“白嫖”** Wan2.1 昂贵的预训练物理知识。如果用 DINOv2，一切都要重头再来。
+
+### 3. 未来的终局：Native Robot Foundation Model
+
+您指出的这条路（DiT + RAE/DINOv2）极有可能是**下一代原生机器人大模型**的架构。
+
+*   **趋势**：
+    *   **Genie (Google DeepMind)**：已经在尝试使用 VQ-VAE 的 Discrete Tokens，虽然还是偏重建，但正在向语义 Token 靠拢。
+    *   **V-JEPA (LeCun)**：完全放弃 Decoder，只在 Feature Space 做预测。这其实就是您说的思路的极端版（连图都不还原了，只预测语义状态）。
+    *   **Cosmos (NVIDIA)**：最近发布的 Cosmos 也是基于 VAE，但他们同时也发布了强大的 Tokenizer。未来如果算力允许，基于强语义 Tokenizer（如 RAE 思想）重训 DiT 是必然的。
+
+*   **预测**：
+    在未来 1-2 年内，我们可能会看到 Google 或 NVIDIA 发布基于 **Semantic-First Tokenizer (类似 RAE)** 的视频/世界模型。那时候，DreamZero 这种 Adapter 类的微调工作，就会顺理成章地迁移到新的架构上，彻底抛弃 VAE。
+
+所以，您的判断非常准确：**DINOv2 + Decoder (RAE) + DiT** 确实是比 **VAE + DiT** 更符合具身智能本质的架构，目前的 VAE 方案只是算力限制下的过渡形态。
