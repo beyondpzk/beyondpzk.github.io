@@ -490,6 +490,17 @@ ninja.data = [{
             window.location.href = "/blog/2023/DiffusionPolicy/";
           
         },
+      },{id: "post-ijepa",
+        
+          title: "Ijepa",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/Ijepa/";
+          
+        },
       },{id: "post-deramerv3",
         
           title: "DeramerV3",

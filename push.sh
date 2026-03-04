@@ -5,4 +5,5 @@ npx prettier . --check
 npx prettier --write .
 git add .
 git commit -m "${today}: ${messages}"
-git push -f origin main
+git pull --rebase origin main
+git push origin main
