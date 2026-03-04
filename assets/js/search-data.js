@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-driveworldvla",
+            },{id: "post-dreamzero",
+        
+          title: "DreamZero",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/DreamZero/";
+          
+        },
+      },{id: "post-driveworldvla",
         
           title: "DriveWorldVLA",
         
