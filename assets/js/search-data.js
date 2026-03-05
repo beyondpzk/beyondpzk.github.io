@@ -160,6 +160,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/VLJEPA/";
           
         },
+      },{id: "post-roboscaper",
+        
+          title: "RoboScapeR",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/RoboScapeR/";
+          
+        },
       },{id: "post-improvedmeanflows",
         
           title: "ImprovedMeanFlows",
