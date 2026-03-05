@@ -589,6 +589,17 @@ ninja.data = [{
             window.location.href = "/blog/2023/DeramerV3/";
           
         },
+      },{id: "post-offlineonlineworldmodel",
+        
+          title: "offlineonlineworldmodel",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/offlineonlineworldmodel/";
+          
+        },
       },{id: "post-rt1",
         
           title: "RT1",
@@ -653,6 +664,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2022/FlowAndDataGeneration/";
+          
+        },
+      },{id: "post-iris",
+        
+          title: "IRIS",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/IRIS/";
           
         },
       },{id: "post-wayformer",
