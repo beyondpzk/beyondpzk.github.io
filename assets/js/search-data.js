@@ -347,6 +347,17 @@ ninja.data = [{
             window.location.href = "/blog/2024/Pi0/";
           
         },
+      },{id: "post-rdt1b",
+        
+          title: "RDT1B",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/RDT1B/";
+          
+        },
       },{id: "post-tinyvlm",
         
           title: "TinyVLM",
@@ -391,6 +402,28 @@ ninja.data = [{
             window.location.href = "/blog/2024/PredictiveWM_VS_GenerativeWM/";
           
         },
+      },{id: "post-mar",
+        
+          title: "MAR",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/MAR/";
+          
+        },
+      },{id: "post-openvla",
+        
+          title: "OpenVLA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/OpenVLA/";
+          
+        },
       },{id: "post-sparsedrive",
         
           title: "SparseDrive",
@@ -433,6 +466,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/SparseAD/";
+          
+        },
+      },{id: "post-var",
+        
+          title: "VAR",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/VAR/";
           
         },
       },{id: "post-droid",
@@ -488,6 +532,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2023/Sparse4DV3/";
+          
+        },
+      },{id: "post-magvitv2",
+        
+          title: "MAGVITV2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/MAGVITV2/";
           
         },
       },{id: "post-verl",
