@@ -314,6 +314,50 @@ ninja.data = [{
             window.location.href = "/blog/2025/RAD/";
           
         },
+      },{id: "post-rope",
+        
+          title: "ROPE",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/ROPE/";
+          
+        },
+      },{id: "post-deepspeed",
+        
+          title: "DeepSpeed",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/DeepSpeed/";
+          
+        },
+      },{id: "post-kvcache",
+        
+          title: "KVCACHE",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/KVCACHE/";
+          
+        },
+      },{id: "post-fsdp",
+        
+          title: "FSDP",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/FSDP/";
+          
+        },
       },{id: "post-pytorch-weights-datasets",
         
           title: "pytorch_weights_datasets",
