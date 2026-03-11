@@ -600,6 +600,17 @@ ninja.data = [{
             window.location.href = "/blog/2023/MAGVITV2/";
           
         },
+      },{id: "post-wm",
+        
+          title: "WM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/WM/";
+          
+        },
       },{id: "post-verl",
         
           title: "verl",
