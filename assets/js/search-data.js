@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-dreamzero",
+            },{id: "post-simvla",
+        
+          title: "SimVLA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/SimVLA/";
+          
+        },
+      },{id: "post-dreamzero",
         
           title: "DreamZero",
         
@@ -149,6 +160,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/JEPA_WM/";
           
         },
+      },{id: "post-vlaan",
+        
+          title: "VLAAN",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/VLAAN/";
+          
+        },
       },{id: "post-vljepa",
         
           title: "VLJEPA",
@@ -191,6 +213,28 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/SurveyOnWorldModelsForEmbodiedAI/";
+          
+        },
+      },{id: "post-wmcompare",
+        
+          title: "WMcompare",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/WMcompare/";
+          
+        },
+      },{id: "post-vlacompare",
+        
+          title: "VLACompare",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/VLACompare/";
           
         },
       },{id: "post-longscape",
@@ -268,6 +312,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/VJEPA2/";
+          
+        },
+      },{id: "post-bagel",
+        
+          title: "BAGEL",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/BAGEL/";
           
         },
       },{id: "post-meanflows",
@@ -664,6 +719,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2023/RT2/";
+          
+        },
+      },{id: "post-emu1",
+        
+          title: "Emu1",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/Emu1/";
           
         },
       },{id: "post-sparse4dv2",
