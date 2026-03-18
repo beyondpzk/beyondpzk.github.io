@@ -633,6 +633,17 @@ ninja.data = [{
             window.location.href = "/blog/2023/SparseOcc/";
           
         },
+      },{id: "post-emu2",
+        
+          title: "Emu2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/Emu2/";
+          
+        },
       },{id: "post-sparse4dv3",
         
           title: "Sparse4DV3",
