@@ -215,6 +215,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/ImprovedMeanFlows/";
           
         },
+      },{id: "post-pi0-6",
+        
+          title: "pi0.6",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/pi0.6/";
+          
+        },
       },{id: "post-surveyonworldmodelsforembodiedai",
         
           title: "SurveyOnWorldModelsForEmbodiedAI",
