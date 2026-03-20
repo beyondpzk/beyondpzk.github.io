@@ -94,6 +94,17 @@ ninja.data = [{
             window.location.href = "/blog/2026/DreamZero/";
           
         },
+      },{id: "post-rise",
+        
+          title: "RISE",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/RISE/";
+          
+        },
       },{id: "post-driveworldvla",
         
           title: "DriveWorldVLA",
@@ -345,6 +356,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/Pi05/";
+          
+        },
+      },{id: "post-racevla",
+        
+          title: "RaceVLA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/RaceVLA/";
           
         },
       },{id: "post-chatvla",
