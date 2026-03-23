@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-simvla",
+            },{id: "post-gigaworldpolicy",
+        
+          title: "GigaWorldPolicy",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/GigaWorldPolicy/";
+          
+        },
+      },{id: "post-simvla",
         
           title: "SimVLA",
         
@@ -103,6 +114,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2026/RISE/";
+          
+        },
+      },{id: "post-muon",
+        
+          title: "Muon",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/Muon/";
           
         },
       },{id: "post-driveworldvla",
@@ -180,6 +202,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/VLAAN/";
+          
+        },
+      },{id: "post-motus",
+        
+          title: "Motus",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/Motus/";
           
         },
       },{id: "post-vljepa",
@@ -367,17 +400,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/Pi05/";
-          
-        },
-      },{id: "post-racevla",
-        
-          title: "RaceVLA",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/RaceVLA/";
           
         },
       },{id: "post-chatvla",
