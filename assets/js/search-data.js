@@ -83,6 +83,17 @@ ninja.data = [{
             window.location.href = "/blog/2026/GigaWorldPolicy/";
           
         },
+      },{id: "post-fastwam",
+        
+          title: "FastWAM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/FastWAM/";
+          
+        },
       },{id: "post-simvla",
         
           title: "SimVLA",
@@ -136,6 +147,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2026/DriveWorldVLA/";
+          
+        },
+      },{id: "post-lingbotva",
+        
+          title: "LingBotVA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/LingBotVA/";
           
         },
       },{id: "post-drivejepa",
