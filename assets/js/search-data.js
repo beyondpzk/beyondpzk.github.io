@@ -94,6 +94,17 @@ ninja.data = [{
             window.location.href = "/blog/2026/FastWAM/";
           
         },
+      },{id: "post-vjepa2-1",
+        
+          title: "VJEPA2.1",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/VJEPA2.1/";
+          
+        },
       },{id: "post-simvla",
         
           title: "SimVLA",
