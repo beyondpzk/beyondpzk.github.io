@@ -512,6 +512,17 @@ ninja.data = [{
             window.location.href = "/blog/2024/pytorch_weights_datasets/";
           
         },
+      },{id: "post-nwm",
+        
+          title: "NWM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/NWM/";
+          
+        },
       },{id: "post-pytorch-bug",
         
           title: "pytorch_bug",
