@@ -105,6 +105,17 @@ ninja.data = [{
             window.location.href = "/blog/2026/VJEPA2.1/";
           
         },
+      },{id: "post-raenwm",
+        
+          title: "RAENWM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/RAENWM/";
+          
+        },
       },{id: "post-simvla",
         
           title: "SimVLA",
