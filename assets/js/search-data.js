@@ -215,6 +215,17 @@ ninja.data = [{
             window.location.href = "/blog/2026/GeRo/";
           
         },
+      },{id: "post-learninglatentactionwm",
+        
+          title: "LearningLatentActionWM",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/LearningLatentActionWM/";
+          
+        },
       },{id: "post-vlm4vla",
         
           title: "VLM4VLA",
@@ -1247,6 +1258,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2019/MultiPath/";
+          
+        },
+      },{id: "post-l1l2",
+        
+          title: "l1l2",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2019/l1l2/";
           
         },
       },{id: "post-planet",
