@@ -215,6 +215,17 @@ ninja.data = [{
             window.location.href = "/blog/2026/GeRo/";
           
         },
+      },{id: "post-finegrainedalignmentedvln",
+        
+          title: "FineGrainedAlignmentedVLN",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/FineGrainedAlignmentedVLN/";
+          
+        },
       },{id: "post-learninglatentactionwm",
         
           title: "LearningLatentActionWM",
