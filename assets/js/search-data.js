@@ -402,6 +402,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/DinoWorld/";
           
         },
+      },{id: "post-goalvla",
+        
+          title: "GoalVLA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/GoalVLA/";
+          
+        },
       },{id: "post-roboscape",
         
           title: "RoboScape",
