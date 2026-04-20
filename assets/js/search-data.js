@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-gigaworldpolicy",
+            },{id: "post-pi0-7",
+        
+          title: "pi0.7",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/pi0.7/";
+          
+        },
+      },{id: "post-gigaworldpolicy",
         
           title: "GigaWorldPolicy",
         
@@ -422,6 +433,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/RoboScape/";
+          
+        },
+      },{id: "post-vla0s",
+        
+          title: "VLA0S",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/VLA0S/";
           
         },
       },{id: "post-autovla",
@@ -807,6 +829,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2023/Sparse4DV3/";
+          
+        },
+      },{id: "post-3dpointcloudgenerative",
+        
+          title: "3DpointCloudGenerative",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/3DpointCloudGenerative/";
           
         },
       },{id: "post-magvitv2",
