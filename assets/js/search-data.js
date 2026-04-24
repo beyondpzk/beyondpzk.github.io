@@ -259,6 +259,50 @@ ninja.data = [{
             window.location.href = "/blog/2026/VLM4VLA/";
           
         },
+      },{id: "post-trainingspeed",
+        
+          title: "TrainingSpeed",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/TrainingSpeed/";
+          
+        },
+      },{id: "post-modelspeed",
+        
+          title: "ModelSpeed",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/ModelSpeed/";
+          
+        },
+      },{id: "post-manyforcing",
+        
+          title: "ManyForcing",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/ManyForcing/";
+          
+        },
+      },{id: "post-lowermemory",
+        
+          title: "LowerMemory",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/LowerMemory/";
+          
+        },
       },{id: "post-jepa-wm",
         
           title: "JEPA_WM",
