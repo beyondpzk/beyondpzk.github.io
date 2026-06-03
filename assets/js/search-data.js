@@ -72,7 +72,29 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-pi0-7",
+            },{id: "post-rlneeds",
+        
+          title: "RLNeeds",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/RLNeeds/";
+          
+        },
+      },{id: "post-lapose",
+        
+          title: "LAPose",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/LAPose/";
+          
+        },
+      },{id: "post-pi0-7",
         
           title: "pi0.7",
         
@@ -510,6 +532,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/VJEPA2/";
+          
+        },
+      },{id: "post-trackvla",
+        
+          title: "TrackVLA",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/TrackVLA/";
           
         },
       },{id: "post-bagel",
