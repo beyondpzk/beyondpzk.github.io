@@ -1,0 +1,26 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "description": "My personal blog powered by VitePress",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview",
+    "sync": "node scripts/generate-sidebar.js",
+    "preview": "bash scripts/preview.sh",
+    "migrate": "node scripts/migrate-from-jekyll.js",
+    "cleanup": "node scripts/cleanup-migrated-posts.js"
+  },
+  "keywords": [
+    "blog",
+    "vitepress",
+    "github-pages"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "markdown-it-mathjax3": "^4.3.2",
+    "vitepress": "^1.6.4"
+  }
+}

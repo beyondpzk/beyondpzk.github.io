@@ -1,0 +1,12 @@
+---
+title: SparseAD
+date: 2024-04-10
+---
+
+<!--more-->
+
+- [paper地址](https://arxiv.org/abs/2404.06892)
+
+# SparseAD: Sparse Query-Centric Paradigm for Efficient End-to-End Autonomous Driving
+
+## sketch the main points

@@ -1,0 +1,12 @@
+---
+title: Sparse4DV3
+date: 2023-11-20
+---
+
+<!--more-->
+
+- [paper地址](https://arxiv.org/abs/2311.11722)
+
+# Sparse4D v3: Advancing End-to-End 3D Detection and Tracking
+
+## sketch the main points

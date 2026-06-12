@@ -1,0 +1,12 @@
+---
+title: Sparse4D
+date: 2022-11-19
+---
+
+<!--more-->
+
+- [paper地址](https://arxiv.org/abs/2211.10581)
+
+# Sparse4D: Multi-view 3D Object Detection with Sparse Spatial-Temporal Fusion
+
+## sketch the main points

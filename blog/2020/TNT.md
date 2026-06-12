@@ -1,0 +1,12 @@
+---
+title: TNT
+date: 2020-08-19
+---
+
+<!--more-->
+
+- [paper地址](https://arxiv.org/abs/2008.08294)
+
+# TNT: Target-driveN Trajectory Prediction
+
+## sketch the main points
