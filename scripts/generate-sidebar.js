@@ -35,8 +35,10 @@ function scanDir(dir, urlPrefix = '') {
     const meta = getFrontmatter(filePath)
     const name = file.name.replace('.md', '')
     const link = `${urlPrefix}/${name}`
+    const displayName = meta.title || name
+    const displayText = meta.date ? `${displayName} (${meta.date})` : displayName
     items.push({
-      text: meta.title || name,
+      text: displayText,
       link,
       date: meta.date || '',
     })
