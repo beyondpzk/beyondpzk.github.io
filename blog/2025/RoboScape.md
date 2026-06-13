@@ -1,6 +1,7 @@
 ---
 title: RoboScape
 date: 2025-06-29
+categories: [WorldModels]
 ---
 
 # RoboScape: Physics-informed Embodied World Model

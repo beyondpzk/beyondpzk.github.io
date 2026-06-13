@@ -1,6 +1,7 @@
 ---
 title: DETR3D
 date: 2021-10-13
+categories: [Perception]
 ---
 
 <!--more-->

@@ -1,6 +1,7 @@
 ---
 title: pi0.7
 date: 2026-04-16
+categories: [others]
 ---
 
 # pi0.7

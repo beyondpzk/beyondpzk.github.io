@@ -1,6 +1,7 @@
 ---
 title: VectorNet
 date: 2020-05-08
+categories: [Prediction]
 ---
 
 <!--more-->

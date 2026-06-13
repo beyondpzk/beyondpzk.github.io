@@ -1,6 +1,7 @@
 ---
 title: VLA_embodedAI
 date: 2025-09-01
+categories: [Thinking]
 ---
 
 # VLA_embodedAI

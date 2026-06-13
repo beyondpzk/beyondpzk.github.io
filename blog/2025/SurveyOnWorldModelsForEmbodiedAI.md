@@ -1,6 +1,7 @@
 ---
 title: SurveyOnWorldModelsForEmbodiedAI
 date: 2025-10-19
+categories: [others]
 ---
 
 # SurveyOnWorldModelsForEmbodiedAI

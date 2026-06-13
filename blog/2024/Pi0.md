@@ -1,6 +1,7 @@
 ---
 title: Pi0
 date: 2024-10-31
+categories: [VLA]
 ---
 
 # $\pi_0$: A Vision-Language-Action Flow Model for General Robot Control

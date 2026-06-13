@@ -1,6 +1,7 @@
 ---
 title: RDT1B
 date: 2024-10-10
+categories: [VLA]
 ---
 
 # RDT1B

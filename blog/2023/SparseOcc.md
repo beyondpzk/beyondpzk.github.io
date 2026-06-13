@@ -1,6 +1,7 @@
 ---
 title: SparseOcc
 date: 2023-12-28
+categories: [Occupancy]
 ---
 
 <!--more-->

@@ -1,6 +1,7 @@
 ---
 title: MatrixGame2.0
 date: 2025-08-18
+categories: [others]
 ---
 
 # MatrixGame2.0

@@ -1,6 +1,7 @@
 ---
 title: DayDreamer
 date: 2022-06-28
+categories: [others]
 ---
 
 # DayDreamer

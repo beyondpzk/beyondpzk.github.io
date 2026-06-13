@@ -1,6 +1,7 @@
 ---
 title: GeRo
 date: 2026-01-16
+categories: [others]
 ---
 
 # GeRo: Generative Scenario Rollouts for End-to-End Autonomous Driving

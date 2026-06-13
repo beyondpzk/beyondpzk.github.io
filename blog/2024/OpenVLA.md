@@ -1,6 +1,7 @@
 ---
 title: OpenVLA
 date: 2024-06-13
+categories: [VLA]
 ---
 
 # OpenVLA

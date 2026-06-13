@@ -1,6 +1,7 @@
 ---
 title: SparseDrive
 date: 2024-05-30
+categories: [e2e]
 ---
 
 <!--more-->

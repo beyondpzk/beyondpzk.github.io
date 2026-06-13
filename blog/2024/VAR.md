@@ -1,6 +1,7 @@
 ---
 title: VAR
 date: 2024-04-03
+categories: [AIGC]
 ---
 
 # VAR

@@ -1,6 +1,7 @@
 ---
 title: SparseBEV
 date: 2023-8-18
+categories: [Perception]
 ---
 
 <!--more-->

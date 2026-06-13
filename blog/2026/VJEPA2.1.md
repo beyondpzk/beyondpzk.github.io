@@ -1,6 +1,7 @@
 ---
 title: VJEPA2.1
 date: 2026-03-15
+categories: [others]
 ---
 
 # VJEPA2.1

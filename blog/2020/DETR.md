@@ -1,6 +1,7 @@
 ---
 title: DETR
 date: 2020-05-26
+categories: [Detection]
 ---
 
 <!--more-->

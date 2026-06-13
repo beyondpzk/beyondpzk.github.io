@@ -1,6 +1,7 @@
 ---
 title: TransDreamer
 date: 2022-02-19
+categories: [WorldModels]
 ---
 
 # TransDreamer

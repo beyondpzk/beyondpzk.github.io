@@ -1,6 +1,7 @@
 ---
 title: IntentNet
 date: 2021-01-20
+categories: [Prediction]
 ---
 
 <!--more-->

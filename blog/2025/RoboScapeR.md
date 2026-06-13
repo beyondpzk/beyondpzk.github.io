@@ -1,6 +1,7 @@
 ---
 title: RoboScapeR
 date: 2025-12-03
+categories: [others]
 ---
 
 # RoboScape-R

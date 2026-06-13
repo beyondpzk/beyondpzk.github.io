@@ -1,6 +1,7 @@
 ---
 title: Sparse4D
 date: 2022-11-19
+categories: [Perception]
 ---
 
 <!--more-->

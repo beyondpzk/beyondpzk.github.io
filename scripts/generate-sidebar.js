@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // 自动扫描 blog/ 目录生成 VitePress 侧边栏配置
+// 支持按年份和按分类两种视图
 import fs from 'fs'
 import path from 'path'
 
@@ -23,51 +24,115 @@ function getFrontmatter(filePath) {
   return meta
 }
 
-function scanDir(dir, urlPrefix = '') {
+function parseCategories(meta) {
+  const raw = meta.categories
+  if (!raw) return ['others']
+
+  // 解析数组格式: [A, B] 或 [A]
+  if (typeof raw === 'string') {
+    const inlineMatch = raw.match(/^\[(.*)\]$/)
+    if (inlineMatch) {
+      return inlineMatch[1]
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean)
+    }
+    // 单个字符串
+    return [raw.trim()]
+  }
+
+  if (Array.isArray(raw)) {
+    return raw.map(c => String(c).trim()).filter(Boolean)
+  }
+
+  return ['others']
+}
+
+function scanPosts(dir, urlPrefix = '') {
   const entries = fs.readdirSync(dir, { withFileTypes: true })
   const files = entries.filter(e => e.isFile() && e.name.endsWith('.md') && e.name !== 'index.md')
   const dirs = entries.filter(e => e.isDirectory())
 
-  const items = []
+  const posts = []
 
   files.forEach(file => {
     const filePath = path.join(dir, file.name)
     const meta = getFrontmatter(filePath)
     const name = file.name.replace('.md', '')
     const link = `${urlPrefix}/${name}`
+    const year = path.basename(dir)
     const displayName = meta.title || name
     const displayText = meta.date ? `${displayName} (${meta.date})` : displayName
-    items.push({
+
+    posts.push({
       text: displayText,
       link,
       date: meta.date || '',
+      year,
+      categories: parseCategories(meta),
     })
   })
 
-  // 同一文件夹内按 date 从新到旧排序
-  items.sort((a, b) => {
+  // 递归扫描子目录
+  dirs.forEach(subdir => {
+    const subPath = path.join(dir, subdir.name)
+    const children = scanPosts(subPath, `${urlPrefix}/${subdir.name}`)
+    posts.push(...children)
+  })
+
+  return posts
+}
+
+function sortByDate(items) {
+  return [...items].sort((a, b) => {
     if (a.date && b.date) return new Date(b.date) - new Date(a.date)
     if (a.date) return -1
     if (b.date) return 1
     return a.text.localeCompare(b.text)
   })
+}
 
-  // 移除临时排序字段，避免写入配置
-  items.forEach(item => delete item.date)
+function buildYearGroups(posts) {
+  const yearMap = {}
 
-  dirs.forEach(subdir => {
-    const subPath = path.join(dir, subdir.name)
-    const children = scanDir(subPath, `${urlPrefix}/${subdir.name}`)
-    if (children.length > 0) {
-      items.push({
-        text: subdir.name,
-        collapsed: false,
-        items: children,
-      })
-    }
+  posts.forEach(post => {
+    // 只把数字年份（2018-2026）归入按年份查看
+    if (!/^\d{4}$/.test(post.year)) return
+    if (!yearMap[post.year]) yearMap[post.year] = []
+    yearMap[post.year].push(post)
   })
 
-  return items
+  return Object.keys(yearMap)
+    .sort((a, b) => parseInt(b) - parseInt(a))
+    .map(year => ({
+      text: `📅 ${year} 年`,
+      collapsed: true,
+      items: sortByDate(yearMap[year]).map(({ text, link }) => ({ text, link })),
+    }))
+}
+
+function buildCategoryGroups(posts) {
+  const categoryMap = {}
+
+  posts.forEach(post => {
+    post.categories.forEach(cat => {
+      if (!categoryMap[cat]) categoryMap[cat] = []
+      categoryMap[cat].push(post)
+    })
+  })
+
+  // 按文章数量降序，others 放最后
+  const categories = Object.keys(categoryMap).sort((a, b) => {
+    if (a === 'others') return 1
+    if (b === 'others') return -1
+    return categoryMap[b].length - categoryMap[a].length
+  })
+
+  return categories.map(cat => ({
+    text: `📂 ${cat}`,
+    collapsed: true,
+    items: sortByDate(categoryMap[cat]).map(({ text, link }) => ({ text, link })),
+  }))
 }
 
 function formatSidebar(items, indent = 6) {
@@ -98,35 +163,25 @@ function generateSidebar() {
     process.exit(1)
   }
 
-  const scanned = scanDir(BLOG_DIR, '/blog')
-
-  // 按年份排序：从新到旧（2018-2026）
-  const sortedGroups = [...scanned].sort((a, b) => {
-    const yearA = parseInt(a.text, 10)
-    const yearB = parseInt(b.text, 10)
-    if (!isNaN(yearA) && !isNaN(yearB)) return yearB - yearA
-    return a.text.localeCompare(b.text)
-  })
-
-  const sidebarItems = sortedGroups.map(group => {
-    const year = parseInt(group.text, 10)
-    const isYear = !isNaN(year)
-    const textMap = {
-      notes: '📝 工具与约定',
-    }
-    return {
-      text: isYear ? `📅 ${year} 年` : (textMap[group.text] || group.text),
-      collapsed: isYear ? true : false,
-      items: group.items,
-    }
-  })
+  const posts = scanPosts(BLOG_DIR, '/blog')
+  const yearGroups = buildYearGroups(posts)
+  const categoryGroups = buildCategoryGroups(posts)
 
   const fullSidebar = [
     {
       text: '📚 博客目录',
       items: [{ text: '全部文章', link: '/blog/' }],
     },
-    ...sidebarItems,
+    {
+      text: '📅 按年份查看',
+      collapsed: false,
+      items: yearGroups,
+    },
+    {
+      text: '📂 按分类查看',
+      collapsed: false,
+      items: categoryGroups,
+    },
   ]
 
   let config = fs.readFileSync(CONFIG_PATH, 'utf-8')
@@ -185,7 +240,9 @@ ${formatSidebar(fullSidebar, 8)}
   config = config.slice(0, sidebarStart) + newSidebarBlock + config.slice(i + 1)
   fs.writeFileSync(CONFIG_PATH, config)
   console.log('✅ 侧边栏已自动更新')
-  console.log(`📝 共扫描到 ${scanned.length} 个主题`)
+  console.log(`📝 共 ${posts.length} 篇文章`)
+  console.log(`📅 ${yearGroups.length} 个年份`)
+  console.log(`📂 ${categoryGroups.length} 个分类`)
 }
 
 generateSidebar()

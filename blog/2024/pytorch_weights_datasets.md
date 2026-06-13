@@ -1,6 +1,7 @@
 ---
 title: pytorch_weights_datasets
 date: 2024-12-26
+categories: [reading]
 ---
 
 <!--more-->

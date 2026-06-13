@@ -1,6 +1,7 @@
 ---
 title: ChatVLA
 date: 2025-02-20
+categories: [VLA]
 ---
 
 # ChatVLA

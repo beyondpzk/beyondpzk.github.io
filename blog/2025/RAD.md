@@ -1,6 +1,7 @@
 ---
 title: RAD
 date: 2025-02-18
+categories: [others]
 ---
 
 # RAD: Training an End-to-End Driving Policy via Large-Scale 3DGS-based Reinforcement Learning

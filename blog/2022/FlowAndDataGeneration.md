@@ -1,6 +1,7 @@
 ---
 title: FlowAndDataGeneration
 date: 2022-09-05
+categories: [AIGC]
 ---
 
 # FlowAndDataGeneration

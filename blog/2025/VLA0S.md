@@ -1,6 +1,7 @@
 ---
 title: VLA0S
 date: 2025-06-21
+categories: [others]
 ---
 
 # VLA-0S

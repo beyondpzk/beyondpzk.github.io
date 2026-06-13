@@ -1,6 +1,7 @@
 ---
 title: RISE
 date: 2026-02-11
+categories: [others]
 ---
 
 # RISE

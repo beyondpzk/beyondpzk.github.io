@@ -1,6 +1,7 @@
 ---
 title: Muon
 date: 2026-02-10
+categories: [Understandings]
 ---
 
 # Muon

@@ -1,6 +1,7 @@
 ---
 title: ImprovedMeanFlows
 date: 2025-12-01
+categories: [AIGC]
 ---
 
 # ImprovedMeanFlows

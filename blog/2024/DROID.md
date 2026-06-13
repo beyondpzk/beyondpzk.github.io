@@ -1,6 +1,7 @@
 ---
 title: DROID
 date: 2024-03-19
+categories: [VLA]
 ---
 
 # DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset

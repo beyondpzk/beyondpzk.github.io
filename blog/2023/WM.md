@@ -1,6 +1,7 @@
 ---
 title: WM
 date: 2023-10-03
+categories: [Understandings]
 ---
 
 # WorldModels与闭环仿真

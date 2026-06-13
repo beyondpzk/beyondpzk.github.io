@@ -1,6 +1,7 @@
 ---
 title: MultiPath
 date: 2019-10-12
+categories: [Prediction]
 ---
 
 <!--more-->

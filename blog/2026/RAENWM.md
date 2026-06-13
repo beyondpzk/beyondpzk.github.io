@@ -1,6 +1,7 @@
 ---
 title: RAENWM
 date: 2026-03-10
+categories: [WAM]
 ---
 
 # RAE-NWM

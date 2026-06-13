@@ -1,6 +1,7 @@
 ---
 title: E2E
 date: 2024-10-03
+categories: [Understandings]
 ---
 
 # 各种E2E讨论

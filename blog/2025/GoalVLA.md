@@ -1,6 +1,7 @@
 ---
 title: GoalVLA
 date: 2025-06-30
+categories: [VLA]
 ---
 
 # GoalVLA

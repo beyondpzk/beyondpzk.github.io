@@ -1,6 +1,7 @@
 ---
 title: VLM4VLA
 date: 2026-01-06
+categories: [VLA]
 ---
 
 # VLM4VLA

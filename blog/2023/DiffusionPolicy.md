@@ -1,6 +1,7 @@
 ---
 title: DiffusionPolicy
 date: 2023-03-07
+categories: [VLA]
 ---
 
 # Diffusion Policy: Visuomotor Policy Learning via Action Diffusion

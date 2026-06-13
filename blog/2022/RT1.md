@@ -1,6 +1,7 @@
 ---
 title: RT1
 date: 2022-12-13
+categories: [VLA]
 ---
 
 # RT1: Robotics Transformer for Real-World Control at Scale

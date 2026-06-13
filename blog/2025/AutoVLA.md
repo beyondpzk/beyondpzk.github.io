@@ -1,6 +1,7 @@
 ---
 title: AutoVLA
 date: 2025-06-16
+categories: [VLA]
 ---
 
 # AutoVLA

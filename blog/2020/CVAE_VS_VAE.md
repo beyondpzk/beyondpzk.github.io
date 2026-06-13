@@ -1,6 +1,7 @@
 ---
 title: CVAE_VS_VAE
 date: 2020-07-06
+categories: [Understandings]
 ---
 
 # CVAE_VS_VAE

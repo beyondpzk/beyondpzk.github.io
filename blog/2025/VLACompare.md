@@ -1,6 +1,7 @@
 ---
 title: VLACompare
 date: 2025-10-01
+categories: [Understandings]
 ---
 
 # 自动驾驶,机器人,无人机VLA有什么不同

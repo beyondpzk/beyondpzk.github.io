@@ -1,6 +1,7 @@
 ---
 title: GigaWorldPolicy
 date: 2026-03-18
+categories: [others]
 ---
 
 # GigaWorldPolicy

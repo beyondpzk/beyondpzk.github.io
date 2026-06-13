@@ -1,6 +1,7 @@
 ---
 title: C_RADIOv4
 date: 2026-01-24
+categories: [others]
 ---
 
 # C_RADIOv4

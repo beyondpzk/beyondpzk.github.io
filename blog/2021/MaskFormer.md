@@ -1,6 +1,7 @@
 ---
 title: MaskFormer
 date: 2021-07-13
+categories: [reading]
 ---
 
 <!--more-->

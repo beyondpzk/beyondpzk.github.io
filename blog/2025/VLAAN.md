@@ -1,6 +1,7 @@
 ---
 title: VLAAN
 date: 2025-12-17
+categories: [others]
 ---
 
 # VLAAN

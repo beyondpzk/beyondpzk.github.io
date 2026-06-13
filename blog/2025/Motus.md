@@ -1,6 +1,7 @@
 ---
 title: Motus
 date: 2025-12-15
+categories: [others]
 ---
 
 # Motus

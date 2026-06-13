@@ -1,6 +1,7 @@
 ---
 title: WorldModels
 date: 2018-03-27
+categories: [WorldModels]
 ---
 
 # WorldModels

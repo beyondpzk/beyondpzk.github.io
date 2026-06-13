@@ -1,6 +1,7 @@
 ---
 title: Vidar
 date: 2023-12-29
+categories: [e2e]
 ---
 
 <!--more-->

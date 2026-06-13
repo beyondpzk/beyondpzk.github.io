@@ -1,6 +1,7 @@
 ---
 title: MAR
 date: 2024-06-17
+categories: [AIGC]
 ---
 
 # MAR (Diffusion Loss)

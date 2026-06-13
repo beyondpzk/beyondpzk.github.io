@@ -1,6 +1,7 @@
 ---
 title: MeanFlows
 date: 2025-05-19 19:52
+categories: [AIGC]
 ---
 
 # meanflows

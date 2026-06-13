@@ -1,6 +1,7 @@
 ---
 title: PETR
 date: 2022-03-10
+categories: [Perception]
 ---
 
 <!--more-->

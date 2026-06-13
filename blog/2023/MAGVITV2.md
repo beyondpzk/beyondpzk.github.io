@@ -1,6 +1,7 @@
 ---
 title: MAGVITV2
 date: 2023-10-09
+categories: [AIGC]
 ---
 
 # MAGVIT-V2

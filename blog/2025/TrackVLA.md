@@ -1,6 +1,7 @@
 ---
 title: TrackVLA
 date: 2025-05-29
+categories: [others]
 ---
 
 # TrackVLA

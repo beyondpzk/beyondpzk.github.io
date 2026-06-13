@@ -1,6 +1,7 @@
 ---
 title: DE_VS_SDE
 date: 2023-09-18
+categories: [Understandings]
 ---
 
 # 微分方程(DE)对比随机微分方程(SDE)

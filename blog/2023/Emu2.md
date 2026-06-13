@@ -1,6 +1,7 @@
 ---
 title: Emu2
 date: 2023-12-20
+categories: [others]
 ---
 
 # Emu2

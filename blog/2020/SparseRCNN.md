@@ -1,6 +1,7 @@
 ---
 title: SparseRCNN
 date: 2020-11-25
+categories: [Detection]
 ---
 
 <!--more-->

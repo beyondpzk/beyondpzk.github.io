@@ -1,6 +1,7 @@
 ---
 title: RT2
 date: 2023-07-28
+categories: [VLA]
 ---
 
 # RT2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control

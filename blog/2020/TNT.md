@@ -1,6 +1,7 @@
 ---
 title: TNT
 date: 2020-08-19
+categories: [Prediction]
 ---
 
 <!--more-->

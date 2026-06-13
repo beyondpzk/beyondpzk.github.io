@@ -1,6 +1,7 @@
 ---
 title: DreamerV2
 date: 2020-10-05
+categories: [WorldModels]
 ---
 
 # DreamerV2

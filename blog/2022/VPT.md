@@ -1,6 +1,7 @@
 ---
 title: VPT
 date: 2022-06-23
+categories: [others]
 ---
 
 # VPT:Video PreTraining (VPT): Learning to Act by Watching Unlabeled Online Videos

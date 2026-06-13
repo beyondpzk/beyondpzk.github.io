@@ -1,6 +1,7 @@
 ---
 title: Wayformer
 date: 2022-07-12
+categories: [Prediction]
 ---
 
 <!--more-->

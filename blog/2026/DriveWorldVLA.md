@@ -1,6 +1,7 @@
 ---
 title: DriveWorldVLA
 date: 2026-02-06
+categories: [others]
 ---
 
 # DriveWorldVLA: Unified Latent-Space World Modeling with Vision-Language-Action for Autonomous Driving

@@ -1,6 +1,7 @@
 ---
 title: DeramerV3
 date: 2023-01-10
+categories: [WorldModels]
 ---
 
 # DeramerV3

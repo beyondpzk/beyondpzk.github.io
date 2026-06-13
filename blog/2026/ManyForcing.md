@@ -1,6 +1,7 @@
 ---
 title: ManyForcing
 date: 2026-01-01
+categories: [Understandings]
 ---
 
 # 各种Forcing 技术

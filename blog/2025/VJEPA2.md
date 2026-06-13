@@ -1,6 +1,7 @@
 ---
 title: VJEPA2
 date: 2025-06-11
+categories: [others]
 ---
 
 # VJEPA2

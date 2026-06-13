@@ -1,6 +1,7 @@
 ---
 title: LingBotVA
 date: 2026-01-29
+categories: [WAM]
 ---
 
 # LingBotVA

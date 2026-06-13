@@ -1,6 +1,7 @@
 ---
 title: DriveJEPA
 date: 2026-01-29
+categories: [WorldModels]
 ---
 
 # DriveJEPA

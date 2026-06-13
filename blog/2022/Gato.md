@@ -1,6 +1,7 @@
 ---
 title: Gato
 date: 2022-05-12
+categories: [VLA, EmbodiedAI]
 ---
 
 # Gato: A Generalist Agent

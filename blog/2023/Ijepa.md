@@ -1,6 +1,7 @@
 ---
 title: IJEPA
 date: 2023-01-19
+categories: [WorldModels]
 ---
 
 # I-JEPA

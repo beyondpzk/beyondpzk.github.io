@@ -1,6 +1,7 @@
 ---
 title: MILE
 date: 2022-10-14
+categories: [others]
 ---
 
 # MILE

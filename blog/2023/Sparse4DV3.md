@@ -1,6 +1,7 @@
 ---
 title: Sparse4DV3
 date: 2023-11-20
+categories: [reading]
 ---
 
 <!--more-->

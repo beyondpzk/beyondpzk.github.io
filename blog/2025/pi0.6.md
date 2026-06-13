@@ -1,6 +1,7 @@
 ---
 title: pi0.6
 date: 2025-11-18
+categories: [others]
 ---
 
 # $\pi^*_{0.6}$

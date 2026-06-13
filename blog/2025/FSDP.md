@@ -1,6 +1,7 @@
 ---
 title: FSDP
 date: 2025-01-01
+categories: [Understandings]
 ---
 
 # FSDP

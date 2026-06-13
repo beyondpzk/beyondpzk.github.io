@@ -1,6 +1,7 @@
 ---
 title: NWM
 date: 2024-12-04
+categories: [WAM]
 ---
 
 # NWM

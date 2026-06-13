@@ -1,6 +1,7 @@
 ---
 title: mu_law
 date: 2022-05-12
+categories: [Tricks]
 ---
 
 # mu_law

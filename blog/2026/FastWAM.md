@@ -1,6 +1,7 @@
 ---
 title: FastWAM
 date: 2026-03-17
+categories: [WAM]
 ---
 
 # FastWAM

@@ -1,6 +1,7 @@
 ---
 title: JEPA_WM
 date: 2025-12-30
+categories: [others]
 ---
 
 # JEPA_WM

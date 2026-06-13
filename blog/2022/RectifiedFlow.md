@@ -1,6 +1,7 @@
 ---
 title: RectifiedFlow
 date: 2022-09-07
+categories: [AIGC]
 ---
 
 # RectifiedFlow

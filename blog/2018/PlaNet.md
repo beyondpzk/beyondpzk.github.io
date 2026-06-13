@@ -1,6 +1,7 @@
 ---
 title: PlaNet
 date: 2018-11-12
+categories: [others]
 ---
 
 # PlaNet

@@ -1,6 +1,7 @@
 ---
 title: IRIS
 date: 2022-09-01
+categories: [WorldModels]
 ---
 
 # IRIS

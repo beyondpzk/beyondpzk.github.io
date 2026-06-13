@@ -1,6 +1,7 @@
 ---
 title: 3DpointCloudGenerative
 date: 2023-10-10
+categories: [Understandings]
 ---
 
 # 3DpointCloudGenerative

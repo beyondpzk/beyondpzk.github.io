@@ -1,6 +1,7 @@
 ---
 title: offlineonlineworldmodel
 date: 2023-01-01
+categories: [Understandings]
 ---
 
 # offline VS online worldmodel

@@ -1,6 +1,7 @@
 ---
 title: FlowMatching
 date: 2022-10-06
+categories: [AIGC]
 ---
 
 # FlowMatching

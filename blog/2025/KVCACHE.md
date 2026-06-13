@@ -1,6 +1,7 @@
 ---
 title: KVCACHE
 date: 2025-01-02
+categories: [Understandings]
 ---
 
 # KV-Cache

@@ -1,6 +1,7 @@
 ---
 title: DreamerV1
 date: 2019-12-03
+categories: [WorldModels]
 ---
 
 # DreamerV1

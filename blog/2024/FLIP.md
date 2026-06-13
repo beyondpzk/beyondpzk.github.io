@@ -1,6 +1,7 @@
 ---
 title: FLIP
 date: 2024-12-11
+categories: [others]
 ---
 
 # FLIP

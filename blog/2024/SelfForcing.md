@@ -1,6 +1,7 @@
 ---
 title: SelfForcing
 date: 2024-10-02
+categories: [Understandings]
 ---
 
 # SelfForcing

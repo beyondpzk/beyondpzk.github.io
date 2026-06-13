@@ -1,6 +1,7 @@
 ---
 title: Neovim + iTerm2 工作流
 date: 2026-06-12
+categories: [工具与约定]
 ---
 
 # Neovim + iTerm2 工作流

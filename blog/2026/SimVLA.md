@@ -1,6 +1,7 @@
 ---
 title: SimVLA
 date: 2026-02-20
+categories: [others]
 ---
 
 # SimVLA

@@ -1,6 +1,7 @@
 ---
 title: DinoWM
 date: 2024-11-07
+categories: [WorldModels]
 ---
 
 # DinoWM

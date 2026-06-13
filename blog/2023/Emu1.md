@@ -1,6 +1,7 @@
 ---
 title: Emu1
 date: 2023-07-11
+categories: [others]
 ---
 
 # Emu1

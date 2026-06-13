@@ -1,6 +1,7 @@
 ---
 title: RenderOcc
 date: 2023-09-18
+categories: [Occupancy]
 ---
 
 <!--more-->

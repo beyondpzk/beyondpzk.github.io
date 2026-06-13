@@ -1,6 +1,7 @@
 ---
 title: RLNeeds
 date: 2026-06-02
+categories: [others]
 ---
 
 # 自动驾驶中一定需要强化学习吗
