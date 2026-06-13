@@ -38,8 +38,20 @@ function scanDir(dir, urlPrefix = '') {
     items.push({
       text: meta.title || name,
       link,
+      date: meta.date || '',
     })
   })
+
+  // 同一文件夹内按 date 从新到旧排序
+  items.sort((a, b) => {
+    if (a.date && b.date) return new Date(b.date) - new Date(a.date)
+    if (a.date) return -1
+    if (b.date) return 1
+    return a.text.localeCompare(b.text)
+  })
+
+  // 移除临时排序字段，避免写入配置
+  items.forEach(item => delete item.date)
 
   dirs.forEach(subdir => {
     const subPath = path.join(dir, subdir.name)
