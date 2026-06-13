@@ -409,6 +409,10 @@ export default defineConfig({
                   link: '/blog/2023/2023-5-23-Sparse4DV2',
                 },
                 {
+                  text: 'PrepareData (2023-05-02)',
+                  link: '/blog/2023/2023-05-02-PrepareData',
+                },
+                {
                   text: 'ACT (2023-04-23)',
                   link: '/blog/2023/ACT',
                 },
@@ -1029,6 +1033,16 @@ export default defineConfig({
                 {
                   text: 'mu_law (2022-05-12)',
                   link: '/blog/2022/mu_law',
+                },
+              ],
+            },
+            {
+              text: '📂 自动驾驶',
+              collapsed: true,
+              items: [
+                {
+                  text: 'PrepareData (2023-05-02)',
+                  link: '/blog/2023/2023-05-02-PrepareData',
                 },
               ],
             },
