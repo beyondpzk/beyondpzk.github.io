@@ -181,6 +181,10 @@ export default defineConfig({
                   link: '/blog/2025/SurveyOnWorldModelsForEmbodiedAI',
                 },
                 {
+                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
+                  link: '/blog/2025/2025-10-04-VLA_deploy',
+                },
+                {
                   text: 'VLACompare (2025-10-01)',
                   link: '/blog/2025/VLACompare',
                 },
@@ -571,6 +575,10 @@ export default defineConfig({
                 {
                   text: 'MultiPath (2019-10-12)',
                   link: '/blog/2019/MultiPath',
+                },
+                {
+                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
+                  link: '/blog/2019/2019-10-04-Yolo_deploy',
                 },
                 {
                   text: 'l1l2 (2019-01-01)',
@@ -971,6 +979,20 @@ export default defineConfig({
                 {
                   text: 'Vidar (2023-12-29)',
                   link: '/blog/2023/Vidar',
+                },
+              ],
+            },
+            {
+              text: '📂 Deploy',
+              collapsed: true,
+              items: [
+                {
+                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
+                  link: '/blog/2025/2025-10-04-VLA_deploy',
+                },
+                {
+                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
+                  link: '/blog/2019/2019-10-04-Yolo_deploy',
                 },
               ],
             },
