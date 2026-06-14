@@ -1,5 +1,51 @@
 import { defineConfig } from 'vitepress'
 
+// 根据文件路径生成一个稳定的伪随机整数
+function hashString(str) {
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0
+  }
+  return hash
+}
+
+// 将 frontmatter 中的 date 与文件路径结合，生成一个稳定的 lastUpdated 时间戳
+// 日期取自文档 frontmatter.date，时分在 06:00 - 23:59 之间按文件路径伪随机确定
+function computeLastUpdated(frontmatter, filePath) {
+  const rawDate = frontmatter?.date
+  if (!rawDate) return undefined
+
+  let dateStr
+  if (rawDate instanceof Date) {
+    dateStr = rawDate.toISOString().slice(0, 10)
+  } else if (typeof rawDate === 'string') {
+    dateStr = rawDate.trim()
+  } else {
+    return undefined
+  }
+
+  const match = dateStr.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/)
+  if (!match) return undefined
+
+  const year = parseInt(match[1], 10)
+  const month = parseInt(match[2], 10)
+  const day = parseInt(match[3], 10)
+
+  // 06:00 到 23:59 之间的分钟数（含）
+  const startMinutes = 6 * 60
+  const endMinutes = 23 * 60 + 59
+  const totalMinutes = endMinutes - startMinutes + 1
+  const randomOffset = hashString(filePath) % totalMinutes
+  const minutesOfDay = startMinutes + randomOffset
+  const hour = Math.floor(minutesOfDay / 60)
+  const minute = minutesOfDay % 60
+
+  // 按 Asia/Shanghai（UTC+8）解释该时间，并转成 UTC 时间戳
+  const offsetHours = 8
+  const utcHour = hour - offsetHours
+  return Date.UTC(year, month - 1, day, utcHour, minute, 0, 0)
+}
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "P's Notes",
@@ -1278,8 +1324,17 @@ export default defineConfig({
       formatOptions: {
         dateStyle: 'short',
         timeStyle: 'short',
+        timeZone: 'Asia/Shanghai',
       },
     },
+  },
+
+  // 根据 frontmatter.date 覆盖最后更新时间，使日期与文档保持一致
+  transformPageData(pageData) {
+    const lastUpdated = computeLastUpdated(pageData.frontmatter, pageData.filePath)
+    if (lastUpdated !== undefined) {
+      return { lastUpdated }
+    }
   },
 
   // Markdown 配置
