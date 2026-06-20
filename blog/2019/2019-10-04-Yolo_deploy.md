@@ -1376,3 +1376,211 @@ sudo systemctl start nvwatchdog.service
 如果你刚开始做嵌入式部署，建议先用 Python 把整个流程跑通，再逐步把瓶颈环节（预处理、推理、编码）迁移到 C++/CUDA。不要一开始就追求纯 C++，也不要一直停留在 Python 原型。
 
 希望这篇文章能帮到你。有问题欢迎在评论区讨论。
+
+# Other补充
+
+## 什么是onnx?
+
+
+ONNX（**Open Neural Network Exchange**，开放神经网络交换格式）是一个**开放的、跨平台的神经网络模型表示标准**。简单说，它就是深度学习模型的"通用文件格式"，类似图片界的 JPEG、文档界的 PDF。
+
+一、ONNX 解决了什么问题？
+
+痛点：框架碎片化
+深度学习框架很多：PyTorch、TensorFlow、PaddlePaddle、MXNet、Caffe...
+
+以前的问题是：
+- 用 PyTorch 训练的模型，TensorFlow 用不了
+- 想在手机上部署，得自己手动重写模型结构
+- 换一个推理框架，整个模型得重新导出、重新验证
+
+**ONNX 就是为了解决这个问题而生的**——它定义了一套统一的"中间表示"（Intermediate Representation），让不同框架之间可以互相转换模型。
+
+类比理解
+| 类比 | 说明 |
+|------|------|
+| **PDF** | 不管你用 Word、WPS、Pages 写的文档，导出成 PDF 在哪都能打开 |
+| **ONNX** | 不管你用 PyTorch、TF、Paddle 训练的模型，导出成 ONNX 在哪都能推理 |
+
+---
+
+二、ONNX 的核心设计
+
+1. 计算图（Computational Graph）
+ONNX 把神经网络表示成一张**有向无环图（DAG）**：
+- **节点（Node）**：代表算子（Conv、ReLU、Add、MatMul...）
+- **边（Edge）**：代表张量（Tensor）在算子之间流动
+- **输入/输出**：整个图的入口和出口
+
+举个例子，一个简单的 `Conv → ReLU → MaxPool` 结构，在 ONNX 里就是：
+
+```
+输入图像
+   ↓
+[Conv]  ← 权重、偏置
+   ↓
+[ReLU]
+   ↓
+[MaxPool]
+   ↓
+输出特征图
+```
+
+2. 标准算子集（Opset）
+ONNX 定义了一套**标准算子规范**，每个算子都有明确的：
+- 输入输出参数
+- 计算行为
+- 数据类型支持
+
+比如 `Conv` 算子就规定了：
+- 输入：X（输入张量）、W（权重）、B（偏置，可选）
+- 属性：kernel_shape、strides、pads、dilations、group 等
+- 输出：Y（输出特征图）
+- 计算逻辑：标准的卷积运算
+
+不同版本的 ONNX 有不同的 opset 版本（opset 9、11、13、15、17、19...），版本越高支持的算子越多。
+
+3. 数据表示
+- 用 **Protobuf**（Protocol Buffers）序列化存储
+- 文件后缀通常是 `.onnx`
+- 大模型也可以拆成 `.onnx` + 外部权重文件（`.onnx_data`）
+
+ONNX 的生态系统
+
+1. 支持的训练框架（导出端）
+| 框架 | 导出方式 |
+|------|---------|
+| **PyTorch** | `torch.onnx.export()` |
+| **TensorFlow** | tf2onnx / keras2onnx |
+| **PaddlePaddle** | paddle2onnx |
+| **MXNet** | mx2onnx |
+| **Caffe** | caffe2onnx |
+| **MindSpore** | mindspore.onnx.export |
+
+2. 支持的推理引擎（导入端）
+| 推理引擎 | 适用场景 |
+|---------|---------|
+| **ONNX Runtime** | 官方推理引擎，CPU/GPU 通用 |
+| **TensorRT** | NVIDIA GPU 高性能推理 |
+| **OpenVINO** | Intel CPU/GPU/VPU |
+| **TFLite** | 移动端（需 onnx2tflite） |
+| **ncnn / MNN / TNN** | 移动端/嵌入式 |
+| **RKNPU / HUAWEI Ascend** | 国产 NPU |
+| **Core ML** | Apple 设备（需 onnx-coreml） |
+
+3. 配套工具
+- **Netron**：可视化 ONNX 模型结构
+- **onnxsim**：ONNX 模型简化（算子融合、常量折叠）
+- **onnx-graphsurgeon**：手动修改 ONNX 计算图
+- **polygraphy**：NVIDIA 出的 ONNX/TRT 调试工具
+
+---
+
+ONNX Runtime（ORT）
+
+ONNX Runtime 是微软主导开发的**官方推理引擎**，是 ONNX 生态的核心组件：
+
+特点
+- **跨平台**：Windows / Linux / macOS / Android / iOS / Web 都能跑
+- **多硬件**：CPU、GPU、NPU、FPGA 都支持
+- **高性能**：内置算子融合、常量折叠、内存优化等
+- **可扩展**：可以自定义算子、自定义 Execution Provider
+
+Execution Provider（执行提供者）
+ORT 本身是个"壳"，真正的计算交给不同的后端：
+- **CPU EP**：默认，用 CPU 跑
+- **CUDA EP**：用 NVIDIA GPU 跑
+- **TensorRT EP**：用 TensorRT 加速 NVIDIA GPU
+- **OpenVINO EP**：用 Intel 硬件加速
+- **DirectML EP**：Windows 上用 DirectX 加速
+- ...还有几十个
+
+---
+
+五、典型工作流
+
+### 模型训练 → 部署的完整流程
+```
+1. 训练模型（PyTorch/TF/...）
+        ↓
+2. 导出 ONNX（torch.onnx.export）
+        ↓
+3. ONNX 优化（onnxsim 简化、算子检查）
+        ↓
+4. 验证精度（对比 PyTorch 和 ONNX 输出）
+        ↓
+5. 部署推理（ONNX Runtime / TensorRT / ncnn / ...）
+```
+
+为什么不直接用训练框架推理？
+- 训练框架（PyTorch）**体积大**（几个 GB），不适合部署
+- 训练框架**推理性能差**，没有针对部署做优化
+- 训练框架**依赖复杂**，嵌入式/移动端装不上
+- ONNX 是**纯推理格式**，轻量、高效、跨平台
+
+---
+
+六、ONNX 的优势与局限
+
+✅ 优势
+1. **生态广泛**：几乎所有主流框架和硬件都支持
+2. **开源开放**：由 Linux 基金会管理，社区活跃
+3. **性能不错**：配合 ONNX Runtime 性能接近原生框架
+4. **一次导出，到处部署**：不用为每个平台单独转模型
+
+❌ 局限
+1. **算子覆盖不全**：某些冷门算子、自定义算子不支持
+2. **版本兼容问题**：不同 opset 版本之间可能有兼容性问题
+3. **动态 shape 支持一般**：早期版本对动态输入尺寸支持不好
+4. **不是最快的**：针对特定硬件优化的推理引擎（如 TensorRT）通常比 ONNX Runtime 更快
+
+---
+
+七、实际项目中怎么用？
+
+举个最常见的例子——**PyTorch 导出 ONNX**：
+
+```python
+import torch
+import torchvision
+
+# 1. 加载训练好的模型
+model = torchvision.models.resnet50(pretrained=True)
+model.eval()
+
+# 2. 准备示例输入
+dummy_input = torch.randn(1, 3, 224, 224)
+
+# 3. 导出 ONNX
+torch.onnx.export(
+    model,                  # 模型
+    dummy_input,            # 示例输入
+    "resnet50.onnx",        # 输出文件名
+    opset_version=17,       # ONNX opset 版本
+    input_names=["input"],  # 输入节点名
+    output_names=["output"], # 输出节点名
+    dynamic_axes={          # 动态维度（可选）
+        "input": {0: "batch_size"},
+        "output": {0: "batch_size"}
+    }
+)
+```
+
+然后用 Netron 打开就能看到模型结构了，或者直接用 ONNX Runtime 推理：
+
+```python
+import onnxruntime as ort
+import numpy as np
+
+session = ort.InferenceSession("resnet50.onnx")
+input_data = np.random.randn(1, 3, 224, 224).astype(np.float32)
+output = session.run(None, {"input": input_data})
+```
+
+---
+
+一句话总结
+
+**ONNX 就是深度学习模型的"通用语言"**——不管你用什么框架训练的模型，导出成 ONNX 格式，就能在任何支持 ONNX 的硬件和推理引擎上跑。它是现在模型部署领域**事实标准**的中间格式。
+
+
