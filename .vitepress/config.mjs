@@ -48,7 +48,7 @@ function computeLastUpdated(frontmatter, filePath) {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "P's Notes",
+  title: "BEYOND",
   description: 'Tenacious life, proud journey. AI research notes and beyond.',
   lang: 'zh-CN',
 
