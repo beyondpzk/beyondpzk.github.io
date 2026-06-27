@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: P's Notes
+  name: WordLapse(文字时光)
   text: Tenacious life, proud journey
   tagline: AI 研究笔记 · 论文精读 · 技术思考
   image:

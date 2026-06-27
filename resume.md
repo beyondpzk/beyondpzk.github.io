@@ -9,8 +9,8 @@ title: 简历
 - **姓名**：你的名字
 - **所在地**：城市，国家
 - **邮箱**：[your.email@example.com](mailto:your.email@example.com)
-- **GitHub**：[github.com/yourusername](https://github.com/yourusername)
-- **个人主页**：[yourusername.github.io/my-blog](https://yourusername.github.io/my-blog)
+- **GitHub**：[github.com/beyondpzk](https://github.com/beyondpzk)
+- **个人主页**：[文字时光](https://beyondpzk.github.io/)
 
 ## 教育背景
 
