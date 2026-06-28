@@ -101,6 +101,10 @@ export default defineConfig({
                   link: '/blog/2026/JointLimits',
                 },
                 {
+                  text: '运动原语：机器人动作世界的"字母表 (2026-06-28)',
+                  link: '/blog/2026/MotionPrimitives',
+                },
+                {
                   text: 'RLNeeds (2026-06-02)',
                   link: '/blog/2026/RLNeeds',
                 },
@@ -1075,6 +1079,20 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 机器人',
+              collapsed: true,
+              items: [
+                {
+                  text: '关节限位 (2026-06-28)',
+                  link: '/blog/2026/JointLimits',
+                },
+                {
+                  text: '运动原语：机器人动作世界的"字母表 (2026-06-28)',
+                  link: '/blog/2026/MotionPrimitives',
+                },
+              ],
+            },
+            {
               text: '📂 工具与约定',
               collapsed: true,
               items: [
@@ -1145,16 +1163,6 @@ export default defineConfig({
                 {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
                   link: '/blog/2026/FineGrainedAlignmentedVLN',
-                },
-              ],
-            },
-            {
-              text: '📂 机器人',
-              collapsed: true,
-              items: [
-                {
-                  text: '关节限位 (2026-06-28)',
-                  link: '/blog/2026/JointLimits',
                 },
               ],
             },
