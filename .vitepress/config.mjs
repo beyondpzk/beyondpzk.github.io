@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
+                  link: '/blog/2026/AgentComprehensiveGuide',
+                },
+                {
                   text: '关节限位 (2026-06-28)',
                   link: '/blog/2026/JointLimits',
                 },
@@ -1153,6 +1157,16 @@ export default defineConfig({
                 {
                   text: 'VLA_embodedAI (2025-09-01)',
                   link: '/blog/2025/VLA_embodedAI',
+                },
+              ],
+            },
+            {
+              text: '📂 Agent',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
+                  link: '/blog/2026/AgentComprehensiveGuide',
                 },
               ],
             },
