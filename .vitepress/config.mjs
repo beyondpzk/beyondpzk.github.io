@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: '关节限位 (2026-06-28)',
+                  link: '/blog/2026/JointLimits',
+                },
+                {
                   text: 'RLNeeds (2026-06-02)',
                   link: '/blog/2026/RLNeeds',
                 },
@@ -1141,6 +1145,16 @@ export default defineConfig({
                 {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
                   link: '/blog/2026/FineGrainedAlignmentedVLN',
+                },
+              ],
+            },
+            {
+              text: '📂 机器人',
+              collapsed: true,
+              items: [
+                {
+                  text: '关节限位 (2026-06-28)',
+                  link: '/blog/2026/JointLimits',
                 },
               ],
             },
