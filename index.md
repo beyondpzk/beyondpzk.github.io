@@ -33,20 +33,8 @@ features:
 
 ## 最新文章
 
-<div class="post-card">
-  <h3><a href="/blog/2026/RLNeeds">自动驾驶中一定需要强化学习吗</a></h3>
-  <div class="meta">2026-06-02 · 技术思考</div>
-  <div class="excerpt">如果有足够多的数据，所有决策都是条件反射式的 mapping，不需要强化学习优化。本文从人类驾驶本质、业界实践和理论边界三个角度探讨这个问题...</div>
-</div>
+<PostList :posts="data" :per-page="20" />
 
-<div class="post-card">
-  <h3><a href="/blog/2025/pi0.6">π*₀.₆：从经验中学习的 VLA</a></h3>
-  <div class="meta">2025-11-18 · 论文笔记</div>
-  <div class="excerpt">Physical Intelligence 提出的 RECAP 算法及其训练出的 π*₀.₆ 模型，通过优势条件化策略让 VLA 模型突破模仿学习的天花板...</div>
-</div>
-
-<div class="post-card">
-  <h3><a href="/blog/2018/WorldModels">World Models</a></h3>
-  <div class="meta">2018-03-27 · 论文笔记</div>
-  <div class="excerpt">Ha & Schmidhuber 的经典工作，探讨智能体如何在内部构建世界模型，并利用想象进行规划和决策...</div>
-</div>
+<script setup>
+import { data } from './posts.data.js'
+</script>
