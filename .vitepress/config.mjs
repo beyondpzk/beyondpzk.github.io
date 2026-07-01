@@ -97,12 +97,12 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
-                  link: '/blog/2026/AgentComprehensiveGuide',
+                  text: '高德地图语音导航逻辑与纯 Python Demo (2026-07-01)',
+                  link: '/blog/2026/GaodeVoiceNavDemo',
                 },
                 {
-                  text: '高德地图语音导航逻辑与纯 Python Demo (2026-06-28)',
-                  link: '/blog/2026/GaodeVoiceNavDemo',
+                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
+                  link: '/blog/2026/AgentComprehensiveGuide',
                 },
                 {
                   text: '关节限位 (2026-06-28)',
@@ -1189,7 +1189,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: '高德地图语音导航逻辑与纯 Python Demo (2026-06-28)',
+                  text: '高德地图语音导航逻辑与纯 Python Demo (2026-07-01)',
                   link: '/blog/2026/GaodeVoiceNavDemo',
                 },
                 {
