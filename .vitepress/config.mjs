@@ -101,6 +101,10 @@ export default defineConfig({
                   link: '/blog/2026/AgentComprehensiveGuide',
                 },
                 {
+                  text: '高德地图语音导航逻辑与纯 Python Demo (2026-06-28)',
+                  link: '/blog/2026/GaodeVoiceNavDemo',
+                },
+                {
                   text: '关节限位 (2026-06-28)',
                   link: '/blog/2026/JointLimits',
                 },
@@ -1184,6 +1188,10 @@ export default defineConfig({
               text: '📂 others',
               collapsed: true,
               items: [
+                {
+                  text: '高德地图语音导航逻辑与纯 Python Demo (2026-06-28)',
+                  link: '/blog/2026/GaodeVoiceNavDemo',
+                },
                 {
                   text: 'RLNeeds (2026-06-02)',
                   link: '/blog/2026/RLNeeds',
