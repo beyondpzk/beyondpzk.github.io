@@ -101,6 +101,10 @@ export default defineConfig({
                   link: '/blog/2026/AgentSkillTool',
                 },
                 {
+                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
+                  link: '/blog/2026/ModelDeploymentEngine',
+                },
+                {
                   text: '高德地图语音导航逻辑与纯 Python Demo (2026-07-01)',
                   link: '/blog/2026/GaodeVoiceNavDemo',
                 },
@@ -1189,6 +1193,16 @@ export default defineConfig({
                 {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
                   link: '/blog/2026/FineGrainedAlignmentedVLN',
+                },
+              ],
+            },
+            {
+              text: '📂 deploy',
+              collapsed: true,
+              items: [
+                {
+                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
+                  link: '/blog/2026/ModelDeploymentEngine',
                 },
               ],
             },
