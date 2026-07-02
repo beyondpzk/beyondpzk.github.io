@@ -97,7 +97,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-01)',
+                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
                   link: '/blog/2026/AgentSkillTool',
                 },
                 {
@@ -1095,7 +1095,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-01)',
+                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
                   link: '/blog/2026/AgentSkillTool',
                 },
                 {
