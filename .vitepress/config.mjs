@@ -977,6 +977,28 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 Deploy',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
+                  link: '/blog/2026/JetsonOrinDeployment',
+                },
+                {
+                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
+                  link: '/blog/2026/ModelDeploymentEngine',
+                },
+                {
+                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
+                  link: '/blog/2025/2025-10-04-VLA_deploy',
+                },
+                {
+                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
+                  link: '/blog/2019/2019-10-04-Yolo_deploy',
+                },
+              ],
+            },
+            {
               text: '📂 reading',
               collapsed: true,
               items: [
@@ -1057,20 +1079,6 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 Deploy',
-              collapsed: true,
-              items: [
-                {
-                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
-                  link: '/blog/2025/2025-10-04-VLA_deploy',
-                },
-                {
-                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
-                  link: '/blog/2019/2019-10-04-Yolo_deploy',
-                },
-              ],
-            },
-            {
               text: '📂 Detection',
               collapsed: true,
               items: [
@@ -1109,20 +1117,6 @@ export default defineConfig({
                 {
                   text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
                   link: '/blog/2026/AgentComprehensiveGuide',
-                },
-              ],
-            },
-            {
-              text: '📂 deploy',
-              collapsed: true,
-              items: [
-                {
-                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
-                  link: '/blog/2026/JetsonOrinDeployment',
-                },
-                {
-                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
-                  link: '/blog/2026/ModelDeploymentEngine',
                 },
               ],
             },

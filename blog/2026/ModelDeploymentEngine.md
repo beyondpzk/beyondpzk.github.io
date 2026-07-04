@@ -1,7 +1,7 @@
 ---
 title: 模型部署中的 Engine：从推理后端到生产落地
 date: 2026-07-02
-categories: [deploy]
+categories: [Deploy]
 ---
 
 # 模型部署中的 Engine：从推理后端到生产落地
