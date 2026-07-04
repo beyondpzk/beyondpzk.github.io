@@ -101,6 +101,10 @@ export default defineConfig({
                   link: '/blog/2026/AgentSkillTool',
                 },
                 {
+                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-02)',
+                  link: '/blog/2026/JetsonOrinDeployment',
+                },
+                {
                   text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
                   link: '/blog/2026/ModelDeploymentEngine',
                 },
@@ -1109,6 +1113,20 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 deploy',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-02)',
+                  link: '/blog/2026/JetsonOrinDeployment',
+                },
+                {
+                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
+                  link: '/blog/2026/ModelDeploymentEngine',
+                },
+              ],
+            },
+            {
               text: '📂 机器人',
               collapsed: true,
               items: [
@@ -1193,16 +1211,6 @@ export default defineConfig({
                 {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
                   link: '/blog/2026/FineGrainedAlignmentedVLN',
-                },
-              ],
-            },
-            {
-              text: '📂 deploy',
-              collapsed: true,
-              items: [
-                {
-                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
-                  link: '/blog/2026/ModelDeploymentEngine',
                 },
               ],
             },
