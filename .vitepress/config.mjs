@@ -113,10 +113,6 @@ export default defineConfig({
                   link: '/blog/2026/GaodeVoiceNavDemo',
                 },
                 {
-                  text: 'Qwen-RobotNav (2026-06-17)',
-                  link: '/blog/2026/QwenRobotNav',
-                },
-                {
                   text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
                   link: '/blog/2026/AgentComprehensiveGuide',
                 },
@@ -127,6 +123,10 @@ export default defineConfig({
                 {
                   text: '运动原语：机器人动作世界的"字母表 (2026-06-28)',
                   link: '/blog/2026/MotionPrimitives',
+                },
+                {
+                  text: 'Qwen-RobotNav (2026-06-17)',
+                  link: '/blog/2026/QwenRobotNav',
                 },
                 {
                   text: 'RLNeeds (2026-06-02)',
