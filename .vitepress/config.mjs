@@ -113,6 +113,10 @@ export default defineConfig({
                   link: '/blog/2026/GaodeVoiceNavDemo',
                 },
                 {
+                  text: 'Qwen-RobotNav (2026-06-17)',
+                  link: '/blog/2026/QwenRobotNav',
+                },
+                {
                   text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
                   link: '/blog/2026/AgentComprehensiveGuide',
                 },
@@ -774,6 +778,10 @@ export default defineConfig({
               text: '📂 VLA',
               collapsed: true,
               items: [
+                {
+                  text: 'Qwen-RobotNav (2026-06-17)',
+                  link: '/blog/2026/QwenRobotNav',
+                },
                 {
                   text: 'VLM4VLA (2026-01-06)',
                   link: '/blog/2026/VLM4VLA',
