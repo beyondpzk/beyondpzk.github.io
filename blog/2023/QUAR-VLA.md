@@ -153,7 +153,65 @@ $$
 
 这种设计让模型保留预训练 MLLM 的视觉-语言理解能力，同时通过全参微调把动作生成能力“写入”到同一个生成空间中。
 
-### 5.4 关键问题：全参微调后为什么还能理解新指令？训练时加了 VLM 数据吗？
+### 5.4 Action Head 是什么？动作是以 Next-Token 方式生成的吗？
+
+这也是理解 QUART 架构时非常关键的两个问题。
+
+#### QUART 没有独立的 Action Head
+
+在传统的 “VLM + Policy Head” 范式里，通常会用一个**独立的动作头（Action Head）**来输出动作：
+
+- 先由冻结或微调的视觉编码器提取图像特征；
+- 把语言指令单独编码成 embedding；
+- 将图像特征和语言特征拼接后，送入一个 **MLP 或 Transformer 策略头**；
+- 策略头一次性回归或分类出动作向量。
+
+QUART 并没有这个独立的动作头。它直接复用 Fuyu-8B 的**语言模型输出头（LM Head）**，让同一个 decoder-only Transformer 自回归地预测动作 token。换句话说：
+
+> **动作预测不是“在 VLM 后面接一个专门的动作网络”，而是把动作当成一种特殊的语言 token，让 VLM  itself 来生成。**
+
+这也是为什么论文里会说：
+
+> “Within the VLA framework, we have utilized the entire decoder-only VLM backbone... This approach allows for the implicit learning of interdependencies between different action dimensions through the use of a transformer.”
+
+#### 动作确实是以 Next-Token Prediction 方式生成的
+
+具体流程如下：
+
+1. 输入序列：`[图像 token] + [指令文本 token]`。
+2. 模型开始自回归生成：`[动作 token 1] → [动作 token 2] → ... → [动作 token 12]`。
+3. 每个动作 token 对应一个动作维度：
+   - token 1 → $v_x$
+   - token 2 → $v_y$
+   - token 3 → $\omega_z$
+   - ...
+   - token 12 → $t$（终止信号）
+4. 每个 token 从词表中的 256 个整数 token 中采样，对应 256 个离散 bin。
+5. 12 个 token 生成完毕后，通过 detokenize 映射回连续动作值。
+
+#### 与独立 Action Head 的本质区别
+
+| 特性 | VLM + Action Head（基线） | QUART（VLA） |
+|------|---------------------------|--------------|
+| 动作输出结构 | 独立 MLP / Transformer Head | 复用 LM Head |
+| 动作维度关系 | 通常一次性并行输出，维度间无显式交互 | 自回归生成，后面 token 能看到前面 token |
+| 与 VLM 的关系 | VLM 只提供特征，不参与动作生成 | VLM 直接生成动作 token |
+| 训练方式 | 通常只训练 Action Head | 全参微调整个 VLM |
+| 复杂任务表现 | crawl、unload 成功率为 0 | crawl、unload 可达 0.12–0.32 |
+
+这种 next-token 生成方式的好处在于：模型在预测“足宽”时可以参考已经生成的“身体高度”和“俯仰角”，在预测“步态频率”时可以参考“速度指令”。这种维度间的隐式协调，是独立 Action Head 难以学到的。
+
+#### 一个细节：Action Head 与 Symbol Tuning 的关系
+
+虽然 QUART 没有独立 Action Head，但它仍然需要对“哪些 token 代表合法动作”进行约束。这正是 **Symbol Tuning** 的作用：
+
+- Fuyu-8B 的词表中，0–1000 的整数本来就有独立 token。
+- QUART 通过训练告诉模型：当看到机器人任务 prompt 时，接下来要生成的 token 必须是 0–255 这些整数。
+- 推理时可以通过限制采样空间（只允许这 256 个整数 token）来保证输出合法性。
+
+所以你可以把 QUART 理解为：**用一个预训练 MLLM 的 LM Head 作为“隐式的 Action Head”，通过 Symbol Tuning 让这个 Head 学会输出动作 token。**
+
+### 5.5 关键问题：全参微调后为什么还能理解新指令？训练时加了 VLM 数据吗？
 
 这是理解 QUART 训练策略时最容易混淆的两个点，需要单独说明。
 
