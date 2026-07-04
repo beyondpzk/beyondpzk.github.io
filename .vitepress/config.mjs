@@ -97,12 +97,12 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
-                  link: '/blog/2026/AgentSkillTool',
+                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
+                  link: '/blog/2026/JetsonOrinDeployment',
                 },
                 {
-                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-02)',
-                  link: '/blog/2026/JetsonOrinDeployment',
+                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
+                  link: '/blog/2026/AgentSkillTool',
                 },
                 {
                   text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
@@ -1117,7 +1117,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-02)',
+                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
                   link: '/blog/2026/JetsonOrinDeployment',
                 },
                 {
