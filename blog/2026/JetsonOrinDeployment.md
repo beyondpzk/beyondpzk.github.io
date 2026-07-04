@@ -365,7 +365,7 @@ sudo jetson_clocks
 
 ### 6. DLA 不是万能的
 
-DLA 只支持部分算子和 INT8。如果模型里有大量 DLA 不支持的层，会频繁 fallback 到 GPU，反而不如纯 GPU 跑得快。
+DLA 只支持部分算子和 INT8。如果模型里有大量 DLA 不支持的层，TensorRT 会把它**回退到 GPU**（不是 CPU）执行，频繁的 GPU↔DLA 切换反而不如纯 GPU 跑得快。
 
 ---
 
