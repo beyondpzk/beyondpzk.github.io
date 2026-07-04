@@ -439,6 +439,10 @@ export default defineConfig({
                   link: '/blog/2023/SparseOcc',
                 },
                 {
+                  text: 'QUAR-VLA (2023-12-22)',
+                  link: '/blog/2023/QUAR-VLA',
+                },
+                {
                   text: 'Emu2 (2023-12-20)',
                   link: '/blog/2023/Emu2',
                 },
@@ -805,6 +809,10 @@ export default defineConfig({
                 {
                   text: 'DROID (2024-03-19)',
                   link: '/blog/2024/DROID',
+                },
+                {
+                  text: 'QUAR-VLA (2023-12-22)',
+                  link: '/blog/2023/QUAR-VLA',
                 },
                 {
                   text: 'RT2 (2023-07-28)',
