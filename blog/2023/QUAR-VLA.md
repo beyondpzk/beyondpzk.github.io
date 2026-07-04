@@ -8,7 +8,7 @@ categories: [VLA]
 
 [paper link](https://arxiv.org/abs/2312.14457)
 
-这篇论文来自西湖大学 MiLAB，提出了一套专门针对**四足机器人（Quadruped Robots）**的视觉-语言-动作（VLA）范式，命名为 **QUAR-VLA**（Vision-Language-Action tasks for QUAdruped Robots），并发布了对应的数据集 **QUARD** 与模型族 **QUART**。与当时主流的机械臂 VLA（如 RT-2、OpenVLA）不同，QUAR-VLA 首次系统性地把 VLA 思想落地到了具有敏捷移动能力的腿式机器人上，覆盖了导航、复杂地形 locomotion 和全身操作等多类任务。
+这篇论文来自西湖大学 MiLAB，提出了一套专门针对**四足机器人（Quadruped Robots）**的视觉-语言-动作（VLA）范式，命名为 **QUAR-VLA**（Vision-Language-Action tasks for QUAdruped Robots），并发布了对应的数据集 **QUARD** 与模型 **QUART**。与当时主流的机械臂 VLA（如 RT-2、OpenVLA）不同，QUAR-VLA 首次系统性地把 VLA 思想落地到了具有敏捷移动能力的腿式机器人上，覆盖了导航、复杂地形 locomotion 和全身操作等多类任务。
 
 ---
 
@@ -29,12 +29,12 @@ QUAR-VLA 的核心动机是把**第一视角 RGB 图像**和**自然语言指令
 
 论文发布了 **QUAdruped Robot Dataset (QUARD)**，这是当时首个同时包含图像、语言指令和本体感知信息的大规模四足机器人数据集：
 
-- **仿真数据**：约 348K 条 episodes，在 NVIDIA Isaac Gym 中并行采集。
+- **仿真数据**：约 256K 条 episodes（论文 Table 1 统计为 259K），在 NVIDIA Isaac Gym 中并行采集。
 - **真实数据**：约 3K 条 episodes，用于弥合 sim-to-real gap。
-- **任务类型**：涵盖 7 大类、多个子技能，包括：
-  - **导航**：Go to Object、Go to Object and avoid obstacle
-  - **复杂地形 locomotion**：Crawl under Bar、Go through Tunnel
-  - **全身操作**：Stop Object（拦截运动物体）、Unload Object（把背包里的小球倒入指定盒子）、Distinguish Letter（转向指定视觉字母）
+- **任务类型**：涵盖 7 大类、多个子技能，按难度分为 easy / medium / hard：
+  - **感知（Easy）**：Distinguish Letter（识别字母并转向目标）
+  - **基础导航（Medium）**：Go to Object（驶向目标物体）
+  - **高级导航与全身操作（Hard）**：Go to Object and avoid obstacle（避障导航）、Go through Tunnel（穿越隧道）、Crawl under Bar（钻杆）、Unload Object into Receptacle（背负小球并倒入容器）
 
 ### 2.2 数据采集平台
 
@@ -42,7 +42,7 @@ QUAR-VLA 的核心动机是把**第一视角 RGB 图像**和**自然语言指令
 - **传感器**：前置 RealSense D435 相机提供 RGB/深度图像。
 - **控制层级**：
   - **高层控制器 5 Hz**：接收模型输出的高层命令。
-  - **低层控制器 50 Hz**：由 MPC 或预训练命令跟踪策略将高层命令映射为关节力矩/位置。
+  - **低层控制器 50 Hz**：由预训练命令跟踪策略将高层命令映射为关节力矩/位置。
 
 这种“高层动作 + 低层跟踪”的分层设计非常关键：它既避免了直接预测高频关节动作的复杂度，又保留了四足机器人所需的灵活步态和姿态控制能力。
 
@@ -74,42 +74,34 @@ $$
 
 ---
 
-## 四、模型架构：QUART-1 与 QUART-2
+## 四、模型架构：基于 Fuyu-8B 的端到端 VLA
 
-论文提出了两个模型变体，分别面向**推理效率**和**涌现能力**。
+QUART 的核心设计是**直接复用并端到端微调一个 decoder-only 的多模态大语言模型（MLLM）**。论文主实验采用的是 **Fuyu-8B**，并在补充实验中对比了 **LLaVA-7B** 版本。
 
-### 4.1 QUART-1：轻量高效的端到端策略
+### 4.1 为什么选择 Fuyu-8B？
 
-QUART-1 约 **3000 万参数**，结构紧凑，强调 fast inference：
+Fuyu-8B（Adept, 2023）有两个对机器人控制非常有利的特性：
 
-- **视觉编码器**：ImageNet 预训练的 EfficientNet-B3。
-- **语言条件化**：使用 **FiLM（Feature-wise Linear Modulation）** 将自然语言指令注入图像特征，使网络在浅层就关注任务相关视觉信息。
-- **TokenLearner**：将大量视觉 token 压缩为紧凑的固定数量 token，降低后续 Transformer 计算量。
-- **Transformer Decoder**：基于压缩后的 token 自回归生成离散动作 token。
+1. **原生图像编码**：不像 LLaVA 那样需要额外的 CLIP/SigLIP 视觉编码器，Fuyu-8B 可以直接对原始图像 patch 进行编码，简化了视觉-语言对齐的复杂度。
+2. **整数 token 完备**：0–1000 的每个整数在词表中都有独立 token，因此可以把 256 个动作 bin 直接映射到对应整数 token 上，无需像 RT-2/PaLM-E 那样覆盖低频词表。
+
+这种把动作 bin 映射到已有整数 token 的策略，本质上是一种 **符号微调（Symbol Tuning）**。
+
+### 4.2 输入输出流程
 
 整体流程可写作：
 
 $$
-\text{QUART-1}(a_d | s, w) = p_1(a_d | t) \, \tau_1(t | z_v) \, q_v(z_v | s, w)
+\text{QUART}(a_d | s, w) = p(a_d | t) \, \tau(t | s, w)
 $$
 
-其中 $s$ 为图像，$w$ 为语言指令，$q_v$ 为视觉-语言编码器，$\tau_1$ 为 TokenLearner，$p_1$ 为 Transformer decoder。
+其中：
 
-### 4.2 QUART-2：利用预训练 VLM 的涌现能力
-
-QUART-2 则走另一条路线——**基于预训练视觉-语言大模型（VLM）进行符号微调（Symbol Tuning）**：
-
-- **Tokenizer**：复用 VLM 已有的 tokenizer。
-- **Action Token 映射**：因为该 VLM 的词表中 0–1000 的整数都有独立 token，QUART-2 直接把 256 个动作 bin 映射到对应整数 token 上，无需像 PaLM-E 那样覆盖低频 token。
-- **自注意力跨模态对齐**：与 QUART-1 的 FiLM 不同，QUART-2 通过 Transformer 的自注意力机制直接学习图像、语言与动作 token 之间的关联。
-
-公式上：
-
-$$
-\text{QUART-2}(a_d | s, w) = p_2(a_d | t) \, \tau_2(t | s, w)
-$$
-
-其中 $\tau_2$ 为 VLM tokenizer，$p_2$ 为 decoder-only 大语言模型。
+- $s$：第一视角 RGB 图像；
+- $w$：自然语言指令（例如 "What action should the legged robot take to go to the Red box slowly with a trotting gait?"）；
+- $\tau$：Fuyu-8B 的 tokenizer，将图像和文本统一编码为 token 序列；
+- $p$：decoder-only Transformer，自回归生成离散动作 token；
+- $a_d$：离散化的动作 token。
 
 ### 4.3 Action Detokenize
 
@@ -121,7 +113,49 @@ $$
 
 ---
 
-## 五、Sim-to-Real：混合训练弥合域鸿沟
+## 五、训练方法：参数全部打开的全参微调
+
+这是论文最核心的工程细节之一。QUART 没有采用冻结视觉编码器或只训练策略头（policy head）的浅层微调，而是**把整个 8B 多模态大模型端到端打开进行全参微调**。
+
+### 5.1 训练配置
+
+| 配置项 | 设置 |
+|--------|------|
+| 基座模型 | Fuyu-8B（decoder-only MLLM） |
+| 训练方式 | **全参微调（Full Fine-tuning）** |
+| 视觉编码器 | 不单独冻结，随整个 MLLM 一起更新 |
+| 语言模型主体 | 不冻结，随整个 MLLM 一起更新 |
+| 学习目标 | Next-token prediction / Behavior Cloning Loss |
+| 损失函数 | 带因果掩码的分类交叉熵（Categorical Cross-Entropy with Causal Masking） |
+| 学习率 | **2e-5** |
+| Batch Size | **256** |
+| 训练步数 | **100K gradient steps** |
+| 推理频率 | 约 **2 Hz** |
+
+### 5.2 为什么参数全部打开？
+
+论文的补充实验（Supplementary Table 1）专门对比了多种“VLM + 策略头”的变体：
+
+- **Unaligned VLM + P(MLP)**：R3M 视觉特征 + MLP 策略头，缺少图文对齐，几乎无法完成复杂任务。
+- **Aligned VLM + P(MLP)**：CLIP / VC-1 视觉特征 + MLP 策略头，能完成简单导航，但 crawl、unload 等需要全身协调的任务成功率为 0。
+- **Aligned VLM + P(Transformer)**：类似 RT-1 的 Transformer 策略头，结果与 MLP 策略头趋势一致，说明问题不在策略头结构，而在是否真正端到端地利用 VLM。
+- **VLA(Fuyu-8B)**：即 QUART，**把整个 decoder-only VLM 打开微调**，动作各个维度在生成过程中可以相互依赖、联合推理，从而完成 crawl、unload 等复杂任务。
+
+这一对比非常关键：它说明对于四足机器人这种需要多动作维度协调的任务，**仅冻结视觉主干、只训练一个轻量策略头是远远不够的**。必须让动作 token 的梯度回流到整个 MLLM，才能学到“身体高度、俯仰角、步态、足宽”之间的隐式协调关系。
+
+### 5.3 损失计算细节
+
+训练时只对未来动作 token 计算交叉熵损失，与标准因果语言模型训练一致：
+
+- 输入序列：`[图像 token] + [指令文本 token]`
+- 目标序列：`[动作 token 1] + [动作 token 2] + ... + [动作 token 12]`
+- 模型自回归地预测每个动作 token，损失只作用于动作 token 位置，不对输入图像/指令 token 计算损失。
+
+这种设计让模型保留预训练 MLLM 的视觉-语言理解能力，同时通过全参微调把动作生成能力“写入”到同一个生成空间中。
+
+---
+
+## 六、Sim-to-Real：混合训练弥合域鸿沟
 
 由于真实数据采集昂贵，QUART 主要依赖仿真数据训练。为了把仿真中学到的策略零样本迁移到真实四足机器人，论文采用了 **co-training（联合训练）** 策略：
 
@@ -129,26 +163,25 @@ $$
 - 通过控制真实数据比例，让模型在保留仿真数据多样性的同时，学习真实场景的视觉外观分布。
 - 由于 QUART 输出的是高层命令而非直接关节力矩，低层控制器的域适应能力进一步缓冲了 sim-to-real gap。
 
+论文的 scaling 实验（Table 3）显示，在固定 3K 真实数据的前提下，随着仿真数据从 0K 增加到 256K，真实场景成功率从 3/20 提升到 13/20，证明仿真数据对真实部署具有显著增益。
+
 这种“高层动作 + 混合训练 + 低层跟踪”的组合，是四足机器人 VLA 与机械臂 VLA 在工程落地上最显著的区别之一。
 
 ---
 
-## 六、实验与发现
+## 七、实验与发现
 
 论文进行了约 **4000 次真实世界评估试验**，主要结论包括：
 
-- **策略有效性**：QUART 在导航、复杂地形和全身操作任务上均取得了较高成功率。
+- **策略有效性**：QUART 在导航、复杂地形和全身操作任务上均取得了较高成功率（Table 2）。
 - **泛化能力**：模型能够处理训练时未完全见过的物体、场景和指令组合。
 - **涌现能力**：得益于 VLM 预训练知识和多模态对齐，QUART 展现出了一定的语义推理和指令跟随能力，例如理解空间关系词（“left / right”）、顺序词（“before / then”）以及常识性指令（“move fast”）。
 
-在 QUART-1 与 QUART-2 的对比上：
-
-- **QUART-1**：参数量小、推理快，更适合资源受限的端侧部署。
-- **QUART-2**：利用预训练 VLM，在需要语义理解和泛化的任务上表现更强，但推理成本更高。
+补充实验还发现，**多任务联合训练显著优于单任务训练**：QUART-Multi 在几乎所有任务上都超过了 QUART-Single，说明不同任务之间的共享知识对四足机器人控制非常重要。
 
 ---
 
-## 七、与 RT-2 / OpenVLA 的对比视角
+## 八、与 RT-2 / OpenVLA 的对比视角
 
 把 QUAR-VLA 放到当时的 VLA 版图里看，有几个鲜明特点：
 
@@ -157,21 +190,23 @@ $$
 | 载体 | 固定基座机械臂 | 固定基座机械臂 | 四足机器人 |
 | 动作层级 | 末端 6-DoF + gripper | 末端 6-DoF + gripper | base 速度 + 步态 + 姿态 |
 | 数据 | 真实机器人数据为主 | Open X-Embodiment | 仿真 + 少量真实 |
-| 模型规模 | 5B–55B | 7B | 30M + VLM |
+| 模型规模 | 5B–55B | 7B | 8B（Fuyu-8B） |
+| 训练方式 | 全参微调 / Co-fine-tuning | LoRA / 全参微调 | **全参微调** |
 | 核心挑战 | 语义泛化 | 开源与高效微调 | sim-to-real、腿式动力学 |
 
-QUAR-VLA 的价值在于：它把 VLA 从“桌面操作”拓展到了“移动+操作+locomotion”的更复杂具身形态，证明了 VLA 范式在四足机器人上的可行性。
+QUAR-VLA 的价值在于：它把 VLA 从“桌面操作”拓展到了“移动+操作+locomotion”的更复杂具身形态，并通过消融实验证明了**端到端全参微调 VLM** 对于四足机器人多动作维度协调的必要性。
 
 ---
 
-## 八、局限与思考
+## 九、局限与思考
 
 1. **动作抽象层级**：QUART 输出的是高层命令，仍然依赖低层控制器。这意味着模型本身不学习底层动力学，某些高度动态的技能（如跳跃、后空翻）无法直接生成。
-2. **真实数据量小**：3K 真实 episodes 相对于 348K 仿真数据仍然偏少，虽然 co-training 有效，但在视觉域差异极大的户外场景可能仍有限制。
-3. **评估维度**：4000 次真实试验已属庞大，但任务种类和机器人平台仍较单一，后续工作需要在更多平台、更开放环境中验证。
+2. **真实数据量小**：3K 真实 episodes 相对于 256K 仿真数据仍然偏少，虽然 co-training 有效，但在视觉域差异极大的户外场景可能仍有限制。
+3. **推理频率**：2 Hz 的控制频率对大多数导航和慢速操作任务足够，但对需要高频反馈的敏捷运动（如越障、跑跳）仍然偏低。
+4. **评估维度**：4000 次真实试验已属庞大，但任务种类和机器人平台仍较单一，后续工作需要在更多平台、更开放环境中验证。
 
 ---
 
 ## 总结
 
-QUAR-VLA 是较早将 VLA 范式系统性地拓展到**四足机器人**的研究工作。它通过提出 QUAR-VLA 任务范式、构建 QUARD 多任务数据集、设计 QUART-1/QUART-2 两种模型变体，并采用 co-training 实现 sim-to-real，展示了视觉-语言-动作模型在腿式机器人导航、locomotion 和全身操作中的潜力。对于关注具身智能、四足机器人以及 VLA 落地的研究者来说，这是一篇值得细读的奠基性工作。
+QUAR-VLA 是较早将 VLA 范式系统性地拓展到**四足机器人**的研究工作。它通过提出 QUAR-VLA 任务范式、构建 QUARD 多任务数据集、基于 Fuyu-8B 的端到端 VLA 模型 QUART，并采用 **全参微调 + co-training** 实现 sim-to-real，展示了视觉-语言-动作模型在腿式机器人导航、locomotion 和全身操作中的潜力。对于关注具身智能、四足机器人以及 VLA 落地的研究者来说，这是一篇值得细读的奠基性工作。
