@@ -291,6 +291,10 @@ export default defineConfig({
                   link: '/blog/2025/LongScape',
                 },
                 {
+                  text: 'NavFoM：跨具身、跨任务的导航基础模型 (2025-09-16)',
+                  link: '/blog/2025/NavFoM',
+                },
+                {
                   text: 'VLA_embodedAI (2025-09-01)',
                   link: '/blog/2025/VLA_embodedAI',
                 },
@@ -375,6 +379,10 @@ export default defineConfig({
                 {
                   text: 'FLIP (2024-12-11)',
                   link: '/blog/2024/FLIP',
+                },
+                {
+                  text: 'Uni-NaVid (2024-12-09)',
+                  link: '/blog/2024/Uni-NaVid',
                 },
                 {
                   text: 'NWM (2024-12-04)',
@@ -705,6 +713,100 @@ export default defineConfig({
           collapsed: false,
           items: [
             {
+              text: '📂 VLA',
+              collapsed: true,
+              items: [
+                {
+                  text: 'ABot (2026-07-05)',
+                  link: '/blog/2026/ABot',
+                },
+                {
+                  text: 'LiteVLA (2026-07-05)',
+                  link: '/blog/2026/LiteVLA',
+                },
+                {
+                  text: 'VLX-Go (2026-07-05)',
+                  link: '/blog/2026/VLXGo',
+                },
+                {
+                  text: 'Qwen-RobotNav (2026-06-17)',
+                  link: '/blog/2026/QwenRobotNav',
+                },
+                {
+                  text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
+                  link: '/blog/2026/pi0.7',
+                },
+                {
+                  text: 'ABot-N0 (2026-02-12)',
+                  link: '/blog/2026/ABot-N0',
+                },
+                {
+                  text: 'VLM4VLA (2026-01-06)',
+                  link: '/blog/2026/VLM4VLA',
+                },
+                {
+                  text: 'NavFoM：跨具身、跨任务的导航基础模型 (2025-09-16)',
+                  link: '/blog/2025/NavFoM',
+                },
+                {
+                  text: 'GoalVLA (2025-06-30)',
+                  link: '/blog/2025/GoalVLA',
+                },
+                {
+                  text: 'AutoVLA (2025-06-16)',
+                  link: '/blog/2025/AutoVLA',
+                },
+                {
+                  text: 'Pi05 (2025-04-22)',
+                  link: '/blog/2025/Pi05',
+                },
+                {
+                  text: 'ChatVLA (2025-02-20)',
+                  link: '/blog/2025/ChatVLA',
+                },
+                {
+                  text: 'Uni-NaVid (2024-12-09)',
+                  link: '/blog/2024/Uni-NaVid',
+                },
+                {
+                  text: 'Pi0 (2024-10-31)',
+                  link: '/blog/2024/Pi0',
+                },
+                {
+                  text: 'RDT1B (2024-10-10)',
+                  link: '/blog/2024/RDT1B',
+                },
+                {
+                  text: 'OpenVLA (2024-06-13)',
+                  link: '/blog/2024/OpenVLA',
+                },
+                {
+                  text: 'DROID (2024-03-19)',
+                  link: '/blog/2024/DROID',
+                },
+                {
+                  text: 'QUAR-VLA (2023-12-22)',
+                  link: '/blog/2023/QUAR-VLA',
+                },
+                {
+                  text: 'RT2 (2023-07-28)',
+                  link: '/blog/2023/RT2',
+                },
+                {
+                  text: 'DiffusionPolicy (2023-03-07)',
+                  link: '/blog/2023/DiffusionPolicy',
+                },
+                {
+                  text: 'RT1 (2022-12-13)',
+                  link: '/blog/2022/RT1',
+                },
+                {
+                  text: 'Gato (2022-05-12)',
+                  link: '/blog/2022/Gato',
+                },
+              ],
+            },
+            {
               text: '📂 Understandings',
               collapsed: true,
               items: [
@@ -787,92 +889,6 @@ export default defineConfig({
                 {
                   text: 'l1l2 (2019-01-01)',
                   link: '/blog/2019/l1l2',
-                },
-              ],
-            },
-            {
-              text: '📂 VLA',
-              collapsed: true,
-              items: [
-                {
-                  text: 'ABot (2026-07-05)',
-                  link: '/blog/2026/ABot',
-                },
-                {
-                  text: 'LiteVLA (2026-07-05)',
-                  link: '/blog/2026/LiteVLA',
-                },
-                {
-                  text: 'VLX-Go (2026-07-05)',
-                  link: '/blog/2026/VLXGo',
-                },
-                {
-                  text: 'Qwen-RobotNav (2026-06-17)',
-                  link: '/blog/2026/QwenRobotNav',
-                },
-                {
-                  text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
-                  link: '/blog/2026/pi0.7',
-                },
-                {
-                  text: 'ABot-N0 (2026-02-12)',
-                  link: '/blog/2026/ABot-N0',
-                },
-                {
-                  text: 'VLM4VLA (2026-01-06)',
-                  link: '/blog/2026/VLM4VLA',
-                },
-                {
-                  text: 'GoalVLA (2025-06-30)',
-                  link: '/blog/2025/GoalVLA',
-                },
-                {
-                  text: 'AutoVLA (2025-06-16)',
-                  link: '/blog/2025/AutoVLA',
-                },
-                {
-                  text: 'Pi05 (2025-04-22)',
-                  link: '/blog/2025/Pi05',
-                },
-                {
-                  text: 'ChatVLA (2025-02-20)',
-                  link: '/blog/2025/ChatVLA',
-                },
-                {
-                  text: 'Pi0 (2024-10-31)',
-                  link: '/blog/2024/Pi0',
-                },
-                {
-                  text: 'RDT1B (2024-10-10)',
-                  link: '/blog/2024/RDT1B',
-                },
-                {
-                  text: 'OpenVLA (2024-06-13)',
-                  link: '/blog/2024/OpenVLA',
-                },
-                {
-                  text: 'DROID (2024-03-19)',
-                  link: '/blog/2024/DROID',
-                },
-                {
-                  text: 'QUAR-VLA (2023-12-22)',
-                  link: '/blog/2023/QUAR-VLA',
-                },
-                {
-                  text: 'RT2 (2023-07-28)',
-                  link: '/blog/2023/RT2',
-                },
-                {
-                  text: 'DiffusionPolicy (2023-03-07)',
-                  link: '/blog/2023/DiffusionPolicy',
-                },
-                {
-                  text: 'RT1 (2022-12-13)',
-                  link: '/blog/2022/RT1',
-                },
-                {
-                  text: 'Gato (2022-05-12)',
-                  link: '/blog/2022/Gato',
                 },
               ],
             },
