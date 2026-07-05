@@ -141,7 +141,7 @@ export default defineConfig({
                   link: '/blog/2026/LAPose',
                 },
                 {
-                  text: 'pi0.7 (2026-04-16)',
+                  text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
                   link: '/blog/2026/pi0.7',
                 },
                 {
@@ -791,6 +791,10 @@ export default defineConfig({
                   link: '/blog/2026/QwenRobotNav',
                 },
                 {
+                  text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
+                  link: '/blog/2026/pi0.7',
+                },
+                {
                   text: 'VLM4VLA (2026-01-06)',
                   link: '/blog/2026/VLM4VLA',
                 },
@@ -1247,10 +1251,6 @@ export default defineConfig({
                 {
                   text: 'LAPose (2026-05-05)',
                   link: '/blog/2026/LAPose',
-                },
-                {
-                  text: 'pi0.7 (2026-04-16)',
-                  link: '/blog/2026/pi0.7',
                 },
                 {
                   text: 'GigaWorldPolicy (2026-03-18)',
