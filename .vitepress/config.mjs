@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'LiteVLA (2026-07-05)',
+                  link: '/blog/2026/LiteVLA',
+                },
+                {
                   text: 'VLX-Go (2026-07-05)',
                   link: '/blog/2026/VLXGo',
                 },
@@ -782,6 +786,10 @@ export default defineConfig({
               text: '📂 VLA',
               collapsed: true,
               items: [
+                {
+                  text: 'LiteVLA (2026-07-05)',
+                  link: '/blog/2026/LiteVLA',
+                },
                 {
                   text: 'VLX-Go (2026-07-05)',
                   link: '/blog/2026/VLXGo',
