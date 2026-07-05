@@ -177,6 +177,10 @@ export default defineConfig({
                   link: '/blog/2026/DreamZero',
                 },
                 {
+                  text: 'ABot-N0 (2026-02-12)',
+                  link: '/blog/2026/ABot-N0',
+                },
+                {
                   text: 'RISE (2026-02-11)',
                   link: '/blog/2026/RISE',
                 },
@@ -809,6 +813,10 @@ export default defineConfig({
                 {
                   text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
                   link: '/blog/2026/pi0.7',
+                },
+                {
+                  text: 'ABot-N0 (2026-02-12)',
+                  link: '/blog/2026/ABot-N0',
                 },
                 {
                   text: 'VLM4VLA (2026-01-06)',
