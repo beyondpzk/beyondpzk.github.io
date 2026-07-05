@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'ABot (2026-07-05)',
+                  link: '/blog/2026/ABot',
+                },
+                {
                   text: 'LiteVLA (2026-07-05)',
                   link: '/blog/2026/LiteVLA',
                 },
@@ -786,6 +790,10 @@ export default defineConfig({
               text: '📂 VLA',
               collapsed: true,
               items: [
+                {
+                  text: 'ABot (2026-07-05)',
+                  link: '/blog/2026/ABot',
+                },
                 {
                   text: 'LiteVLA (2026-07-05)',
                   link: '/blog/2026/LiteVLA',
