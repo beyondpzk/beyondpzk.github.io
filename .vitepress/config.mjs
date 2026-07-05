@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'VLX-Go (2026-07-05)',
+                  link: '/blog/2026/VLXGo',
+                },
+                {
                   text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
                   link: '/blog/2026/JetsonOrinDeployment',
                 },
@@ -778,6 +782,10 @@ export default defineConfig({
               text: '📂 VLA',
               collapsed: true,
               items: [
+                {
+                  text: 'VLX-Go (2026-07-05)',
+                  link: '/blog/2026/VLXGo',
+                },
                 {
                   text: 'Qwen-RobotNav (2026-06-17)',
                   link: '/blog/2026/QwenRobotNav',
