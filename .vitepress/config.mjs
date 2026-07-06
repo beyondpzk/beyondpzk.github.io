@@ -335,6 +335,10 @@ export default defineConfig({
                   link: '/blog/2025/VJEPA2',
                 },
                 {
+                  text: 'LiteVLM：面向嵌入式设备的低延迟 VLM 推理流水线 (2025-06-09)',
+                  link: '/blog/2025/LiteVLM',
+                },
+                {
                   text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
                   link: '/blog/2025/SmolVLM',
                 },
@@ -1195,6 +1199,20 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 VLM',
+              collapsed: true,
+              items: [
+                {
+                  text: 'LiteVLM：面向嵌入式设备的低延迟 VLM 推理流水线 (2025-06-09)',
+                  link: '/blog/2025/LiteVLM',
+                },
+                {
+                  text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
+                  link: '/blog/2025/SmolVLM',
+                },
+              ],
+            },
+            {
               text: '📂 Agent',
               collapsed: true,
               items: [
@@ -1273,16 +1291,6 @@ export default defineConfig({
                 {
                   text: 'pytorch_bug (2024-12-02)',
                   link: '/blog/2024/pytorch_bug',
-                },
-              ],
-            },
-            {
-              text: '📂 VLM',
-              collapsed: true,
-              items: [
-                {
-                  text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
-                  link: '/blog/2025/SmolVLM',
                 },
               ],
             },
