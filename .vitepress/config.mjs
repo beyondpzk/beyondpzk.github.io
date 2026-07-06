@@ -331,6 +331,10 @@ export default defineConfig({
                   link: '/blog/2025/VJEPA2',
                 },
                 {
+                  text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
+                  link: '/blog/2025/SmolVLM',
+                },
+                {
                   text: 'TrackVLA (2025-05-29)',
                   link: '/blog/2025/TrackVLA',
                 },
@@ -1261,6 +1265,16 @@ export default defineConfig({
                 {
                   text: 'pytorch_bug (2024-12-02)',
                   link: '/blog/2024/pytorch_bug',
+                },
+              ],
+            },
+            {
+              text: '📂 VLM',
+              collapsed: true,
+              items: [
+                {
+                  text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
+                  link: '/blog/2025/SmolVLM',
                 },
               ],
             },
