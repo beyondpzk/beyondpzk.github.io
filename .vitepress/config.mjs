@@ -141,6 +141,10 @@ export default defineConfig({
                   link: '/blog/2026/QwenRobotNav',
                 },
                 {
+                  text: 'EmbodiedNav (2026-06-15)',
+                  link: '/blog/2026/EmbodiedNav',
+                },
+                {
                   text: 'RLNeeds (2026-06-02)',
                   link: '/blog/2026/RLNeeds',
                 },
@@ -731,6 +735,10 @@ export default defineConfig({
                 {
                   text: 'Qwen-RobotNav (2026-06-17)',
                   link: '/blog/2026/QwenRobotNav',
+                },
+                {
+                  text: 'EmbodiedNav (2026-06-15)',
+                  link: '/blog/2026/EmbodiedNav',
                 },
                 {
                   text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
