@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'StableVLA：不增加数据，把 VLA 的视觉鲁棒性提升 30% (2026-07-06)',
+                  link: '/blog/2026/StableVLA',
+                },
+                {
                   text: 'ABot (2026-07-05)',
                   link: '/blog/2026/ABot',
                 },
@@ -724,6 +728,10 @@ export default defineConfig({
               text: '📂 VLA',
               collapsed: true,
               items: [
+                {
+                  text: 'StableVLA：不增加数据，把 VLA 的视觉鲁棒性提升 30% (2026-07-06)',
+                  link: '/blog/2026/StableVLA',
+                },
                 {
                   text: 'ABot (2026-07-05)',
                   link: '/blog/2026/ABot',
