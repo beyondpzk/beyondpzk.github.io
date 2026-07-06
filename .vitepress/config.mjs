@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'ACE-Brain-0.5：面向 Physical Agentic AI 的统一具身基模型 (2026-07-06)',
+                  link: '/blog/2026/ACE-Brain-0.5',
+                },
+                {
                   text: 'StableVLA：不增加数据，把 VLA 的视觉鲁棒性提升 30% (2026-07-06)',
                   link: '/blog/2026/StableVLA',
                 },
@@ -732,6 +736,10 @@ export default defineConfig({
               text: '📂 VLA',
               collapsed: true,
               items: [
+                {
+                  text: 'ACE-Brain-0.5：面向 Physical Agentic AI 的统一具身基模型 (2026-07-06)',
+                  link: '/blog/2026/ACE-Brain-0.5',
+                },
                 {
                   text: 'StableVLA：不增加数据，把 VLA 的视觉鲁棒性提升 30% (2026-07-06)',
                   link: '/blog/2026/StableVLA',
