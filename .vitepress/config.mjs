@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'LingBot-Vision 与 LingBot-Depth 2.0：具身智能的空间视觉基座再升级 (2026-07-07)',
+                  link: '/blog/2026/LingBot-Vision-Depth2',
+                },
+                {
                   text: '原生多模：从 Janus 到 Janus-Pro，一个 Transformer 同时理解与生成 (2026-07-07)',
                   link: '/blog/2026/原生多模',
                 },
@@ -1327,6 +1331,16 @@ export default defineConfig({
                 {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
                   link: '/blog/2026/FineGrainedAlignmentedVLN',
+                },
+              ],
+            },
+            {
+              text: '📂 Vision',
+              collapsed: true,
+              items: [
+                {
+                  text: 'LingBot-Vision 与 LingBot-Depth 2.0：具身智能的空间视觉基座再升级 (2026-07-07)',
+                  link: '/blog/2026/LingBot-Vision-Depth2',
                 },
               ],
             },
