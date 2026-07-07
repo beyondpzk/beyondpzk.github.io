@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: '原生多模：从 Janus 到 Janus-Pro，一个 Transformer 同时理解与生成 (2026-07-07)',
+                  link: '/blog/2026/原生多模',
+                },
+                {
                   text: 'ACE-Brain-0.5：面向 Physical Agentic AI 的统一具身基模型 (2026-07-06)',
                   link: '/blog/2026/ACE-Brain-0.5',
                 },
@@ -1179,6 +1183,24 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 VLM',
+              collapsed: true,
+              items: [
+                {
+                  text: '原生多模：从 Janus 到 Janus-Pro，一个 Transformer 同时理解与生成 (2026-07-07)',
+                  link: '/blog/2026/原生多模',
+                },
+                {
+                  text: 'LiteVLM：面向嵌入式设备的低延迟 VLM 推理流水线 (2025-06-09)',
+                  link: '/blog/2025/LiteVLM',
+                },
+                {
+                  text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
+                  link: '/blog/2025/SmolVLM',
+                },
+              ],
+            },
+            {
               text: '📂 Detection',
               collapsed: true,
               items: [
@@ -1203,20 +1225,6 @@ export default defineConfig({
                 {
                   text: 'Gato (2022-05-12)',
                   link: '/blog/2022/Gato',
-                },
-              ],
-            },
-            {
-              text: '📂 VLM',
-              collapsed: true,
-              items: [
-                {
-                  text: 'LiteVLM：面向嵌入式设备的低延迟 VLM 推理流水线 (2025-06-09)',
-                  link: '/blog/2025/LiteVLM',
-                },
-                {
-                  text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
-                  link: '/blog/2025/SmolVLM',
                 },
               ],
             },
