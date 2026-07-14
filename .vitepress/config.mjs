@@ -97,6 +97,30 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: '世界模型与VLA对比 (2026-07-14)',
+                  link: '/blog/2026/2026-07-14-WorldModels-vs-VLA',
+                },
+                {
+                  text: 'ABot-C0 (2026-07-13)',
+                  link: '/blog/2026/ABot-C0',
+                },
+                {
+                  text: 'InternData-N1：面向通用视觉-语言导航的大规模统一数据集 (2026-07-10)',
+                  link: '/blog/2026/2026-07-10-InternData-N1',
+                },
+                {
+                  text: 'Qwen3.6-Plus：面向 Agentic 系统的高层规划基座模型 (2026-07-10)',
+                  link: '/blog/2026/2026-07-10-Qwen3.6-Plus',
+                },
+                {
+                  text: '仿真数据的两种命运 (2026-07-09)',
+                  link: '/blog/2026/SimRealityGap',
+                },
+                {
+                  text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
+                  link: '/blog/2026/NvidiaSparseTOPSvsDenseTOPS',
+                },
+                {
                   text: 'LingBot-Vision 与 LingBot-Depth 2.0：具身智能的空间视觉基座再升级 (2026-07-07)',
                   link: '/blog/2026/LingBot-Vision-Depth2',
                 },
@@ -171,6 +195,10 @@ export default defineConfig({
                 {
                   text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
                   link: '/blog/2026/pi0.7',
+                },
+                {
+                  text: 'CoMaTrack (2026-03-24)',
+                  link: '/blog/2026/CoMaTrack',
                 },
                 {
                   text: 'GigaWorldPolicy (2026-03-18)',
@@ -279,12 +307,20 @@ export default defineConfig({
                   link: '/blog/2025/VLJEPA',
                 },
                 {
+                  text: 'DualVLN：慢思考、快执行——迈向通用视觉-语言导航的双系统基础模型 (2025-12-09)',
+                  link: '/blog/2025/2025-12-09-DualVLN',
+                },
+                {
                   text: 'RoboScapeR (2025-12-03)',
                   link: '/blog/2025/RoboScapeR',
                 },
                 {
                   text: 'ImprovedMeanFlows (2025-12-01)',
                   link: '/blog/2025/ImprovedMeanFlows',
+                },
+                {
+                  text: 'MobileVLA-R1：基于强化学习的视觉-语言-行动框架——迈向可解释的移动机器人连续控制 (2025-11-22)',
+                  link: '/blog/2025/2025-11-22-MobileVLA-R1',
                 },
                 {
                   text: 'pi0.6 (2025-11-18)',
@@ -398,6 +434,10 @@ export default defineConfig({
                   text: 'FSDP (2025-01-01)',
                   link: '/blog/2025/FSDP',
                 },
+                {
+                  text: 'NaVILA',
+                  link: '/blog/2025/NaVILA',
+                },
               ],
             },
             {
@@ -479,6 +519,10 @@ export default defineConfig({
                 {
                   text: 'DROID (2024-03-19)',
                   link: '/blog/2024/DROID',
+                },
+                {
+                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
+                  link: '/blog/2024/2024-02-24-NaVid',
                 },
                 {
                   text: 'VJEPA (2024-02-15)',
@@ -749,6 +793,14 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: '世界模型与VLA对比 (2026-07-14)',
+                  link: '/blog/2026/2026-07-14-WorldModels-vs-VLA',
+                },
+                {
+                  text: 'ABot-C0 (2026-07-13)',
+                  link: '/blog/2026/ABot-C0',
+                },
+                {
                   text: 'ACE-Brain-0.5：面向 Physical Agentic AI 的统一具身基模型 (2026-07-06)',
                   link: '/blog/2026/ACE-Brain-0.5',
                 },
@@ -779,6 +831,10 @@ export default defineConfig({
                 {
                   text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
                   link: '/blog/2026/pi0.7',
+                },
+                {
+                  text: 'CoMaTrack (2026-03-24)',
+                  link: '/blog/2026/CoMaTrack',
                 },
                 {
                   text: 'ABot-N0 (2026-02-12)',
@@ -829,6 +885,10 @@ export default defineConfig({
                   link: '/blog/2024/DROID',
                 },
                 {
+                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
+                  link: '/blog/2024/2024-02-24-NaVid',
+                },
+                {
                   text: 'QUAR-VLA (2023-12-22)',
                   link: '/blog/2023/QUAR-VLA',
                 },
@@ -854,6 +914,10 @@ export default defineConfig({
               text: '📂 Understandings',
               collapsed: true,
               items: [
+                {
+                  text: '仿真数据的两种命运 (2026-07-09)',
+                  link: '/blog/2026/SimRealityGap',
+                },
                 {
                   text: 'Muon (2026-02-10)',
                   link: '/blog/2026/Muon',
@@ -1067,6 +1131,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
+                  link: '/blog/2026/NvidiaSparseTOPSvsDenseTOPS',
+                },
+                {
                   text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
                   link: '/blog/2026/JetsonOrinDeployment',
                 },
@@ -1241,6 +1309,20 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 VLN',
+              collapsed: true,
+              items: [
+                {
+                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
+                  link: '/blog/2026/FineGrainedAlignmentedVLN',
+                },
+                {
+                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
+                  link: '/blog/2024/2024-02-24-NaVid',
+                },
+              ],
+            },
+            {
               text: '📂 Agent',
               collapsed: true,
               items: [
@@ -1333,16 +1415,6 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 VLN',
-              collapsed: true,
-              items: [
-                {
-                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
-                  link: '/blog/2026/FineGrainedAlignmentedVLN',
-                },
-              ],
-            },
-            {
               text: '📂 Vision',
               collapsed: true,
               items: [
@@ -1356,6 +1428,14 @@ export default defineConfig({
               text: '📂 others',
               collapsed: true,
               items: [
+                {
+                  text: 'InternData-N1：面向通用视觉-语言导航的大规模统一数据集 (2026-07-10)',
+                  link: '/blog/2026/2026-07-10-InternData-N1',
+                },
+                {
+                  text: 'Qwen3.6-Plus：面向 Agentic 系统的高层规划基座模型 (2026-07-10)',
+                  link: '/blog/2026/2026-07-10-Qwen3.6-Plus',
+                },
                 {
                   text: '高德地图语音导航逻辑与纯 Python Demo (2026-07-01)',
                   link: '/blog/2026/GaodeVoiceNavDemo',
@@ -1421,8 +1501,16 @@ export default defineConfig({
                   link: '/blog/2025/VLJEPA',
                 },
                 {
+                  text: 'DualVLN：慢思考、快执行——迈向通用视觉-语言导航的双系统基础模型 (2025-12-09)',
+                  link: '/blog/2025/2025-12-09-DualVLN',
+                },
+                {
                   text: 'RoboScapeR (2025-12-03)',
                   link: '/blog/2025/RoboScapeR',
+                },
+                {
+                  text: 'MobileVLA-R1：基于强化学习的视觉-语言-行动框架——迈向可解释的移动机器人连续控制 (2025-11-22)',
+                  link: '/blog/2025/2025-11-22-MobileVLA-R1',
                 },
                 {
                   text: 'pi0.6 (2025-11-18)',
@@ -1495,6 +1583,10 @@ export default defineConfig({
                 {
                   text: 'PlaNet (2018-11-12)',
                   link: '/blog/2018/PlaNet',
+                },
+                {
+                  text: 'NaVILA',
+                  link: '/blog/2025/NaVILA',
                 },
               ],
             },
