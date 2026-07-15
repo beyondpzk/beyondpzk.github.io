@@ -797,6 +797,78 @@ Planner 在这一步做的事不是"查地图输出坐标"，而是**视觉 grou
 > 
 > 语义指令比坐标对高德的定位误差更有容忍度——"走200米到路口"这句话不依赖任何一个具体的经纬度值。ABot-N0 本身的 1.5M 条 VLN (R2R + RxR) 训练轨迹已经让它具备了"听语言指令看图走路"的泛化能力，室外场景只换了一种语言风格，不需要加新的任务头。
 
+#### 5.7.9 为什么端侧 Actor 用 LLM backbone，而不是原生 VLM？
+
+一个常见的问题是：既然 Agentic Planner 是一个 VLM，为什么 ABot-N0 端侧 Actor 不用原生 VLM，而是用一个 LLM（Qwen3-4B）当 backbone？
+
+**首先需要澄清：ABot-N0 的端侧 Actor 并不是“纯 LLM”，它本质上是一个 VLA 模型。**
+
+从模型架构（`:118-132`）可以看到：
+
+```
+RGB 观测 + 历史视觉 + 目标描述
+            ↓
+    Universal Multi-Modal Encoder  （ViT 视觉编码器）
+            ↓
+      Cognitive Brain (Qwen3-4B)   ← LLM backbone
+            ↓
+      Action Expert (Flow Matching)
+            ↓
+        5 个 BEV 航点
+```
+
+视觉由独立 ViT 编码，语言/推理由 Qwen3-4B 处理，动作由 Flow Matching 生成。所以这是一个 **LLM backbone + 独立视觉编码器 + Flow Matching** 的 VLA，而不是“不用视觉的 LLM”。
+
+##### 为什么不直接用一个端到端的原生 VLM？
+
+文章没有明确写这个选择，但结合架构设计与部署约束，可以归纳出四点原因：
+
+**1. Brain-Action 解耦的需要**
+
+ABot-N0 的核心设计是把高层认知和低层动作生成拆开：
+- **Brain**：负责语义理解、空间推理、任务条件化；
+- **Action**：负责生成连续、平滑、多模态的航点分布。
+
+原生 VLM 通常把视觉-语言-动作全压在一个 transformer 里，输出离散 token。但机器人导航需要输出连续值 `(x, y, θ)`，并且同一输入下常有多个合理轨迹（从障碍物左侧或右侧绕行）。LLM 直接回归连续动作精度不够，而 Flow Matching 专门建模连续分布，两者各司其职。
+
+**2. 连续动作生成精度**
+
+航点 `W = {(x_i, y_i, θ_i)}` 是连续值。如果用 VLM 直接生成，要么要把连续坐标离散化成 token（损失精度），要么要在 VLM 后面接一个动作头（那和现在的 LLM + Flow Matching 差别不大）。ABot-N0 直接把 Flow Matching 作为独立 Action Expert，绕开了“用 LLM token 表示连续动作”的难题。
+
+**3. 边缘部署的效率**
+
+端侧硬件是 Jetson Orin NX（16GB RAM，157 TOPS）。文章 `:618` 提到：
+
+> “采用 93M SigLIP-B/16 视觉骨干 + token merging（merge size=4），在仅损失 3% 性能的前提下实现 2Hz VLA 推理。”
+
+这说明他们刻意控制了视觉骨干和 LLM 的规模。如果用一个原生大 VLM（比如 7B/14B 的多模态模型）端到端跑，Jetson 上很难达到可用的推理频率。小视觉编码器 + 4B LLM + 独立 Action Head 是更务实的工程选择。
+
+**4. 输入模式的灵活性**
+
+独立视觉编码器让 ABot-N0 能灵活支持：
+- 全景模式（左/前/右三视角）与前视模式；
+- 文本目标（指令、物体类别、POI 名称）和坐标目标（Point-Goal 的 `(x, y)`）；
+- 显式的视觉历史缓冲区 `M^S`。
+
+原生 VLM 的输入结构通常受预训练格式限制，不如独立编码器 + LLM 灵活。
+
+##### 与云侧 Planner 的对比
+
+文章 `:645` 明确区分了两个组件：
+
+| 组件 | 模型类型 | 部署位置 | 职责 |
+|---|---|---|---|
+| Agentic Planner | **VLM** | 云端 RTX 4090 | 任务拆解、意图解析、错误反思 |
+| ABot-N0 Actor | **LLM + Flow Matching** | 边缘 Jetson Orin NX | 高频感知 + 连续动作生成 |
+
+这个对比本身说明设计意图：
+- **Planner 需要强视觉-语言统一推理**，看画面、理解模糊意图、做常识推断 → 用 VLM；
+- **Actor 需要高频、轻量、连续动作生成** → 用 LLM backbone + Flow Matching 更适合端侧。
+
+##### 一句话总结
+
+ABot-N0 的端侧 Actor 不是“不用 VLM”，而是**把 VLM 的功能拆成了“小视觉编码器 + LLM + Flow Matching”**。这样能在 Jetson 上跑起来，同时保证连续动作生成的精度。云侧的 Planner 才用完整 VLM，因为它不需要高频运行，但对高层推理能力要求更高。
+
 ## 六、消融研究
 
 原技术报告并未设立独立的消融实验章节，而是在方法描述中隐含了若干关键设计选择。下面根据论文内容总结可被视作消融洞察的要点：
