@@ -97,6 +97,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'NVIDIA主流AI显卡价格与算力对比 (2026-07-15)',
+                  link: '/blog/2026/2026-07-15-NVIDIA-GPU-comparison',
+                },
+                {
                   text: '世界模型与VLA对比 (2026-07-14)',
                   link: '/blog/2026/2026-07-14-WorldModels-vs-VLA',
                 },
@@ -1428,6 +1432,10 @@ export default defineConfig({
               text: '📂 others',
               collapsed: true,
               items: [
+                {
+                  text: 'NVIDIA主流AI显卡价格与算力对比 (2026-07-15)',
+                  link: '/blog/2026/2026-07-15-NVIDIA-GPU-comparison',
+                },
                 {
                   text: 'InternData-N1：面向通用视觉-语言导航的大规模统一数据集 (2026-07-10)',
                   link: '/blog/2026/2026-07-10-InternData-N1',
