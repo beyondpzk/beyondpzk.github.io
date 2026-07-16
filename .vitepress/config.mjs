@@ -97,8 +97,16 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'DA-Nav (2026-07-16)',
+                  link: '/blog/2026/DA-Nav',
+                },
+                {
                   text: 'NVIDIA主流AI显卡价格与算力对比 (2026-07-15)',
                   link: '/blog/2026/2026-07-15-NVIDIA-GPU-comparison',
+                },
+                {
+                  text: '如何构建一个 VLA 导航仿真数据引擎 (2026-07-15)',
+                  link: '/blog/2026/2026-07-15-simulation-data-engine',
                 },
                 {
                   text: '世界模型与VLA对比 (2026-07-14)',
@@ -469,6 +477,10 @@ export default defineConfig({
                   link: '/blog/2024/pytorch_bug',
                 },
                 {
+                  text: 'CityWalker (2024-11-26)',
+                  link: '/blog/2024/2024-11-26-CityWalker',
+                },
+                {
                   text: 'DinoWM (2024-11-07)',
                   link: '/blog/2024/DinoWM',
                 },
@@ -645,6 +657,10 @@ export default defineConfig({
                   link: '/blog/2022/MILE',
                 },
                 {
+                  text: 'GNM (2022-10-07)',
+                  link: '/blog/2022/2022-10-07-GNM',
+                },
+                {
                   text: 'FlowMatching (2022-10-06)',
                   link: '/blog/2022/FlowMatching',
                 },
@@ -663,6 +679,10 @@ export default defineConfig({
                 {
                   text: 'Wayformer (2022-07-12)',
                   link: '/blog/2022/Wayformer',
+                },
+                {
+                  text: 'LM-Nav (2022-07-10)',
+                  link: '/blog/2022/2022-07-10-LM-Nav',
                 },
                 {
                   text: 'DayDreamer (2022-06-28)',
@@ -763,6 +783,10 @@ export default defineConfig({
                   link: '/blog/2019/MultiPath',
                 },
                 {
+                  text: 'Talk2Nav (2019-10-04)',
+                  link: '/blog/2019/2019-10-04-Talk2Nav',
+                },
+                {
                   text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
                   link: '/blog/2019/2019-10-04-Yolo_deploy',
                 },
@@ -796,6 +820,10 @@ export default defineConfig({
               text: '📂 VLA',
               collapsed: true,
               items: [
+                {
+                  text: 'DA-Nav (2026-07-16)',
+                  link: '/blog/2026/DA-Nav',
+                },
                 {
                   text: '世界模型与VLA对比 (2026-07-14)',
                   link: '/blog/2026/2026-07-14-WorldModels-vs-VLA',
@@ -911,6 +939,10 @@ export default defineConfig({
                 {
                   text: 'Gato (2022-05-12)',
                   link: '/blog/2022/Gato',
+                },
+                {
+                  text: 'Talk2Nav (2019-10-04)',
+                  link: '/blog/2019/2019-10-04-Talk2Nav',
                 },
               ],
             },
@@ -1187,6 +1219,32 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 VLN',
+              collapsed: true,
+              items: [
+                {
+                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
+                  link: '/blog/2026/FineGrainedAlignmentedVLN',
+                },
+                {
+                  text: 'CityWalker (2024-11-26)',
+                  link: '/blog/2024/2024-11-26-CityWalker',
+                },
+                {
+                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
+                  link: '/blog/2024/2024-02-24-NaVid',
+                },
+                {
+                  text: 'GNM (2022-10-07)',
+                  link: '/blog/2022/2022-10-07-GNM',
+                },
+                {
+                  text: 'LM-Nav (2022-07-10)',
+                  link: '/blog/2022/2022-07-10-LM-Nav',
+                },
+              ],
+            },
+            {
               text: '📂 reading',
               collapsed: true,
               items: [
@@ -1313,20 +1371,6 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 VLN',
-              collapsed: true,
-              items: [
-                {
-                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
-                  link: '/blog/2026/FineGrainedAlignmentedVLN',
-                },
-                {
-                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
-                  link: '/blog/2024/2024-02-24-NaVid',
-                },
-              ],
-            },
-            {
               text: '📂 Agent',
               collapsed: true,
               items: [
@@ -1415,6 +1459,16 @@ export default defineConfig({
                 {
                   text: 'VLA_embodedAI (2025-09-01)',
                   link: '/blog/2025/VLA_embodedAI',
+                },
+              ],
+            },
+            {
+              text: '📂 仿真',
+              collapsed: true,
+              items: [
+                {
+                  text: '如何构建一个 VLA 导航仿真数据引擎 (2026-07-15)',
+                  link: '/blog/2026/2026-07-15-simulation-data-engine',
                 },
               ],
             },
