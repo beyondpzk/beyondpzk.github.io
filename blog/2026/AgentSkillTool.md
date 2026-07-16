@@ -1,7 +1,7 @@
 ---
 title: Agent、Skill 与 Tool：三者的关系与协作边界
 date: 2026-07-02
-categories: [Agent]
+categories: [Agents]
 ---
 
 # Agent、Skill 与 Tool：三者的关系与协作边界
