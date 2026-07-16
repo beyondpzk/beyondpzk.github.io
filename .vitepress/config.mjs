@@ -115,6 +115,10 @@ export default defineConfig({
                   link: '/blog/2026/2026-07-13-abot-c0',
                 },
                 {
+                  text: 'ABot-N1 (2026-07-11)',
+                  link: '/blog/2026/2026-07-11-ABot-N1',
+                },
+                {
                   text: 'InternData-N1：面向通用视觉-语言导航的大规模统一数据集 (2026-07-10)',
                   link: '/blog/2026/2026-07-10-InternData-N1',
                 },
@@ -877,6 +881,10 @@ export default defineConfig({
                 {
                   text: 'ABot-C0 (2026-07-13)',
                   link: '/blog/2026/2026-07-13-abot-c0',
+                },
+                {
+                  text: 'ABot-N1 (2026-07-11)',
+                  link: '/blog/2026/2026-07-11-ABot-N1',
                 },
                 {
                   text: 'ACE-Brain-0.5：面向 Physical Agentic AI 的统一具身基模型 (2026-07-06)',
