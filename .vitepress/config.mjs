@@ -57,9 +57,7 @@ export default defineConfig({
   base: '/',
 
   // 忽略 README 中的本地开发链接检查
-  ignoreDeadLinks: [
-    /^http:\/\/localhost/,
-  ],
+  ignoreDeadLinks: true,
 
   // 简洁美观的默认主题
   themeConfig: {
@@ -98,7 +96,7 @@ export default defineConfig({
               items: [
                 {
                   text: 'DA-Nav (2026-07-16)',
-                  link: '/blog/2026/DA-Nav',
+                  link: '/blog/2026/2026-07-16-da-nav',
                 },
                 {
                   text: 'NVIDIA主流AI显卡价格与算力对比 (2026-07-15)',
@@ -114,7 +112,7 @@ export default defineConfig({
                 },
                 {
                   text: 'ABot-C0 (2026-07-13)',
-                  link: '/blog/2026/ABot-C0',
+                  link: '/blog/2026/2026-07-13-abot-c0',
                 },
                 {
                   text: 'InternData-N1：面向通用视觉-语言导航的大规模统一数据集 (2026-07-10)',
@@ -126,75 +124,75 @@ export default defineConfig({
                 },
                 {
                   text: '仿真数据的两种命运 (2026-07-09)',
-                  link: '/blog/2026/SimRealityGap',
+                  link: '/blog/2026/2026-07-09-simrealitygap',
                 },
                 {
                   text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
-                  link: '/blog/2026/NvidiaSparseTOPSvsDenseTOPS',
+                  link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
                 },
                 {
                   text: 'LingBot-Vision 与 LingBot-Depth 2.0：具身智能的空间视觉基座再升级 (2026-07-07)',
-                  link: '/blog/2026/LingBot-Vision-Depth2',
+                  link: '/blog/2026/2026-07-07-lingbot-vision-depth2',
                 },
                 {
                   text: '原生多模：从 Janus 到 Janus-Pro，一个 Transformer 同时理解与生成 (2026-07-07)',
-                  link: '/blog/2026/原生多模',
+                  link: '/blog/2026/2026-07-07-原生多模',
                 },
                 {
                   text: 'ACE-Brain-0.5：面向 Physical Agentic AI 的统一具身基模型 (2026-07-06)',
-                  link: '/blog/2026/ACE-Brain-0.5',
+                  link: '/blog/2026/2026-07-06-ace-brain-05',
                 },
                 {
                   text: 'StableVLA：不增加数据，把 VLA 的视觉鲁棒性提升 30% (2026-07-06)',
-                  link: '/blog/2026/StableVLA',
+                  link: '/blog/2026/2026-07-06-stablevla',
                 },
                 {
                   text: 'ABot (2026-07-05)',
-                  link: '/blog/2026/ABot',
+                  link: '/blog/2026/2026-07-05-abot',
                 },
                 {
                   text: 'LiteVLA (2026-07-05)',
-                  link: '/blog/2026/LiteVLA',
+                  link: '/blog/2026/2026-07-05-litevla',
                 },
                 {
                   text: 'VLX-Go (2026-07-05)',
-                  link: '/blog/2026/VLXGo',
+                  link: '/blog/2026/2026-07-05-vlxgo',
                 },
                 {
                   text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
-                  link: '/blog/2026/JetsonOrinDeployment',
+                  link: '/blog/2026/2026-07-04-jetsonorindeployment',
                 },
                 {
                   text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
-                  link: '/blog/2026/AgentSkillTool',
+                  link: '/blog/2026/2026-07-02-agentskilltool',
                 },
                 {
                   text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
-                  link: '/blog/2026/ModelDeploymentEngine',
+                  link: '/blog/2026/2026-07-02-modeldeploymentengine',
                 },
                 {
                   text: '高德地图语音导航逻辑与纯 Python Demo (2026-07-01)',
-                  link: '/blog/2026/GaodeVoiceNavDemo',
+                  link: '/blog/2026/2026-07-01-gaodevoicenavdemo',
                 },
                 {
                   text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
-                  link: '/blog/2026/AgentComprehensiveGuide',
+                  link: '/blog/2026/2026-06-28-agentcomprehensiveguide',
                 },
                 {
                   text: '关节限位 (2026-06-28)',
-                  link: '/blog/2026/JointLimits',
+                  link: '/blog/2026/2026-06-28-jointlimits',
                 },
                 {
                   text: '运动原语：机器人动作世界的"字母表 (2026-06-28)',
-                  link: '/blog/2026/MotionPrimitives',
+                  link: '/blog/2026/2026-06-28-motionprimitives',
                 },
                 {
                   text: 'Qwen-RobotNav (2026-06-17)',
-                  link: '/blog/2026/QwenRobotNav',
+                  link: '/blog/2026/2026-06-17-qwenrobotnav',
                 },
                 {
                   text: 'EmbodiedNav (2026-06-15)',
-                  link: '/blog/2026/EmbodiedNav',
+                  link: '/blog/2026/2026-06-15-embodiednav',
                 },
                 {
                   text: 'MotionWAM (2026-06-08)',
@@ -202,7 +200,7 @@ export default defineConfig({
                 },
                 {
                   text: 'RLNeeds (2026-06-02)',
-                  link: '/blog/2026/RLNeeds',
+                  link: '/blog/2026/2026-06-02-rlneeds',
                 },
                 {
                   text: 'Uni-LaViRA (2026-05-26)',
@@ -210,67 +208,67 @@ export default defineConfig({
                 },
                 {
                   text: 'LAPose (2026-05-05)',
-                  link: '/blog/2026/LAPose',
+                  link: '/blog/2026/2026-05-05-lapose',
                 },
                 {
                   text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
-                  link: '/blog/2026/pi0.7',
+                  link: '/blog/2026/2026-04-16-pi07',
                 },
                 {
                   text: 'CoMaTrack (2026-03-24)',
-                  link: '/blog/2026/CoMaTrack',
+                  link: '/blog/2026/2026-03-24-comatrack',
                 },
                 {
                   text: 'GigaWorldPolicy (2026-03-18)',
-                  link: '/blog/2026/GigaWorldPolicy',
+                  link: '/blog/2026/2026-03-18-gigaworldpolicy',
                 },
                 {
                   text: 'FastWAM (2026-03-17)',
-                  link: '/blog/2026/FastWAM',
+                  link: '/blog/2026/2026-03-17-fastwam',
                 },
                 {
                   text: 'VJEPA2.1 (2026-03-15)',
-                  link: '/blog/2026/VJEPA2.1',
+                  link: '/blog/2026/2026-03-15-vjepa21',
                 },
                 {
                   text: 'RAENWM (2026-03-10)',
-                  link: '/blog/2026/RAENWM',
+                  link: '/blog/2026/2026-03-10-raenwm',
                 },
                 {
                   text: 'SimVLA (2026-02-20)',
-                  link: '/blog/2026/SimVLA',
+                  link: '/blog/2026/2026-02-20-simvla',
                 },
                 {
                   text: 'DreamZero (2026-02-17)',
-                  link: '/blog/2026/DreamZero',
+                  link: '/blog/2026/2026-02-17-dreamzero',
                 },
                 {
                   text: 'ABot-N0 (2026-02-12)',
-                  link: '/blog/2026/ABot-N0',
+                  link: '/blog/2026/2026-02-12-abot-n0',
                 },
                 {
                   text: 'RISE (2026-02-11)',
-                  link: '/blog/2026/RISE',
+                  link: '/blog/2026/2026-02-11-rise',
                 },
                 {
                   text: 'Muon (2026-02-10)',
-                  link: '/blog/2026/Muon',
+                  link: '/blog/2026/2026-02-10-muon',
                 },
                 {
                   text: 'DriveWorldVLA (2026-02-06)',
-                  link: '/blog/2026/DriveWorldVLA',
+                  link: '/blog/2026/2026-02-06-driveworldvla',
                 },
                 {
                   text: 'DriveJEPA (2026-01-29)',
-                  link: '/blog/2026/DriveJEPA',
+                  link: '/blog/2026/2026-01-29-drivejepa',
                 },
                 {
                   text: 'LingBotVA (2026-01-29)',
-                  link: '/blog/2026/LingBotVA',
+                  link: '/blog/2026/2026-01-29-lingbotva',
                 },
                 {
                   text: 'C_RADIOv4 (2026-01-24)',
-                  link: '/blog/2026/C_RADIOv4',
+                  link: '/blog/2026/2026-01-24-c-radiov4',
                 },
                 {
                   text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
@@ -278,7 +276,7 @@ export default defineConfig({
                 },
                 {
                   text: 'GeRo (2026-01-16)',
-                  link: '/blog/2026/GeRo',
+                  link: '/blog/2026/2026-01-16-gero',
                 },
                 {
                   text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
@@ -286,7 +284,7 @@ export default defineConfig({
                 },
                 {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
-                  link: '/blog/2026/FineGrainedAlignmentedVLN',
+                  link: '/blog/2026/2026-01-10-finegrainedalignmentedvln',
                 },
                 {
                   text: 'AI Agent 实践案例集 (2026-01-08)',
@@ -294,11 +292,11 @@ export default defineConfig({
                 },
                 {
                   text: 'LearningLatentActionWM (2026-01-08)',
-                  link: '/blog/2026/LearningLatentActionWM',
+                  link: '/blog/2026/2026-01-08-learninglatentactionwm',
                 },
                 {
                   text: 'VLM4VLA (2026-01-06)',
-                  link: '/blog/2026/VLM4VLA',
+                  link: '/blog/2026/2026-01-06-vlm4vla',
                 },
                 {
                   text: 'AI Agent 全面学习指南 (2026-01-01)',
@@ -306,19 +304,19 @@ export default defineConfig({
                 },
                 {
                   text: 'LowerMemory (2026-01-01)',
-                  link: '/blog/2026/LowerMemory',
+                  link: '/blog/2026/2026-01-01-lowermemory',
                 },
                 {
                   text: 'ManyForcing (2026-01-01)',
-                  link: '/blog/2026/ManyForcing',
+                  link: '/blog/2026/2026-01-01-manyforcing',
                 },
                 {
                   text: 'ModelSpeed (2026-01-01)',
-                  link: '/blog/2026/ModelSpeed',
+                  link: '/blog/2026/2026-01-01-modelspeed',
                 },
                 {
                   text: 'TrainingSpeed (2026-01-01)',
-                  link: '/blog/2026/TrainingSpeed',
+                  link: '/blog/2026/2026-01-01-trainingspeed',
                 },
               ],
             },
@@ -328,19 +326,19 @@ export default defineConfig({
               items: [
                 {
                   text: 'JEPA_WM (2025-12-30)',
-                  link: '/blog/2025/JEPA_WM',
+                  link: '/blog/2025/2025-12-30-jepa-wm',
                 },
                 {
                   text: 'VLAAN (2025-12-17)',
-                  link: '/blog/2025/VLAAN',
+                  link: '/blog/2025/2025-12-17-vlaan',
                 },
                 {
                   text: 'Motus (2025-12-15)',
-                  link: '/blog/2025/Motus',
+                  link: '/blog/2025/2025-12-15-motus',
                 },
                 {
                   text: 'VLJEPA (2025-12-11)',
-                  link: '/blog/2025/VLJEPA',
+                  link: '/blog/2025/2025-12-11-vljepa',
                 },
                 {
                   text: 'DualVLN：慢思考、快执行——迈向通用视觉-语言导航的双系统基础模型 (2025-12-09)',
@@ -348,11 +346,11 @@ export default defineConfig({
                 },
                 {
                   text: 'RoboScapeR (2025-12-03)',
-                  link: '/blog/2025/RoboScapeR',
+                  link: '/blog/2025/2025-12-03-roboscaper',
                 },
                 {
                   text: 'ImprovedMeanFlows (2025-12-01)',
-                  link: '/blog/2025/ImprovedMeanFlows',
+                  link: '/blog/2025/2025-12-01-improvedmeanflows',
                 },
                 {
                   text: 'SocialNav (2025-11-26)',
@@ -364,11 +362,11 @@ export default defineConfig({
                 },
                 {
                   text: 'pi0.6 (2025-11-18)',
-                  link: '/blog/2025/pi0.6',
+                  link: '/blog/2025/2025-11-18-pi06',
                 },
                 {
                   text: 'SurveyOnWorldModelsForEmbodiedAI (2025-10-19)',
-                  link: '/blog/2025/SurveyOnWorldModelsForEmbodiedAI',
+                  link: '/blog/2025/2025-10-19-surveyonworldmodelsforembodiedai',
                 },
                 {
                   text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
@@ -376,15 +374,15 @@ export default defineConfig({
                 },
                 {
                   text: 'VLACompare (2025-10-01)',
-                  link: '/blog/2025/VLACompare',
+                  link: '/blog/2025/2025-10-01-vlacompare',
                 },
                 {
                   text: 'WMcompare (2025-10-01)',
-                  link: '/blog/2025/WMcompare',
+                  link: '/blog/2025/2025-10-01-wmcompare',
                 },
                 {
                   text: 'LongScape (2025-09-26)',
-                  link: '/blog/2025/LongScape',
+                  link: '/blog/2025/2025-09-26-longscape',
                 },
                 {
                   text: 'OmniVLA (2025-09-23)',
@@ -396,15 +394,15 @@ export default defineConfig({
                 },
                 {
                   text: 'VLA_embodedAI (2025-09-01)',
-                  link: '/blog/2025/VLA_embodedAI',
+                  link: '/blog/2025/2025-09-01-vla-embodedai',
                 },
                 {
                   text: 'MatrixGame2.0 (2025-08-18)',
-                  link: '/blog/2025/MatrixGame2.0',
+                  link: '/blog/2025/2025-08-18-matrixgame20',
                 },
                 {
                   text: 'DinoWorld (2025-07-25)',
-                  link: '/blog/2025/DinoWorld',
+                  link: '/blog/2025/2025-07-25-dinoworld',
                 },
                 {
                   text: 'StreamVLN (2025-07-07)',
@@ -412,51 +410,51 @@ export default defineConfig({
                 },
                 {
                   text: 'GoalVLA (2025-06-30)',
-                  link: '/blog/2025/GoalVLA',
+                  link: '/blog/2025/2025-06-30-goalvla',
                 },
                 {
                   text: 'RoboScape (2025-06-29)',
-                  link: '/blog/2025/RoboScape',
+                  link: '/blog/2025/2025-06-29-roboscape',
                 },
                 {
                   text: 'VLA0S (2025-06-21)',
-                  link: '/blog/2025/VLA0S',
+                  link: '/blog/2025/2025-06-21-vla0s',
                 },
                 {
                   text: 'AutoVLA (2025-06-16)',
-                  link: '/blog/2025/AutoVLA',
+                  link: '/blog/2025/2025-06-16-autovla',
                 },
                 {
                   text: 'VJEPA2 (2025-06-11)',
-                  link: '/blog/2025/VJEPA2',
+                  link: '/blog/2025/2025-06-11-vjepa2',
                 },
                 {
                   text: 'LiteVLM：面向嵌入式设备的低延迟 VLM 推理流水线 (2025-06-09)',
-                  link: '/blog/2025/LiteVLM',
+                  link: '/blog/2025/2025-06-09-litevlm',
                 },
                 {
                   text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
-                  link: '/blog/2025/SmolVLM',
+                  link: '/blog/2025/2025-06-01-smolvlm',
                 },
                 {
                   text: 'TrackVLA (2025-05-29)',
-                  link: '/blog/2025/TrackVLA',
+                  link: '/blog/2025/2025-05-29-trackvla',
                 },
                 {
                   text: 'BAGEL (2025-05-20)',
-                  link: '/blog/2025/BAGEL',
+                  link: '/blog/2025/2025-05-20-bagel',
                 },
                 {
                   text: 'VLM 模型部署实战：推理流水线、预处理与 Token 拼接 (2025-05-20)',
-                  link: '/blog/2025/VLMDeployment',
+                  link: '/blog/2025/2025-05-20-vlmdeployment',
                 },
                 {
                   text: 'MeanFlows (2025-05-19 19:52)',
-                  link: '/blog/2025/MeanFlows',
+                  link: '/blog/2025/2025-05-19-meanflows',
                 },
                 {
                   text: 'Pi05 (2025-04-22)',
-                  link: '/blog/2025/Pi05',
+                  link: '/blog/2025/2025-04-22-pi05',
                 },
                 {
                   text: 'RaceVLA (2025-03-04)',
@@ -464,27 +462,27 @@ export default defineConfig({
                 },
                 {
                   text: 'ChatVLA (2025-02-20)',
-                  link: '/blog/2025/ChatVLA',
+                  link: '/blog/2025/2025-02-20-chatvla',
                 },
                 {
                   text: 'RAD (2025-02-18)',
-                  link: '/blog/2025/RAD',
+                  link: '/blog/2025/2025-02-18-rad',
                 },
                 {
                   text: 'ROPE (2025-01-04)',
-                  link: '/blog/2025/ROPE',
+                  link: '/blog/2025/2025-01-04-rope',
                 },
                 {
                   text: 'DeepSpeed (2025-01-03)',
-                  link: '/blog/2025/DeepSpeed',
+                  link: '/blog/2025/2025-01-03-deepspeed',
                 },
                 {
                   text: 'KVCACHE (2025-01-02)',
-                  link: '/blog/2025/KVCACHE',
+                  link: '/blog/2025/2025-01-02-kvcache',
                 },
                 {
                   text: 'FSDP (2025-01-01)',
-                  link: '/blog/2025/FSDP',
+                  link: '/blog/2025/2025-01-01-fsdp',
                 },
               ],
             },
@@ -494,15 +492,15 @@ export default defineConfig({
               items: [
                 {
                   text: 'pytorch_weights_datasets (2024-12-26)',
-                  link: '/blog/2024/pytorch_weights_datasets',
+                  link: '/blog/2024/2024-12-26-pytorch-weights-datasets',
                 },
                 {
                   text: 'FLIP (2024-12-11)',
-                  link: '/blog/2024/FLIP',
+                  link: '/blog/2024/2024-12-11-flip',
                 },
                 {
                   text: 'Uni-NaVid (2024-12-09)',
-                  link: '/blog/2024/Uni-NaVid',
+                  link: '/blog/2024/2024-12-09-uni-navid',
                 },
                 {
                   text: 'NaVILA (2024-12-05)',
@@ -510,11 +508,11 @@ export default defineConfig({
                 },
                 {
                   text: 'NWM (2024-12-04)',
-                  link: '/blog/2024/NWM',
+                  link: '/blog/2024/2024-12-04-nwm',
                 },
                 {
                   text: 'pytorch_bug (2024-12-02)',
-                  link: '/blog/2024/pytorch_bug',
+                  link: '/blog/2024/2024-12-02-pytorch-bug',
                 },
                 {
                   text: 'CityWalker (2024-11-26)',
@@ -522,67 +520,67 @@ export default defineConfig({
                 },
                 {
                   text: 'DinoWM (2024-11-07)',
-                  link: '/blog/2024/DinoWM',
+                  link: '/blog/2024/2024-11-07-dinowm',
                 },
                 {
                   text: 'Pi0 (2024-10-31)',
-                  link: '/blog/2024/Pi0',
+                  link: '/blog/2024/2024-10-31-pi0',
                 },
                 {
                   text: 'RDT1B (2024-10-10)',
-                  link: '/blog/2024/RDT1B',
+                  link: '/blog/2024/2024-10-10-rdt1b',
                 },
                 {
                   text: 'TinyVLM (2024-10-04)',
-                  link: '/blog/2024/TinyVLM',
+                  link: '/blog/2024/2024-10-04-tinyvlm',
                 },
                 {
                   text: 'E2E (2024-10-03)',
-                  link: '/blog/2024/E2E',
+                  link: '/blog/2024/2024-10-03-e2e',
                 },
                 {
                   text: 'SelfForcing (2024-10-02)',
-                  link: '/blog/2024/SelfForcing',
+                  link: '/blog/2024/2024-10-02-selfforcing',
                 },
                 {
                   text: 'PredictiveWM_VS_GenerativeWM (2024-10-01)',
-                  link: '/blog/2024/PredictiveWM_VS_GenerativeWM',
+                  link: '/blog/2024/2024-10-01-predictivewm-vs-generativewm',
                 },
                 {
                   text: 'MAR (2024-06-17)',
-                  link: '/blog/2024/MAR',
+                  link: '/blog/2024/2024-06-17-mar',
                 },
                 {
                   text: 'OpenVLA (2024-06-13)',
-                  link: '/blog/2024/OpenVLA',
+                  link: '/blog/2024/2024-06-13-openvla',
                 },
                 {
                   text: 'SparseDrive (2024-05-30)',
-                  link: '/blog/2024/SparseDrive',
+                  link: '/blog/2024/2024-05-30-sparsedrive',
                 },
                 {
                   text: 'Survey_Occupancy (2024-05-08)',
-                  link: '/blog/2024/Survey_Occupancy',
+                  link: '/blog/2024/2024-05-08-survey-occupancy',
                 },
                 {
                   text: 'SparseAD (2024-04-10)',
-                  link: '/blog/2024/SparseAD',
+                  link: '/blog/2024/2024-04-10-sparsead',
                 },
                 {
                   text: 'VAR (2024-04-03)',
-                  link: '/blog/2024/VAR',
+                  link: '/blog/2024/2024-04-03-var',
                 },
                 {
                   text: 'DROID (2024-03-19)',
-                  link: '/blog/2024/DROID',
+                  link: '/blog/2024/2024-03-19-droid',
                 },
                 {
-                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
+                  text: 'NaVid (2024-02-24)',
                   link: '/blog/2024/2024-02-24-NaVid',
                 },
                 {
                   text: 'VJEPA (2024-02-15)',
-                  link: '/blog/2024/VJEPA',
+                  link: '/blog/2024/2024-02-15-vjepa',
                 },
               ],
             },
@@ -592,23 +590,23 @@ export default defineConfig({
               items: [
                 {
                   text: 'Vidar (2023-12-29)',
-                  link: '/blog/2023/Vidar',
+                  link: '/blog/2023/2023-12-29-vidar',
                 },
                 {
                   text: 'SparseOcc (2023-12-28)',
-                  link: '/blog/2023/SparseOcc',
+                  link: '/blog/2023/2023-12-28-sparseocc',
                 },
                 {
                   text: 'QUAR-VLA (2023-12-22)',
-                  link: '/blog/2023/QUAR-VLA',
+                  link: '/blog/2023/2023-12-22-quar-vla',
                 },
                 {
                   text: 'Emu2 (2023-12-20)',
-                  link: '/blog/2023/Emu2',
+                  link: '/blog/2023/2023-12-20-emu2',
                 },
                 {
                   text: 'Sparse4DV3 (2023-11-20)',
-                  link: '/blog/2023/Sparse4DV3',
+                  link: '/blog/2023/2023-11-20-sparse4dv3',
                 },
                 {
                   text: 'NoMaD (2023-10-11)',
@@ -616,39 +614,39 @@ export default defineConfig({
                 },
                 {
                   text: '3DpointCloudGenerative (2023-10-10)',
-                  link: '/blog/2023/3DpointCloudGenerative',
+                  link: '/blog/2023/2023-10-10-3dpointcloudgenerative',
                 },
                 {
                   text: 'MAGVITV2 (2023-10-09)',
-                  link: '/blog/2023/MAGVITV2',
+                  link: '/blog/2023/2023-10-09-magvitv2',
                 },
                 {
                   text: 'WM (2023-10-03)',
-                  link: '/blog/2023/WM',
+                  link: '/blog/2023/2023-10-03-wm',
                 },
                 {
                   text: 'verl (2023-10-01)',
-                  link: '/blog/2023/verl',
+                  link: '/blog/2023/2023-10-01-verl',
                 },
                 {
                   text: 'DE_VS_SDE (2023-09-18)',
-                  link: '/blog/2023/DE_VS_SDE',
+                  link: '/blog/2023/2023-09-18-de-vs-sde',
                 },
                 {
                   text: 'RenderOcc (2023-09-18)',
-                  link: '/blog/2023/RenderOcc',
+                  link: '/blog/2023/2023-09-18-renderocc',
                 },
                 {
                   text: 'SparseBEV (2023-8-18)',
-                  link: '/blog/2023/2023-8-18-SparseBEV',
+                  link: '/blog/2023/2023-08-18-sparsebev',
                 },
                 {
                   text: 'RT2 (2023-07-28)',
-                  link: '/blog/2023/RT2',
+                  link: '/blog/2023/2023-07-28-rt2',
                 },
                 {
                   text: 'Emu1 (2023-07-11)',
-                  link: '/blog/2023/Emu1',
+                  link: '/blog/2023/2023-07-11-emu1',
                 },
                 {
                   text: 'ViNT (2023-06-26)',
@@ -656,7 +654,7 @@ export default defineConfig({
                 },
                 {
                   text: 'Sparse4DV2 (2023-5-23)',
-                  link: '/blog/2023/2023-5-23-Sparse4DV2',
+                  link: '/blog/2023/2023-05-23-sparse4dv2',
                 },
                 {
                   text: 'PrepareData (2023-05-02)',
@@ -664,27 +662,27 @@ export default defineConfig({
                 },
                 {
                   text: 'ACT (2023-04-23)',
-                  link: '/blog/2023/ACT',
+                  link: '/blog/2023/2023-04-23-act',
                 },
                 {
                   text: 'StreamPETR (2023-03-21)',
-                  link: '/blog/2023/StreamPETR',
+                  link: '/blog/2023/2023-03-21-streampetr',
                 },
                 {
                   text: 'DiffusionPolicy (2023-03-07)',
-                  link: '/blog/2023/DiffusionPolicy',
+                  link: '/blog/2023/2023-03-07-diffusionpolicy',
                 },
                 {
                   text: 'IJEPA (2023-01-19)',
-                  link: '/blog/2023/Ijepa',
+                  link: '/blog/2023/2023-01-19-ijepa',
                 },
                 {
                   text: 'DeramerV3 (2023-01-10)',
-                  link: '/blog/2023/DeramerV3',
+                  link: '/blog/2023/2023-01-10-deramerv3',
                 },
                 {
                   text: 'offlineonlineworldmodel (2023-01-01)',
-                  link: '/blog/2023/offlineonlineworldmodel',
+                  link: '/blog/2023/2023-01-01-offlineonlineworldmodel',
                 },
               ],
             },
@@ -694,15 +692,15 @@ export default defineConfig({
               items: [
                 {
                   text: 'RT1 (2022-12-13)',
-                  link: '/blog/2022/RT1',
+                  link: '/blog/2022/2022-12-13-rt1',
                 },
                 {
                   text: 'Sparse4D (2022-11-19)',
-                  link: '/blog/2022/Sparse4D',
+                  link: '/blog/2022/2022-11-19-sparse4d',
                 },
                 {
                   text: 'MILE (2022-10-14)',
-                  link: '/blog/2022/MILE',
+                  link: '/blog/2022/2022-10-14-mile',
                 },
                 {
                   text: 'GNM (2022-10-07)',
@@ -710,23 +708,23 @@ export default defineConfig({
                 },
                 {
                   text: 'FlowMatching (2022-10-06)',
-                  link: '/blog/2022/FlowMatching',
+                  link: '/blog/2022/2022-10-06-flowmatching',
                 },
                 {
                   text: 'RectifiedFlow (2022-09-07)',
-                  link: '/blog/2022/RectifiedFlow',
+                  link: '/blog/2022/2022-09-07-rectifiedflow',
                 },
                 {
                   text: 'FlowAndDataGeneration (2022-09-05)',
-                  link: '/blog/2022/FlowAndDataGeneration',
+                  link: '/blog/2022/2022-09-05-flowanddatageneration',
                 },
                 {
                   text: 'IRIS (2022-09-01)',
-                  link: '/blog/2022/IRIS',
+                  link: '/blog/2022/2022-09-01-iris',
                 },
                 {
                   text: 'Wayformer (2022-07-12)',
-                  link: '/blog/2022/Wayformer',
+                  link: '/blog/2022/2022-07-12-wayformer',
                 },
                 {
                   text: 'LM-Nav (2022-07-10)',
@@ -734,31 +732,31 @@ export default defineConfig({
                 },
                 {
                   text: 'DayDreamer (2022-06-28)',
-                  link: '/blog/2022/DayDreamer',
+                  link: '/blog/2022/2022-06-28-daydreamer',
                 },
                 {
                   text: 'VPT (2022-06-23)',
-                  link: '/blog/2022/VPT',
+                  link: '/blog/2022/2022-06-23-vpt',
                 },
                 {
                   text: 'PETRV2 (2022-06-02)',
-                  link: '/blog/2022/PETRV2',
+                  link: '/blog/2022/2022-06-02-petrv2',
                 },
                 {
                   text: 'Gato (2022-05-12)',
-                  link: '/blog/2022/Gato',
+                  link: '/blog/2022/2022-05-12-gato',
                 },
                 {
                   text: 'mu_law (2022-05-12)',
-                  link: '/blog/2022/mu_law',
+                  link: '/blog/2022/2022-05-12-mu-law',
                 },
                 {
                   text: 'PETR (2022-03-10)',
-                  link: '/blog/2022/PETR',
+                  link: '/blog/2022/2022-03-10-petr',
                 },
                 {
                   text: 'TransDreamer (2022-02-19)',
-                  link: '/blog/2022/TransDreamer',
+                  link: '/blog/2022/2022-02-19-transdreamer',
                 },
               ],
             },
@@ -768,23 +766,23 @@ export default defineConfig({
               items: [
                 {
                   text: 'Mask2Former (2021-12-02)',
-                  link: '/blog/2021/Mask2Former',
+                  link: '/blog/2021/2021-12-02-mask2former',
                 },
                 {
                   text: 'DETR3D (2021-10-13)',
-                  link: '/blog/2021/DETR3D',
+                  link: '/blog/2021/2021-10-13-detr3d',
                 },
                 {
                   text: 'MaskFormer (2021-07-13)',
-                  link: '/blog/2021/MaskFormer',
+                  link: '/blog/2021/2021-07-13-maskformer',
                 },
                 {
                   text: 'CaDDN (2021-03-01)',
-                  link: '/blog/2021/CaDDN',
+                  link: '/blog/2021/2021-03-01-caddn',
                 },
                 {
                   text: 'IntentNet (2021-01-20)',
-                  link: '/blog/2021/IntentNet',
+                  link: '/blog/2021/2021-01-20-intentnet',
                 },
               ],
             },
@@ -794,27 +792,27 @@ export default defineConfig({
               items: [
                 {
                   text: 'SparseRCNN (2020-11-25)',
-                  link: '/blog/2020/SparseRCNN',
+                  link: '/blog/2020/2020-11-25-sparsercnn',
                 },
                 {
                   text: 'DreamerV2 (2020-10-05)',
-                  link: '/blog/2020/DreamerV2',
+                  link: '/blog/2020/2020-10-05-dreamerv2',
                 },
                 {
                   text: 'TNT (2020-08-19)',
-                  link: '/blog/2020/TNT',
+                  link: '/blog/2020/2020-08-19-tnt',
                 },
                 {
                   text: 'CVAE_VS_VAE (2020-07-06)',
-                  link: '/blog/2020/CVAE_VS_VAE',
+                  link: '/blog/2020/2020-07-06-cvae-vs-vae',
                 },
                 {
                   text: 'DETR (2020-05-26)',
-                  link: '/blog/2020/DETR',
+                  link: '/blog/2020/2020-05-26-detr',
                 },
                 {
                   text: 'VectorNet (2020-05-08)',
-                  link: '/blog/2020/VectorNet',
+                  link: '/blog/2020/2020-05-08-vectornet',
                 },
               ],
             },
@@ -824,11 +822,11 @@ export default defineConfig({
               items: [
                 {
                   text: 'DreamerV1 (2019-12-03)',
-                  link: '/blog/2019/DreamerV1',
+                  link: '/blog/2019/2019-12-03-dreamerv1',
                 },
                 {
                   text: 'MultiPath (2019-10-12)',
-                  link: '/blog/2019/MultiPath',
+                  link: '/blog/2019/2019-10-12-multipath',
                 },
                 {
                   text: 'Talk2Nav (2019-10-04)',
@@ -840,7 +838,7 @@ export default defineConfig({
                 },
                 {
                   text: 'l1l2 (2019-01-01)',
-                  link: '/blog/2019/l1l2',
+                  link: '/blog/2019/2019-01-01-l1l2',
                 },
               ],
             },
@@ -850,11 +848,11 @@ export default defineConfig({
               items: [
                 {
                   text: 'PlaNet (2018-11-12)',
-                  link: '/blog/2018/PlaNet',
+                  link: '/blog/2018/2018-11-12-planet',
                 },
                 {
                   text: 'WorldModels (2018-03-27)',
-                  link: '/blog/2018/WorldModels',
+                  link: '/blog/2018/2018-03-27-worldmodels',
                 },
               ],
             },
@@ -870,7 +868,7 @@ export default defineConfig({
               items: [
                 {
                   text: 'DA-Nav (2026-07-16)',
-                  link: '/blog/2026/DA-Nav',
+                  link: '/blog/2026/2026-07-16-da-nav',
                 },
                 {
                   text: '世界模型与VLA对比 (2026-07-14)',
@@ -878,111 +876,107 @@ export default defineConfig({
                 },
                 {
                   text: 'ABot-C0 (2026-07-13)',
-                  link: '/blog/2026/ABot-C0',
+                  link: '/blog/2026/2026-07-13-abot-c0',
                 },
                 {
                   text: 'ACE-Brain-0.5：面向 Physical Agentic AI 的统一具身基模型 (2026-07-06)',
-                  link: '/blog/2026/ACE-Brain-0.5',
+                  link: '/blog/2026/2026-07-06-ace-brain-05',
                 },
                 {
                   text: 'StableVLA：不增加数据，把 VLA 的视觉鲁棒性提升 30% (2026-07-06)',
-                  link: '/blog/2026/StableVLA',
+                  link: '/blog/2026/2026-07-06-stablevla',
                 },
                 {
                   text: 'ABot (2026-07-05)',
-                  link: '/blog/2026/ABot',
+                  link: '/blog/2026/2026-07-05-abot',
                 },
                 {
                   text: 'LiteVLA (2026-07-05)',
-                  link: '/blog/2026/LiteVLA',
+                  link: '/blog/2026/2026-07-05-litevla',
                 },
                 {
                   text: 'VLX-Go (2026-07-05)',
-                  link: '/blog/2026/VLXGo',
+                  link: '/blog/2026/2026-07-05-vlxgo',
                 },
                 {
                   text: 'Qwen-RobotNav (2026-06-17)',
-                  link: '/blog/2026/QwenRobotNav',
+                  link: '/blog/2026/2026-06-17-qwenrobotnav',
                 },
                 {
                   text: 'EmbodiedNav (2026-06-15)',
-                  link: '/blog/2026/EmbodiedNav',
+                  link: '/blog/2026/2026-06-15-embodiednav',
                 },
                 {
                   text: 'Physical Intelligence π 系列 VLA 技术演进报告（π0 → π0.7） (2026-04-16)',
-                  link: '/blog/2026/pi0.7',
+                  link: '/blog/2026/2026-04-16-pi07',
                 },
                 {
                   text: 'CoMaTrack (2026-03-24)',
-                  link: '/blog/2026/CoMaTrack',
+                  link: '/blog/2026/2026-03-24-comatrack',
                 },
                 {
                   text: 'ABot-N0 (2026-02-12)',
-                  link: '/blog/2026/ABot-N0',
+                  link: '/blog/2026/2026-02-12-abot-n0',
                 },
                 {
                   text: 'VLM4VLA (2026-01-06)',
-                  link: '/blog/2026/VLM4VLA',
+                  link: '/blog/2026/2026-01-06-vlm4vla',
                 },
                 {
                   text: 'GoalVLA (2025-06-30)',
-                  link: '/blog/2025/GoalVLA',
+                  link: '/blog/2025/2025-06-30-goalvla',
                 },
                 {
                   text: 'AutoVLA (2025-06-16)',
-                  link: '/blog/2025/AutoVLA',
+                  link: '/blog/2025/2025-06-16-autovla',
                 },
                 {
                   text: 'Pi05 (2025-04-22)',
-                  link: '/blog/2025/Pi05',
+                  link: '/blog/2025/2025-04-22-pi05',
                 },
                 {
                   text: 'ChatVLA (2025-02-20)',
-                  link: '/blog/2025/ChatVLA',
+                  link: '/blog/2025/2025-02-20-chatvla',
                 },
                 {
                   text: 'Uni-NaVid (2024-12-09)',
-                  link: '/blog/2024/Uni-NaVid',
+                  link: '/blog/2024/2024-12-09-uni-navid',
                 },
                 {
                   text: 'Pi0 (2024-10-31)',
-                  link: '/blog/2024/Pi0',
+                  link: '/blog/2024/2024-10-31-pi0',
                 },
                 {
                   text: 'RDT1B (2024-10-10)',
-                  link: '/blog/2024/RDT1B',
+                  link: '/blog/2024/2024-10-10-rdt1b',
                 },
                 {
                   text: 'OpenVLA (2024-06-13)',
-                  link: '/blog/2024/OpenVLA',
+                  link: '/blog/2024/2024-06-13-openvla',
                 },
                 {
                   text: 'DROID (2024-03-19)',
-                  link: '/blog/2024/DROID',
-                },
-                {
-                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
-                  link: '/blog/2024/2024-02-24-NaVid',
+                  link: '/blog/2024/2024-03-19-droid',
                 },
                 {
                   text: 'QUAR-VLA (2023-12-22)',
-                  link: '/blog/2023/QUAR-VLA',
+                  link: '/blog/2023/2023-12-22-quar-vla',
                 },
                 {
                   text: 'RT2 (2023-07-28)',
-                  link: '/blog/2023/RT2',
+                  link: '/blog/2023/2023-07-28-rt2',
                 },
                 {
                   text: 'DiffusionPolicy (2023-03-07)',
-                  link: '/blog/2023/DiffusionPolicy',
+                  link: '/blog/2023/2023-03-07-diffusionpolicy',
                 },
                 {
                   text: 'RT1 (2022-12-13)',
-                  link: '/blog/2022/RT1',
+                  link: '/blog/2022/2022-12-13-rt1',
                 },
                 {
                   text: 'Gato (2022-05-12)',
-                  link: '/blog/2022/Gato',
+                  link: '/blog/2022/2022-05-12-gato',
                 },
                 {
                   text: 'Talk2Nav (2019-10-04)',
@@ -996,87 +990,87 @@ export default defineConfig({
               items: [
                 {
                   text: '仿真数据的两种命运 (2026-07-09)',
-                  link: '/blog/2026/SimRealityGap',
+                  link: '/blog/2026/2026-07-09-simrealitygap',
                 },
                 {
                   text: 'Muon (2026-02-10)',
-                  link: '/blog/2026/Muon',
+                  link: '/blog/2026/2026-02-10-muon',
                 },
                 {
                   text: 'LowerMemory (2026-01-01)',
-                  link: '/blog/2026/LowerMemory',
+                  link: '/blog/2026/2026-01-01-lowermemory',
                 },
                 {
                   text: 'ManyForcing (2026-01-01)',
-                  link: '/blog/2026/ManyForcing',
+                  link: '/blog/2026/2026-01-01-manyforcing',
                 },
                 {
                   text: 'ModelSpeed (2026-01-01)',
-                  link: '/blog/2026/ModelSpeed',
+                  link: '/blog/2026/2026-01-01-modelspeed',
                 },
                 {
                   text: 'TrainingSpeed (2026-01-01)',
-                  link: '/blog/2026/TrainingSpeed',
+                  link: '/blog/2026/2026-01-01-trainingspeed',
                 },
                 {
                   text: 'VLACompare (2025-10-01)',
-                  link: '/blog/2025/VLACompare',
+                  link: '/blog/2025/2025-10-01-vlacompare',
                 },
                 {
                   text: 'WMcompare (2025-10-01)',
-                  link: '/blog/2025/WMcompare',
+                  link: '/blog/2025/2025-10-01-wmcompare',
                 },
                 {
                   text: 'ROPE (2025-01-04)',
-                  link: '/blog/2025/ROPE',
+                  link: '/blog/2025/2025-01-04-rope',
                 },
                 {
                   text: 'DeepSpeed (2025-01-03)',
-                  link: '/blog/2025/DeepSpeed',
+                  link: '/blog/2025/2025-01-03-deepspeed',
                 },
                 {
                   text: 'KVCACHE (2025-01-02)',
-                  link: '/blog/2025/KVCACHE',
+                  link: '/blog/2025/2025-01-02-kvcache',
                 },
                 {
                   text: 'FSDP (2025-01-01)',
-                  link: '/blog/2025/FSDP',
+                  link: '/blog/2025/2025-01-01-fsdp',
                 },
                 {
                   text: 'E2E (2024-10-03)',
-                  link: '/blog/2024/E2E',
+                  link: '/blog/2024/2024-10-03-e2e',
                 },
                 {
                   text: 'SelfForcing (2024-10-02)',
-                  link: '/blog/2024/SelfForcing',
+                  link: '/blog/2024/2024-10-02-selfforcing',
                 },
                 {
                   text: 'PredictiveWM_VS_GenerativeWM (2024-10-01)',
-                  link: '/blog/2024/PredictiveWM_VS_GenerativeWM',
+                  link: '/blog/2024/2024-10-01-predictivewm-vs-generativewm',
                 },
                 {
                   text: '3DpointCloudGenerative (2023-10-10)',
-                  link: '/blog/2023/3DpointCloudGenerative',
+                  link: '/blog/2023/2023-10-10-3dpointcloudgenerative',
                 },
                 {
                   text: 'WM (2023-10-03)',
-                  link: '/blog/2023/WM',
+                  link: '/blog/2023/2023-10-03-wm',
                 },
                 {
                   text: 'DE_VS_SDE (2023-09-18)',
-                  link: '/blog/2023/DE_VS_SDE',
+                  link: '/blog/2023/2023-09-18-de-vs-sde',
                 },
                 {
                   text: 'offlineonlineworldmodel (2023-01-01)',
-                  link: '/blog/2023/offlineonlineworldmodel',
+                  link: '/blog/2023/2023-01-01-offlineonlineworldmodel',
                 },
                 {
                   text: 'CVAE_VS_VAE (2020-07-06)',
-                  link: '/blog/2020/CVAE_VS_VAE',
+                  link: '/blog/2020/2020-07-06-cvae-vs-vae',
                 },
                 {
                   text: 'l1l2 (2019-01-01)',
-                  link: '/blog/2019/l1l2',
+                  link: '/blog/2019/2019-01-01-l1l2',
                 },
               ],
             },
@@ -1090,7 +1084,7 @@ export default defineConfig({
                 },
                 {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
-                  link: '/blog/2026/FineGrainedAlignmentedVLN',
+                  link: '/blog/2026/2026-01-10-finegrainedalignmentedvln',
                 },
                 {
                   text: 'SocialNav (2025-11-26)',
@@ -1121,7 +1115,7 @@ export default defineConfig({
                   link: '/blog/2024/2024-11-26-CityWalker',
                 },
                 {
-                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
+                  text: 'NaVid (2024-02-24)',
                   link: '/blog/2024/2024-02-24-NaVid',
                 },
                 {
@@ -1148,47 +1142,47 @@ export default defineConfig({
               items: [
                 {
                   text: 'DriveJEPA (2026-01-29)',
-                  link: '/blog/2026/DriveJEPA',
+                  link: '/blog/2026/2026-01-29-drivejepa',
                 },
                 {
                   text: 'DinoWorld (2025-07-25)',
-                  link: '/blog/2025/DinoWorld',
+                  link: '/blog/2025/2025-07-25-dinoworld',
                 },
                 {
                   text: 'RoboScape (2025-06-29)',
-                  link: '/blog/2025/RoboScape',
+                  link: '/blog/2025/2025-06-29-roboscape',
                 },
                 {
                   text: 'DinoWM (2024-11-07)',
-                  link: '/blog/2024/DinoWM',
+                  link: '/blog/2024/2024-11-07-dinowm',
                 },
                 {
                   text: 'IJEPA (2023-01-19)',
-                  link: '/blog/2023/Ijepa',
+                  link: '/blog/2023/2023-01-19-ijepa',
                 },
                 {
                   text: 'DeramerV3 (2023-01-10)',
-                  link: '/blog/2023/DeramerV3',
+                  link: '/blog/2023/2023-01-10-deramerv3',
                 },
                 {
                   text: 'IRIS (2022-09-01)',
-                  link: '/blog/2022/IRIS',
+                  link: '/blog/2022/2022-09-01-iris',
                 },
                 {
                   text: 'TransDreamer (2022-02-19)',
-                  link: '/blog/2022/TransDreamer',
+                  link: '/blog/2022/2022-02-19-transdreamer',
                 },
                 {
                   text: 'DreamerV2 (2020-10-05)',
-                  link: '/blog/2020/DreamerV2',
+                  link: '/blog/2020/2020-10-05-dreamerv2',
                 },
                 {
                   text: 'DreamerV1 (2019-12-03)',
-                  link: '/blog/2019/DreamerV1',
+                  link: '/blog/2019/2019-12-03-dreamerv1',
                 },
                 {
                   text: 'WorldModels (2018-03-27)',
-                  link: '/blog/2018/WorldModels',
+                  link: '/blog/2018/2018-03-27-worldmodels',
                 },
               ],
             },
@@ -1198,39 +1192,39 @@ export default defineConfig({
               items: [
                 {
                   text: 'ImprovedMeanFlows (2025-12-01)',
-                  link: '/blog/2025/ImprovedMeanFlows',
+                  link: '/blog/2025/2025-12-01-improvedmeanflows',
                 },
                 {
                   text: 'BAGEL (2025-05-20)',
-                  link: '/blog/2025/BAGEL',
+                  link: '/blog/2025/2025-05-20-bagel',
                 },
                 {
                   text: 'MeanFlows (2025-05-19 19:52)',
-                  link: '/blog/2025/MeanFlows',
+                  link: '/blog/2025/2025-05-19-meanflows',
                 },
                 {
                   text: 'MAR (2024-06-17)',
-                  link: '/blog/2024/MAR',
+                  link: '/blog/2024/2024-06-17-mar',
                 },
                 {
                   text: 'VAR (2024-04-03)',
-                  link: '/blog/2024/VAR',
+                  link: '/blog/2024/2024-04-03-var',
                 },
                 {
                   text: 'MAGVITV2 (2023-10-09)',
-                  link: '/blog/2023/MAGVITV2',
+                  link: '/blog/2023/2023-10-09-magvitv2',
                 },
                 {
                   text: 'FlowMatching (2022-10-06)',
-                  link: '/blog/2022/FlowMatching',
+                  link: '/blog/2022/2022-10-06-flowmatching',
                 },
                 {
                   text: 'RectifiedFlow (2022-09-07)',
-                  link: '/blog/2022/RectifiedFlow',
+                  link: '/blog/2022/2022-09-07-rectifiedflow',
                 },
                 {
                   text: 'FlowAndDataGeneration (2022-09-05)',
-                  link: '/blog/2022/FlowAndDataGeneration',
+                  link: '/blog/2022/2022-09-05-flowanddatageneration',
                 },
               ],
             },
@@ -1240,31 +1234,31 @@ export default defineConfig({
               items: [
                 {
                   text: 'SparseBEV (2023-8-18)',
-                  link: '/blog/2023/2023-8-18-SparseBEV',
+                  link: '/blog/2023/2023-08-18-sparsebev',
                 },
                 {
                   text: 'StreamPETR (2023-03-21)',
-                  link: '/blog/2023/StreamPETR',
+                  link: '/blog/2023/2023-03-21-streampetr',
                 },
                 {
                   text: 'Sparse4D (2022-11-19)',
-                  link: '/blog/2022/Sparse4D',
+                  link: '/blog/2022/2022-11-19-sparse4d',
                 },
                 {
                   text: 'PETRV2 (2022-06-02)',
-                  link: '/blog/2022/PETRV2',
+                  link: '/blog/2022/2022-06-02-petrv2',
                 },
                 {
                   text: 'PETR (2022-03-10)',
-                  link: '/blog/2022/PETR',
+                  link: '/blog/2022/2022-03-10-petr',
                 },
                 {
                   text: 'DETR3D (2021-10-13)',
-                  link: '/blog/2021/DETR3D',
+                  link: '/blog/2021/2021-10-13-detr3d',
                 },
                 {
                   text: 'CaDDN (2021-03-01)',
-                  link: '/blog/2021/CaDDN',
+                  link: '/blog/2021/2021-03-01-caddn',
                 },
               ],
             },
@@ -1274,15 +1268,15 @@ export default defineConfig({
               items: [
                 {
                   text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
-                  link: '/blog/2026/NvidiaSparseTOPSvsDenseTOPS',
+                  link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
                 },
                 {
                   text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
-                  link: '/blog/2026/JetsonOrinDeployment',
+                  link: '/blog/2026/2026-07-04-jetsonorindeployment',
                 },
                 {
                   text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
-                  link: '/blog/2026/ModelDeploymentEngine',
+                  link: '/blog/2026/2026-07-02-modeldeploymentengine',
                 },
                 {
                   text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
@@ -1290,7 +1284,7 @@ export default defineConfig({
                 },
                 {
                   text: 'VLM 模型部署实战：推理流水线、预处理与 Token 拼接 (2025-05-20)',
-                  link: '/blog/2025/VLMDeployment',
+                  link: '/blog/2025/2025-05-20-vlmdeployment',
                 },
                 {
                   text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
@@ -1304,11 +1298,11 @@ export default defineConfig({
               items: [
                 {
                   text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
-                  link: '/blog/2026/AgentSkillTool',
+                  link: '/blog/2026/2026-07-02-agentskilltool',
                 },
                 {
                   text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
-                  link: '/blog/2026/AgentComprehensiveGuide',
+                  link: '/blog/2026/2026-06-28-agentcomprehensiveguide',
                 },
                 {
                   text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
@@ -1334,23 +1328,23 @@ export default defineConfig({
               items: [
                 {
                   text: 'Wayformer (2022-07-12)',
-                  link: '/blog/2022/Wayformer',
+                  link: '/blog/2022/2022-07-12-wayformer',
                 },
                 {
                   text: 'IntentNet (2021-01-20)',
-                  link: '/blog/2021/IntentNet',
+                  link: '/blog/2021/2021-01-20-intentnet',
                 },
                 {
                   text: 'TNT (2020-08-19)',
-                  link: '/blog/2020/TNT',
+                  link: '/blog/2020/2020-08-19-tnt',
                 },
                 {
                   text: 'VectorNet (2020-05-08)',
-                  link: '/blog/2020/VectorNet',
+                  link: '/blog/2020/2020-05-08-vectornet',
                 },
                 {
                   text: 'MultiPath (2019-10-12)',
-                  link: '/blog/2019/MultiPath',
+                  link: '/blog/2019/2019-10-12-multipath',
                 },
               ],
             },
@@ -1364,19 +1358,19 @@ export default defineConfig({
                 },
                 {
                   text: 'FastWAM (2026-03-17)',
-                  link: '/blog/2026/FastWAM',
+                  link: '/blog/2026/2026-03-17-fastwam',
                 },
                 {
                   text: 'RAENWM (2026-03-10)',
-                  link: '/blog/2026/RAENWM',
+                  link: '/blog/2026/2026-03-10-raenwm',
                 },
                 {
                   text: 'LingBotVA (2026-01-29)',
-                  link: '/blog/2026/LingBotVA',
+                  link: '/blog/2026/2026-01-29-lingbotva',
                 },
                 {
                   text: 'NWM (2024-12-04)',
-                  link: '/blog/2024/NWM',
+                  link: '/blog/2024/2024-12-04-nwm',
                 },
               ],
             },
@@ -1386,19 +1380,19 @@ export default defineConfig({
               items: [
                 {
                   text: 'pytorch_weights_datasets (2024-12-26)',
-                  link: '/blog/2024/pytorch_weights_datasets',
+                  link: '/blog/2024/2024-12-26-pytorch-weights-datasets',
                 },
                 {
                   text: 'Sparse4DV3 (2023-11-20)',
-                  link: '/blog/2023/Sparse4DV3',
+                  link: '/blog/2023/2023-11-20-sparse4dv3',
                 },
                 {
                   text: 'Sparse4DV2 (2023-5-23)',
-                  link: '/blog/2023/2023-5-23-Sparse4DV2',
+                  link: '/blog/2023/2023-05-23-sparse4dv2',
                 },
                 {
                   text: 'MaskFormer (2021-07-13)',
-                  link: '/blog/2021/MaskFormer',
+                  link: '/blog/2021/2021-07-13-maskformer',
                 },
               ],
             },
@@ -1408,15 +1402,15 @@ export default defineConfig({
               items: [
                 {
                   text: 'Survey_Occupancy (2024-05-08)',
-                  link: '/blog/2024/Survey_Occupancy',
+                  link: '/blog/2024/2024-05-08-survey-occupancy',
                 },
                 {
                   text: 'SparseOcc (2023-12-28)',
-                  link: '/blog/2023/SparseOcc',
+                  link: '/blog/2023/2023-12-28-sparseocc',
                 },
                 {
                   text: 'RenderOcc (2023-09-18)',
-                  link: '/blog/2023/RenderOcc',
+                  link: '/blog/2023/2023-09-18-renderocc',
                 },
               ],
             },
@@ -1426,15 +1420,15 @@ export default defineConfig({
               items: [
                 {
                   text: 'SparseDrive (2024-05-30)',
-                  link: '/blog/2024/SparseDrive',
+                  link: '/blog/2024/2024-05-30-sparsedrive',
                 },
                 {
                   text: 'SparseAD (2024-04-10)',
-                  link: '/blog/2024/SparseAD',
+                  link: '/blog/2024/2024-04-10-sparsead',
                 },
                 {
                   text: 'Vidar (2023-12-29)',
-                  link: '/blog/2023/Vidar',
+                  link: '/blog/2023/2023-12-29-vidar',
                 },
               ],
             },
@@ -1444,15 +1438,15 @@ export default defineConfig({
               items: [
                 {
                   text: '原生多模：从 Janus 到 Janus-Pro，一个 Transformer 同时理解与生成 (2026-07-07)',
-                  link: '/blog/2026/原生多模',
+                  link: '/blog/2026/2026-07-07-原生多模',
                 },
                 {
                   text: 'LiteVLM：面向嵌入式设备的低延迟 VLM 推理流水线 (2025-06-09)',
-                  link: '/blog/2025/LiteVLM',
+                  link: '/blog/2025/2025-06-09-litevlm',
                 },
                 {
                   text: 'SmolVLM：小而强的端侧视觉语言模型 (2025-06-01)',
-                  link: '/blog/2025/SmolVLM',
+                  link: '/blog/2025/2025-06-01-smolvlm',
                 },
               ],
             },
@@ -1462,11 +1456,11 @@ export default defineConfig({
               items: [
                 {
                   text: 'SparseRCNN (2020-11-25)',
-                  link: '/blog/2020/SparseRCNN',
+                  link: '/blog/2020/2020-11-25-sparsercnn',
                 },
                 {
                   text: 'DETR (2020-05-26)',
-                  link: '/blog/2020/DETR',
+                  link: '/blog/2020/2020-05-26-detr',
                 },
               ],
             },
@@ -1476,11 +1470,11 @@ export default defineConfig({
               items: [
                 {
                   text: 'ACT (2023-04-23)',
-                  link: '/blog/2023/ACT',
+                  link: '/blog/2023/2023-04-23-act',
                 },
                 {
                   text: 'Gato (2022-05-12)',
-                  link: '/blog/2022/Gato',
+                  link: '/blog/2022/2022-05-12-gato',
                 },
               ],
             },
@@ -1490,11 +1484,11 @@ export default defineConfig({
               items: [
                 {
                   text: '关节限位 (2026-06-28)',
-                  link: '/blog/2026/JointLimits',
+                  link: '/blog/2026/2026-06-28-jointlimits',
                 },
                 {
                   text: '运动原语：机器人动作世界的"字母表 (2026-06-28)',
-                  link: '/blog/2026/MotionPrimitives',
+                  link: '/blog/2026/2026-06-28-motionprimitives',
                 },
               ],
             },
@@ -1504,11 +1498,11 @@ export default defineConfig({
               items: [
                 {
                   text: 'Neovim + iTerm2 工作流 (2026-06-12)',
-                  link: '/blog/notes/neovim-workflow',
+                  link: '/blog/notes/2026-06-12-neovim-workflow',
                 },
                 {
                   text: '写作约定 (2026-06-07)',
-                  link: '/blog/notes/writing-guide',
+                  link: '/blog/notes/2026-06-07-writing-guide',
                 },
               ],
             },
@@ -1518,7 +1512,7 @@ export default defineConfig({
               items: [
                 {
                   text: 'Mask2Former (2021-12-02)',
-                  link: '/blog/2021/Mask2Former',
+                  link: '/blog/2021/2021-12-02-mask2former',
                 },
               ],
             },
@@ -1528,7 +1522,7 @@ export default defineConfig({
               items: [
                 {
                   text: 'mu_law (2022-05-12)',
-                  link: '/blog/2022/mu_law',
+                  link: '/blog/2022/2022-05-12-mu-law',
                 },
               ],
             },
@@ -1548,7 +1542,7 @@ export default defineConfig({
               items: [
                 {
                   text: 'pytorch_bug (2024-12-02)',
-                  link: '/blog/2024/pytorch_bug',
+                  link: '/blog/2024/2024-12-02-pytorch-bug',
                 },
               ],
             },
@@ -1558,7 +1552,17 @@ export default defineConfig({
               items: [
                 {
                   text: 'VLA_embodedAI (2025-09-01)',
-                  link: '/blog/2025/VLA_embodedAI',
+                  link: '/blog/2025/2025-09-01-vla-embodedai',
+                },
+              ],
+            },
+            {
+              text: '📂 Vision',
+              collapsed: true,
+              items: [
+                {
+                  text: 'LingBot-Vision 与 LingBot-Depth 2.0：具身智能的空间视觉基座再升级 (2026-07-07)',
+                  link: '/blog/2026/2026-07-07-lingbot-vision-depth2',
                 },
               ],
             },
@@ -1569,16 +1573,6 @@ export default defineConfig({
                 {
                   text: '如何构建一个 VLA 导航仿真数据引擎 (2026-07-15)',
                   link: '/blog/2026/2026-07-15-simulation-data-engine',
-                },
-              ],
-            },
-            {
-              text: '📂 Vision',
-              collapsed: true,
-              items: [
-                {
-                  text: 'LingBot-Vision 与 LingBot-Depth 2.0：具身智能的空间视觉基座再升级 (2026-07-07)',
-                  link: '/blog/2026/LingBot-Vision-Depth2',
                 },
               ],
             },
@@ -1600,67 +1594,67 @@ export default defineConfig({
                 },
                 {
                   text: '高德地图语音导航逻辑与纯 Python Demo (2026-07-01)',
-                  link: '/blog/2026/GaodeVoiceNavDemo',
+                  link: '/blog/2026/2026-07-01-gaodevoicenavdemo',
                 },
                 {
                   text: 'RLNeeds (2026-06-02)',
-                  link: '/blog/2026/RLNeeds',
+                  link: '/blog/2026/2026-06-02-rlneeds',
                 },
                 {
                   text: 'LAPose (2026-05-05)',
-                  link: '/blog/2026/LAPose',
+                  link: '/blog/2026/2026-05-05-lapose',
                 },
                 {
                   text: 'GigaWorldPolicy (2026-03-18)',
-                  link: '/blog/2026/GigaWorldPolicy',
+                  link: '/blog/2026/2026-03-18-gigaworldpolicy',
                 },
                 {
                   text: 'VJEPA2.1 (2026-03-15)',
-                  link: '/blog/2026/VJEPA2.1',
+                  link: '/blog/2026/2026-03-15-vjepa21',
                 },
                 {
                   text: 'SimVLA (2026-02-20)',
-                  link: '/blog/2026/SimVLA',
+                  link: '/blog/2026/2026-02-20-simvla',
                 },
                 {
                   text: 'DreamZero (2026-02-17)',
-                  link: '/blog/2026/DreamZero',
+                  link: '/blog/2026/2026-02-17-dreamzero',
                 },
                 {
                   text: 'RISE (2026-02-11)',
-                  link: '/blog/2026/RISE',
+                  link: '/blog/2026/2026-02-11-rise',
                 },
                 {
                   text: 'DriveWorldVLA (2026-02-06)',
-                  link: '/blog/2026/DriveWorldVLA',
+                  link: '/blog/2026/2026-02-06-driveworldvla',
                 },
                 {
                   text: 'C_RADIOv4 (2026-01-24)',
-                  link: '/blog/2026/C_RADIOv4',
+                  link: '/blog/2026/2026-01-24-c-radiov4',
                 },
                 {
                   text: 'GeRo (2026-01-16)',
-                  link: '/blog/2026/GeRo',
+                  link: '/blog/2026/2026-01-16-gero',
                 },
                 {
                   text: 'LearningLatentActionWM (2026-01-08)',
-                  link: '/blog/2026/LearningLatentActionWM',
+                  link: '/blog/2026/2026-01-08-learninglatentactionwm',
                 },
                 {
                   text: 'JEPA_WM (2025-12-30)',
-                  link: '/blog/2025/JEPA_WM',
+                  link: '/blog/2025/2025-12-30-jepa-wm',
                 },
                 {
                   text: 'VLAAN (2025-12-17)',
-                  link: '/blog/2025/VLAAN',
+                  link: '/blog/2025/2025-12-17-vlaan',
                 },
                 {
                   text: 'Motus (2025-12-15)',
-                  link: '/blog/2025/Motus',
+                  link: '/blog/2025/2025-12-15-motus',
                 },
                 {
                   text: 'VLJEPA (2025-12-11)',
-                  link: '/blog/2025/VLJEPA',
+                  link: '/blog/2025/2025-12-11-vljepa',
                 },
                 {
                   text: 'DualVLN：慢思考、快执行——迈向通用视觉-语言导航的双系统基础模型 (2025-12-09)',
@@ -1668,7 +1662,7 @@ export default defineConfig({
                 },
                 {
                   text: 'RoboScapeR (2025-12-03)',
-                  link: '/blog/2025/RoboScapeR',
+                  link: '/blog/2025/2025-12-03-roboscaper',
                 },
                 {
                   text: 'MobileVLA-R1：基于强化学习的视觉-语言-行动框架——迈向可解释的移动机器人连续控制 (2025-11-22)',
@@ -1676,75 +1670,75 @@ export default defineConfig({
                 },
                 {
                   text: 'pi0.6 (2025-11-18)',
-                  link: '/blog/2025/pi0.6',
+                  link: '/blog/2025/2025-11-18-pi06',
                 },
                 {
                   text: 'SurveyOnWorldModelsForEmbodiedAI (2025-10-19)',
-                  link: '/blog/2025/SurveyOnWorldModelsForEmbodiedAI',
+                  link: '/blog/2025/2025-10-19-surveyonworldmodelsforembodiedai',
                 },
                 {
                   text: 'LongScape (2025-09-26)',
-                  link: '/blog/2025/LongScape',
+                  link: '/blog/2025/2025-09-26-longscape',
                 },
                 {
                   text: 'MatrixGame2.0 (2025-08-18)',
-                  link: '/blog/2025/MatrixGame2.0',
+                  link: '/blog/2025/2025-08-18-matrixgame20',
                 },
                 {
                   text: 'VLA0S (2025-06-21)',
-                  link: '/blog/2025/VLA0S',
+                  link: '/blog/2025/2025-06-21-vla0s',
                 },
                 {
                   text: 'VJEPA2 (2025-06-11)',
-                  link: '/blog/2025/VJEPA2',
+                  link: '/blog/2025/2025-06-11-vjepa2',
                 },
                 {
                   text: 'TrackVLA (2025-05-29)',
-                  link: '/blog/2025/TrackVLA',
+                  link: '/blog/2025/2025-05-29-trackvla',
                 },
                 {
                   text: 'RAD (2025-02-18)',
-                  link: '/blog/2025/RAD',
+                  link: '/blog/2025/2025-02-18-rad',
                 },
                 {
                   text: 'FLIP (2024-12-11)',
-                  link: '/blog/2024/FLIP',
+                  link: '/blog/2024/2024-12-11-flip',
                 },
                 {
                   text: 'TinyVLM (2024-10-04)',
-                  link: '/blog/2024/TinyVLM',
+                  link: '/blog/2024/2024-10-04-tinyvlm',
                 },
                 {
                   text: 'VJEPA (2024-02-15)',
-                  link: '/blog/2024/VJEPA',
+                  link: '/blog/2024/2024-02-15-vjepa',
                 },
                 {
                   text: 'Emu2 (2023-12-20)',
-                  link: '/blog/2023/Emu2',
+                  link: '/blog/2023/2023-12-20-emu2',
                 },
                 {
                   text: 'verl (2023-10-01)',
-                  link: '/blog/2023/verl',
+                  link: '/blog/2023/2023-10-01-verl',
                 },
                 {
                   text: 'Emu1 (2023-07-11)',
-                  link: '/blog/2023/Emu1',
+                  link: '/blog/2023/2023-07-11-emu1',
                 },
                 {
                   text: 'MILE (2022-10-14)',
-                  link: '/blog/2022/MILE',
+                  link: '/blog/2022/2022-10-14-mile',
                 },
                 {
                   text: 'DayDreamer (2022-06-28)',
-                  link: '/blog/2022/DayDreamer',
+                  link: '/blog/2022/2022-06-28-daydreamer',
                 },
                 {
                   text: 'VPT (2022-06-23)',
-                  link: '/blog/2022/VPT',
+                  link: '/blog/2022/2022-06-23-vpt',
                 },
                 {
                   text: 'PlaNet (2018-11-12)',
-                  link: '/blog/2018/PlaNet',
+                  link: '/blog/2018/2018-11-12-planet',
                 },
               ],
             },
