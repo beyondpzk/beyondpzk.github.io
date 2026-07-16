@@ -56,7 +56,7 @@ export default defineConfig({
   // 因为是 username.github.io 仓库，base 用 '/'
   base: '/',
 
-  // 忽略 README 中的本地开发链接检查
+  // 忽略死链检查（blog/index.md 中存在历史遗留的失效链接）
   ignoreDeadLinks: true,
 
   // 简洁美观的默认主题
