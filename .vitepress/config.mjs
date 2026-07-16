@@ -197,8 +197,16 @@ export default defineConfig({
                   link: '/blog/2026/EmbodiedNav',
                 },
                 {
+                  text: 'MotionWAM (2026-06-08)',
+                  link: '/blog/2026/2026-06-08-MotionWAM',
+                },
+                {
                   text: 'RLNeeds (2026-06-02)',
                   link: '/blog/2026/RLNeeds',
+                },
+                {
+                  text: 'Uni-LaViRA (2026-05-26)',
+                  link: '/blog/2026/2026-05-26-Uni-LaViRA',
                 },
                 {
                   text: 'LAPose (2026-05-05)',
@@ -265,12 +273,24 @@ export default defineConfig({
                   link: '/blog/2026/C_RADIOv4',
                 },
                 {
+                  text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
+                  link: '/blog/2026/2026-01-22-embodied-robot-dog-architecture',
+                },
+                {
                   text: 'GeRo (2026-01-16)',
                   link: '/blog/2026/GeRo',
                 },
                 {
+                  text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
+                  link: '/blog/2026/2026-01-15-multi-agent-data-pipeline',
+                },
+                {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
                   link: '/blog/2026/FineGrainedAlignmentedVLN',
+                },
+                {
+                  text: 'AI Agent 实践案例集 (2026-01-08)',
+                  link: '/blog/2026/2026-01-08-agent-practice-cases',
                 },
                 {
                   text: 'LearningLatentActionWM (2026-01-08)',
@@ -279,6 +299,10 @@ export default defineConfig({
                 {
                   text: 'VLM4VLA (2026-01-06)',
                   link: '/blog/2026/VLM4VLA',
+                },
+                {
+                  text: 'AI Agent 全面学习指南 (2026-01-01)',
+                  link: '/blog/2026/2026-01-01-agent-comprehensive-guide',
                 },
                 {
                   text: 'LowerMemory (2026-01-01)',
@@ -331,6 +355,10 @@ export default defineConfig({
                   link: '/blog/2025/ImprovedMeanFlows',
                 },
                 {
+                  text: 'SocialNav (2025-11-26)',
+                  link: '/blog/2025/2025-11-26-SocialNav',
+                },
+                {
                   text: 'MobileVLA-R1：基于强化学习的视觉-语言-行动框架——迈向可解释的移动机器人连续控制 (2025-11-22)',
                   link: '/blog/2025/2025-11-22-MobileVLA-R1',
                 },
@@ -359,8 +387,12 @@ export default defineConfig({
                   link: '/blog/2025/LongScape',
                 },
                 {
-                  text: 'NavFoM：跨具身、跨任务的导航基础模型 (2025-09-16)',
-                  link: '/blog/2025/NavFoM',
+                  text: 'OmniVLA (2025-09-23)',
+                  link: '/blog/2025/2025-09-23-OmniVLA',
+                },
+                {
+                  text: 'NavFoM (2025-09-15)',
+                  link: '/blog/2025/2025-09-15-NavFoM',
                 },
                 {
                   text: 'VLA_embodedAI (2025-09-01)',
@@ -373,6 +405,10 @@ export default defineConfig({
                 {
                   text: 'DinoWorld (2025-07-25)',
                   link: '/blog/2025/DinoWorld',
+                },
+                {
+                  text: 'StreamVLN (2025-07-07)',
+                  link: '/blog/2025/2025-07-07-StreamVLN',
                 },
                 {
                   text: 'GoalVLA (2025-06-30)',
@@ -423,6 +459,10 @@ export default defineConfig({
                   link: '/blog/2025/Pi05',
                 },
                 {
+                  text: 'RaceVLA (2025-03-04)',
+                  link: '/blog/2025/2025-03-04-RaceVLA',
+                },
+                {
                   text: 'ChatVLA (2025-02-20)',
                   link: '/blog/2025/ChatVLA',
                 },
@@ -446,10 +486,6 @@ export default defineConfig({
                   text: 'FSDP (2025-01-01)',
                   link: '/blog/2025/FSDP',
                 },
-                {
-                  text: 'NaVILA',
-                  link: '/blog/2025/NaVILA',
-                },
               ],
             },
             {
@@ -467,6 +503,10 @@ export default defineConfig({
                 {
                   text: 'Uni-NaVid (2024-12-09)',
                   link: '/blog/2024/Uni-NaVid',
+                },
+                {
+                  text: 'NaVILA (2024-12-05)',
+                  link: '/blog/2024/2024-12-05-NaVILA',
                 },
                 {
                   text: 'NWM (2024-12-04)',
@@ -571,6 +611,10 @@ export default defineConfig({
                   link: '/blog/2023/Sparse4DV3',
                 },
                 {
+                  text: 'NoMaD (2023-10-11)',
+                  link: '/blog/2023/2023-10-11-NoMaD',
+                },
+                {
                   text: '3DpointCloudGenerative (2023-10-10)',
                   link: '/blog/2023/3DpointCloudGenerative',
                 },
@@ -605,6 +649,10 @@ export default defineConfig({
                 {
                   text: 'Emu1 (2023-07-11)',
                   link: '/blog/2023/Emu1',
+                },
+                {
+                  text: 'ViNT (2023-06-26)',
+                  link: '/blog/2023/2023-06-26-ViNT',
                 },
                 {
                   text: 'Sparse4DV2 (2023-5-23)',
@@ -877,10 +925,6 @@ export default defineConfig({
                   link: '/blog/2026/VLM4VLA',
                 },
                 {
-                  text: 'NavFoM：跨具身、跨任务的导航基础模型 (2025-09-16)',
-                  link: '/blog/2025/NavFoM',
-                },
-                {
                   text: 'GoalVLA (2025-06-30)',
                   link: '/blog/2025/GoalVLA',
                 },
@@ -1033,6 +1077,68 @@ export default defineConfig({
                 {
                   text: 'l1l2 (2019-01-01)',
                   link: '/blog/2019/l1l2',
+                },
+              ],
+            },
+            {
+              text: '📂 VLN',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Uni-LaViRA (2026-05-26)',
+                  link: '/blog/2026/2026-05-26-Uni-LaViRA',
+                },
+                {
+                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
+                  link: '/blog/2026/FineGrainedAlignmentedVLN',
+                },
+                {
+                  text: 'SocialNav (2025-11-26)',
+                  link: '/blog/2025/2025-11-26-SocialNav',
+                },
+                {
+                  text: 'OmniVLA (2025-09-23)',
+                  link: '/blog/2025/2025-09-23-OmniVLA',
+                },
+                {
+                  text: 'NavFoM (2025-09-15)',
+                  link: '/blog/2025/2025-09-15-NavFoM',
+                },
+                {
+                  text: 'StreamVLN (2025-07-07)',
+                  link: '/blog/2025/2025-07-07-StreamVLN',
+                },
+                {
+                  text: 'RaceVLA (2025-03-04)',
+                  link: '/blog/2025/2025-03-04-RaceVLA',
+                },
+                {
+                  text: 'NaVILA (2024-12-05)',
+                  link: '/blog/2024/2024-12-05-NaVILA',
+                },
+                {
+                  text: 'CityWalker (2024-11-26)',
+                  link: '/blog/2024/2024-11-26-CityWalker',
+                },
+                {
+                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
+                  link: '/blog/2024/2024-02-24-NaVid',
+                },
+                {
+                  text: 'NoMaD (2023-10-11)',
+                  link: '/blog/2023/2023-10-11-NoMaD',
+                },
+                {
+                  text: 'ViNT (2023-06-26)',
+                  link: '/blog/2023/2023-06-26-ViNT',
+                },
+                {
+                  text: 'GNM (2022-10-07)',
+                  link: '/blog/2022/2022-10-07-GNM',
+                },
+                {
+                  text: 'LM-Nav (2022-07-10)',
+                  link: '/blog/2022/2022-07-10-LM-Nav',
                 },
               ],
             },
@@ -1193,6 +1299,36 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 Agents',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
+                  link: '/blog/2026/AgentSkillTool',
+                },
+                {
+                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
+                  link: '/blog/2026/AgentComprehensiveGuide',
+                },
+                {
+                  text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
+                  link: '/blog/2026/2026-01-22-embodied-robot-dog-architecture',
+                },
+                {
+                  text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
+                  link: '/blog/2026/2026-01-15-multi-agent-data-pipeline',
+                },
+                {
+                  text: 'AI Agent 实践案例集 (2026-01-08)',
+                  link: '/blog/2026/2026-01-08-agent-practice-cases',
+                },
+                {
+                  text: 'AI Agent 全面学习指南 (2026-01-01)',
+                  link: '/blog/2026/2026-01-01-agent-comprehensive-guide',
+                },
+              ],
+            },
+            {
               text: '📂 Prediction',
               collapsed: true,
               items: [
@@ -1219,28 +1355,28 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 VLN',
+              text: '📂 WAM',
               collapsed: true,
               items: [
                 {
-                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
-                  link: '/blog/2026/FineGrainedAlignmentedVLN',
+                  text: 'MotionWAM (2026-06-08)',
+                  link: '/blog/2026/2026-06-08-MotionWAM',
                 },
                 {
-                  text: 'CityWalker (2024-11-26)',
-                  link: '/blog/2024/2024-11-26-CityWalker',
+                  text: 'FastWAM (2026-03-17)',
+                  link: '/blog/2026/FastWAM',
                 },
                 {
-                  text: 'NaVid: Video-based VLM Plans the Next Step for Vision-and-Language Navigation (2024-02-24)',
-                  link: '/blog/2024/2024-02-24-NaVid',
+                  text: 'RAENWM (2026-03-10)',
+                  link: '/blog/2026/RAENWM',
                 },
                 {
-                  text: 'GNM (2022-10-07)',
-                  link: '/blog/2022/2022-10-07-GNM',
+                  text: 'LingBotVA (2026-01-29)',
+                  link: '/blog/2026/LingBotVA',
                 },
                 {
-                  text: 'LM-Nav (2022-07-10)',
-                  link: '/blog/2022/2022-07-10-LM-Nav',
+                  text: 'NWM (2024-12-04)',
+                  link: '/blog/2024/NWM',
                 },
               ],
             },
@@ -1263,28 +1399,6 @@ export default defineConfig({
                 {
                   text: 'MaskFormer (2021-07-13)',
                   link: '/blog/2021/MaskFormer',
-                },
-              ],
-            },
-            {
-              text: '📂 WAM',
-              collapsed: true,
-              items: [
-                {
-                  text: 'FastWAM (2026-03-17)',
-                  link: '/blog/2026/FastWAM',
-                },
-                {
-                  text: 'RAENWM (2026-03-10)',
-                  link: '/blog/2026/RAENWM',
-                },
-                {
-                  text: 'LingBotVA (2026-01-29)',
-                  link: '/blog/2026/LingBotVA',
-                },
-                {
-                  text: 'NWM (2024-12-04)',
-                  link: '/blog/2024/NWM',
                 },
               ],
             },
@@ -1367,20 +1481,6 @@ export default defineConfig({
                 {
                   text: 'Gato (2022-05-12)',
                   link: '/blog/2022/Gato',
-                },
-              ],
-            },
-            {
-              text: '📂 Agent',
-              collapsed: true,
-              items: [
-                {
-                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
-                  link: '/blog/2026/AgentSkillTool',
-                },
-                {
-                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
-                  link: '/blog/2026/AgentComprehensiveGuide',
                 },
               ],
             },
@@ -1645,10 +1745,6 @@ export default defineConfig({
                 {
                   text: 'PlaNet (2018-11-12)',
                   link: '/blog/2018/PlaNet',
-                },
-                {
-                  text: 'NaVILA',
-                  link: '/blog/2025/NaVILA',
                 },
               ],
             },
