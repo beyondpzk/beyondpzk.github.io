@@ -612,7 +612,89 @@ sudo nvpmodel -m 0
 sudo jetson_clocks
 ```
 
-### 6. DLA 不是万能的
+### 6. 锁频：让性能更稳定、基准更可复现
+
+`jetson_clocks` 本质上做的是**锁频**（clock locking）：把 CPU、GPU、EMC（内存控制器）等时钟固定到当前功耗模式允许的最高频率，关闭动态调频（DVFS）。
+
+#### 为什么要锁频？
+
+Orin 默认会根据负载和温度动态调整频率。这对日常使用是好事，但对部署和性能测试来说是干扰源：
+
+- **延迟抖动**：某帧推理时 GPU 频率刚好从 600 MHz 升到 1.3 GHz，下一帧又降下来，P95/P99 会因此变差；
+- **基准不可复现**：同样的模型、同样的输入，冷启动后和热稳定后的帧率可能差 20% 以上；
+- **系统干扰**：JetPack 后台任务、thermal throttling 会让频率突然波动，掩盖模型本身的性能。
+
+锁频后，CPU/GPU/EMC 都跑在固定频率，推理延迟更稳定，也更容易做横向对比。
+
+#### 锁频 vs 功耗模式
+
+很多人把 `nvpmodel` 和 `jetson_clocks` 混为一谈，其实它们分工不同：
+
+| 命令 | 作用 | 是否影响频率 |
+|---|---|---|
+| `nvpmodel -m 0` | 设置功耗墙（power budget），决定最大功耗、可用 CPU 核心数等 | 间接：它定义了频率上限 |
+| `jetson_clocks` | 在当前功耗模式下把各部件频率锁到最高 | 直接：关闭 DVFS，固定频率 |
+
+正确顺序是：**先设功耗模式，再锁频**。
+
+```bash
+# 1. 切换到最大性能模式
+sudo nvpmodel -m 0
+
+# 2. 锁频到当前模式允许的最高频率
+sudo jetson_clocks
+```
+
+#### 常用命令
+
+```bash
+# 查看当前 CPU/GPU 频率
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+sudo cat /sys/class/devfreq/17000000.ga10b/cur_freq   # GPU（路径因 JetPack 版本可能不同）
+
+# 锁频
+sudo jetson_clocks
+
+# 查看锁频脚本保存的默认配置
+sudo jetson_clocks --show
+
+# 取消锁频，恢复 DVFS
+sudo jetson_clocks --restore
+```
+
+#### 什么时候该锁频，什么时候不该？
+
+**建议锁频**：
+
+- 做性能基准测试、论文实验、竞品对比；
+- 机器人/无人机等实时闭环控制，需要稳定的 P99 延迟；
+- 长时间跑同一任务，希望消除频率波动。
+
+**不建议锁频**：
+
+- 待机或轻负载场景，锁频会徒增功耗和发热；
+- 散热条件差、容易触发 thermal throttling 的环境——锁频后温度快速上升，可能反而被强制降频；
+- 电池供电且对续航敏感的场景。
+
+#### 锁频不是万能药
+
+锁频只能消除**频率波动**带来的抖动，不能解决：
+
+- CPU/GPU 内存竞争；
+- 模型本身内存带宽不足；
+- 后台进程抢占资源；
+- 散热不良导致的 thermal throttling。
+
+如果锁频后跑一段时间性能仍然下降，优先检查散热和温度：
+
+```bash
+# 查看温度
+sudo cat /sys/class/thermal/thermal_zone*/temp
+```
+
+一句话：**`nvpmodel` 决定「能跑多快」，`jetson_clocks` 决定「是不是一直按这个速度跑」。**
+
+### 7. DLA 不是万能的
 
 DLA 只支持部分算子和 INT8。如果模型里有大量 DLA 不支持的层，TensorRT 会把它**回退到 GPU**（不是 CPU）执行，频繁的 GPU↔DLA 切换反而不如纯 GPU 跑得快。
 
