@@ -95,6 +95,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'TravExplorer (2026-07-21)',
+                  link: '/blog/2026/2026-07-21-TravExplorer',
+                },
+                {
                   text: 'DA-Nav (2026-07-16)',
                   link: '/blog/2026/2026-07-16-da-nav',
                 },
@@ -189,6 +193,10 @@ export default defineConfig({
                 {
                   text: '运动原语：机器人动作世界的"字母表 (2026-06-28)',
                   link: '/blog/2026/2026-06-28-motionprimitives',
+                },
+                {
+                  text: 'INT8 Engine 构建实战：从 PyTorch 到 TensorRT 的量化、校准与部署 (2026-06-25)',
+                  link: '/blog/2026/2026-06-25-int8-engine-build',
                 },
                 {
                   text: 'Qwen-RobotNav (2026-06-17)',
@@ -551,6 +559,10 @@ export default defineConfig({
                   link: '/blog/2024/2024-10-01-predictivewm-vs-generativewm',
                 },
                 {
+                  text: 'ViT 在 NVIDIA 平台的量化与部署极致优化指南 (2024-07-20)',
+                  link: '/blog/2024/2024-07-20-vit-nvidia-quantization-guide',
+                },
+                {
                   text: 'MAR (2024-06-17)',
                   link: '/blog/2024/2024-06-17-mar',
                 },
@@ -771,6 +783,10 @@ export default defineConfig({
                 {
                   text: 'Mask2Former (2021-12-02)',
                   link: '/blog/2021/2021-12-02-mask2former',
+                },
+                {
+                  text: 'PTQ4ViT 论文详解：让 ViT 量化不掉点的 Twin Uniform 与 Hessian 度量 (2021-11-24)',
+                  link: '/blog/2021/2021-11-24-ptq4vit',
                 },
                 {
                   text: 'DETR3D (2021-10-13)',
@@ -1087,6 +1103,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'TravExplorer (2026-07-21)',
+                  link: '/blog/2026/2026-07-21-TravExplorer',
+                },
+                {
                   text: 'Uni-LaViRA (2026-05-26)',
                   link: '/blog/2026/2026-05-26-Uni-LaViRA',
                 },
@@ -1195,6 +1215,48 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 Deploy',
+              collapsed: true,
+              items: [
+                {
+                  text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
+                  link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
+                },
+                {
+                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
+                  link: '/blog/2026/2026-07-04-jetsonorindeployment',
+                },
+                {
+                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
+                  link: '/blog/2026/2026-07-02-modeldeploymentengine',
+                },
+                {
+                  text: 'INT8 Engine 构建实战：从 PyTorch 到 TensorRT 的量化、校准与部署 (2026-06-25)',
+                  link: '/blog/2026/2026-06-25-int8-engine-build',
+                },
+                {
+                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
+                  link: '/blog/2025/2025-10-04-VLA_deploy',
+                },
+                {
+                  text: 'VLM 模型部署实战：推理流水线、预处理与 Token 拼接 (2025-05-20)',
+                  link: '/blog/2025/2025-05-20-vlmdeployment',
+                },
+                {
+                  text: 'ViT 在 NVIDIA 平台的量化与部署极致优化指南 (2024-07-20)',
+                  link: '/blog/2024/2024-07-20-vit-nvidia-quantization-guide',
+                },
+                {
+                  text: 'PTQ4ViT 论文详解：让 ViT 量化不掉点的 Twin Uniform 与 Hessian 度量 (2021-11-24)',
+                  link: '/blog/2021/2021-11-24-ptq4vit',
+                },
+                {
+                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
+                  link: '/blog/2019/2019-10-04-Yolo_deploy',
+                },
+              ],
+            },
+            {
               text: '📂 AIGC',
               collapsed: true,
               items: [
@@ -1267,36 +1329,6 @@ export default defineConfig({
                 {
                   text: 'CaDDN (2021-03-01)',
                   link: '/blog/2021/2021-03-01-caddn',
-                },
-              ],
-            },
-            {
-              text: '📂 Deploy',
-              collapsed: true,
-              items: [
-                {
-                  text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
-                  link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
-                },
-                {
-                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
-                  link: '/blog/2026/2026-07-04-jetsonorindeployment',
-                },
-                {
-                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
-                  link: '/blog/2026/2026-07-02-modeldeploymentengine',
-                },
-                {
-                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
-                  link: '/blog/2025/2025-10-04-VLA_deploy',
-                },
-                {
-                  text: 'VLM 模型部署实战：推理流水线、预处理与 Token 拼接 (2025-05-20)',
-                  link: '/blog/2025/2025-05-20-vlmdeployment',
-                },
-                {
-                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
-                  link: '/blog/2019/2019-10-04-Yolo_deploy',
                 },
               ],
             },
