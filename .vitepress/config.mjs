@@ -95,12 +95,36 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'Athena-Brain-8B (2026-07-30)',
+                  link: '/blog/2026/2026-07-30-athena-brain',
+                },
+                {
+                  text: 'EA-Nav (2026-07-30)',
+                  link: '/blog/2026/2026-07-30-ea-nav',
+                },
+                {
+                  text: 'NavVerse (2026-07-23)',
+                  link: '/blog/2026/2026-07-23-NavVerse',
+                },
+                {
+                  text: '户外长距离导航技术方案（专注高德集成与导盲场景） (2026-07-23)',
+                  link: '/blog/2026/2026-07-23-outdoor-long-range-navigation-solution',
+                },
+                {
                   text: 'TravExplorer (2026-07-21)',
                   link: '/blog/2026/2026-07-21-TravExplorer',
                 },
                 {
+                  text: 'TairosAgent (2026-07-18)',
+                  link: '/blog/2026/2026-07-18-tairosagent',
+                },
+                {
                   text: 'DA-Nav (2026-07-16)',
                   link: '/blog/2026/2026-07-16-da-nav',
+                },
+                {
+                  text: 'FabriVLA (2026-07-15)',
+                  link: '/blog/2026/2026-07-15-FabriVLA',
                 },
                 {
                   text: 'NVIDIA主流AI显卡价格与算力对比 (2026-07-15)',
@@ -109,6 +133,10 @@ export default defineConfig({
                 {
                   text: '如何构建一个 VLA 导航仿真数据引擎 (2026-07-15)',
                   link: '/blog/2026/2026-07-15-simulation-data-engine',
+                },
+                {
+                  text: 'Hy-Embodied-VLM-1.0 (2026-07-14)',
+                  link: '/blog/2026/2026-07-14-Hy-Embodied-VLM-1.0',
                 },
                 {
                   text: '世界模型与VLA对比 (2026-07-14)',
@@ -247,12 +275,20 @@ export default defineConfig({
                   link: '/blog/2026/2026-03-10-raenwm',
                 },
                 {
+                  text: 'MASQuant：面向 MLLM 的模态感知平滑量化 (2026-03-05)',
+                  link: '/blog/2026/2026-03-05-masquant',
+                },
+                {
                   text: 'SimVLA (2026-02-20)',
                   link: '/blog/2026/2026-02-20-simvla',
                 },
                 {
                   text: 'DreamZero (2026-02-17)',
                   link: '/blog/2026/2026-02-17-dreamzero',
+                },
+                {
+                  text: 'LongNav-R1 (2026-02-12)',
+                  link: '/blog/2026/2026-02-12-LongNav-R1',
                 },
                 {
                   text: 'ABot-N0 (2026-02-12)',
@@ -269,6 +305,10 @@ export default defineConfig({
                 {
                   text: 'DriveWorldVLA (2026-02-06)',
                   link: '/blog/2026/2026-02-06-driveworldvla',
+                },
+                {
+                  text: 'VEQ：MoE 视觉语言模型的模态与专家自适应量化 (2026-02-01)',
+                  link: '/blog/2026/2026-02-01-veq',
                 },
                 {
                   text: 'DriveJEPA (2026-01-29)',
@@ -381,6 +421,10 @@ export default defineConfig({
                   link: '/blog/2025/2025-10-19-surveyonworldmodelsforembodiedai',
                 },
                 {
+                  text: 'RegCache：视觉编码器激活量化需要前缀 Register (2025-10-06)',
+                  link: '/blog/2025/2025-10-06-regcache',
+                },
+                {
                   text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
                   link: '/blog/2025/2025-10-04-VLA_deploy',
                 },
@@ -401,6 +445,10 @@ export default defineConfig({
                   link: '/blog/2025/2025-09-23-OmniVLA',
                 },
                 {
+                  text: 'Bi-VLM：把 VLM 权重 PTQ 推到 2-Bit 以下 (2025-09-23)',
+                  link: '/blog/2025/2025-09-23-bi-vlm',
+                },
+                {
                   text: 'NavFoM (2025-09-15)',
                   link: '/blog/2025/2025-09-15-NavFoM',
                 },
@@ -411,6 +459,14 @@ export default defineConfig({
                 {
                   text: 'MatrixGame2.0 (2025-08-18)',
                   link: '/blog/2025/2025-08-18-matrixgame20',
+                },
+                {
+                  text: 'SGImagineNav (2025-08-09)',
+                  link: '/blog/2025/2025-08-09-SGImagineNav',
+                },
+                {
+                  text: 'VLMQ：Token 显著性驱动的视觉语言模型 PTQ (2025-08-05)',
+                  link: '/blog/2025/2025-08-05-vlmq',
                 },
                 {
                   text: 'DinoWorld (2025-07-25)',
@@ -481,6 +537,18 @@ export default defineConfig({
                   link: '/blog/2025/2025-02-18-rad',
                 },
                 {
+                  text: 'CalibQuant：多模态 LLM 的 1-Bit KV Cache 量化 (2025-02-15)',
+                  link: '/blog/2025/2025-02-15-calibquant',
+                },
+                {
+                  text: 'VL-Nav (2025-02-02)',
+                  link: '/blog/2025/2025-02-02-vlnav',
+                },
+                {
+                  text: 'MQuant：多模态大语言模型的全静态量化 (2025-02-01)',
+                  link: '/blog/2025/2025-02-01-mquant',
+                },
+                {
                   text: 'ROPE (2025-01-04)',
                   link: '/blog/2025/2025-01-04-rope',
                 },
@@ -503,6 +571,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'MBQ：模态平衡的大视觉语言模型量化 (2024-12-27)',
+                  link: '/blog/2024/2024-12-27-mbq',
+                },
+                {
                   text: 'pytorch_weights_datasets (2024-12-26)',
                   link: '/blog/2024/2024-12-26-pytorch-weights-datasets',
                 },
@@ -513,6 +585,10 @@ export default defineConfig({
                 {
                   text: 'Uni-NaVid (2024-12-09)',
                   link: '/blog/2024/2024-12-09-uni-navid',
+                },
+                {
+                  text: 'UniNaVid (2024-12-07)',
+                  link: '/blog/2024/2024-12-07-UniNaVid',
                 },
                 {
                   text: 'NaVILA (2024-12-05)',
@@ -531,12 +607,24 @@ export default defineConfig({
                   link: '/blog/2024/2024-11-26-CityWalker',
                 },
                 {
+                  text: 'QwT：Quantization without Tears 的通用低比特量化 (2024-11-21)',
+                  link: '/blog/2024/2024-11-21-qwt',
+                },
+                {
                   text: 'DinoWM (2024-11-07)',
                   link: '/blog/2024/2024-11-07-dinowm',
                 },
                 {
+                  text: 'SVDQuant：用低秩分量吸收 Outlier 的 4-Bit 模型量化 (2024-11-07)',
+                  link: '/blog/2024/2024-11-07-svdquant',
+                },
+                {
                   text: 'Pi0 (2024-10-31)',
                   link: '/blog/2024/2024-10-31-pi0',
+                },
+                {
+                  text: 'Q-VLM：面向大视觉语言模型的跨层依赖感知 PTQ (2024-10-10)',
+                  link: '/blog/2024/2024-10-10-q-vlm',
                 },
                 {
                   text: 'RDT1B (2024-10-10)',
@@ -563,6 +651,10 @@ export default defineConfig({
                   link: '/blog/2024/2024-07-20-vit-nvidia-quantization-guide',
                 },
                 {
+                  text: 'PoliFormer (2024-06-28)',
+                  link: '/blog/2024/2024-06-28-PoliFormer',
+                },
+                {
                   text: 'MAR (2024-06-17)',
                   link: '/blog/2024/2024-06-17-mar',
                 },
@@ -575,6 +667,10 @@ export default defineConfig({
                   link: '/blog/2024/2024-05-30-sparsedrive',
                 },
                 {
+                  text: 'SpinQuant：用学习旋转进一步提升 4-Bit LLM 量化 (2024-05-26)',
+                  link: '/blog/2024/2024-05-26-spinquant',
+                },
+                {
                   text: 'Survey_Occupancy (2024-05-08)',
                   link: '/blog/2024/2024-05-08-survey-occupancy',
                 },
@@ -585,6 +681,10 @@ export default defineConfig({
                 {
                   text: 'VAR (2024-04-03)',
                   link: '/blog/2024/2024-04-03-var',
+                },
+                {
+                  text: 'QuaRot：旋转 LLM 实现无 Outlier 的 4-Bit 端到端推理 (2024-03-30)',
+                  link: '/blog/2024/2024-03-30-quarot',
                 },
                 {
                   text: 'DROID (2024-03-19)',
@@ -653,6 +753,10 @@ export default defineConfig({
                   link: '/blog/2023/2023-09-18-renderocc',
                 },
                 {
+                  text: 'OmniQuant：可学习裁剪与等价变换的全方位 LLM 量化 (2023-08-25)',
+                  link: '/blog/2023/2023-08-25-omniquant',
+                },
+                {
                   text: 'SparseBEV (2023-8-18)',
                   link: '/blog/2023/2023-08-18-sparsebev',
                 },
@@ -669,6 +773,10 @@ export default defineConfig({
                   link: '/blog/2023/2023-06-26-ViNT',
                 },
                 {
+                  text: 'AWQ：激活感知的 LLM 权重量化 (2023-06-01)',
+                  link: '/blog/2023/2023-06-01-awq',
+                },
+                {
                   text: 'Sparse4DV2 (2023-5-23)',
                   link: '/blog/2023/2023-05-23-sparse4dv2',
                 },
@@ -679,6 +787,10 @@ export default defineConfig({
                 {
                   text: 'ACT (2023-04-23)',
                   link: '/blog/2023/2023-04-23-act',
+                },
+                {
+                  text: 'APQ-ViT：块级校准与 Matthew Effect 保持的 ViT 低比特 PTQ (2023-03-25)',
+                  link: '/blog/2023/2023-03-25-apq-vit',
                 },
                 {
                   text: 'StreamPETR (2023-03-21)',
@@ -707,6 +819,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'RepQ-ViT：Scale 重参数化让 ViT 低比特 PTQ 可用 (2022-12-16)',
+                  link: '/blog/2022/2022-12-16-repq-vit',
+                },
+                {
                   text: 'RT1 (2022-12-13)',
                   link: '/blog/2022/2022-12-13-rt1',
                 },
@@ -715,8 +831,20 @@ export default defineConfig({
                   link: '/blog/2022/2022-11-19-sparse4d',
                 },
                 {
+                  text: 'SmoothQuant：把激活 Outlier 平滑进权重的 W8A8 量化 (2022-11-18)',
+                  link: '/blog/2022/2022-11-18-smoothquant',
+                },
+                {
+                  text: 'GPTQ：基于二阶信息的 GPT 后训练量化 (2022-10-31)',
+                  link: '/blog/2022/2022-10-31-gptq',
+                },
+                {
                   text: 'MILE (2022-10-14)',
                   link: '/blog/2022/2022-10-14-mile',
+                },
+                {
+                  text: 'Q-ViT：信息整流与分布引导蒸馏的全量化低比特 ViT (2022-10-13)',
+                  link: '/blog/2022/2022-10-13-q-vit',
                 },
                 {
                   text: 'GNM (2022-10-07)',
@@ -785,6 +913,10 @@ export default defineConfig({
                   link: '/blog/2021/2021-12-02-mask2former',
                 },
                 {
+                  text: 'FQ-ViT：全量化 ViT 的 PTF 与 Log-Int-Softmax (2021-11-27)',
+                  link: '/blog/2021/2021-11-27-fq-vit',
+                },
+                {
                   text: 'PTQ4ViT 论文详解：让 ViT 量化不掉点的 Twin Uniform 与 Hessian 度量 (2021-11-24)',
                   link: '/blog/2021/2021-11-24-ptq4vit',
                 },
@@ -810,6 +942,10 @@ export default defineConfig({
               text: '📅 2020 年',
               collapsed: true,
               items: [
+                {
+                  text: 'ViNG (2020-12-17)',
+                  link: '/blog/2020/2020-12-17-ving',
+                },
                 {
                   text: 'SparseRCNN (2020-11-25)',
                   link: '/blog/2020/2020-11-25-sparsercnn',
@@ -889,6 +1025,10 @@ export default defineConfig({
                 {
                   text: 'DA-Nav (2026-07-16)',
                   link: '/blog/2026/2026-07-16-da-nav',
+                },
+                {
+                  text: 'FabriVLA (2026-07-15)',
+                  link: '/blog/2026/2026-07-15-FabriVLA',
                 },
                 {
                   text: '世界模型与VLA对比 (2026-07-14)',
@@ -1009,6 +1149,234 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 Deploy',
+              collapsed: true,
+              items: [
+                {
+                  text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
+                  link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
+                },
+                {
+                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
+                  link: '/blog/2026/2026-07-04-jetsonorindeployment',
+                },
+                {
+                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
+                  link: '/blog/2026/2026-07-02-modeldeploymentengine',
+                },
+                {
+                  text: 'INT8 Engine 构建实战：从 PyTorch 到 TensorRT 的量化、校准与部署 (2026-06-25)',
+                  link: '/blog/2026/2026-06-25-int8-engine-build',
+                },
+                {
+                  text: 'MASQuant：面向 MLLM 的模态感知平滑量化 (2026-03-05)',
+                  link: '/blog/2026/2026-03-05-masquant',
+                },
+                {
+                  text: 'VEQ：MoE 视觉语言模型的模态与专家自适应量化 (2026-02-01)',
+                  link: '/blog/2026/2026-02-01-veq',
+                },
+                {
+                  text: 'RegCache：视觉编码器激活量化需要前缀 Register (2025-10-06)',
+                  link: '/blog/2025/2025-10-06-regcache',
+                },
+                {
+                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
+                  link: '/blog/2025/2025-10-04-VLA_deploy',
+                },
+                {
+                  text: 'Bi-VLM：把 VLM 权重 PTQ 推到 2-Bit 以下 (2025-09-23)',
+                  link: '/blog/2025/2025-09-23-bi-vlm',
+                },
+                {
+                  text: 'VLMQ：Token 显著性驱动的视觉语言模型 PTQ (2025-08-05)',
+                  link: '/blog/2025/2025-08-05-vlmq',
+                },
+                {
+                  text: 'VLM 模型部署实战：推理流水线、预处理与 Token 拼接 (2025-05-20)',
+                  link: '/blog/2025/2025-05-20-vlmdeployment',
+                },
+                {
+                  text: 'CalibQuant：多模态 LLM 的 1-Bit KV Cache 量化 (2025-02-15)',
+                  link: '/blog/2025/2025-02-15-calibquant',
+                },
+                {
+                  text: 'MQuant：多模态大语言模型的全静态量化 (2025-02-01)',
+                  link: '/blog/2025/2025-02-01-mquant',
+                },
+                {
+                  text: 'MBQ：模态平衡的大视觉语言模型量化 (2024-12-27)',
+                  link: '/blog/2024/2024-12-27-mbq',
+                },
+                {
+                  text: 'QwT：Quantization without Tears 的通用低比特量化 (2024-11-21)',
+                  link: '/blog/2024/2024-11-21-qwt',
+                },
+                {
+                  text: 'SVDQuant：用低秩分量吸收 Outlier 的 4-Bit 模型量化 (2024-11-07)',
+                  link: '/blog/2024/2024-11-07-svdquant',
+                },
+                {
+                  text: 'Q-VLM：面向大视觉语言模型的跨层依赖感知 PTQ (2024-10-10)',
+                  link: '/blog/2024/2024-10-10-q-vlm',
+                },
+                {
+                  text: 'ViT 在 NVIDIA 平台的量化与部署极致优化指南 (2024-07-20)',
+                  link: '/blog/2024/2024-07-20-vit-nvidia-quantization-guide',
+                },
+                {
+                  text: 'SpinQuant：用学习旋转进一步提升 4-Bit LLM 量化 (2024-05-26)',
+                  link: '/blog/2024/2024-05-26-spinquant',
+                },
+                {
+                  text: 'QuaRot：旋转 LLM 实现无 Outlier 的 4-Bit 端到端推理 (2024-03-30)',
+                  link: '/blog/2024/2024-03-30-quarot',
+                },
+                {
+                  text: 'OmniQuant：可学习裁剪与等价变换的全方位 LLM 量化 (2023-08-25)',
+                  link: '/blog/2023/2023-08-25-omniquant',
+                },
+                {
+                  text: 'AWQ：激活感知的 LLM 权重量化 (2023-06-01)',
+                  link: '/blog/2023/2023-06-01-awq',
+                },
+                {
+                  text: 'APQ-ViT：块级校准与 Matthew Effect 保持的 ViT 低比特 PTQ (2023-03-25)',
+                  link: '/blog/2023/2023-03-25-apq-vit',
+                },
+                {
+                  text: 'RepQ-ViT：Scale 重参数化让 ViT 低比特 PTQ 可用 (2022-12-16)',
+                  link: '/blog/2022/2022-12-16-repq-vit',
+                },
+                {
+                  text: 'SmoothQuant：把激活 Outlier 平滑进权重的 W8A8 量化 (2022-11-18)',
+                  link: '/blog/2022/2022-11-18-smoothquant',
+                },
+                {
+                  text: 'GPTQ：基于二阶信息的 GPT 后训练量化 (2022-10-31)',
+                  link: '/blog/2022/2022-10-31-gptq',
+                },
+                {
+                  text: 'Q-ViT：信息整流与分布引导蒸馏的全量化低比特 ViT (2022-10-13)',
+                  link: '/blog/2022/2022-10-13-q-vit',
+                },
+                {
+                  text: 'FQ-ViT：全量化 ViT 的 PTF 与 Log-Int-Softmax (2021-11-27)',
+                  link: '/blog/2021/2021-11-27-fq-vit',
+                },
+                {
+                  text: 'PTQ4ViT 论文详解：让 ViT 量化不掉点的 Twin Uniform 与 Hessian 度量 (2021-11-24)',
+                  link: '/blog/2021/2021-11-24-ptq4vit',
+                },
+                {
+                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
+                  link: '/blog/2019/2019-10-04-Yolo_deploy',
+                },
+              ],
+            },
+            {
+              text: '📂 VLN',
+              collapsed: true,
+              items: [
+                {
+                  text: 'EA-Nav (2026-07-30)',
+                  link: '/blog/2026/2026-07-30-ea-nav',
+                },
+                {
+                  text: 'NavVerse (2026-07-23)',
+                  link: '/blog/2026/2026-07-23-NavVerse',
+                },
+                {
+                  text: '户外长距离导航技术方案（专注高德集成与导盲场景） (2026-07-23)',
+                  link: '/blog/2026/2026-07-23-outdoor-long-range-navigation-solution',
+                },
+                {
+                  text: 'TravExplorer (2026-07-21)',
+                  link: '/blog/2026/2026-07-21-TravExplorer',
+                },
+                {
+                  text: 'Uni-LaViRA (2026-05-26)',
+                  link: '/blog/2026/2026-05-26-Uni-LaViRA',
+                },
+                {
+                  text: 'LongNav-R1 (2026-02-12)',
+                  link: '/blog/2026/2026-02-12-LongNav-R1',
+                },
+                {
+                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
+                  link: '/blog/2026/2026-01-10-finegrainedalignmentedvln',
+                },
+                {
+                  text: 'SocialNav (2025-11-26)',
+                  link: '/blog/2025/2025-11-26-SocialNav',
+                },
+                {
+                  text: 'OmniVLA (2025-09-23)',
+                  link: '/blog/2025/2025-09-23-OmniVLA',
+                },
+                {
+                  text: 'NavFoM (2025-09-15)',
+                  link: '/blog/2025/2025-09-15-NavFoM',
+                },
+                {
+                  text: 'SGImagineNav (2025-08-09)',
+                  link: '/blog/2025/2025-08-09-SGImagineNav',
+                },
+                {
+                  text: 'StreamVLN (2025-07-07)',
+                  link: '/blog/2025/2025-07-07-StreamVLN',
+                },
+                {
+                  text: 'RaceVLA (2025-03-04)',
+                  link: '/blog/2025/2025-03-04-RaceVLA',
+                },
+                {
+                  text: 'VL-Nav (2025-02-02)',
+                  link: '/blog/2025/2025-02-02-vlnav',
+                },
+                {
+                  text: 'UniNaVid (2024-12-07)',
+                  link: '/blog/2024/2024-12-07-UniNaVid',
+                },
+                {
+                  text: 'NaVILA (2024-12-05)',
+                  link: '/blog/2024/2024-12-05-NaVILA',
+                },
+                {
+                  text: 'CityWalker (2024-11-26)',
+                  link: '/blog/2024/2024-11-26-CityWalker',
+                },
+                {
+                  text: 'PoliFormer (2024-06-28)',
+                  link: '/blog/2024/2024-06-28-PoliFormer',
+                },
+                {
+                  text: 'NaVid (2024-02-24)',
+                  link: '/blog/2024/2024-02-24-NaVid',
+                },
+                {
+                  text: 'NoMaD (2023-10-11)',
+                  link: '/blog/2023/2023-10-11-NoMaD',
+                },
+                {
+                  text: 'ViNT (2023-06-26)',
+                  link: '/blog/2023/2023-06-26-ViNT',
+                },
+                {
+                  text: 'GNM (2022-10-07)',
+                  link: '/blog/2022/2022-10-07-GNM',
+                },
+                {
+                  text: 'LM-Nav (2022-07-10)',
+                  link: '/blog/2022/2022-07-10-LM-Nav',
+                },
+                {
+                  text: 'ViNG (2020-12-17)',
+                  link: '/blog/2020/2020-12-17-ving',
+                },
+              ],
+            },
+            {
               text: '📂 Understandings',
               collapsed: true,
               items: [
@@ -1099,72 +1467,6 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 VLN',
-              collapsed: true,
-              items: [
-                {
-                  text: 'TravExplorer (2026-07-21)',
-                  link: '/blog/2026/2026-07-21-TravExplorer',
-                },
-                {
-                  text: 'Uni-LaViRA (2026-05-26)',
-                  link: '/blog/2026/2026-05-26-Uni-LaViRA',
-                },
-                {
-                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
-                  link: '/blog/2026/2026-01-10-finegrainedalignmentedvln',
-                },
-                {
-                  text: 'SocialNav (2025-11-26)',
-                  link: '/blog/2025/2025-11-26-SocialNav',
-                },
-                {
-                  text: 'OmniVLA (2025-09-23)',
-                  link: '/blog/2025/2025-09-23-OmniVLA',
-                },
-                {
-                  text: 'NavFoM (2025-09-15)',
-                  link: '/blog/2025/2025-09-15-NavFoM',
-                },
-                {
-                  text: 'StreamVLN (2025-07-07)',
-                  link: '/blog/2025/2025-07-07-StreamVLN',
-                },
-                {
-                  text: 'RaceVLA (2025-03-04)',
-                  link: '/blog/2025/2025-03-04-RaceVLA',
-                },
-                {
-                  text: 'NaVILA (2024-12-05)',
-                  link: '/blog/2024/2024-12-05-NaVILA',
-                },
-                {
-                  text: 'CityWalker (2024-11-26)',
-                  link: '/blog/2024/2024-11-26-CityWalker',
-                },
-                {
-                  text: 'NaVid (2024-02-24)',
-                  link: '/blog/2024/2024-02-24-NaVid',
-                },
-                {
-                  text: 'NoMaD (2023-10-11)',
-                  link: '/blog/2023/2023-10-11-NoMaD',
-                },
-                {
-                  text: 'ViNT (2023-06-26)',
-                  link: '/blog/2023/2023-06-26-ViNT',
-                },
-                {
-                  text: 'GNM (2022-10-07)',
-                  link: '/blog/2022/2022-10-07-GNM',
-                },
-                {
-                  text: 'LM-Nav (2022-07-10)',
-                  link: '/blog/2022/2022-07-10-LM-Nav',
-                },
-              ],
-            },
-            {
               text: '📂 WorldModels',
               collapsed: true,
               items: [
@@ -1215,48 +1517,6 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 Deploy',
-              collapsed: true,
-              items: [
-                {
-                  text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
-                  link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
-                },
-                {
-                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
-                  link: '/blog/2026/2026-07-04-jetsonorindeployment',
-                },
-                {
-                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
-                  link: '/blog/2026/2026-07-02-modeldeploymentengine',
-                },
-                {
-                  text: 'INT8 Engine 构建实战：从 PyTorch 到 TensorRT 的量化、校准与部署 (2026-06-25)',
-                  link: '/blog/2026/2026-06-25-int8-engine-build',
-                },
-                {
-                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
-                  link: '/blog/2025/2025-10-04-VLA_deploy',
-                },
-                {
-                  text: 'VLM 模型部署实战：推理流水线、预处理与 Token 拼接 (2025-05-20)',
-                  link: '/blog/2025/2025-05-20-vlmdeployment',
-                },
-                {
-                  text: 'ViT 在 NVIDIA 平台的量化与部署极致优化指南 (2024-07-20)',
-                  link: '/blog/2024/2024-07-20-vit-nvidia-quantization-guide',
-                },
-                {
-                  text: 'PTQ4ViT 论文详解：让 ViT 量化不掉点的 Twin Uniform 与 Hessian 度量 (2021-11-24)',
-                  link: '/blog/2021/2021-11-24-ptq4vit',
-                },
-                {
-                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
-                  link: '/blog/2019/2019-10-04-Yolo_deploy',
-                },
-              ],
-            },
-            {
               text: '📂 AIGC',
               collapsed: true,
               items: [
@@ -1299,6 +1559,48 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 Agents',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Athena-Brain-8B (2026-07-30)',
+                  link: '/blog/2026/2026-07-30-athena-brain',
+                },
+                {
+                  text: 'TairosAgent (2026-07-18)',
+                  link: '/blog/2026/2026-07-18-tairosagent',
+                },
+                {
+                  text: 'Hy-Embodied-VLM-1.0 (2026-07-14)',
+                  link: '/blog/2026/2026-07-14-Hy-Embodied-VLM-1.0',
+                },
+                {
+                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
+                  link: '/blog/2026/2026-07-02-agentskilltool',
+                },
+                {
+                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
+                  link: '/blog/2026/2026-06-28-agentcomprehensiveguide',
+                },
+                {
+                  text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
+                  link: '/blog/2026/2026-01-22-embodied-robot-dog-architecture',
+                },
+                {
+                  text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
+                  link: '/blog/2026/2026-01-15-multi-agent-data-pipeline',
+                },
+                {
+                  text: 'AI Agent 实践案例集 (2026-01-08)',
+                  link: '/blog/2026/2026-01-08-agent-practice-cases',
+                },
+                {
+                  text: 'AI Agent 全面学习指南 (2026-01-01)',
+                  link: '/blog/2026/2026-01-01-agent-comprehensive-guide',
+                },
+              ],
+            },
+            {
               text: '📂 Perception',
               collapsed: true,
               items: [
@@ -1329,36 +1631,6 @@ export default defineConfig({
                 {
                   text: 'CaDDN (2021-03-01)',
                   link: '/blog/2021/2021-03-01-caddn',
-                },
-              ],
-            },
-            {
-              text: '📂 Agents',
-              collapsed: true,
-              items: [
-                {
-                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
-                  link: '/blog/2026/2026-07-02-agentskilltool',
-                },
-                {
-                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
-                  link: '/blog/2026/2026-06-28-agentcomprehensiveguide',
-                },
-                {
-                  text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
-                  link: '/blog/2026/2026-01-22-embodied-robot-dog-architecture',
-                },
-                {
-                  text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
-                  link: '/blog/2026/2026-01-15-multi-agent-data-pipeline',
-                },
-                {
-                  text: 'AI Agent 实践案例集 (2026-01-08)',
-                  link: '/blog/2026/2026-01-08-agent-practice-cases',
-                },
-                {
-                  text: 'AI Agent 全面学习指南 (2026-01-01)',
-                  link: '/blog/2026/2026-01-01-agent-comprehensive-guide',
                 },
               ],
             },
