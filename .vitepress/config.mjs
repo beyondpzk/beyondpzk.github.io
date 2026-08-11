@@ -397,8 +397,16 @@ export default defineConfig({
                   link: '/blog/2025/2025-12-09-DualVLN',
                 },
                 {
+                  text: 'GuideNav：纯视觉公里级导盲导航的 VT&R 技术解析 (2025-12-05)',
+                  link: '/blog/2025/2025-12-05-guidenav',
+                },
+                {
                   text: 'RoboScapeR (2025-12-03)',
                   link: '/blog/2025/2025-12-03-roboscaper',
+                },
+                {
+                  text: 'NavForesee (2025-12-01)',
+                  link: '/blog/2025/2025-12-01-NavForesee',
                 },
                 {
                   text: 'ImprovedMeanFlows (2025-12-01)',
@@ -493,6 +501,10 @@ export default defineConfig({
                   link: '/blog/2025/2025-06-16-autovla',
                 },
                 {
+                  text: 'FIMA-Q：用对角+低秩逼近 Fisher 信息矩阵，ViT 3-bit PTQ 再进一步 (2025-06-13)',
+                  link: '/blog/2025/2025-06-13-fima-q',
+                },
+                {
                   text: 'VJEPA2 (2025-06-11)',
                   link: '/blog/2025/2025-06-11-vjepa2',
                 },
@@ -523,6 +535,10 @@ export default defineConfig({
                 {
                   text: 'Pi05 (2025-04-22)',
                   link: '/blog/2025/2025-04-22-pi05',
+                },
+                {
+                  text: 'APHQ-ViT：平均扰动 Hessian 重建 + GELU→ReLU，只用 uniform 量化器打穿 ViT 3-bit (2025-04-03)',
+                  link: '/blog/2025/2025-04-03-aphq-vit',
                 },
                 {
                   text: 'RaceVLA (2025-03-04)',
@@ -673,6 +689,10 @@ export default defineConfig({
                 {
                   text: 'Survey_Occupancy (2024-05-08)',
                   link: '/blog/2024/2024-05-08-survey-occupancy',
+                },
+                {
+                  text: 'AutoInspect：面向长期自主工业巡检的足式机器人系统 (2024-04-19)',
+                  link: '/blog/2024/2024-04-19-autoinspect',
                 },
                 {
                   text: 'SparseAD (2024-04-10)',
@@ -867,6 +887,14 @@ export default defineConfig({
                   link: '/blog/2022/2022-09-01-iris',
                 },
                 {
+                  text: 'OBQ：基于最优脑外科的后训练量化与剪枝统一框架 (2022-08-24)',
+                  link: '/blog/2022/2022-08-24-obq',
+                },
+                {
+                  text: 'LLM.int8()：大规模 Transformer 的 8-bit 矩阵乘法 (2022-08-15)',
+                  link: '/blog/2022/2022-08-15-llm-int8',
+                },
+                {
                   text: 'Wayformer (2022-07-12)',
                   link: '/blog/2022/2022-07-12-wayformer',
                 },
@@ -881,6 +909,10 @@ export default defineConfig({
                 {
                   text: 'VPT (2022-06-23)',
                   link: '/blog/2022/2022-06-23-vpt',
+                },
+                {
+                  text: 'ZeroQuant：面向大规模 Transformer 的高效后训练量化 (2022-06-04)',
+                  link: '/blog/2022/2022-06-04-zeroquant',
                 },
                 {
                   text: 'PETRV2 (2022-06-02)',
@@ -970,6 +1002,10 @@ export default defineConfig({
                   text: 'VectorNet (2020-05-08)',
                   link: '/blog/2020/2020-05-08-vectornet',
                 },
+                {
+                  text: 'AdaRound：后训练量化中的自适应舍入 (2020-04-22)',
+                  link: '/blog/2020/2020-04-22-adaround',
+                },
               ],
             },
             {
@@ -1018,6 +1054,156 @@ export default defineConfig({
           text: '📂 按分类查看',
           collapsed: false,
           items: [
+            {
+              text: '📂 Deploy',
+              collapsed: true,
+              items: [
+                {
+                  text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
+                  link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
+                },
+                {
+                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
+                  link: '/blog/2026/2026-07-04-jetsonorindeployment',
+                },
+                {
+                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
+                  link: '/blog/2026/2026-07-02-modeldeploymentengine',
+                },
+                {
+                  text: 'INT8 Engine 构建实战：从 PyTorch 到 TensorRT 的量化、校准与部署 (2026-06-25)',
+                  link: '/blog/2026/2026-06-25-int8-engine-build',
+                },
+                {
+                  text: 'MASQuant：面向 MLLM 的模态感知平滑量化 (2026-03-05)',
+                  link: '/blog/2026/2026-03-05-masquant',
+                },
+                {
+                  text: 'VEQ：MoE 视觉语言模型的模态与专家自适应量化 (2026-02-01)',
+                  link: '/blog/2026/2026-02-01-veq',
+                },
+                {
+                  text: 'RegCache：视觉编码器激活量化需要前缀 Register (2025-10-06)',
+                  link: '/blog/2025/2025-10-06-regcache',
+                },
+                {
+                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
+                  link: '/blog/2025/2025-10-04-VLA_deploy',
+                },
+                {
+                  text: 'Bi-VLM：把 VLM 权重 PTQ 推到 2-Bit 以下 (2025-09-23)',
+                  link: '/blog/2025/2025-09-23-bi-vlm',
+                },
+                {
+                  text: 'VLMQ：Token 显著性驱动的视觉语言模型 PTQ (2025-08-05)',
+                  link: '/blog/2025/2025-08-05-vlmq',
+                },
+                {
+                  text: 'FIMA-Q：用对角+低秩逼近 Fisher 信息矩阵，ViT 3-bit PTQ 再进一步 (2025-06-13)',
+                  link: '/blog/2025/2025-06-13-fima-q',
+                },
+                {
+                  text: 'VLM 模型部署实战：推理流水线、预处理与 Token 拼接 (2025-05-20)',
+                  link: '/blog/2025/2025-05-20-vlmdeployment',
+                },
+                {
+                  text: 'APHQ-ViT：平均扰动 Hessian 重建 + GELU→ReLU，只用 uniform 量化器打穿 ViT 3-bit (2025-04-03)',
+                  link: '/blog/2025/2025-04-03-aphq-vit',
+                },
+                {
+                  text: 'CalibQuant：多模态 LLM 的 1-Bit KV Cache 量化 (2025-02-15)',
+                  link: '/blog/2025/2025-02-15-calibquant',
+                },
+                {
+                  text: 'MQuant：多模态大语言模型的全静态量化 (2025-02-01)',
+                  link: '/blog/2025/2025-02-01-mquant',
+                },
+                {
+                  text: 'MBQ：模态平衡的大视觉语言模型量化 (2024-12-27)',
+                  link: '/blog/2024/2024-12-27-mbq',
+                },
+                {
+                  text: 'QwT：Quantization without Tears 的通用低比特量化 (2024-11-21)',
+                  link: '/blog/2024/2024-11-21-qwt',
+                },
+                {
+                  text: 'SVDQuant：用低秩分量吸收 Outlier 的 4-Bit 模型量化 (2024-11-07)',
+                  link: '/blog/2024/2024-11-07-svdquant',
+                },
+                {
+                  text: 'Q-VLM：面向大视觉语言模型的跨层依赖感知 PTQ (2024-10-10)',
+                  link: '/blog/2024/2024-10-10-q-vlm',
+                },
+                {
+                  text: 'ViT 在 NVIDIA 平台的量化与部署极致优化指南 (2024-07-20)',
+                  link: '/blog/2024/2024-07-20-vit-nvidia-quantization-guide',
+                },
+                {
+                  text: 'SpinQuant：用学习旋转进一步提升 4-Bit LLM 量化 (2024-05-26)',
+                  link: '/blog/2024/2024-05-26-spinquant',
+                },
+                {
+                  text: 'QuaRot：旋转 LLM 实现无 Outlier 的 4-Bit 端到端推理 (2024-03-30)',
+                  link: '/blog/2024/2024-03-30-quarot',
+                },
+                {
+                  text: 'OmniQuant：可学习裁剪与等价变换的全方位 LLM 量化 (2023-08-25)',
+                  link: '/blog/2023/2023-08-25-omniquant',
+                },
+                {
+                  text: 'AWQ：激活感知的 LLM 权重量化 (2023-06-01)',
+                  link: '/blog/2023/2023-06-01-awq',
+                },
+                {
+                  text: 'APQ-ViT：块级校准与 Matthew Effect 保持的 ViT 低比特 PTQ (2023-03-25)',
+                  link: '/blog/2023/2023-03-25-apq-vit',
+                },
+                {
+                  text: 'RepQ-ViT：Scale 重参数化让 ViT 低比特 PTQ 可用 (2022-12-16)',
+                  link: '/blog/2022/2022-12-16-repq-vit',
+                },
+                {
+                  text: 'SmoothQuant：把激活 Outlier 平滑进权重的 W8A8 量化 (2022-11-18)',
+                  link: '/blog/2022/2022-11-18-smoothquant',
+                },
+                {
+                  text: 'GPTQ：基于二阶信息的 GPT 后训练量化 (2022-10-31)',
+                  link: '/blog/2022/2022-10-31-gptq',
+                },
+                {
+                  text: 'Q-ViT：信息整流与分布引导蒸馏的全量化低比特 ViT (2022-10-13)',
+                  link: '/blog/2022/2022-10-13-q-vit',
+                },
+                {
+                  text: 'OBQ：基于最优脑外科的后训练量化与剪枝统一框架 (2022-08-24)',
+                  link: '/blog/2022/2022-08-24-obq',
+                },
+                {
+                  text: 'LLM.int8()：大规模 Transformer 的 8-bit 矩阵乘法 (2022-08-15)',
+                  link: '/blog/2022/2022-08-15-llm-int8',
+                },
+                {
+                  text: 'ZeroQuant：面向大规模 Transformer 的高效后训练量化 (2022-06-04)',
+                  link: '/blog/2022/2022-06-04-zeroquant',
+                },
+                {
+                  text: 'FQ-ViT：全量化 ViT 的 PTF 与 Log-Int-Softmax (2021-11-27)',
+                  link: '/blog/2021/2021-11-27-fq-vit',
+                },
+                {
+                  text: 'PTQ4ViT 论文详解：让 ViT 量化不掉点的 Twin Uniform 与 Hessian 度量 (2021-11-24)',
+                  link: '/blog/2021/2021-11-24-ptq4vit',
+                },
+                {
+                  text: 'AdaRound：后训练量化中的自适应舍入 (2020-04-22)',
+                  link: '/blog/2020/2020-04-22-adaround',
+                },
+                {
+                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
+                  link: '/blog/2019/2019-10-04-Yolo_deploy',
+                },
+              ],
+            },
             {
               text: '📂 VLA',
               collapsed: true,
@@ -1149,132 +1335,6 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 Deploy',
-              collapsed: true,
-              items: [
-                {
-                  text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
-                  link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
-                },
-                {
-                  text: 'Jetson Orin 部署实战：算力、显存与模型切分的决策 (2026-07-04)',
-                  link: '/blog/2026/2026-07-04-jetsonorindeployment',
-                },
-                {
-                  text: '模型部署中的 Engine：从推理后端到生产落地 (2026-07-02)',
-                  link: '/blog/2026/2026-07-02-modeldeploymentengine',
-                },
-                {
-                  text: 'INT8 Engine 构建实战：从 PyTorch 到 TensorRT 的量化、校准与部署 (2026-06-25)',
-                  link: '/blog/2026/2026-06-25-int8-engine-build',
-                },
-                {
-                  text: 'MASQuant：面向 MLLM 的模态感知平滑量化 (2026-03-05)',
-                  link: '/blog/2026/2026-03-05-masquant',
-                },
-                {
-                  text: 'VEQ：MoE 视觉语言模型的模态与专家自适应量化 (2026-02-01)',
-                  link: '/blog/2026/2026-02-01-veq',
-                },
-                {
-                  text: 'RegCache：视觉编码器激活量化需要前缀 Register (2025-10-06)',
-                  link: '/blog/2025/2025-10-06-regcache',
-                },
-                {
-                  text: '从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战 (2025-10-04)',
-                  link: '/blog/2025/2025-10-04-VLA_deploy',
-                },
-                {
-                  text: 'Bi-VLM：把 VLM 权重 PTQ 推到 2-Bit 以下 (2025-09-23)',
-                  link: '/blog/2025/2025-09-23-bi-vlm',
-                },
-                {
-                  text: 'VLMQ：Token 显著性驱动的视觉语言模型 PTQ (2025-08-05)',
-                  link: '/blog/2025/2025-08-05-vlmq',
-                },
-                {
-                  text: 'VLM 模型部署实战：推理流水线、预处理与 Token 拼接 (2025-05-20)',
-                  link: '/blog/2025/2025-05-20-vlmdeployment',
-                },
-                {
-                  text: 'CalibQuant：多模态 LLM 的 1-Bit KV Cache 量化 (2025-02-15)',
-                  link: '/blog/2025/2025-02-15-calibquant',
-                },
-                {
-                  text: 'MQuant：多模态大语言模型的全静态量化 (2025-02-01)',
-                  link: '/blog/2025/2025-02-01-mquant',
-                },
-                {
-                  text: 'MBQ：模态平衡的大视觉语言模型量化 (2024-12-27)',
-                  link: '/blog/2024/2024-12-27-mbq',
-                },
-                {
-                  text: 'QwT：Quantization without Tears 的通用低比特量化 (2024-11-21)',
-                  link: '/blog/2024/2024-11-21-qwt',
-                },
-                {
-                  text: 'SVDQuant：用低秩分量吸收 Outlier 的 4-Bit 模型量化 (2024-11-07)',
-                  link: '/blog/2024/2024-11-07-svdquant',
-                },
-                {
-                  text: 'Q-VLM：面向大视觉语言模型的跨层依赖感知 PTQ (2024-10-10)',
-                  link: '/blog/2024/2024-10-10-q-vlm',
-                },
-                {
-                  text: 'ViT 在 NVIDIA 平台的量化与部署极致优化指南 (2024-07-20)',
-                  link: '/blog/2024/2024-07-20-vit-nvidia-quantization-guide',
-                },
-                {
-                  text: 'SpinQuant：用学习旋转进一步提升 4-Bit LLM 量化 (2024-05-26)',
-                  link: '/blog/2024/2024-05-26-spinquant',
-                },
-                {
-                  text: 'QuaRot：旋转 LLM 实现无 Outlier 的 4-Bit 端到端推理 (2024-03-30)',
-                  link: '/blog/2024/2024-03-30-quarot',
-                },
-                {
-                  text: 'OmniQuant：可学习裁剪与等价变换的全方位 LLM 量化 (2023-08-25)',
-                  link: '/blog/2023/2023-08-25-omniquant',
-                },
-                {
-                  text: 'AWQ：激活感知的 LLM 权重量化 (2023-06-01)',
-                  link: '/blog/2023/2023-06-01-awq',
-                },
-                {
-                  text: 'APQ-ViT：块级校准与 Matthew Effect 保持的 ViT 低比特 PTQ (2023-03-25)',
-                  link: '/blog/2023/2023-03-25-apq-vit',
-                },
-                {
-                  text: 'RepQ-ViT：Scale 重参数化让 ViT 低比特 PTQ 可用 (2022-12-16)',
-                  link: '/blog/2022/2022-12-16-repq-vit',
-                },
-                {
-                  text: 'SmoothQuant：把激活 Outlier 平滑进权重的 W8A8 量化 (2022-11-18)',
-                  link: '/blog/2022/2022-11-18-smoothquant',
-                },
-                {
-                  text: 'GPTQ：基于二阶信息的 GPT 后训练量化 (2022-10-31)',
-                  link: '/blog/2022/2022-10-31-gptq',
-                },
-                {
-                  text: 'Q-ViT：信息整流与分布引导蒸馏的全量化低比特 ViT (2022-10-13)',
-                  link: '/blog/2022/2022-10-13-q-vit',
-                },
-                {
-                  text: 'FQ-ViT：全量化 ViT 的 PTF 与 Log-Int-Softmax (2021-11-27)',
-                  link: '/blog/2021/2021-11-27-fq-vit',
-                },
-                {
-                  text: 'PTQ4ViT 论文详解：让 ViT 量化不掉点的 Twin Uniform 与 Hessian 度量 (2021-11-24)',
-                  link: '/blog/2021/2021-11-24-ptq4vit',
-                },
-                {
-                  text: '从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战 (2019-10-04)',
-                  link: '/blog/2019/2019-10-04-Yolo_deploy',
-                },
-              ],
-            },
-            {
               text: '📂 VLN',
               collapsed: true,
               items: [
@@ -1305,6 +1365,14 @@ export default defineConfig({
                 {
                   text: 'FineGrainedAlignmentedVLN (2026-01-10)',
                   link: '/blog/2026/2026-01-10-finegrainedalignmentedvln',
+                },
+                {
+                  text: 'GuideNav：纯视觉公里级导盲导航的 VT&R 技术解析 (2025-12-05)',
+                  link: '/blog/2025/2025-12-05-guidenav',
+                },
+                {
+                  text: 'NavForesee (2025-12-01)',
+                  link: '/blog/2025/2025-12-01-NavForesee',
                 },
                 {
                   text: 'SocialNav (2025-11-26)',
@@ -1349,6 +1417,10 @@ export default defineConfig({
                 {
                   text: 'PoliFormer (2024-06-28)',
                   link: '/blog/2024/2024-06-28-PoliFormer',
+                },
+                {
+                  text: 'AutoInspect：面向长期自主工业巡检的足式机器人系统 (2024-04-19)',
+                  link: '/blog/2024/2024-04-19-autoinspect',
                 },
                 {
                   text: 'NaVid (2024-02-24)',
