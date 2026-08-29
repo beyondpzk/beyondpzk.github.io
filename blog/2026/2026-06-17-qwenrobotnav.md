@@ -56,7 +56,7 @@ Qwen-RobotNav 是阿里巴巴通义千问团队提出的**统一导航基础模�
 
 Qwen-RobotNav 的核心论点是：
 
-> 不同导航任务共享同一个感知-规划骨干，但对"如何消费视觉流"有根本不同的需求。因此，**关键不是设计更多任务头，而是把观察上下文作为一等公民、外部可控变量**。
+> 不同导航任务共享同一个感知-规划骨干，但对"如何消费视觉流"有根本不同的需求。因此，**关键不是设计更多任务头，而是把观察上下文当作头等的、可外部控制的自由度**。
 
 ### 2.3 统一任务形式化
 
@@ -180,6 +180,10 @@ Time step 1
 - 损失为预测航点与真实航点之间的 MSE；
 - 推理时反归一化。
 
+**动作头的输入**：不是所有 token，也不是可学习的固定数量 readout token，而是 LLM 的 **final hidden state**——单个 $d$ 维向量 $\mathbf{E}_A \in \mathbb{R}^d$，即序列最后一个位置（最后一个视觉 token）出来的隐藏向量。论文 §2.5 原文："maps the LLM's final hidden state $E_A \in \mathbb{R}^d$ to a waypoint trajectory"。输入序列是 instruction + 时间/视角标签 + 视觉 token 的拼接，末尾是最后一个时刻最后一个相机的视觉 token。论文没有提到 pooling / CLS token / 可学习 action token，就是单点读出。
+
+**设计动机**：动作头刻意做薄，让空间推理留在 backbone 里——§2.1 原话："By keeping the action head minimal, the bulk of spatial reasoning remains within the LLM"。
+
 #### 3.5.1 航点归一化与反归一化（代码实现）
 
 论文中的归一化策略可复现为以下代码：
@@ -251,6 +255,14 @@ L = L_traj + λ · L_VL
 - `L_VL`：标准 next-token prediction loss（视觉-语言推理样本）；
 - `λ = 1.0`。
 
+**澄清：复合 loss 是 batch/step 级加总，不是每个 sample 同时算两种 loss。** 论文 §2.6 原文 `L_traj` "active only on navigation trajectory samples"、`L_VL` "on vision-language reasoning samples"。落到单个样本：
+
+- 85% 的导航轨迹样本只算 `L_traj`（动作头输出的 8 航点对真值做 MSE），`L_VL` 对其不激活；
+- 15% 的 VL 推理样本只算 `L_VL`（LM head 的 next-token 文本预测），`L_traj` 对其不激活；
+- 同一 batch 里两类样本混在一起，总 loss = 轨迹样本 MSE 之和 + λ × VL 样本 NTP 之和。
+
+两类样本**共享同一个前向 pass**（论文原话 "the two objectives share the same forward pass"），区别只在读出头：轨迹样本走动作头（MLP → 24 维航点），VL 样本走 LM head（输出文本 token）。这正是 VL 共训练防"反应式动作映射坍塌"的机制来源。
+
 #### 3.6.2 配置随机化
 
 每样本独立随机采样：
@@ -289,6 +301,24 @@ global_goal（地图坐标） → 定位模块获取 current_pose → relative_g
 - 如果 A→B 距离较远（如跨房间），上层 Planner 必须先将全局路径拆分为多个 sub-goals（每段 5~10m），每段独立做一次坐标转换后调用 Qwen-RobotNav。
 
 这与论文中 Agentic 系统"77% 更少导航步数"的结果一致：上层 Planner 负责高效分解，Qwen-RobotNav 负责局部视觉导航执行。
+
+### 3.8 长距离 PointNav 对定位精度的要求
+
+论文没有给出硬性的定位精度阈值，但结合 §4.1.2 的机制可以给出工程估算。关键结论：**对长距离 PointNav，卡脖子的不是距离误差，而是方位角（bearing）误差**。
+
+- 目标以 egocentric 坐标 + distance + bearing 每步重投影喂给模型，模型主要靠"方向"走，距离只影响速度整形与减速停车；
+- 方位偏 θ 在距离 d 处产生约 `d·θ` 的横向偏差：偏 1°/3°/5° 时，10 m 处分别约 0.17 / 0.52 / 0.87 m；配合 ≤1.5 m 减速区，横向偏差控制在 ~0.5–1 m 内较稳，即**方位角误差最好 ≤3~5°，理想 2~3°**；
+- 换算成位置精度：θ ≈ σ_p / d，因此对 6 m 目标保持 3° 以内需 σ_p ≈ 0.3 m，对 10 m 目标可放宽到 ~0.5 m。**一句话：长距离 point 需要分米级（0.2~0.5 m）定位，"1 m 以内"是可用上界，≥1 m 会让远处 point 的方向明显漂**；
+- 距离误差可松到 ~0.5–1 m，早一点/晚一点减速不至于失败；
+- 关键 nuance：要求的是**短时局部一致性（低漂移）+ 定期重锚定**，而非全局绝对精度——每个控制周期（约 5 Hz）都会 `relative_goal = global_goal - current_pose` 重新投影，误差不会沿整条路径累积；
+- 推论：拓扑定位（如 GuideNav 的 CosPlace「我像哪一帧」）只能给拓扑节点、给不出 `(dx,dy)`，无法直接喂 PointNav；要跑 PointNav 至少需要一层度量定位（里程计 + 尺度恢复、LiDAR、或度量 SLAM/VPR 重定位）。
+
+**室内 vs 室外的定位要求：**
+
+- **室内**：没有 GPS，只能靠度量定位。LiDAR SLAM 轻松到 cm 级，远超 0.2~0.5 m 的要求；视觉 SLAM / VIO 通常 cm~dm 级但会漂，需要回环或 VPR 定期重锚定；纯轮式里程计短时（几米~十几米）约 dm 级、6~10 m 内勉强可用，但长程必须重锚定。结论：室内 6~10 m PointNav 用 LiDAR SLAM 或"带重锚定的 VIO/VPR"都够，关键是短期漂移别超 ~0.5 m。
+- **室外**：普通 GPS / 高德 waypoint 是米级（1~5 m），对 6~10 m PointNav 的方位误差太大（σ_p=3 m、d=10 m → θ≈17°），不能直接喂；RTK / RTK-GNSS 能到 cm 级，满足要求，是室外 PointNav 的优选绝对定位；LiDAR / 视觉定位也可用，但受光照、天气（夜间/雨雾）影响。室外距离更长，仍按 5~10 m 拆 sub-goal，每段做一次局部精修 / 重投影（对应 §8.4 的高德 waypoint → Planner 局部精修 → PointNav，或直接转 VLN）。
+
+一句话：**室内靠 SLAM/VIO + 重锚定，室外靠 RTK（或 SLAM）+ 局部精修**；共同点是"短时 0.2~0.5 m 量级、误差不累积、能定期重锚定"。
 
 ---
 
@@ -373,6 +403,18 @@ Qwen-RobotNav 的 PointNav 数据**并非在仿真器中重新采集**，而是*
 6. **减速轨迹**：当目标距离 ≤ 1.5m 时，生成步长线性递减的减速轨迹，教导平滑停止。
 
 **核心结论**：如果你有任意的漫游/回放轨迹，不需要重新跑仿真采集，只需要从轨迹中采样 future goal 并插值 waypoints，即可生成 PointNav 训练样本。
+
+#### 4.2.1 补充：三类点目标的距离范围与可见性（论文 §4.1.2）
+
+论文 §4.1.2 里 984K 点目标样本（922K 坐标式 + 62K 命令式）按难度分三档，Point 到自身的距离大致在 **0.5～10 m（geodesic）**，而且**不是都在视觉可见范围内**：
+
+| 类别 | 数量 | 距离/范围 | 是否可见 |
+|---|---|---|---|
+| Direct-approach | 348K | canonical 方向或 `[-5,5]×[-5,5] m` 网格，geodesic/euclidean > 1.15 剔除（近似直线） | 基本可见/近乎直线 |
+| Short-range | 174K | geodesic 0.5–6 m | 局部邻域，视觉通常足够 |
+| Long-range | 400K | geodesic 6–10 m | 经常无视线，跨墙/绕家具/跨房间 |
+
+要点：目标以 egocentric 坐标 + distance + bearing 形式给出，不要求模型先"看见"目标；占比最大的 Long-range（400K）专门练"给定相对坐标、绕墙跨房间搜路"的非短视导航。距目标 ≤1.5 m 时生成减速轨迹教平滑停车。
 
 #### 4.2.2 物体目标导航的骨架探索轨迹
 
@@ -885,6 +927,34 @@ Answer: Turn Right
 
 这种设计使长程任务能在 Planner 上下文有限的情况下持续进行。
 
+**"evidence" 是什么**：它不是 agent 领域的标准术语，而是作者对"观察摘要 + 记忆"的统称。`trajectory evidence` ≈ 单次工具调用返回的压缩 observation；`evidence notebook` ≈ 长期 memory / scratchpad。Planner 面对的是部分可观测、不确定的环境，靠这些"已探过哪、看到过什么、排除了哪些假设"的事实笔记做长程决策，所以称其为"证据"。
+
+**具体怎么压缩**：原始 rollout 是密集的——egocentric 观测帧、采样历史帧、低层控制轨迹、8 个预测航点。直接塞回 Planner 会撑爆上下文窗口，所以 harness 做的是"丢弃密集低层数据 + 提取少量语义字段 + 稀疏指针索引"：
+
+1. **丢弃**：原始图像流、完整控制轨迹、所有航点；
+2. **保留语义字段**：`subgoal`（干了啥）、`task_mode/config`（怎么调的，且只记主控制项 B/γ/m）、`progress`（移动过程文字化）、`salient`（关键观察对象）、`outcome`（结果）；
+3. **指针而非存图**：`key_frames` 只存代表帧的索引（source-indexed pointer），需要视觉复核时再按索引取回原始图像。
+
+两级记忆对应：`trajectory evidence` 是段级摘要，`evidence notebook` 是跨 episode 的持久结论（设计成在上下文压缩后仍能存活）。注意论文没有写死"文字摘要由谁生成"（LLM 总结还是模板/检测结果拼装），只说由 harness 负责转换——这是实现细节。
+
+### 5.5 harness 是什么，以及子目标完成判定
+
+**harness（接口/胶水层）**：论文里的 lightweight harness 是上层 Planner 与下层 Qwen-RobotNav 之间的桥接层，本身不推理、不预测航点。两个核心职责：
+
+1. 把 Planner 的决策（subgoal 指令 `L_i`、任务模式 `τ_i`、观察配置 `Φ_i`）转成 Qwen-RobotNav 调用；
+2. 把一次导航调用产生的密集 rollout（观测、历史帧、低层控制轨迹、预测航点）压缩成紧凑 trajectory evidence 返回给 Planner（见 §5.4）。
+
+此外它还维护 Evidence Notebook、暴露辅助视觉工具（检测 / 场景理解 / 语义定位）。一句话：它是"让 Planner 能把 Qwen-RobotNav 当工具调用"的那层适配代码，不是模型。
+
+**子目标完成判定**：模型本身不知道、也不报告"到达"——24 维输出只有 `(x,y,θ)×8`，没有 done 标志。完成是系统层判定的：
+
+1. 模型输出 8 航点，终点即 subgoal（训练时距目标 ≤1.5 m 生成减速轨迹教停车）；
+2. 低层控制器执行这段航点，走到最后一个航点 / 速度趋近零 = 这段 rollout 结束；
+3. harness 用定位做 `|current_pose - subgoal| < 阈值` 的交叉验证，把结果写进 evidence 的 `outcome/progress`；
+4. Planner 据此切到下一个 subgoal、重试、换任务模式或调视觉工具。
+
+对应关系：每个 subgoal 约 5~10 m，正好约等于一次 8 航点的规划视界，所以"一次 nav call ≈ 一个 subgoal 段"。注意论文没有给出完成判定的具体阈值 / 停多久算停，这部分属于 harness / 低层执行侧的实现细节。
+
 ---
 
 ## 六、实验评估
@@ -1043,6 +1113,34 @@ Qwen-RobotNav 仅用**单目前向相机**，ABot-N0 使用全景多视图，仍
 - 利用家具、门框、标识等视觉路标进行空间决策；
 - 收到"后退"指令后，能沿原路精确返回起点，展示反向运动原语能力。
 
+**不需要度量地图 / 预建拓扑图，但指令本身就是一张程序化语言路线图：**
+- 论文 §5.6 明确环境是 "previously unseen"，输入是 "pure language instructions without any goal images or coordinates"——没有目标图像、坐标，也没有预建地图/拓扑图/SLAM 图；
+- 走的是 VLN 而非 PointNav，所以不需要 RTK/SLAM/里程计去算 `(dx,dy)`；
+- 它需要的是**视觉路标 grounding**：靠识别指令里点名的路标（furniture / doorways / signage、supermarket、black desk、hospital room）判断"我现在到哪、下一步干嘛"，这是模型内部的视觉对齐，不是外部定位模块；
+- 返程"沿原路返回"也不是度量定位，而是靠 forward 途中记住的视觉路标 retrace（论文原话 "utilizes visual landmarks encountered during forward navigation to maintain spatial awareness along the return path"），结果是 "closely matching"（近似匹配）而非厘米级精确。
+
+**"指令就是一张地图"**：看 Figure 16 那条指令的结构，节点是路标（supermarket、glass sign "Training zone"、black desk、hospital room、bed），边是动作（turn around、walk straight、turn right、stop）——这本质是一个"路标为节点、动作为边"的路线图，只是用自然语言表达。所以 §8.1 不建图、不用几何图，但"地图"由人用语言现成地交给它；机器人干的不是"自己找路"，而是把这张语言路线图在线 ground 到视觉观测上。VLN 是"被引导"导航（路线预先给出），对照 ObjNav（只有目标类别、自己搜路）和 GuideNav（系统自己 teach 建图）。
+
+**推理时如何逐步做到（闭环 ~5 Hz）：**
+1. 配置：任务模式 τ=VLN；指令 L=Figure 16 长指令；观察配置 Φ=大 `B`、`m=random`（全局采样）、较小 `γ`（指令跟随要保留几十步前历史反复对照路标）；embodiment prompt="Imagine you are a robot programmed for navigation tasks"。
+2. 每帧：当前多相机观测 + 指令 token + 时间/视角标签 → Qwen3-VL → final hidden state → 4 层 MLP → 8 个局部航点 → 低层控制器执行走一小段 → 新观测回到第 1 步。
+3. 模型每步都带完整指令 + 全局历史，走到 supermarket 时历史里还留着之前路标，能对上 "turn right"；再对上 black desk、hospital room。这正是 VLN 需要长程观察记忆、所以配 random + 大 B 的原因。
+
+**每一步对应的训练任务类型：**
+
+| 推理时的行为 | 对应训练任务/数据 |
+|---|---|
+| 跟随长指令、grounding 路标 | Instruction Following（VLN-CE R2R/RxR，5.63M） |
+| 跨 21.78 m 反复对照远处路标（长程记忆） | 尤其 VLN-CE RxR（长路径、密集路标） |
+| 统一输出 8 航点 `(x,y,θ)×8` | 全部 5 个轨迹任务族共训（本段走 VLN 接口） |
+| 转身 / 转弯 / 停止 | 轨迹数据 turn/stop 动作 + command-based motion primitives（PointNav 62K）+ ≤1.5m 减速停车 |
+| "walk backward" 反向运动原语 | 最接近 command-based motion primitives（PointNav 62K）；论文未明确 backward 是否显式在训练集，可能部分 emergent |
+| 记住 forward 路标、reverse 复用（空间方向感） | VL 共训里的 structured multi-perspective reasoning（15% VL 数据，含 "Instruction progress"） |
+
+这一段没有用到 PointNav / ObjNav / Tracking / Driving——四个 task mode 是同一模型的不同接口，§8.1 全程只拨到 VLN 这一档。
+
+**VLN 如何知道任务完成**：模型永远不会"停止输出"——每次调用固定输出 8 航点，24 维里没有 done 标志。完成被编码在航点内容里：当模型 grounding 到指令最后一个里程碑（"stop next to the bed"）时，输出的 8 航点收敛到同一位置、位移趋近 0（减速/停），低层控制器执行后速度归零。这是训练教出来的——turn/stop 动作 100% 保留、≤1.5m 生成减速轨迹、ground-truth 轨迹终点即目标 + 停。agentic 部署里 harness / 低层还会再监测"位移→0 / 速度→0"做外部兜底确认。所以没有显式 done，只有"隐式的停"（位移→0），外加低层/上层的检测。
+
 ### 8.2 室内公寓精细语言控制
 
 - "停在床左侧床头柜前"——准确停在指定侧边；
@@ -1058,6 +1156,15 @@ Qwen-RobotNav 仅用**单目前向相机**，ABot-N0 使用全景多视图，仍
 3. 沿走廊向目标区域导航；
 4. 到达后检查场景，发现绿色雨伞；
 5. 生成基于证据的最终回答。
+
+**能否直接扩展成"沿小区走一圈 + 沿途汇报危险"：不能原样做到。** §8.3 演示的是**有明确目标的定向导航**（"去 Cotti Coffee 看绿伞"），而巡逻是**无目标、需持续监测 + 闭环**的任务，缺四块：
+
+1. **路线来源**：Qwen-RobotNav 只是 5~10 m 的局部执行器，上层 Planner 手里没有小区地图/拓扑/闭环判据，不知道"绕一圈"该往哪走、何时算完成、何时回起点。需先 teach 一圈建拓扑图（GuideNav 式）或接地图/RTK 给路由；
+2. **危险判定**：Qwen-RobotNav 是导航模型不是检测模型，只输出航点；"危险"是语义判断，需额外挂目标检测（火/烟/人/异物）+ 变化检测 + VLM 兜底判断，论文未演示；
+3. **户外 + 尺度 + 定位**：论文真机演示全是室内、21.78 m 上限；小区是室外、面积更大、有动态障碍，需要 RTK/SLAM 级户外定位（见 §3.8）；
+4. **闭环判定**：需要"回到起点 / 关键帧闭环"来判定一圈完成。
+
+可复用的部分：Planner 分解任务、局部航点执行、evidence notebook 记忆、"基于证据汇报"这套闭环形态是现成的。所以 §8.3 是**骨架**，要做巡逻得在骨架上再补"路线来源、危险检测、户外定位、闭环判定"四块，不能直接照搬。
 
 ### 8.4 长距离导航的能力边界与实现方式
 
@@ -1104,7 +1211,7 @@ relative_goal = global_goal - current_pose
 
 #### 文章中的真实案例
 
-- **展览厅长程 VLN**（`:1040-1044`）：机器狗仅靠语言指令导航 21.78m。这并非 Qwen-RobotNav 一次规划完成，而是上层 Planner 将长指令拆解为多段子目标，逐段调用模型执行。
+- **展览厅长程 VLN**（§8.1）：机器狗仅靠语言指令导航 21.78m。这是 VLN 模式直接吃一条长指令、内部逐步用视觉路标 grounding 的形态，**不是上层 Planner 显式拆 sub-goal**（真正的 Planner 拆解是 §8.3 的 Cotti Coffee 案例）。
 - **检查绿色雨伞**（`:1051-1060`）：用户请求"检查 Cotti Coffee 是否有一把绿色雨伞"，Planner 解析意图、沿走廊分段导航、到达后检查场景。这也是 Planner 分段 + Qwen-RobotNav 逐段执行的典型流程。
 
 #### 与 ABot-N0 的对比
@@ -1179,6 +1286,49 @@ Qwen-RobotNav VLN 模式
 ##### 关键结论
 
 **高德/地图给的是“方向意图”，不是“可执行坐标”，所以不能直接喂给 PointNav；但经过 Planner 的局部精修后，PointNav 仍然是可行的。** 走 VLN 是更鲁棒、更自然的选择，但不是唯一选择。对 Qwen-RobotNav 来说，PointNav 和 VLN 都是同一模型的可调接口，Planner 可以根据可用信息和精度选择最合适的调用方式。
+
+#### 听高德语音当路由：能自己走 5 公里吗？
+
+概念上"听高德语音 = 一串 VLN 指令流"方向正确——turn-by-turn 语音（"前方 200 米路口右转"）就是一条条短的自然语言指令，ASR → 文本 → VLN 是通的，也正是 Qwen-RobotNav 的甜区。但**"直接听着语音自己走过去"不行**：语音只给了"路线意图"，没给"怎么安全地执行"，难点全在执行侧：
+
+1. **高德语音是给人听的，不是可执行指令**：它说"沿人行道走 200 米右转"，但不告诉机器人哪是人行道、怎么过马路、遇到车怎么办——这些"人的判断"高德默认你有；
+2. **"走 200 米"隐含度量定位**：高德根据你的实时位置动态重规划、重提示，机器人得知道自己精确在哪、走了多远；手机 GPS 是 1~5 m 米级，对高德出语音够用，但对机器人"别走到马路上、准确停下"不够（需 RTK 级，见 §3.8）；
+3. **5 km 户外 = 安全能力无底洞**：动态障碍、红绿灯、过马路、高速来车，Qwen-RobotNav 只有 5~10 m 局部视界 + 隐式避障，没有这些安全能力；
+4. **5 km 要拆成千段 sub-goal**：Qwen-RobotNav 一次只走 5~10 m，高德语音每隔几百米才给一句，中间每一米怎么走都要本地执行器 + 安全层自己扛。
+
+所以可行的架构是 ABot-N0 那条路线，语音只是"路由输入"这一环：
+
+```
+手机/高德语音 → ASR 转文本
+    → 上层 Planner + RTK 定位，把"方向意图"转成局部 sub-goal
+    → Qwen-RobotNav 逐段执行 5~10 m（VLN / PointNav）
+    → 底层 LiDAR / 安全层兜底（过马路、避车、急停）
+```
+
+一句话：**"听语音"是容易的那一半（ASR→VLN），"走过去"是难的那一半（定位 + 安全 + 尺度）；语音给的是"往哪走"的意图，而"怎么安全走到"要靠定位模块 + 安全层 + 局部执行器——这三样，语音一个都不给。**
+
+#### 采户外高德式数据训练，能补上哪些、补不上哪些
+
+如果专门采集"高德语音 + 户外第一人称视觉 + 真值航点"来训练，能补上一大块**能力层**：
+
+- 指令 grounding："前方右转" → 看到路口 → 输出右转航点，这是 VLN 的户外扩展，完全可训；
+- 户外视觉理解：认人行道 / 马路 / 路口 / 斑马线 / 红绿灯；
+- 红绿灯识别和过马路的"行为策略"：红灯停、绿灯走、走斑马线、车流间隙通过——这些都可以靠专家示范轨迹 + 正确动作采数据训练。
+
+但有三件事**数据补不上**，因为它们是物理/系统问题，不是视觉-动作映射问题：
+
+1. **度量距离（"走 50 米"）**：模型工作在无全局尺度的局部坐标系，单目纯视觉有尺度模糊，学不会"累计走了多少米"；高德说"50 米"恰恰是因为下个路口现在看不见，所以必须靠里程计/RTK；
+2. **安全保证**：见下；
+3. **尺度分解 + 喂位置给高德**：5 km 拆段、实时告诉高德"我在哪"，靠 RTK + 上层 Planner。
+
+**关于红绿灯/过马路专门采数据**：能做，但要分清"能力层"和"保证层"。
+
+- 数据训练出来的是**能力层**——"通常对、但有失败率的策略"（红灯停、绿灯走、车流间隙通过）；
+- 过马路是 safety-critical 场景，要的是**保证层**——"最坏情况也不出事"。两者不是一回事：长尾危险（闯红灯的车、盲区电动车、雨雪打滑）采不全，神经策略在未见情况上有不可约失败率；而且"判断能不能过"需要估对向来车的速度/距离，又回到度量尺度问题。
+
+所以正确架构是两层：VLA 靠数据训练学会"正常情况怎么过马路"，底层安全 governor（LiDAR/雷达 + 红绿灯检测 + 硬规则）做否决式兜底——"红灯时不管 VLA 说什么都停""有车进入安全距离就不进斑马线"，直接覆盖 VLA。这正是论文 §10.2 说的：Qwen-RobotNav 输出高层路径意图，**必须配合底层安全控制器**。
+
+一句话：**能力层靠数据训练，保证层靠传感器/规则兜底，两者互补、不能相互替代。**
 
 #### 一句话总结
 
