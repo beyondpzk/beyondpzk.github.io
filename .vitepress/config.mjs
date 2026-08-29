@@ -65,6 +65,7 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: '博客', link: '/blog/' },
+      { text: '书籍', link: '/books/' },
       { text: '关于我', link: '/about' },
       { text: '简历', link: '/resume' },
     ],
@@ -145,6 +146,10 @@ export default defineConfig({
                 {
                   text: 'ABot-C0 (2026-07-13)',
                   link: '/blog/2026/2026-07-13-abot-c0',
+                },
+                {
+                  text: 'ABot-AgentOS (2026-07-11)',
+                  link: '/blog/2026/2026-07-11-ABot-AgentOS',
                 },
                 {
                   text: 'ABot-N1 (2026-07-11)',
@@ -233,6 +238,10 @@ export default defineConfig({
                 {
                   text: 'EmbodiedNav (2026-06-15)',
                   link: '/blog/2026/2026-06-15-embodiednav',
+                },
+                {
+                  text: 'FARM：用关系空间记忆找到任何东西——物体级认知地图的在线构建与语言检索 (2026-06-13)',
+                  link: '/blog/2026/2026-06-13-farm',
                 },
                 {
                   text: 'MotionWAM (2026-06-08)',
@@ -533,6 +542,10 @@ export default defineConfig({
                   link: '/blog/2025/2025-05-19-meanflows',
                 },
                 {
+                  text: 'NavDP：特权信息引导的纯仿真导航扩散策略，零样本跨本体迁移 (2025-05-13)',
+                  link: '/blog/2025/2025-05-13-navdp',
+                },
+                {
                   text: 'Pi05 (2025-04-22)',
                   link: '/blog/2025/2025-04-22-pi05',
                 },
@@ -597,6 +610,10 @@ export default defineConfig({
                 {
                   text: 'FLIP (2024-12-11)',
                   link: '/blog/2024/2024-12-11-flip',
+                },
+                {
+                  text: 'Reloc3r：大规模训练的相对位姿回归网络，让"两张图相对位姿"变成一个前向推理 (2024-12-11)',
+                  link: '/blog/2024/2024-12-11-reloc3r',
                 },
                 {
                   text: 'Uni-NaVid (2024-12-09)',
@@ -1355,6 +1372,10 @@ export default defineConfig({
                   link: '/blog/2026/2026-07-21-TravExplorer',
                 },
                 {
+                  text: 'FARM：用关系空间记忆找到任何东西——物体级认知地图的在线构建与语言检索 (2026-06-13)',
+                  link: '/blog/2026/2026-06-13-farm',
+                },
+                {
                   text: 'Uni-LaViRA (2026-05-26)',
                   link: '/blog/2026/2026-05-26-Uni-LaViRA',
                 },
@@ -1393,6 +1414,10 @@ export default defineConfig({
                 {
                   text: 'StreamVLN (2025-07-07)',
                   link: '/blog/2025/2025-07-07-StreamVLN',
+                },
+                {
+                  text: 'NavDP：特权信息引导的纯仿真导航扩散策略，零样本跨本体迁移 (2025-05-13)',
+                  link: '/blog/2025/2025-05-13-navdp',
                 },
                 {
                   text: 'RaceVLA (2025-03-04)',
@@ -1589,6 +1614,52 @@ export default defineConfig({
               ],
             },
             {
+              text: '📂 Agents',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Athena-Brain-8B (2026-07-30)',
+                  link: '/blog/2026/2026-07-30-athena-brain',
+                },
+                {
+                  text: 'TairosAgent (2026-07-18)',
+                  link: '/blog/2026/2026-07-18-tairosagent',
+                },
+                {
+                  text: 'Hy-Embodied-VLM-1.0 (2026-07-14)',
+                  link: '/blog/2026/2026-07-14-Hy-Embodied-VLM-1.0',
+                },
+                {
+                  text: 'ABot-AgentOS (2026-07-11)',
+                  link: '/blog/2026/2026-07-11-ABot-AgentOS',
+                },
+                {
+                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
+                  link: '/blog/2026/2026-07-02-agentskilltool',
+                },
+                {
+                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
+                  link: '/blog/2026/2026-06-28-agentcomprehensiveguide',
+                },
+                {
+                  text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
+                  link: '/blog/2026/2026-01-22-embodied-robot-dog-architecture',
+                },
+                {
+                  text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
+                  link: '/blog/2026/2026-01-15-multi-agent-data-pipeline',
+                },
+                {
+                  text: 'AI Agent 实践案例集 (2026-01-08)',
+                  link: '/blog/2026/2026-01-08-agent-practice-cases',
+                },
+                {
+                  text: 'AI Agent 全面学习指南 (2026-01-01)',
+                  link: '/blog/2026/2026-01-01-agent-comprehensive-guide',
+                },
+              ],
+            },
+            {
               text: '📂 AIGC',
               collapsed: true,
               items: [
@@ -1631,51 +1702,13 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 Agents',
-              collapsed: true,
-              items: [
-                {
-                  text: 'Athena-Brain-8B (2026-07-30)',
-                  link: '/blog/2026/2026-07-30-athena-brain',
-                },
-                {
-                  text: 'TairosAgent (2026-07-18)',
-                  link: '/blog/2026/2026-07-18-tairosagent',
-                },
-                {
-                  text: 'Hy-Embodied-VLM-1.0 (2026-07-14)',
-                  link: '/blog/2026/2026-07-14-Hy-Embodied-VLM-1.0',
-                },
-                {
-                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
-                  link: '/blog/2026/2026-07-02-agentskilltool',
-                },
-                {
-                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
-                  link: '/blog/2026/2026-06-28-agentcomprehensiveguide',
-                },
-                {
-                  text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
-                  link: '/blog/2026/2026-01-22-embodied-robot-dog-architecture',
-                },
-                {
-                  text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
-                  link: '/blog/2026/2026-01-15-multi-agent-data-pipeline',
-                },
-                {
-                  text: 'AI Agent 实践案例集 (2026-01-08)',
-                  link: '/blog/2026/2026-01-08-agent-practice-cases',
-                },
-                {
-                  text: 'AI Agent 全面学习指南 (2026-01-01)',
-                  link: '/blog/2026/2026-01-01-agent-comprehensive-guide',
-                },
-              ],
-            },
-            {
               text: '📂 Perception',
               collapsed: true,
               items: [
+                {
+                  text: 'Reloc3r：大规模训练的相对位姿回归网络，让"两张图相对位姿"变成一个前向推理 (2024-12-11)',
+                  link: '/blog/2024/2024-12-11-reloc3r',
+                },
                 {
                   text: 'SparseBEV (2023-8-18)',
                   link: '/blog/2023/2023-08-18-sparsebev',
@@ -2126,6 +2159,29 @@ export default defineConfig({
                 },
               ],
             },
+          ],
+        },
+      ],
+
+      // 书籍侧边栏：每本书一个独立配置，章节顺序手动维护
+      // （generate-sidebar.js 只更新 /blog/ 部分，不会覆盖这里）
+      '/books/my-first-book/': [
+        {
+          text: '📖 我的第一本书',
+          items: [
+            { text: '前言', link: '/books/my-first-book/' },
+            { text: '第一章 为什么写这本书', link: '/books/my-first-book/chapter-01' },
+            { text: '第二章 核心概念', link: '/books/my-first-book/chapter-02' },
+            { text: '第三章 实践指南', link: '/books/my-first-book/chapter-03' },
+          ],
+        },
+      ],
+      '/books/': [
+        {
+          text: '📚 我的书',
+          items: [
+            { text: '全部书籍', link: '/books/' },
+            { text: '我的第一本书', link: '/books/my-first-book/' },
           ],
         },
       ],

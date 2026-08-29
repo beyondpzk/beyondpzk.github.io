@@ -186,18 +186,27 @@ function generateSidebar() {
 
   let config = fs.readFileSync(CONFIG_PATH, 'utf-8')
 
-  // 精确定位 sidebar: { '/blog/': [ ... ] } 块
+  // 精确定位 sidebar: { ... } 块
   const sidebarStart = config.indexOf("sidebar: {")
   if (sidebarStart === -1) {
     console.error('⚠️ 无法定位 sidebar 配置，请手动检查 .vitepress/config.mjs')
     process.exit(1)
   }
 
-  // 从 sidebar: { 开始找到匹配的闭合 }
-  let braceCount = 0
+  // 在 sidebar 块内只替换 '/blog/': [ ... ] 数组，
+  // 保留 '/books/' 等其他路径的侧边栏配置
+  const blogKey = "'/blog/': ["
+  const blogKeyStart = config.indexOf(blogKey, sidebarStart)
+  if (blogKeyStart === -1) {
+    console.error('⚠️ 无法在 sidebar 中定位 /blog/ 配置，请手动检查 .vitepress/config.mjs')
+    process.exit(1)
+  }
+
+  // 从 '/blog/': [ 的 [ 开始找到匹配的闭合 ]
+  let bracketCount = 0
   let inString = false
   let stringChar = ''
-  let i = sidebarStart + "sidebar: {".length - 1
+  let i = blogKeyStart + blogKey.length - 1
   let found = false
 
   for (; i < config.length; i++) {
@@ -216,10 +225,10 @@ function generateSidebar() {
 
     if (inString) continue
 
-    if (char === '{') braceCount++
-    else if (char === '}') {
-      braceCount--
-      if (braceCount === 0) {
+    if (char === '[') bracketCount++
+    else if (char === ']') {
+      bracketCount--
+      if (bracketCount === 0) {
         found = true
         break
       }
@@ -227,19 +236,17 @@ function generateSidebar() {
   }
 
   if (!found) {
-    console.error('⚠️ 无法解析 sidebar 配置的闭合括号')
+    console.error('⚠️ 无法解析 /blog/ 侧边栏数组的闭合括号')
     process.exit(1)
   }
 
-  const newSidebarBlock = `sidebar: {
-      '/blog/': [
+  const newBlogArray = `[
 ${formatSidebar(fullSidebar, 8)}
-      ],
-    }`
+      ]`
 
-  config = config.slice(0, sidebarStart) + newSidebarBlock + config.slice(i + 1)
+  config = config.slice(0, blogKeyStart + blogKey.length - 1) + newBlogArray + config.slice(i + 1)
   fs.writeFileSync(CONFIG_PATH, config)
-  console.log('✅ 侧边栏已自动更新')
+  console.log('✅ 博客侧边栏已自动更新（/books/ 等其他侧边栏保持不变）')
   console.log(`📝 共 ${posts.length} 篇文章`)
   console.log(`📅 ${yearGroups.length} 个年份`)
   console.log(`📂 ${categoryGroups.length} 个分类`)
