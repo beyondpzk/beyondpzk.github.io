@@ -116,10 +116,6 @@ export default defineConfig({
                   link: '/blog/2026/2026-07-21-TravExplorer',
                 },
                 {
-                  text: 'TairosAgent (2026-07-18)',
-                  link: '/blog/2026/2026-07-18-tairosagent',
-                },
-                {
                   text: 'DA-Nav (2026-07-16)',
                   link: '/blog/2026/2026-07-16-da-nav',
                 },
@@ -1614,52 +1610,6 @@ export default defineConfig({
               ],
             },
             {
-              text: '📂 Agents',
-              collapsed: true,
-              items: [
-                {
-                  text: 'Athena-Brain-8B (2026-07-30)',
-                  link: '/blog/2026/2026-07-30-athena-brain',
-                },
-                {
-                  text: 'TairosAgent (2026-07-18)',
-                  link: '/blog/2026/2026-07-18-tairosagent',
-                },
-                {
-                  text: 'Hy-Embodied-VLM-1.0 (2026-07-14)',
-                  link: '/blog/2026/2026-07-14-Hy-Embodied-VLM-1.0',
-                },
-                {
-                  text: 'ABot-AgentOS (2026-07-11)',
-                  link: '/blog/2026/2026-07-11-ABot-AgentOS',
-                },
-                {
-                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
-                  link: '/blog/2026/2026-07-02-agentskilltool',
-                },
-                {
-                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
-                  link: '/blog/2026/2026-06-28-agentcomprehensiveguide',
-                },
-                {
-                  text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
-                  link: '/blog/2026/2026-01-22-embodied-robot-dog-architecture',
-                },
-                {
-                  text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
-                  link: '/blog/2026/2026-01-15-multi-agent-data-pipeline',
-                },
-                {
-                  text: 'AI Agent 实践案例集 (2026-01-08)',
-                  link: '/blog/2026/2026-01-08-agent-practice-cases',
-                },
-                {
-                  text: 'AI Agent 全面学习指南 (2026-01-01)',
-                  link: '/blog/2026/2026-01-01-agent-comprehensive-guide',
-                },
-              ],
-            },
-            {
               text: '📂 AIGC',
               collapsed: true,
               items: [
@@ -1698,6 +1648,48 @@ export default defineConfig({
                 {
                   text: 'FlowAndDataGeneration (2022-09-05)',
                   link: '/blog/2022/2022-09-05-flowanddatageneration',
+                },
+              ],
+            },
+            {
+              text: '📂 Agents',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Athena-Brain-8B (2026-07-30)',
+                  link: '/blog/2026/2026-07-30-athena-brain',
+                },
+                {
+                  text: 'Hy-Embodied-VLM-1.0 (2026-07-14)',
+                  link: '/blog/2026/2026-07-14-Hy-Embodied-VLM-1.0',
+                },
+                {
+                  text: 'ABot-AgentOS (2026-07-11)',
+                  link: '/blog/2026/2026-07-11-ABot-AgentOS',
+                },
+                {
+                  text: 'Agent、Skill 与 Tool：三者的关系与协作边界 (2026-07-02)',
+                  link: '/blog/2026/2026-07-02-agentskilltool',
+                },
+                {
+                  text: 'Agent 全景解析：从概念、架构到具身智能的工程实践 (2026-06-28)',
+                  link: '/blog/2026/2026-06-28-agentcomprehensiveguide',
+                },
+                {
+                  text: '具身智能机器狗 Agent 架构设计 (2026-01-22)',
+                  link: '/blog/2026/2026-01-22-embodied-robot-dog-architecture',
+                },
+                {
+                  text: '多 Agent 数据工程流水线架构分析 (2026-01-15)',
+                  link: '/blog/2026/2026-01-15-multi-agent-data-pipeline',
+                },
+                {
+                  text: 'AI Agent 实践案例集 (2026-01-08)',
+                  link: '/blog/2026/2026-01-08-agent-practice-cases',
+                },
+                {
+                  text: 'AI Agent 全面学习指南 (2026-01-01)',
+                  link: '/blog/2026/2026-01-01-agent-comprehensive-guide',
                 },
               ],
             },
