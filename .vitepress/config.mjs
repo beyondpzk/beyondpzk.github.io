@@ -2175,6 +2175,8 @@ export default defineConfig({
             { text: '番外篇 下属主动汇报习惯养成', link: '/books/management-way/extra' },
             { text: '番外二 当众拒绝任务分配', link: '/books/management-way/extra-02' },
             { text: '番外三 当众发言能力', link: '/books/management-way/extra-03' },
+            { text: '番外四 管理者的阳谋', link: '/books/management-way/extra-04' },
+            { text: '番外五 收拾四类难搞下属的阳谋', link: '/books/management-way/extra-05' },
           ],
         },
       ],
