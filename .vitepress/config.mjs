@@ -2173,6 +2173,8 @@ export default defineConfig({
             { text: '第九章 临场应急控场', link: '/books/management-way/chapter-09' },
             { text: '第十章 说话瘦身改造', link: '/books/management-way/chapter-10' },
             { text: '番外篇 下属主动汇报习惯养成', link: '/books/management-way/extra' },
+            { text: '番外二 当众拒绝任务分配', link: '/books/management-way/extra-02' },
+            { text: '番外三 当众发言能力', link: '/books/management-way/extra-03' },
           ],
         },
       ],
