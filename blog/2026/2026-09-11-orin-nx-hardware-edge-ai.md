@@ -467,6 +467,86 @@ Docker / 摄像头驱动 / ROS 2：  ~2.0 GB
 
 **选型结论**：Orin NX 16GB 上的安全策略是 **1B 模型 + W8 量化**。4B 模型在加载阶段已接近上限，生产环境不建议长期依赖。
 
+## 十二、一张图片从相机曝光到 VLM 输出文字：完整链路
+
+把前面所有硬件知识串起来，看一条真实的数据链路：Orin NX 接了一个相机，一张图片从曝光到变成一段文字，中间发生了什么。
+
+```
+相机传感器曝光 → MIPI CSI-2 传输 → ISP 硬件处理 → 统一内存帧 buffer
+→ GPU 预处理（resize/归一化）→ ViT 视觉编码 → 多模态投影
+→ LLM prefill → decode 逐 token 生成 → detokenize → 文字
+```
+
+### 12.1 曝光与采集（相机传感器端）
+
+光子打到 CMOS 传感器上，曝光时间和增益由自动曝光算法控制。传感器输出的不是彩色图，而是 **RAW 图（Bayer 格式，10/12 bit）**——每个像素只记录一个颜色通道。RAW 数据通过 **MIPI CSI-2** 排线（每 lane 数 Gbps）送进 Orin NX SoC，由 V4L2 / NVIDIA Argus 相机驱动接管。
+
+### 12.2 ISP 硬件处理（SoC 内，不占 GPU）
+
+Orin NX 的 SoC 里有专用 **ISP（Image Signal Processor，图像信号处理器）**，硬件电路直接完成：
+
+- **Demosaic**：Bayer 插值，把单通道 RAW 还原成每个像素都有 RGB 的彩色图
+- 去噪、自动白平衡、色调映射（tone mapping）
+
+输出 NV12/YUV420 或 RGB 帧，直接写进**统一内存**的 buffer。ISP 和 DLA 一样，是 SoC 里独立于 GPU 的专用硬件，这些处理不消耗任何 CUDA Core / Tensor Core 资源。
+
+### 12.3 CPU 拿到帧（零拷贝）
+
+应用程序（GStreamer / ROS 2 节点）拿到帧。统一内存架构的红利在这里体现：ISP 写入的 buffer 就是 GPU 可以直接读取的内存——**没有 PCIe、没有 memcpy，相机帧零拷贝进入 GPU 视野**。GStreamer 里这套机制叫 NVMM buffer。对比桌面平台：相机帧先进系统 RAM，要过 PCIe 拷进显存才能给 GPU 用，平白多出一段几毫秒、还占 CPU 的搬运。
+
+### 12.4 预处理（CUDA Core，~1-2 ms）
+
+ViT 要求 448×448 的固定输入，所以要在 GPU 上跑几个 CUDA kernel：
+
+- **resize**：双线性插值到 448×448
+- **色彩空间转换**：BGR → RGB
+- **归一化**：`x / 255`，再减均值、除方差
+- **排布转换**：HWC → CHW（模型要的内存布局）
+
+全是逐元素操作——正是 4.1.3 节说的 CUDA Core 杂活，总共不到 1-2 ms。
+
+### 12.5 ViT 视觉编码（Tensor Core，~80-90 ms）
+
+图片被切成 14×14 像素的 patch（448÷14 = 32×32 = 1024 个 patch；很多 VLM 再做一次 pixel shuffle，压缩到 ~256 个 visual token），经过 patch embedding + 多层 Transformer，输出 visual tokens。这一段的矩阵乘法全部走 Tensor Core——这就是第八节 TTFT 里那 80-90 ms 的去处。
+
+### 12.6 多模态投影 + LLM prefill（Tensor Core，~36 ms）
+
+MLP projector 把 visual tokens 映射到 LLM 的 embedding 空间，和文字 prompt 的 token 拼接成 ~210 个 token 的完整输入序列。LLM prefill 并行处理这 210 个 token（权重只搬一遍，见 3.3 节），生成 KV-cache，并产出**第一个文字 token**。
+
+到这里累计 ≈ **126 ms，这就是 TTFT（Time To First Token）**——从"看见"到"说出第一个字"的延迟。
+
+### 12.7 Decode 逐 token 生成（每步 ~92 ms）
+
+进入自回归循环，每生成一个 token：
+
+```
+搬 8 GB 权重（78 ms 硬地板）→ 前向传播算 1 个 token
+→ 追加写 KV-cache → softmax 采样出 token id → 进入下一步
+```
+
+63 个 token ≈ 5,809 ms。瓶颈不在算力，在 LPDDR5 的 102.4 GB/s（见第三、八节）。
+
+### 12.8 Detokenize 输出（CPU，≈0 ms）
+
+token id 流式地查 BPE 词表，还原成 UTF-8 字符串片段，拼成你看到的连续文字；遇到 EOS token 停止。纯 CPU 查表，耗时可以忽略。
+
+### 12.9 全链路耗时与硬件分工一览
+
+| 环节 | 执行硬件 | 耗时量级 |
+|---|---|---|
+| 曝光 + RAW 输出 | 相机 CMOS 传感器 | 10-33 ms（帧率决定） |
+| CSI-2 传输 + ISP 处理 | SoC 内专用 ISP 硬件 | <5 ms |
+| 帧 buffer 交接 | 统一内存零拷贝 | ~0 |
+| 预处理（resize/归一化） | CUDA Core | 1-2 ms |
+| ViT 视觉编码 | Tensor Core | 80-90 ms |
+| 投影 + LLM prefill | Tensor Core | ~36 ms |
+| decode × 63 token | Tensor Core，受 LPDDR5 带宽限制 | ~5,809 ms |
+| detokenize | CPU | ≈0 |
+
+**结论**：从"看见"到第一个字只要 ~130 ms，但写完这段话要 ~6 秒。整条链路里相机、ISP、预处理、detokenize 加起来不到 5%——**95% 以上的时间花在 decode 阶段反复搬运权重上**。这就是为什么整份文档的优化结论（W8 量化、选 1B 模型）都围绕内存带宽展开。
+
+---
+
 ## 附录：本文涉及的核心概念速查
 
 | 概念 | 一句话解释 |
@@ -477,6 +557,8 @@ Docker / 摄像头驱动 / ROS 2：  ~2.0 GB
 | **LPDDR5 带宽** | 102.4 GB/s，数据从内存到 GPU 缓存的搬运速度上限 |
 | **RAM** | Random Access Memory，随机存取存储器。和硬盘不同，可任意顺序读写，速度快但断电丢失。DDR/LPDDR/GDDR 都是 RAM 的不同类型 |
 | **DLA** | Deep Learning Accelerator，深度学习加速器。SoC 内部独立于 GPU 的 CNN 专用推理硬件，功耗极低。不支持 Transformer，可并行跑 ViT 不占 GPU |
+| **ISP** | Image Signal Processor，图像信号处理器。SoC 内专用硬件，负责把相机 RAW 图（Bayer）处理成彩色图，不占 GPU |
+| **零拷贝（NVMM buffer）** | Jetson 统一内存下，ISP 输出的相机帧 GPU 可直接读取，无需 memcpy/PCIe 搬运 |
 | **GPU 缓存层级** | LPDDR5 → L2 → L1 → 寄存器，每层更快更小 |
 | **Tensor Core** | GPU 中专做矩阵乘法的硬件单元，LLM 推理的核心加速器 |
 | **KV-cache** | 缓存历史 token 的 Key/Value，省掉重复注意力计算 |
