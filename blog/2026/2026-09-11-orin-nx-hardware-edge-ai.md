@@ -173,8 +173,68 @@ Orin NX 的 GA10B 有 4 个这样的 SM，所以总共 1024 CUDA Core + 32 Tenso
 |---|---|---|
 | 出现时间 | 2006（G80 起所有 NVIDIA GPU 都有） | 2017（Volta 起才有） |
 | 功能 | 通用：整数、浮点、逻辑、分支 | 只做矩阵乘加 `D = A×B + C` |
+| 计算粒度 | 标量：一次算一个数 | 矩阵块：一次算一小块矩阵 |
 | LLM 推理中担任 | element-wise 操作、激活函数、归一化等杂活 | 注意力矩阵乘法、FFN 投影，占 >90% 计算量 |
 | 类比 | 瑞士军刀 | 液压机 |
+
+#### 4.1.1 CUDA Core：一个"标量乘加"单元
+
+一个 CUDA Core 本质上就是一个 **ALU（算术逻辑单元）**，核心电路是一个 FMA（Fused Multiply-Add，乘加融合）单元：每个时钟周期完成一次 `a × b + c`，其中 a、b、c 都是**标量**（单个数）。
+
+Orin NX 有 1024 个 CUDA Core，意味着理想情况下每个时钟周期全芯片能并行完成 1024 次标量乘加。它能做所有类型的运算——整数、浮点、比较、分支跳转——所以叫"通用"。
+
+CUDA Core 不是单独干活的，GPU 以 **warp（线程束，32 个线程）** 为单位调度：一条指令同时发给 32 个 CUDA Core，每个 Core 处理一个线程的数据。这就是 GPU"单指令多数据"（SIMT）的工作方式——你写 `c[i] = a[i] + b[i]`，1024 个元素分给 32 个 warp，每个 warp 里 32 个 CUDA Core 一人加一个元素。
+
+#### 4.1.2 Tensor Core：把矩阵乘法"焊死在电路上"
+
+矩阵乘法有个特点：**每个数据会被复用很多次**。计算 `C = A × B` 时，A 的每一行要和 B 的每一列逐个相乘再求和——如果用 CUDA Core 算，这些数据要在寄存器和 ALU 之间来来回回搬运，大量时间花在"取数"而不是"算数"上。
+
+Tensor Core 的思路是把整个 4×4 矩阵乘法的**数据通路直接做成硬件电路**：矩阵块一次性流入，内部的乘法器阵列和加法树在一个时钟周期内直接产出结果，中间不需要软件参与调度。这就是为什么同样一个时钟周期，Tensor Core 的等效乘加次数是 CUDA Core 的几十倍。
+
+以 Orin NX 粗略估算 FP16 矩阵乘法的理论吞吐差距：
+
+```
+CUDA Core 路线：1024 个 FMA/周期 × 2 次运算 ≈ 2,048 FLOP/周期
+Tensor Core 路线：等效 ~8,000+ FLOP/周期（FP16）
+→ 矩阵乘法走 Tensor Core 大约快 4-8 倍
+```
+
+这也是为什么"模型用了 FP16"不等于"变快了"——关键是 FP16 让矩阵乘法**有资格走 Tensor Core**，如果算子没被映射到 Tensor Core 上，FP16 和 FP32 一样慢。
+
+#### 4.1.3 一层 Transformer 里，谁干什么
+
+以前向传播中的一层 Transformer 为例，两类核心的分工是：
+
+| 算子 | 执行者 | 原因 |
+|---|---|---|
+| Q/K/V 投影（大矩阵乘） | Tensor Core | 稠密矩阵乘法 |
+| 注意力分数 Q×K^T、×V | Tensor Core | 矩阵乘法 |
+| Softmax | CUDA Core | 逐元素求 max、exp、除法，不是矩阵乘 |
+| RoPE 位置编码 | CUDA Core | 逐元素旋转（sin/cos） |
+| RMSNorm / LayerNorm | CUDA Core | 逐元素归一化 |
+| SiLU / GELU 激活 | CUDA Core | 逐元素非线性函数 |
+| 残差连接（相加） | CUDA Core | 逐元素加法 |
+| FFN 的 up/gate/down 投影 | Tensor Core | 三个大矩阵乘法 |
+| KV-cache 读写 | 内存系统（CUDA Core 协助） | 纯数据搬运，几乎不算 |
+
+规律很清晰：**凡是"矩阵 × 矩阵"或"矩阵 × 向量"的重活都给 Tensor Core；凡是"逐元素"的轻活都给 CUDA Core**。
+
+#### 4.1.4 为什么 CUDA Core 的"杂活"也不能忽视
+
+虽然 >90% 的计算量在 Tensor Core 上，但剩下的杂活如果效率低，照样拖慢整体——这就是阿姆达尔定律。实际工程中有两个对应手段：
+
+- **Kernel 融合（Fusion）**：把"矩阵乘 + 后面的逐元素操作"合并成一个 kernel。典型例子是 FlashAttention——把 Q×K^T、softmax、×V 三步融为一个 kernel，softmax 部分由 CUDA Core 在数据还在寄存器/共享内存里时就地算掉，避免中间结果写回 LPDDR5 再读回来。省的不是计算，是**搬运**。
+- **算子覆盖率**：TensorRT 这类推理引擎的核心工作之一，就是分析计算图，把能走 Tensor Core 的算子尽量映射上去，并把相邻的 CUDA Core 杂活融合进同一个 kernel。第三方 NPU 工具链"算子覆盖不全"的意思就是：某些算子它不认识，只能回退到慢路径甚至 CPU 上跑。
+
+#### 4.1.5 对开发者来说，这个分工是透明的
+
+你几乎不需要（也很难）直接指挥 Tensor Core：
+
+- 写 `torch.matmul()` / `nn.Linear` → 底层调用 cuBLAS → 自动走 Tensor Core 的 `mma.sync` 指令
+- 写普通的 CUDA kernel（比如自定义激活函数）→ 编译成 CUDA Core 的标量指令
+- 用 TensorRT 编译模型 → 引擎自动决定每一层走哪个核心、做什么融合
+
+所以日常优化 LLM 推理的思路不是"怎么用 Tensor Core"，而是反过来：**消除那些让数据离开 Tensor Core 的环节**——减少精度来回转换、融合零散算子、避免小算子把数据写回内存。
 
 ### 4.2 Ampere Tensor Core 的精度支持
 
