@@ -223,6 +223,34 @@ KV-cache（几百 MB）稍好：最热的一小段能留在 L2/L1 里，但主�
 
 Tensor Core 只和寄存器及 L1 打交道。每次计算前，需要的数据必须提前**从 LPDDR5 → L2 → L1 → 寄存器**搬过去。这个搬运动作用时，由 LPDDR5 的 102.4 GB/s 决定。
 
+#### 3.1.4 计算单元到底和哪层"打交道"——CUDA Core vs Tensor Core
+
+前面"Tensor Core 只和寄存器及 L1 打交道"是个简化说法，准确的图景要把**计算**和**搬运**分开：
+
+**原则：所有计算单元（CUDA Core 和 Tensor Core 都一样）执行指令时，操作数都必须在寄存器里。** 没有任何指令能直接吃 LPDDR5 或 L2 里的数据。两种 Core "直接打交道"的对象都只有寄存器，区别在于**数据是谁、怎么搬进寄存器的**。
+
+**CUDA Core 有两类指令**：计算指令（只吃寄存器）和访存指令（load/store，负责在寄存器和各层之间搬运）。所以 CUDA Core 实际上能和**所有层**打交道：
+
+| 场景 | 打交道的层 | 指令 / 路径 |
+|---|---|---|
+| 做运算（FMA、比较、逻辑） | 寄存器 | 寄存器 → CUDA Core → 寄存器 |
+| 读模型权重、KV-cache、相机帧 | **LPDDR5**（全局内存） | `LDG`：LPDDR5 → L2 → L1 → 寄存器 |
+| 读线程块内共享的中间结果（矩阵切块、归约求和） | **Shared Memory**（L1 那块 SRAM） | `LDS`：Shared → 寄存器 |
+| 线程私有数组、寄存器溢出 | local memory（名义独立，实际落在 L1/LPDDR5） | `LDL` |
+| 写回输出 | 逆向 | `STG` / `STS` 写回对应层 |
+
+走哪条路，由"数据是谁的、谁要用"决定：权重这种全模型共享的大数据 → 全局内存路径；线程块内反复共用的中间块 → 程序员显式放 Shared Memory；单线程私有的临时变量 → 寄存器（放不下才溢到 local）。
+
+**Tensor Core 和 L1 的关系**：Ampere 上 Tensor Core 的 `mma` 指令操作数也在寄存器里，但矩阵块进寄存器走一条**专用通道**——`ldmatrix` 指令把 Shared Memory（L1）里的矩阵切块直接搬进寄存器堆，再喂给 `mma`。这就是"Tensor Core 和 L1 打交道"的出处：**L1/Shared Memory 是 Tensor Core 的备餐台**，CUDA Core 提前把数据从 LPDDR5 搬到 Shared Memory，Tensor Core 从这里取餐：
+
+```
+CUDA Core 发起搬运：  LPDDR5 → L2 → Shared Memory（L1）
+Tensor Core 专用装载：Shared Memory →（ldmatrix）→ 寄存器
+计算：                寄存器 →（mma）→ Tensor Core → 寄存器
+```
+
+架构演进上，Hopper（H100）更进一步——`wgmma` 指令 + TMA 硬件让 Tensor Core **直接从 Shared Memory 读操作数**，连寄存器中转都省了。Orin NX 的 Ampere 还没到这一步。
+
 ### 3.2 为什么 decode 每个 token 都要"重新搬一遍"
 
 自回归生成的 decode 阶段，每生成一个 token，整个 LLM 的前向传播都要执行一次。每一层 Transformer 的权重（Q、K、V、FFN 等矩阵）都需要从 LPDDR5 加载到缓存里参与计算。
