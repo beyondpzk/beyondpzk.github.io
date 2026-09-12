@@ -901,7 +901,15 @@ NVIDIA 的 GPU 架构按代际命名（每代以一位科学家命名），CUDA 
 
 **但在另外三个地方仍然有用，甚至很关键：**
 
-1. **静态指令的 KV 跨控制周期复用**：VLA 每个控制周期（10-20 Hz）都要重跑 backbone，但语言指令、system prompt 全程不变——它们的 K/V 算一次缓存起来，之后每帧只重算新图像的 visual tokens。省的是每个控制周期的 prefill 时间（prompt caching）。
+1. **指令 KV 的跨控制周期复用（取决于 prompt 是否变化）**：VLA 每个控制周期（10-20 Hz）都要重跑 backbone，语言部分的 KV 能不能复用，分三档：
+
+   | prompt 形态 | KV 复用情况 | 每周期 prefill 成本 |
+   |---|---|---|
+   | 全程固定（单任务部署，一条指令执行到底） | 指令 KV 全部复用（prompt caching） | 只算新图像的 visual tokens |
+   | 固定前缀 + 可变后缀（system prompt 固定，任务指令/状态在变） | 前缀 KV 复用（prefix caching，vLLM / TensorRT-LLM 均支持） | 前缀免算，只算可变后缀 + 图像 |
+   | 每次全变（导航指令实时更新、对话式交互） | 无法复用 | 全量 prefill |
+
+   注意 KV 是位置相关的：**前缀里动一个 token，其后的 KV 全部作废要重算**。所以 prompt 频繁变化的应用，设计时应把可变部分尽量压到 prompt 末尾，保住前缀缓存的收益。
 2. **π0 类 flow-matching/diffusion 动作头**：去噪迭代 ~10 步，每步观测编码相同——backbone（图像+语言）的 KV **算一次，10 步去噪全部复用**（π0 正是这么做的）。没有 KV-cache，backbone 要重跑 10 遍，动作头延迟直接 ×10。
 3. **RT-2 / OpenVLA 类自回归动作 token 的 VLA**：动作被离散成 token 逐个生成（OpenVLA 一次 7 个 action token），这就是标准 LLM decode，**KV-cache 照常使用**，加速逻辑和 VLM 完全一样。
 
