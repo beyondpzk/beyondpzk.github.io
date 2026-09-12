@@ -735,6 +735,63 @@ VLM 带宽需求 = 64 × 1.86 = 119 GB/s > 76.8 ❌
 
 ---
 
+## 十六、变长输入、CUDA Graph 与 Padding——推理引擎的三个工程细节
+
+VLM 实际部署中，每次推理的输入都不一样：图片分辨率变 → visual token 数变，用户 prompt 长短变 → 总输入变。这一节讲清楚变长输入的影响，以及推理引擎应对它的两个核心技术：CUDA Graph 和 Padding。
+
+### 16.1 每次 prompt 不一样，对推理有什么影响
+
+影响主要在 **prefill 侧**，decode 侧基本无感：
+
+1. **prefill 时间随 token 数变化**：成本大致随 token 数线性增长（attention 部分甚至是平方），210 token 和 500 token 的首字延迟能差一倍多。
+2. **推理引擎的 shape 问题**：TensorRT engine 构建时绑定输入 shape（或几个预设的 optimization profile）；CUDA Graph 要求 shape 完全固定（见 16.2）。输入长度每次都变，有三条路：为每个长度重新构建 engine（不现实）；预设几档 profile（档位外傻眼）；**padding 到定长**（工程上最常用）。
+3. **KV-cache 按最大长度预分配**：不管这次实际用多少。
+4. **decode 几乎不受影响**：每步只算 1 个新 token，大头是搬权重（不变），只是 KV-cache 读取随历史变长缓慢增加。
+
+### 16.2 CUDA Graph：把几百次 kernel 启动压缩成一次
+
+**问题：kernel launch 开销。** 一次 LLM forward 不是"一次计算"，而是几百上千次 GPU kernel 启动——每层 Transformer 有 QKV 投影、attention、norm、FFN 等十来个 kernel，乘上 28-36 层。每次启动，CPU 要花 5-10 µs 做参数准备和驱动调用。桌面 x86 CPU 快，GPU 上一个 kernel 还没算完下一个已经喂进来，开销被掩盖。但 **Jetson 的 ARM Cortex-A78AE 弱得多**：decode 小模型时会出现"GPU 算完了在等 CPU 发下一个 kernel"的空转——1B 模型 decode 理论 18 ms，launch 开销漏进来 3-5 ms，就是白丢 20-30% 速度。
+
+**CUDA Graph 的做法**：把整段 kernel 序列**录制一次成一张图**，之后用**一次 launch 重放整张图**。CPU 开销从几百次启动变成 1 次提交，GPU 端 kernel 背靠背执行、无气泡。vLLM、TensorRT-LLM 默认都对 decode 步开 CUDA Graph。
+
+**约束（细节所在）**：录制时 **shape、内存地址、控制流全部固定**。推论：
+
+- decode 步天然适合进图（每步 shape 恒为 1 个 token）
+- prefill 步变长，不能进图，走普通 eager 执行
+- KV-cache 必须**预分配在固定地址**——vLLM 的 PagedAttention 为此专门做了页表间接寻址来兼容图
+- 引擎启动时要 warm-up 跑几遍完成录制，所以第一次推理特别慢是正常的
+
+### 16.3 Padding：为定长付出的代价
+
+为了配固定 shape 的 engine/graph，把输入补齐到定长（比如 210 → 512），pad 部分用 attention mask 屏蔽——**结果完全正确，但白算了**。
+
+- **代价定量**：pad 210→512，prefill 计算量 ×2.4。但注意在带宽瓶颈平台上，prefill 的权重搬运不变（还是搬一遍），增加的主要是计算时间——所以 padding 的浪费在 Orin NX 上有时反而可接受。
+- **工程折中是分桶（bucketing）**：预设 128/256/512/1024 几档，输入归入最近的桶。桶越细浪费越少，但每桶要存一份 engine/graph，内存占用变多——又回到 16 GB 预算的权衡。
+
+### 16.4 辨析："NX 的 INT8 算力只有 38 TOPS"是真是假
+
+把换算链摆出来：
+
+```
+标称 100 TOPS（稀疏 INT8，宣传口径）
+  ÷ 2（去掉 2:4 稀疏）
+= 50 TOPS（稠密 INT8，硬件真实峰值）
+  × 75% 左右（实际推理的利用率）
+≈ 35-40 TOPS（工程上能兑现的有效值）
+```
+
+所以这句话**半真半假**：
+
+- 说"硬件峰值只有 38 TOPS"——不准确，稠密峰值是 ~50 TOPS
+- 说"实际跑起来能兑现的也就 38 TOPS 上下"——合理，CNN 实测 70-80% 利用率后就是这个数
+- 还有一种可能：Orin NX **8GB 版**标称 70 TOPS（稀疏）→ 稠密 35 TOPS，如果测的是 8GB 版，38 还偏高了
+
+Super 版同理：157（稀疏）→ 78（稠密）→ 有效 ~60。
+
+以及对 LLM 的老话重提：**38 也好 50 也好 157 也好，decode 速度都一样**——由 102.4 GB/s 带宽决定。这个数字只在 prefill、ViT、CNN 检测这些计算瓶颈负载上才有意义。
+
+---
+
 ## 附录：本文涉及的核心概念速查
 
 | 概念 | 一句话解释 |
@@ -759,3 +816,5 @@ VLM 带宽需求 = 64 × 1.86 = 119 GB/s > 76.8 ❌
 | **TOPS / TFLOPS** | 每秒万亿次整数 / 浮点运算。TOPS 一般指 INT8，TFLOPS 一般指浮点 |
 | **稠密 vs 稀疏算力** | 稠密 = 全部权重参与计算的真实峰值；稀疏 = 2:4 结构化剪枝后硬件跳过零值的标称值（×2，LLM 实际用不上） |
 | **算术强度 / Roofline** | 每搬 1 字节数据能做的运算次数。硬件平衡点 = 算力 ÷ 带宽（Orin NX Super FP16 ≈ 383），decode 只有 ~2，故永远带宽瓶颈 |
+| **CUDA Graph** | 把整段 kernel 启动序列录制一次、之后一次 launch 重放，消除 CPU 端 launch 开销（Jetson 的弱 ARM CPU 上收益尤其大）。代价：shape/内存地址必须固定，故只适合 decode 步 |
+| **Padding / 分桶** | 把变长输入补齐到定长以适配固定 shape 的 engine/graph，mask 保证结果正确，代价是 pad 部分的计算白做；分桶（128/256/512…）在浪费和内存占用之间折中 |
