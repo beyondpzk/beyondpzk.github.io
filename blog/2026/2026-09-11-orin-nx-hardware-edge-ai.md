@@ -749,8 +749,8 @@ token id 流式地查 BPE 词表，还原成 UTF-8 字符串片段，拼成你�
 | 帧 buffer 交接 | 统一内存零拷贝 | ~0 |
 | 预处理（resize/归一化） | CUDA Core | 1-2 ms |
 | ViT 视觉编码 | Tensor Core（GEMM）+ CUDA Core（softmax/LayerNorm/GELU） | 80-90 ms |
-| 投影 + LLM prefill | Tensor Core | ~36 ms |
-| decode × 63 token | Tensor Core，受 LPDDR5 带宽限制 | ~5,809 ms |
+| 投影 + LLM prefill | Tensor Core（GEMM）+ CUDA Core（RMSNorm/softmax/SwiGLU/RoPE） | ~36 ms |
+| decode × 63 token | Tensor Core + CUDA Core，受 LPDDR5 带宽限制 | ~5,809 ms |
 | detokenize | CPU | ≈0 |
 
 **结论**：从"看见"到第一个字只要 ~130 ms，但写完这段话要 ~6 秒。整条链路里相机、ISP、预处理、detokenize 加起来不到 5%——**95% 以上的时间花在 decode 阶段反复搬运权重上**。这就是为什么整份文档的优化结论（W8 量化、选 1B 模型）都围绕内存带宽展开。
