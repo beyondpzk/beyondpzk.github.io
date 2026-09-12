@@ -263,9 +263,25 @@ Tensor Core 专用装载：Shared Memory →（ldmatrix）→ 寄存器
 
 这就是 decode 每 token **92 ms** 的由来——78 ms 是硬地板，剩下 14 ms 是实际计算和 KV-cache 读写时间。不是算得慢，是搬得慢。
 
-### 3.3 prefill 为什么相对快
+### 3.3 prefill 为什么相对快（按每个 token 摊销）
+
+> **先消除一个常见困惑**：日常用 ChatGPT 的体感是"prefill 慢、decode 快"——发完问题要等一阵才出第一个字，然后文字哗哗流出。这和本节说的"prefill 相对快"不矛盾，因为说的是两个不同的量：**体感上的"prefill 慢"是一次性总开销**（首字延迟 TTFT 包含读完整个 prompt）；**本节的"快"是摊到每个 token 上的成本**（效率）。看下面的数字就统一了。
 
 prefill 阶段要处理 210 个输入 token（448 分辨率下的 visual tokens + prompt tokens）。同样需要把 8 GB 权重搬一遍，但这一次处理直接处理了 210 个 token——**摊到每个 token 上，搬运成本只有 ~0.37 ms**。
+
+```
+prefill: 126 ms 处理了 210 个 token → 每 token ≈ 0.6 ms（批发：搬运费平摊）
+decode:  92 ms 只产出 1 个 token    → 每 token = 92 ms（零售：每字全额搬运费）
+```
+
+| | prefill | decode |
+|---|---|---|
+| 一次调用总耗时 | 126 ms（随 prompt 变长而变长） | 92 ms × 生成 token 数 |
+| 每 token 成本 | ~0.6 ms（批发，摊薄） | 92 ms（零售，全额） |
+| 瓶颈 | 输入短时偏搬运，长时偏计算 | 永远是带宽 |
+| 体感 | 首字前的等待 | 逐字流出的速度 |
+
+一句话：**prefill 是"一次性付一大笔但单价极低"，decode 是"每次付得少但单价极高"**。ChatGPT 上 decode 显得快，是因为桌面 GPU 带宽是 Orin NX 的 10 倍（~1 TB/s），每 token 只要几 ms；放到 Orin NX 上，decode 零售之贵就现形了（每字 92 ms，一段话说 6 秒）。
 
 这就解释了首 token（126 ms）和后续 token（92 ms × 63 ≈ 5.8 秒）之间的巨大剪刀差。
 
