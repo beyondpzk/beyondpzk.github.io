@@ -68,10 +68,10 @@ Orin NX 模组（70×45 mm 电路板）
 └── SoC 硅片 GA10B（指甲盖大，8nm，约 170 亿晶体管）
     ├── CPU 集群：6 核 Cortex-A78AE
     ├── GPU 区域（Ampere 架构）          ← CUDA Core 在这一层
-    │   └── SM × 4（流式多处理器）        ← 再进一层
+    │   └── SM × 8（流式多处理器）        ← 再进一层
     │       └── 每个 SM 内部：
-    │           ├── CUDA Core ×256      ← 在这里！
-    │           ├── Tensor Core ×8
+    │           ├── CUDA Core ×128      ← 在这里！
+    │           ├── Tensor Core ×4
     │           ├── L1 Cache / 共享内存
     │           └── 寄存器文件
     ├── DLA × 2
@@ -83,7 +83,7 @@ Orin NX 模组（70×45 mm 电路板）
 三个关键点：
 
 1. **CUDA Core 不是独立的"元件"，更不是插上去的零件**——它是 GPU 电路图纸里**重复画了 1024 遍的 FMA 电路单元**，和其他部件一起"印"在同一颗硅片上。模组照片上找不到它们，它们藏在散热盖下的硅片里，每个只有几十纳米量级。
-2. **层级是：硅片 → GPU 区域 → SM → CUDA Core**。Orin NX 的 4 个 SM，每个装 256 个 CUDA Core + 8 个 Tensor Core（4.1.1 节的 SM 方框图就是这层），4×256 = 1024。
+2. **层级是：硅片 → GPU 区域 → SM → CUDA Core**。Orin NX 的 8 个 SM，每个装 128 个 CUDA Core + 4 个 Tensor Core（4.1.1 节的 SM 方框图就是这层），8×128 = 1024。
 3. **SoC 硅片上是有"功能分区"的**：一块区域是 CPU 集群、一块是 GPU、角落是 2 颗 DLA、边缘一圈是内存控制器和 IO——像一座城市的不同街区。内存控制器特意摆在硅片边缘，是为了让到 LPDDR5 颗粒的走线尽可能短（2.3 节那 102.4 GB/s 的瓶颈就在这段路上）。
 
 ## 二、统一内存架构——为什么 Orin NX 没有"显存"这个概念
@@ -171,14 +171,14 @@ LPDDR5（16 GB, 102.4 GB/s）
         ↕
 GPU L2 Cache（~2 MB, TB/s 级）
         ↕
-L1 Cache / Shared Memory（每 SM 192 KB, ~1 TB/s）
+L1 Cache / Shared Memory（每 SM 128 KB, ~1 TB/s）
         ↕
 寄存器（每 SM 65536×32bit = 256 KB, 寄存器级速度）
         ↕
 Tensor Core / CUDA Core（计算单元）
 ```
 
-> **SM** = **S**treaming **M**ultiprocessor，流式多处理器。NVIDIA GPU 由多个 SM 组成——可以把每个 SM 理解为一个独立的"迷你 GPU"，有自己的 CUDA Core、Tensor Core、L1 缓存、共享内存和寄存器文件。Orin NX 的 GA10B 有 4 个 SM，每个 SM 包含 256 个 CUDA Core 和 8 个 Tensor Core（总计 1024 CUDA + 32 TC）。
+> **SM** = **S**treaming **M**ultiprocessor，流式多处理器。NVIDIA GPU 由多个 SM 组成——可以把每个 SM 理解为一个独立的"迷你 GPU"，有自己的 CUDA Core、Tensor Core、L1 缓存、共享内存和寄存器文件。Orin NX 的 GA10B 启用了 **8 个 SM**（Ampere 标准 SM 构成：每 SM 128 个 FP32 CUDA Core + 4 个第三代 Tensor Core，8×128 = 1024、8×4 = 32）。
 
 > 注意：早期版本图中"L2 ~256 KB"的说法不对——Ampere 的 L2 是 **MB 级**（Orin NX 约 2 MB），带宽也是 TB/s 级，不是 500 GB/s。
 
@@ -186,17 +186,17 @@ Tensor Core / CUDA Core（计算单元）
 
 | 层 | 容量 | 延迟（时钟周期） | 带宽 | 谁管理 | 放什么 |
 |---|---|---|---|---|---|
-| 寄存器堆 | 每 SM 256 KB（全芯片 1 MB） | ~1 | 最快 | **编译器** | 指令的当前操作数 |
-| L1 / Shared Memory | 每 SM 192 KB | ~30 | ~1 TB/s | 硬件 + 程序员 | 近期访问的数据 / 矩阵切块 |
+| 寄存器堆 | 每 SM 256 KB（全芯片 2 MB） | ~1 | 最快 | **编译器** | 指令的当前操作数 |
+| L1 / Shared Memory | 每 SM 128 KB | ~30 | ~1 TB/s | 硬件 + 程序员 | 近期访问的数据 / 矩阵切块 |
 | L2 | 全芯片 ~2 MB | ~200 | TB/s 级 | 硬件 | 所有 SM 共享的热点数据 |
 | LPDDR5 | 16 GB | ~400-600 | 102.4 GB/s | — | 一切：权重、KV-cache、帧 buffer |
 
-**寄存器堆（Register File）**：GPU 里最快的一层，每个 SM 有 65536 个 32 位寄存器（256 KB），全芯片 4 个 SM 共 1 MB。执行指令时操作数必须在寄存器里。两个工程含义：
+**寄存器堆（Register File）**：GPU 里最快的一层，每个 SM 有 65536 个 32 位寄存器（256 KB），全芯片 8 个 SM 共 2 MB。执行指令时操作数必须在寄存器里。两个工程含义：
 
 - **每个线程的寄存器由编译器静态分配**，单线程上限 255 个。变量太多放不下时会"溢出"（register spill）到 local memory——名字好听，实际是落到 L1/L2 甚至 LPDDR5，性能骤降。
 - **寄存器用量决定 occupancy（驻留线程数）**：一个 kernel 每线程用 64 个寄存器，那一个 SM 最多驻留 65536÷64 = 1024 个线程。驻留线程越多，等内存时越能切到别的线程掩盖延迟（3.4 节的"并行度代替缓存深度"就靠这个）。
 
-**L1 / Shared Memory（每 SM 192 KB）**：同一块物理 SRAM 的两种用法——① **L1 缓存**：硬件自动管理，缓存最近访问的数据，像 CPU 的 cache；② **Shared Memory**：程序员（或 cuBLAS/TensorRT 生成的 kernel）**手动管理**，线程块内的线程共享。4.1.2 节说的矩阵切块，子块就是提前搬进 Shared Memory 再喂给 Tensor Core——这是 GEMM kernel 性能的关键。192 KB 在两种用途间的划分可按 kernel 配置。
+**L1 / Shared Memory（每 SM 128 KB）**：同一块物理 SRAM 的两种用法——① **L1 缓存**：硬件自动管理，缓存最近访问的数据，像 CPU 的 cache；② **Shared Memory**：程序员（或 cuBLAS/TensorRT 生成的 kernel）**手动管理**，线程块内的线程共享。4.1.2 节说的矩阵切块，子块就是提前搬进 Shared Memory 再喂给 Tensor Core——这是 GEMM kernel 性能的关键。128 KB 在两种用途间的划分可按 kernel 配置。
 
 **L2（全芯片约 2 MB）**：所有 SM 共享的唯一一级，也是 SoC 的"总关口"——不只 GPU，**CPU、DLA、ISP 访问 LPDDR5 也都要经过内存一致性 Fabric 和 L2**。统一内存的零拷贝能成立，靠的就是大家共享同一个 L2 视图：ISP 写进内存的相机帧，GPU 读的时候命中的是同一份数据，不需要任何复制。
 
@@ -294,7 +294,7 @@ NVIDIA GPU 传统上就是 **L1 + L2 两级，没有 L3**——这不是偷工�
 - **成本权衡**：缓存层级越深，占的硅片面积和功耗越大，GPU 宁可把晶体管花在计算单元上。
 - **访问模式不同**：GPU 负载大多是"流式"的——权重从内存读进来用一遍就扔（LLM decode 就是典型），数据复用靠 L1/共享内存和寄存器就够，深层缓存收益不大。
 
-NVIDIA 的两层长这样：**L1 每个 SM 私有**（Ampere 每 SM 192 KB，与共享内存共用物理存储，TB/s 级）；**L2 全芯片共享**（MB 级），所有 SM 都经过它。
+NVIDIA 的两层长这样：**L1 每个 SM 私有**（GA10x 每 SM 128 KB，与共享内存共用物理存储，TB/s 级；数据中心版 GA100 是 192 KB）；**L2 全芯片共享**（MB 级），所有 SM 都经过它。
 
 近年"没有 L3"正在被大容量 L2 取代：Ada Lovelace（RTX 40 系列）把 L2 做到 72-96 MB，**实际上承担了 L3 的角色**，只是官方不叫 L3；AMD 则直接给 GPU 加了真 L3，起名 Infinity Cache。所以一句话回答：**NVIDIA GPU 是 L1 + L2 两级——靠线程并行度代替缓存深度，靠加大 L2（Ada 起）补容量**。
 
@@ -315,17 +315,18 @@ Tensor Core 是"专攻一项的疯子"——它只做一件事：**4×4 矩阵�
 ```
 ┌─────────── 一个 SM ───────────┐
 │                               │
-│  CUDA Core ×4×16 = 64 个    ←── 通用计算
+│  CUDA Core ×128（FP32）     ←── 通用计算
 │                               │
-│  Tensor Core ×8             ←── 矩阵乘法专精
+│  Tensor Core ×4（第三代）   ←── 矩阵乘法专精
 │                               │
 │  L1 Cache / Shared Memory    │
+│  （128 KB，共用一块 SRAM）   │
 │  寄存器文件（65536×32bit）   │
 │                               │
 └───────────────────────────────┘
 ```
 
-Orin NX 的 GA10B 有 4 个这样的 SM，所以总共 1024 CUDA Core + 32 Tensor Core，全在同一颗硅片里。区别不在"在哪里"，而在**做什么**：
+Orin NX 的 GPU 启用了 **8 个**这样的 SM，所以总共 8×128 = 1024 CUDA Core + 8×4 = 32 Tensor Core，全在同一颗硅片里。区别不在"在哪里"，而在**做什么**：
 
 | | CUDA Core | Tensor Core |
 |---|---|---|
@@ -349,15 +350,29 @@ CUDA Core 不是单独干活的，GPU 以 **warp（线程束，32 个线程）**
 
 矩阵乘法有个特点：**每个数据会被复用很多次**。计算 `C = A × B` 时，A 的每一行要和 B 的每一列逐个相乘再求和——如果用 CUDA Core 算，这些数据要在寄存器和 ALU 之间来来回回搬运，大量时间花在"取数"而不是"算数"上。
 
-Tensor Core 的思路是把整个 4×4 矩阵乘法的**数据通路直接做成硬件电路**：矩阵块一次性流入，内部的乘法器阵列和加法树在一个时钟周期内直接产出结果，中间不需要软件参与调度。这就是为什么同样一个时钟周期，Tensor Core 的等效乘加次数是 CUDA Core 的几十倍。
+Tensor Core 的思路是把矩阵乘法的**数据通路直接做成硬件电路**：矩阵块一次性流入，内部的乘法器阵列和加法树在一个时钟周期内直接产出结果，中间不需要软件参与调度。
 
-以 Orin NX 粗略估算 FP16 矩阵乘法的理论吞吐差距：
+**"Tensor Core 等效乘加次数是 CUDA Core 的几十倍"——具体算一下。** Ampere 第三代 Tensor Core（GA10x）每个每时钟周期完成 **128 次 FP16 FMA**（见 NVIDIA GA102 架构白皮书）：
 
 ```
-CUDA Core 路线：1024 个 FMA/周期 × 2 次运算 ≈ 2,048 FLOP/周期
-Tensor Core 路线：等效 ~8,000+ FLOP/周期（FP16）
-→ 矩阵乘法走 Tensor Core 大约快 4-8 倍
+单核比单核（"几十倍"说法的出处）：
+  1 个 CUDA Core：   1 次 FMA/周期（标量乘加）
+  1 个 Tensor Core： 128 次 FMA/周期（矩阵乘加阵列）
+  → 128 倍
+
+但公平比较要算整芯片（CUDA Core 数量是 TC 的 32 倍，摊回去）：
+  CUDA Core 全芯片：  8 SM × 128 = 1,024 FMA/周期
+  Tensor Core 全芯片：8 SM × 4 × 128 = 4,096 FMA/周期（FP16 稠密）
+  → 4096 / 1024 = 4 倍（FP16）
+     INT8 再 ×2 → 8 倍；INT4 再 ×2 → 16 倍；稀疏再 ×2
+
+换算成熟悉的算力（×2 FLOP × 0.918 GHz 主频）：
+  CUDA Core FP32：  1,024 × 2 × 0.918 GHz ≈ 1.9 TFLOPS
+  Tensor Core FP16： 4,096 × 2 × 0.918 GHz ≈ 7.5 TFLOPS（稀疏 15）
+  Tensor Core INT8： 8,192 × 2 × 0.918 GHz ≈ 15 TOPS（稀疏 30）
 ```
+
+注意最后一行：**Orin NX 纯 GPU 的稀疏 INT8 上限约 30 TOPS**——官方"100 TOPS"是 GPU + 2 颗 DLA 等合计的稀疏口径（见 16.4 节的拆解）。
 
 这也是为什么"模型用了 FP16"不等于"变快了"——关键是 FP16 让矩阵乘法**有资格走 Tensor Core**，如果算子没被映射到 Tensor Core 上，FP16 和 FP32 一样慢。
 
@@ -744,8 +759,11 @@ token id 流式地查 BPE 词表，还原成 UTF-8 字符串片段，拼成你�
 | 口径 | Orin NX Super | 对 LLM 的意义 |
 |---|---|---|
 | 稀疏 INT8（宣传口径） | 157 TOPS | 几乎用不上 |
-| 稠密 INT8 | ~78 TOPS | W8 量化部署时的算力上限 |
-| 稠密 FP16 / BF16 | ~39 TFLOPS | 原生精度部署时的算力上限 |
+| 稀疏 INT8（纯 GPU） | ~38 TOPS | 见 4.1.2 的公式：8 SM × 4 TC × 128 FMA × 2（INT8）× 2（稀疏）× 2 FLOP × 1.17 GHz |
+| 稠密 INT8（纯 GPU） | ~19 TOPS | W8 量化部署时 GPU 侧的算力上限 |
+| 稠密 FP16 / BF16（纯 GPU） | ~9.6 TFLOPS（普通版 0.918 GHz 时 ~7.5） | 原生精度部署时的算力上限 |
+
+> 注意区分两个口径：官方 TOPS 是 **GPU + 2×DLA 等加速器合计**；上表后三行是**纯 GPU** 按微架构公式算出的理论值。跑 LLM/VLM 用的是 GPU（DLA 跑不了 Transformer），所以估算时要用纯 GPU 的数字。
 
 > **关键事实：Super 模式只超了计算频率，内存带宽仍是 102.4 GB/s 没变。** LLM decode 是带宽瓶颈，所以 Super 的 157 TOPS 对 decode 速度**几乎没有提升**；它只加速计算瓶颈段——ViT 视觉编码和 prefill（TTFT 会变短一些）。
 
@@ -756,12 +774,12 @@ token id 流式地查 BPE 词表，还原成 UTF-8 字符串片段，拼成你�
 硬件的"平衡点"（Roofline 拐点）= 峰值算力 ÷ 带宽：
 
 ```
-Orin NX Super FP16：39 × 10¹² FLOPS ÷ 102.4 × 10⁹ B/s ≈ 383 FLOP/字节
+Orin NX Super FP16（纯 GPU）：9.6 × 10¹² FLOPS ÷ 102.4 × 10⁹ B/s ≈ 94 FLOP/字节
 ```
 
-意思是：每搬进 1 字节数据，至少要做 383 次运算，Tensor Core 才不会有空闲。
+意思是：每搬进 1 字节数据，至少要做 94 次运算，Tensor Core 才不会有空闲。
 
-而 decode 阶段的算术强度：每 token 计算量 = 2×参数量 FLOP，搬运量 = 参数量×精度字节数，FP16 下强度 = **2 FLOP/字节**——比平衡点低了近 200 倍。结论：**decode 永远带宽瓶颈，Tensor Core 99% 时间在等数据**。INT8 也一样（平衡点 ~762，强度还是 2）。这就是"估算 decode 速度只需要一个除法"的理论依据。
+而 decode 阶段的算术强度：每 token 计算量 = 2×参数量 FLOP，搬运量 = 参数量×精度字节数，FP16 下强度 = **2 FLOP/字节**——比平衡点低了近 50 倍。结论：**decode 永远带宽瓶颈，Tensor Core 大部分时间在等数据**。INT8 也一样（平衡点 ~188，强度还是 2）。这就是"估算 decode 速度只需要一个除法"的理论依据。
 
 ### 13.3 两步估算法
 
@@ -818,7 +836,7 @@ decode tok/s ≈ 102.4 GB/s ÷ 权重 GB 数 × 利用率（0.7~0.8）
 
 ### 14.2 第 2 步：带宽——分时共享，不满足不会失败，只会变慢
 
-102.4 GB/s 只有一根内存总线，谁 decode 谁占用。Orin NX 只有 4 个 SM，多模型"并发"本质也是时间片轮转，所以**多模型并行的总带宽需求可以直接相加**。设模型 i 权重 W_i GB、每次输出 n_i 个 token、运行频率 f_i 段/秒：
+102.4 GB/s 只有一根内存总线，谁 decode 谁占用。Orin NX 只有 8 个 SM，多模型"并发"本质也是时间片轮转，所以**多模型并行的总带宽需求可以直接相加**。设模型 i 权重 W_i GB、每次输出 n_i 个 token、运行频率 f_i 段/秒：
 
 ```
 每段输出搬运量 = (n_i + 1) × W_i      （1 次 prefill + n 次 decode，每次都要搬全部权重）
@@ -839,7 +857,7 @@ decode tok/s ≈ 102.4 GB/s ÷ 权重 GB 数 × 利用率（0.7~0.8）
 decode 反正带宽瓶颈，不占算力。要检查的是 ViT 编码、prefill、CNN 检测这些**计算瓶颈**负载的叠加：
 
 ```
-Σ 各模型每秒计算量 ≤ 39 TFLOPS（稠密 FP16）× 0.5（实际利用率）
+Σ 各模型每秒计算量 ≤ 7.5~9.6 TFLOPS（纯 GPU 稠密 FP16，普通版~Super）× 0.5（实际利用率）
 ```
 
 这条通常非常宽裕，检测类小模型一般只占百分之几。
@@ -951,25 +969,29 @@ VLM 实际部署中，每次推理的输入都不一样：图片分辨率变 →
 
 ### 16.4 辨析："NX 的 INT8 算力只有 38 TOPS"是真是假
 
-把换算链摆出来：
+先用 4.1.2 节的微架构公式把 GPU 部分算出来（8 SM × 4 TC × 128 FMA × 2（INT8 翻倍）× 2 FLOP × 0.918 GHz）：
 
 ```
-标称 100 TOPS（稀疏 INT8，宣传口径）
-  ÷ 2（去掉 2:4 稀疏）
-= 50 TOPS（稠密 INT8，硬件真实峰值）
+纯 GPU 部分：
+  INT8 稠密 ≈ 15 TOPS，INT8 稀疏 ≈ 30 TOPS
+
+官方标称 100 TOPS：
+  = GPU（稀疏 ~30）+ 2 颗 DLA + PVA 等加速器的合计（稀疏口径）
+  → 全芯片稠密 INT8 ≈ 50 TOPS 量级
   × 75% 左右（实际推理的利用率）
-≈ 35-40 TOPS（工程上能兑现的有效值）
+  ≈ 35-40 TOPS（工程上能兑现的有效值）
 ```
 
 所以这句话**半真半假**：
 
-- 说"硬件峰值只有 38 TOPS"——不准确，稠密峰值是 ~50 TOPS
-- 说"实际跑起来能兑现的也就 38 TOPS 上下"——合理，CNN 实测 70-80% 利用率后就是这个数
-- 还有一种可能：Orin NX **8GB 版**标称 70 TOPS（稀疏）→ 稠密 35 TOPS，如果测的是 8GB 版，38 还偏高了
+- 说"硬件峰值只有 38 TOPS"——不准确：GPU 稠密 INT8 是 ~15 TOPS，全芯片（含 DLA）稠密峰值 ~50 TOPS 量级
+- 说"实际跑起来能兑现的也就 38 TOPS 上下"——合理：无论按"全芯片稠密 ~50 × 75% 利用率"还是按"GPU + DLA 实测合计"，工程有效值都落在 35-40 区间
+- 还有一种可能：Orin NX **8GB 版**标称 70 TOPS（稀疏合计）→ 稠密 ~35 TOPS，如果测的是 8GB 版，38 还偏高了
+- **另一个精确吻合**：Super 模式下纯 GPU 稀疏 INT8 = 8 SM × 4 TC × 128 FMA × 2 × 2 × 1.17 GHz ≈ **38 TOPS**——如果同事说的是 Super 模式 GPU 侧的理论值，那 38 这个数字相当准确（官方 157 是含 DLA 的合计）
 
-Super 版同理：157（稀疏）→ 78（稠密）→ 有效 ~60。
+Super 版同理：157（稀疏合计）→ 全芯片稠密 ~78 → 有效 ~60。
 
-以及对 LLM 的老话重提：**38 也好 50 也好 157 也好，decode 速度都一样**——由 102.4 GB/s 带宽决定。这个数字只在 prefill、ViT、CNN 检测这些计算瓶颈负载上才有意义。
+以及对 LLM 的老话重提：**15 也好 38 也好 100 也好，decode 速度都一样**——由 102.4 GB/s 带宽决定。这个数字只在 prefill、ViT、CNN 检测这些计算瓶颈负载上才有意义。
 
 ---
 
@@ -1058,7 +1080,7 @@ VLA 里的 action chunk 路线（ACT、π0 类）每个控制周期只做**一�
 
 ### 19.1 关键区别：单次前向是"计算瓶颈"，不是"带宽瓶颈"
 
-Decode 每步只处理 1 个 token（算术强度 = 2，带宽瓶颈）；而 VLA 的一次前向处理几百个 token（图像 visual tokens + 语言 + 动作 token，比如 ~300 个），算术强度 = 2×300 = **600 FLOP/字节 > 383 平衡点**——prefill 型负载落在平衡点的另一侧，**算力（TOPS）成为瓶颈**。推论：Super 版的 157 TOPS 在这里是真有用的——和 decode 场景（超不超频 decode 速度都一样）正好相反。
+Decode 每步只处理 1 个 token（算术强度 = 2，带宽瓶颈）；而 VLA 的一次前向处理几百个 token（图像 visual tokens + 语言 + 动作 token，比如 ~300 个），算术强度 = 2×300 = **600 FLOP/字节 > ~94 平衡点**（纯 GPU FP16，Super）——prefill 型负载落在平衡点的另一侧，**算力（TOPS）成为瓶颈**。推论：Super 模式的 GPU 超频在这里是真有用的——和 decode 场景（超不超频 decode 速度都一样）正好相反。
 
 ### 19.2 三步估算
 
@@ -1069,7 +1091,7 @@ Decode 每步只处理 1 个 token（算术强度 = 2，带宽瓶颈）；而 VL
 ```
 搬运时间 = 权重 GB ÷ 102.4 GB/s            （带宽地板，任何情况省不掉）
 计算时间 = 2 × 参数量 × N_tokens ÷ 有效算力
-           有效算力 ≈ 39 TFLOPS × 0.6（FP16 稠密 × 利用率，Super 版）
+           有效算力 ≈ 7.5 TFLOPS × 0.6（纯 GPU FP16 稠密 × 利用率，普通版；Super 版 ~9.6）
 ```
 
 **第 3 步：换算成控制频率——action chunk 是解耦的关键**。动作块一次输出 k 步动作，控制频率 f Hz 时，大模型只需以 **f/k** 的频率运行。chunk = 50 步、控制 30 Hz → 策略模型 0.6 Hz 就够，**每次推理有 1.6 秒预算**。这就是为什么 150-200 ms 延迟的大模型 VLA 在 NX 上反而可行——chunk 把"高频控制"和"低频大模型推理"解耦了。
@@ -1079,10 +1101,10 @@ Decode 每步只处理 1 个 token（算术强度 = 2，带宽瓶颈）；而 VL
 | 模型 | 规模 | 内存 | 单帧延迟估算 | 可行性 |
 |---|---|---|---|---|
 | **ACT** | ~80M，FP16 | 权重 ~0.15 GB ✅ | 搬运 ~1.5 ms，计算可忽略 → **~10 ms 级** | ✅ 轻松，50+ Hz 直出 |
-| **π0 类**（3B backbone + flow 头） | 3B FP16 | 5.6 GB × 1.3 ≈ 7.3 GB ✅ | 搬运 55 ms；计算 2×3e9×300 ÷ 23.4T ≈ 77 ms（计算瓶颈）；ViT +30-50 ms；flow 头 10 步 × ~6 ms ≈ 60 ms → **合计 ~150-200 ms** | ✅ 配合 chunk=50，够 30 Hz 控制；INT8 后策略频率可 ~10 Hz |
-| **OpenVLA 类**（7B，自回归 7 个 action token） | 7B FP16 13 GB ❌；INT8 6.5 GB ⚠️ | 贴上限 | prefill ~150 ms + 7 步 decode × 63 ms ≈ **600 ms** | ⚠️ 勉强 ~1.5 Hz，AR 路线在 NX 上天然吃亏 |
+| **π0 类**（3B backbone + flow 头） | 3B FP16 | 5.6 GB × 1.3 ≈ 7.3 GB ✅ | 搬运 55 ms；backbone 计算 2×3e9×300 ÷ 4.5T ≈ 400 ms（计算瓶颈）；ViT ~0.8 TFLOP ÷ 4.5T ≈ 180 ms；flow 头 10 步 × ~6 ms ≈ 60 ms → **合计 ~600-700 ms（FP16）；INT8 后 ~350-400 ms** | ⚠️→✅ FP16 策略频率 ~1.5 Hz，需配 chunk ≥ 50 才能撑 30 Hz 控制；INT8 后 ~2.5 Hz，宽松得多 |
+| **OpenVLA 类**（7B，自回归 7 个 action token） | 7B FP16 13 GB ❌；INT8 6.5 GB ⚠️ | 贴上限 | prefill 2×7e9×300 ÷ 4.5T（INT8 9T）≈ 470 ms + 7 步 decode × 63 ms ≈ **900 ms** | ❌/⚠️ ~1 Hz，AR 路线在 NX 上天然吃亏 |
 
-规律一目了然：**同样参数量的 VLA，非 AR 路线（action chunk / flow matching）比 AR 路线在边缘端快一个量级**——AR 每步都要搬全部权重，非 AR 只搬一次；多花的计算时间恰好是 Super 模式超频能提升的部分，而搬运不能。
+规律一目了然：**同样参数量的 VLA，非 AR 路线（action chunk / flow matching）比 AR 路线在边缘端快一个量级**——AR 每步都要搬全部权重，非 AR 只搬一次；多花的计算时间恰好是 Super 模式超频能提升的部分，而搬运不能。另外注意纯 GPU FP16 稠密算力只有 7.5-9.6 TFLOPS（4.1.2 节），3B 级 VLA 在 NX 上是"贴着地皮飞"，实际部署建议 INT8 + 视觉端降分辨率/减 token。
 
 ---
 
@@ -1094,7 +1116,7 @@ Decode 每步只处理 1 个 token（算术强度 = 2，带宽瓶颈）；而 VL
 | **CPU vs GPU** | CPU = 中央处理器，核少而强，擅长复杂逻辑/串行任务/调度（指挥官）；GPU = 核多而简单，擅长海量并行计算（工厂） |
 | **SoC** | System on Chip，片上系统：把 CPU+GPU+内存控制器+ISP+DLA+IO 等一整台计算机集成到同一颗硅片。靠先进制程（8nm，百亿晶体管）+ IP 核授权模式（ARM 卖 CPU 图纸，厂商拼积木后找代工厂流片）实现 |
 | **RSS** | Resident Set Size，常驻内存集。Linux 内核统计的进程当前占用的物理内存页数，只计入了 CPU 页表映射的页面，Jetson 上可能遗漏 GPU 侧分配 |
-| **SM** | Streaming Multiprocessor，流式多处理器。GPU 内部的"迷你 GPU"单元，包含 CUDA Core、Tensor Core、L1 缓存和寄存器。Orin NX (GA10B) 有 4 个 SM |
+| **SM** | Streaming Multiprocessor，流式多处理器。GPU 内部的"迷你 GPU"单元：Ampere 标准构成为 128 个 CUDA Core + 4 个 Tensor Core + L1/共享内存（GA10x 128 KB）+ 寄存器堆（256 KB）。Orin NX (GA10B) 启用 8 个 SM |
 | **LPDDR5 带宽** | 102.4 GB/s，数据从内存到 GPU 缓存的搬运速度上限 |
 | **RAM** | Random Access Memory，随机存取存储器。和硬盘不同，可任意顺序读写，速度快但断电丢失。DDR/LPDDR/GDDR 都是 RAM 的不同类型 |
 | **DRAM vs SRAM** | DRAM（动态）：1 比特 = 1 电容 + 1 晶体管，电容漏电需定期刷新，用于主存（LPDDR5/HBM 都是 DRAM）；SRAM（静态）：1 比特 = 6 晶体管，快而贵，用于 SoC 内部的寄存器和 L1/L2 缓存 |
@@ -1115,6 +1137,6 @@ Decode 每步只处理 1 个 token（算术强度 = 2，带宽瓶颈）；而 VL
 | **TPOT** | Time Per Output Token，后续每个 token 的平均生成时间 |
 | **TOPS / TFLOPS** | 每秒万亿次整数 / 浮点运算。TOPS 一般指 INT8，TFLOPS 一般指浮点 |
 | **稠密 vs 稀疏算力** | 稠密 = 全部权重参与计算的真实峰值；稀疏 = 2:4 结构化剪枝后硬件跳过零值的标称值（×2，LLM 实际用不上） |
-| **算术强度 / Roofline** | 每搬 1 字节数据能做的运算次数。硬件平衡点 = 算力 ÷ 带宽（Orin NX Super FP16 ≈ 383），decode 只有 ~2，故永远带宽瓶颈 |
+| **算术强度 / Roofline** | 每搬 1 字节数据能做的运算次数。硬件平衡点 = 算力 ÷ 带宽（Orin NX 纯 GPU FP16 ≈ 73-94），decode 只有 ~2，故永远带宽瓶颈 |
 | **CUDA Graph** | 把整段 kernel 启动序列录制一次、之后一次 launch 重放，消除 CPU 端 launch 开销（Jetson 的弱 ARM CPU 上收益尤其大）。代价：shape/内存地址必须固定，故只适合 decode 步 |
 | **Padding / 分桶** | 把变长输入补齐到定长以适配固定 shape 的 engine/graph，mask 保证结果正确，代价是 pad 部分的计算白做；分桶（128/256/512…）在浪费和内存占用之间折中 |
