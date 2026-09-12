@@ -30,9 +30,11 @@ Orin NX 是 NVIDIA 在 2022 年发布的一款面向**嵌入式与边缘端**的
 | 内存带宽 | 102.4 GB/s | 数据在芯片和内存之间搬移的速度上限 |
 | 最大功耗 | 10-25W | 被动散热，无风扇 |
 | 操作系统 | L4T（Linux for Tegra） | Ubuntu 定制版 |
-| **DLA** | **2 颗** | Deep Learning Accelerator，独立于 GPU 的 CNN 专用推理硬件，功耗极低（<1W/颗）。Transformer/LLM 不可用，但可并行跑 ViT 或目标检测，不占 GPU 资源 |
+| **DLA** | **2 颗** | Deep Learning Accelerator，独立于 GPU 的 CNN 专用推理硬件，功耗极低（<1W/颗）。Transformer/LLM 不可用，适合并行跑 CNN 类视觉模型（目标检测等），不占 GPU 资源 |
 
-> **DLA（Deep Learning Accelerator，深度学习加速器——NVIDIA 对标 NPU 的硬件）**：GA10B SoC 内部**独立于 GPU** 的专用推理硬件，不占用 CUDA Core 或 Tensor Core。两颗 DLA，每颗功耗 <1W。专为 CNN 推理设计（支持卷积、池化、激活函数等），**不支持 Transformer 的自注意力机制**。理想 VLM 部署场景：DLA 跑 ViT/Vision 模块，GPU 专跑 LLM decode——两路并行，不抢占。当前两份 Orin NX 报告均未使用 DLA（全部 Vision 走 GPU TensorRT FP16），是因为 VLM 的 ViT 模块未经 DLA 量化适配。
+> **DLA（Deep Learning Accelerator，深度学习加速器——NVIDIA 对标 NPU 的硬件）**：GA10B SoC 内部**独立于 GPU** 的专用推理硬件，不占用 CUDA Core 或 Tensor Core。两颗 DLA，每颗功耗 <1W。算子集是 CNN 导向的：卷积、池化、全连接（GEMM）、激活、BatchNorm 等，**不支持 Softmax、LayerNorm、GELU 这些 Transformer 必备算子**。
+>
+> **那 DLA 能跑 ViT 吗？——纸面上部分可以，工程上不行。** ViT 的 QKV 投影、FFN 等线性层本质是 GEMM，理论上能映射到 DLA；但每层 self-attention 里的 Softmax、LayerNorm、GELU 都必须回退 GPU——每层在 DLA↔GPU 之间来回切换好几次，每次切换都要同步等待，**切换开销通常比省下的算力还大**，实际没人这么部署。所以 ViT 的"自注意力"决定了它离不开 GPU，DLA 的正确用法是并行跑 **CNN 类视觉模型**（YOLO 检测、ResNet 等），把 GPU 留给 LLM/ViT。这也是两份 Orin NX 报告把 Vision 全部走 GPU TensorRT 的更根本原因——不只是"未经 DLA 量化适配"，而是 ViT 在 DLA 上根本切不干净。
 
 ## 二、统一内存架构——为什么 Orin NX 没有"显存"这个概念
 
@@ -963,7 +965,7 @@ Decode 每步只处理 1 个 token（算术强度 = 2，带宽瓶颈）；而 VL
 | **DRAM vs SRAM** | DRAM（动态）：1 比特 = 1 电容 + 1 晶体管，电容漏电需定期刷新，用于主存（LPDDR5/HBM 都是 DRAM）；SRAM（静态）：1 比特 = 6 晶体管，快而贵，用于 SoC 内部的寄存器和 L1/L2 缓存 |
 | **VRAM（显存）** | Video RAM，独立显卡上专属于 GPU 的 DRAM（GDDR6X 等），直连 GPU 不走 PCIe；统一内存平台（Jetson、核显）没有显存，CPU/GPU 共享系统内存 |
 | **FMA** | Fused Multiply-Add，融合乘加：一条指令完成 `a×b+c`，中间不舍入，更快更准。矩阵乘法的原子操作；1 次 FMA = 2 FLOP，算力 = 核心数 × 2 × 频率 |
-| **DLA** | Deep Learning Accelerator，深度学习加速器。SoC 内部独立于 GPU 的 CNN 专用推理硬件，功耗极低。不支持 Transformer，可并行跑 ViT 不占 GPU |
+| **DLA** | Deep Learning Accelerator，深度学习加速器。SoC 内部独立于 GPU 的 CNN 专用推理硬件，功耗极低。不支持 Softmax/LayerNorm 等 Transformer 算子，ViT 切给它会在 DLA↔GPU 间频繁回退、得不偿失；适合并行跑 CNN（检测等）不占 GPU |
 | **ISP** | Image Signal Processor，图像信号处理器。SoC 内专用硬件，负责把相机 RAW 图（Bayer）处理成彩色图，不占 GPU |
 | **零拷贝（NVMM buffer）** | Jetson 统一内存下，ISP 输出的相机帧 GPU 可直接读取，无需 memcpy/PCIe 搬运 |
 | **GPU 缓存层级** | LPDDR5 → L2 → L1 → 寄存器，每层更快更小 |
