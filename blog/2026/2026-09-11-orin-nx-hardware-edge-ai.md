@@ -52,6 +52,8 @@ GPU ← PCIe 4.0 →  显存 VRAM（24 GB GDDR6X）
 
 > **DRAM** = **D**ynamic **R**andom **A**ccess **M**emory，动态随机存取存储器。它是 RAM 的一种实现方式，而且是**所有主存的实现方式**（DDR5、LPDDR5、GDDR6X、HBM 全是 DRAM 的变种）。存储原理：1 个比特 = 1 个电容 + 1 个晶体管，有电荷为 1、无电荷为 0。叫"动态"是因为电容会漏电，几毫秒内电荷就跑光，内存控制器必须**周期性刷新**（约每 64 ms 全部重写一遍）。对比 **SRAM（静态 RAM）**：1 个比特用 6 个晶体管，不漏电、不用刷新、速度快得多，但面积大、贵——所以 SRAM 只用于 SoC 内部的寄存器和 L1/L2 缓存，DRAM 用于外部大容量主存。**SoC 内部（寄存器/L1/L2）= SRAM，快而小；SoC 外部（LPDDR5/HBM）= DRAM，慢而大。**
 
+> **VRAM** = **V**ideo **RAM**，视频随机存取存储器，即"显存"——独立显卡电路板上焊的、**专属于 GPU** 的那块内存。名字源于早期显卡上的内存只负责存要显示的画面（帧缓冲，frame buffer）；如今它存的是模型权重、纹理、计算中间结果，名字沿用至今。物理形态是 GDDR6/GDDR6X 颗粒（本质也是 DRAM 变种，G = Graphics，为 GPU 超高带宽优化），通过 GPU 内部超宽总线直连，不走 PCIe——RTX 4090 的 24 GB GDDR6X 带宽 ~1 TB/s。**什么时候没有 VRAM**：统一内存平台（Jetson Orin、Apple Silicon、核显）没有显存，CPU 和 GPU 共享同一块系统内存——这正是本节"分居 vs 同居"的核心：桌面平台 = 系统 RAM + VRAM（分居，搬运要过 PCIe）；Orin NX = 统一 LPDDR5（同居，零拷贝）。
+
 > **HBM** = **H**igh **B**andwidth **M**emory，高带宽内存。和普通 DRAM 芯片平铺在电路板上不同，HBM 把多层 DRAM 芯片**垂直堆叠**在一起，通过穿过硅片的 TSV（Through-Silicon Via，硅通孔）连接，再通过一层硅中介层（Interposer）和 GPU 核心封装在同一个基板上。结果是惊人的带宽：HBM2e 约 1.5-2 TB/s，HBM3 约 3 TB/s，HBM3e 约 4.8 TB/s——是 LPDDR5（Orin NX：102.4 GB/s）的 15-50 倍，也是桌面 GDDR6X（RTX 4090：~1 TB/s）的 3-5 倍。代价是贵、不可扩展、只能焊死在芯片旁边。Orin NX 用的 LPDDR5 走的是**低成本低功耗**路线——不需要金字塔般的 3D 堆叠，带宽够用就行。E300（M1000）同样走 LPDDR5/LPDDR5X 路线。HBM 目前只在数据中心 GPU（NVIDIA A100/H100/B200）和高端自动驾驶芯片（如 NVIDIA Thor、高通 Snapdragon Ride Flex）上出现。
 
 ### 2.2 Orin NX 是"同居"的
@@ -888,6 +890,7 @@ NVIDIA 的 GPU 架构按代际命名（每代以一位科学家命名），CUDA 
 | **LPDDR5 带宽** | 102.4 GB/s，数据从内存到 GPU 缓存的搬运速度上限 |
 | **RAM** | Random Access Memory，随机存取存储器。和硬盘不同，可任意顺序读写，速度快但断电丢失。DDR/LPDDR/GDDR 都是 RAM 的不同类型 |
 | **DRAM vs SRAM** | DRAM（动态）：1 比特 = 1 电容 + 1 晶体管，电容漏电需定期刷新，用于主存（LPDDR5/HBM 都是 DRAM）；SRAM（静态）：1 比特 = 6 晶体管，快而贵，用于 SoC 内部的寄存器和 L1/L2 缓存 |
+| **VRAM（显存）** | Video RAM，独立显卡上专属于 GPU 的 DRAM（GDDR6X 等），直连 GPU 不走 PCIe；统一内存平台（Jetson、核显）没有显存，CPU/GPU 共享系统内存 |
 | **DLA** | Deep Learning Accelerator，深度学习加速器。SoC 内部独立于 GPU 的 CNN 专用推理硬件，功耗极低。不支持 Transformer，可并行跑 ViT 不占 GPU |
 | **ISP** | Image Signal Processor，图像信号处理器。SoC 内专用硬件，负责把相机 RAW 图（Bayer）处理成彩色图，不占 GPU |
 | **零拷贝（NVMM buffer）** | Jetson 统一内存下，ISP 输出的相机帧 GPU 可直接读取，无需 memcpy/PCIe 搬运 |
