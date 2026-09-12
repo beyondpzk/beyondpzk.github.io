@@ -792,6 +792,41 @@ Super 版同理：157（稀疏）→ 78（稠密）→ 有效 ~60。
 
 ---
 
+## 十七、NVIDIA GPU 架构谱系——Ampere 是哪一代
+
+NVIDIA 的 GPU 架构按代际命名（每代以一位科学家命名），CUDA 时代的完整谱系如下：
+
+| 架构 | 年份 | 代表产品 | 关键进步 |
+|---|---|---|---|
+| Tesla | 2006 | GeForce 8（G80） | 统一着色器，**CUDA 诞生**，GPU 开始能做通用计算 |
+| Fermi | 2010 | GTX 400/500 | 完整的 L1/L2 缓存体系，双精度计算 |
+| Kepler | 2012 | GTX 600/700 | 能效大幅提升 |
+| Maxwell | 2014 | GTX 750/900 | 每瓦性能翻倍；Jetson Nano/TX1 所用 |
+| Pascal | 2016 | GTX 10 系列 / P100 | 首次引入 HBM2（P100）；Jetson TX2 所用 |
+| **Volta** | 2017 | Tesla V100 | **首次引入 Tensor Core**（第一代）；Jetson Xavier 所用 |
+| Turing | 2018 | RTX 20 系列 | Tensor Core 下放消费卡（第二代），新增 RT Core 光追 |
+| **Ampere** | 2020 | RTX 30 系列 / A100 | 第三代 Tensor Core，2:4 结构化稀疏；**Jetson Orin 全系（含 Orin NX）所用** |
+| Ada Lovelace | 2022 | RTX 40 系列 | 第四代 Tensor Core，FP8 支持 |
+| Hopper | 2022 | H100 | 数据中心专用，Transformer Engine、HBM3 |
+| Blackwell | 2024 | B200 / RTX 50 系列 | 第五代 Tensor Core，FP4；Jetson Thor 所用 |
+| Rubin | 2026（路线图） | R 系列 | 下一代数据中心架构，HBM4 |
+
+> 2006 年之前还有 Fahrenheit、Celsius、Kelvin、Rankine、Curie 五代，但那是纯图形卡时代、没有 CUDA，一般不纳入"GPU 计算架构"的讨论。
+
+**与 Jetson 产品线的对应**（选型时最实用）：
+
+| Jetson | 架构 | Tensor Core |
+|---|---|---|
+| Nano / TX1 | Maxwell | 无 |
+| TX2 | Pascal | 无 |
+| Xavier NX / AGX Xavier | Volta | 第一代 |
+| **Orin Nano / NX / AGX Orin** | **Ampere** | 第三代（同 RTX 30） |
+| Thor | Blackwell | 第五代 |
+
+**实用结论**：一块 Jetson 支持什么特性，查架构代数就知道。Orin NX 是 Ampere = 第三代 Tensor Core，支持 FP16/BF16/INT8/INT4 和 2:4 稀疏，但**没有 FP8/FP4**（那是 Ada/Blackwell 才引入的）——这也是为什么 Orin 上做不了 FP8 量化推理，INT8 就是它的精度下限了。
+
+---
+
 ## 附录：本文涉及的核心概念速查
 
 | 概念 | 一句话解释 |
