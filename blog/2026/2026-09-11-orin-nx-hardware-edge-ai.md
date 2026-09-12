@@ -283,6 +283,29 @@ Ampere 架构（Orin NX 的 GPU）上的 **第三代 Tensor Core** 对以下精�
 - **INT8 不仅算得快（吞吐翻倍），内存也减半**。对 Orin NX 这种内存带宽受限的平台，后者比前者更关键。
 - **从 FP16 到 INT8，收益不是线性的**：权重从 8 GB → 4 GB（搬运时间从 78 ms → 39 ms），计算从 FP16→INT8（Tensor Core 更快），两端同时获益。
 
+### 4.3 CUDA Core 和 Tensor Core 各自能算什么位宽
+
+两类核心的精度支持范围并不相同，以 Ampere（Orin NX，第三代 Tensor Core）为准：
+
+| 精度 | CUDA Core | Tensor Core（Orin NX） | 说明 |
+|---|---|---|---|
+| FP64（双精度） | ✅ 但仅 1/64 速率 | ❌ | A100（GA100）的 TC 才支持 FP64，消费/嵌入式线砍掉 |
+| FP32（单精度） | ✅ 基准速率 | 间接：转 TF32 | TC 不直接算 FP32 |
+| TF32（19 bit） | ❌ | ✅ 吞吐 = FP16 的一半 | Tensor Core 专有格式 |
+| FP16（半精度） | ✅ 2× FP32（half2 打包） | ✅ 主力 | LLM 推理主战场 |
+| BF16 | ✅ 但靠转换，慢 | ✅ 吞吐同 FP16 | 位布局差异见 5.1 |
+| INT8 | ✅ 整数 ALU | ✅ 2× FP16 | 量化部署主战场 |
+| INT4 | ❌ 需软件模拟 | ✅ 4× FP16 | TC 专有，CUDA Core 算不了 |
+| INT1（二值） | ❌ | ✅ 8× FP16 | 仅二值神经网络用，罕见 |
+| FP8 | ❌ | ❌ | Ada/Hopper 起才有，**Ampere 没有** |
+
+几个要点：
+
+- **CUDA Core 的主场是 FP32/INT32 通用计算**；FP16 它也能算（两个半精度打包进一个 32 位寄存器，速率 2×），但和 Tensor Core 比仍是数量级差距。
+- **Tensor Core 独占的低精度**：TF32、INT4、INT1。尤其 INT4——只有走 Tensor Core 才有硬件加速，这就是 INT4 量化模型必须用 TensorRT-LLM 这类引擎、不能用纯 CUDA kernel 的原因。
+- **FP64 在嵌入式 GPU 上是装饰品**：1/64 速率，科学计算别指望它。
+- **"位宽越低吞吐越高"的阶梯只在 Tensor Core 上成立**：FP16→INT8→INT4 每降一档吞吐翻倍；CUDA Core 上没有这个阶梯。
+
 ## 五、FP16 vs BF16——为什么两个"看起来差不多"的格式在报告里同时出现
 
 ### 5.1 两者的位布局
