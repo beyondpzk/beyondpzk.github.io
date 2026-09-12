@@ -50,6 +50,8 @@ GPU ← PCIe 4.0 →  显存 VRAM（24 GB GDDR6X）
 
 > **RAM** = **R**andom **A**ccess **M**emory，随机存取存储器。和硬盘/SSD 不同，RAM 可以以任意顺序读写任意位置的数据，速度远超硬盘但断电即丢失。DDR5、LPDDR5、GDDR6X 都是 RAM 的不同类型——DDR（Double Data Rate，双倍数据速率）表示每个时钟周期传输两次数据。LPDDR 的 LP = Low Power（低功耗），专为手机和嵌入式设备优化。
 
+> **DRAM** = **D**ynamic **R**andom **A**ccess **M**emory，动态随机存取存储器。它是 RAM 的一种实现方式，而且是**所有主存的实现方式**（DDR5、LPDDR5、GDDR6X、HBM 全是 DRAM 的变种）。存储原理：1 个比特 = 1 个电容 + 1 个晶体管，有电荷为 1、无电荷为 0。叫"动态"是因为电容会漏电，几毫秒内电荷就跑光，内存控制器必须**周期性刷新**（约每 64 ms 全部重写一遍）。对比 **SRAM（静态 RAM）**：1 个比特用 6 个晶体管，不漏电、不用刷新、速度快得多，但面积大、贵——所以 SRAM 只用于 SoC 内部的寄存器和 L1/L2 缓存，DRAM 用于外部大容量主存。**SoC 内部（寄存器/L1/L2）= SRAM，快而小；SoC 外部（LPDDR5/HBM）= DRAM，慢而大。**
+
 > **HBM** = **H**igh **B**andwidth **M**emory，高带宽内存。和普通 DRAM 芯片平铺在电路板上不同，HBM 把多层 DRAM 芯片**垂直堆叠**在一起，通过穿过硅片的 TSV（Through-Silicon Via，硅通孔）连接，再通过一层硅中介层（Interposer）和 GPU 核心封装在同一个基板上。结果是惊人的带宽：HBM2e 约 1.5-2 TB/s，HBM3 约 3 TB/s，HBM3e 约 4.8 TB/s——是 LPDDR5（Orin NX：102.4 GB/s）的 15-50 倍，也是桌面 GDDR6X（RTX 4090：~1 TB/s）的 3-5 倍。代价是贵、不可扩展、只能焊死在芯片旁边。Orin NX 用的 LPDDR5 走的是**低成本低功耗**路线——不需要金字塔般的 3D 堆叠，带宽够用就行。E300（M1000）同样走 LPDDR5/LPDDR5X 路线。HBM 目前只在数据中心 GPU（NVIDIA A100/H100/B200）和高端自动驾驶芯片（如 NVIDIA Thor、高通 Snapdragon Ride Flex）上出现。
 
 ### 2.2 Orin NX 是"同居"的
@@ -849,6 +851,7 @@ NVIDIA 的 GPU 架构按代际命名（每代以一位科学家命名），CUDA 
 | **SM** | Streaming Multiprocessor，流式多处理器。GPU 内部的"迷你 GPU"单元，包含 CUDA Core、Tensor Core、L1 缓存和寄存器。Orin NX (GA10B) 有 4 个 SM |
 | **LPDDR5 带宽** | 102.4 GB/s，数据从内存到 GPU 缓存的搬运速度上限 |
 | **RAM** | Random Access Memory，随机存取存储器。和硬盘不同，可任意顺序读写，速度快但断电丢失。DDR/LPDDR/GDDR 都是 RAM 的不同类型 |
+| **DRAM vs SRAM** | DRAM（动态）：1 比特 = 1 电容 + 1 晶体管，电容漏电需定期刷新，用于主存（LPDDR5/HBM 都是 DRAM）；SRAM（静态）：1 比特 = 6 晶体管，快而贵，用于 SoC 内部的寄存器和 L1/L2 缓存 |
 | **DLA** | Deep Learning Accelerator，深度学习加速器。SoC 内部独立于 GPU 的 CNN 专用推理硬件，功耗极低。不支持 Transformer，可并行跑 ViT 不占 GPU |
 | **ISP** | Image Signal Processor，图像信号处理器。SoC 内专用硬件，负责把相机 RAW 图（Bayer）处理成彩色图，不占 GPU |
 | **零拷贝（NVMM buffer）** | Jetson 统一内存下，ISP 输出的相机帧 GPU 可直接读取，无需 memcpy/PCIe 搬运 |
