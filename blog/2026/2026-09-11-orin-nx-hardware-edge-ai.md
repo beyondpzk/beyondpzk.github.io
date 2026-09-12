@@ -204,6 +204,8 @@ Orin NX 的 GA10B 有 4 个这样的 SM，所以总共 1024 CUDA Core + 32 Tenso
 
 一个 CUDA Core 本质上就是一个 **ALU（算术逻辑单元）**，核心电路是一个 FMA（Fused Multiply-Add，乘加融合）单元：每个时钟周期完成一次 `a × b + c`，其中 a、b、c 都是**标量**（单个数）。
 
+> **FMA 详解**：FMA = **F**used **M**ultiply-**A**dd，融合乘加，一条指令一次完成 `d = a × b + c`。"融合"的意思是：如果分两步做——先算 `a×b`（存中间结果，舍入一次）再加 `c`（再舍入一次）——要两条指令、两次浮点舍入；FMA 把乘和加融在一条指令里，**中间结果不舍入，只在最后舍入一次**，更快也更精确。它是矩阵乘法的"原子操作"（点积就是一连串乘加链），所以 GPU 算力直接用 FMA 数衡量。**一次 FMA = 1 乘 + 1 加 = 2 FLOP**——这就是算力公式里"×2"的来源：`CUDA Core 算力 = 核心数 × 每周期 FMA 数 × 2 × 频率`，例如 Orin NX FP32 ≈ 1024 × 1 × 2 × 0.9 GHz ≈ 1.9 TFLOPS。CPU 上同样有 FMA（Intel Haswell 起的 FMA3、ARM NEON）。
+
 Orin NX 有 1024 个 CUDA Core，意味着理想情况下每个时钟周期全芯片能并行完成 1024 次标量乘加。它能做所有类型的运算——整数、浮点、比较、分支跳转——所以叫"通用"。
 
 CUDA Core 不是单独干活的，GPU 以 **warp（线程束，32 个线程）** 为单位调度：一条指令同时发给 32 个 CUDA Core，每个 Core 处理一个线程的数据。这就是 GPU"单指令多数据"（SIMT）的工作方式——你写 `c[i] = a[i] + b[i]`，1024 个元素分给 32 个 warp，每个 warp 里 32 个 CUDA Core 一人加一个元素。
@@ -895,6 +897,7 @@ NVIDIA 的 GPU 架构按代际命名（每代以一位科学家命名），CUDA 
 | **RAM** | Random Access Memory，随机存取存储器。和硬盘不同，可任意顺序读写，速度快但断电丢失。DDR/LPDDR/GDDR 都是 RAM 的不同类型 |
 | **DRAM vs SRAM** | DRAM（动态）：1 比特 = 1 电容 + 1 晶体管，电容漏电需定期刷新，用于主存（LPDDR5/HBM 都是 DRAM）；SRAM（静态）：1 比特 = 6 晶体管，快而贵，用于 SoC 内部的寄存器和 L1/L2 缓存 |
 | **VRAM（显存）** | Video RAM，独立显卡上专属于 GPU 的 DRAM（GDDR6X 等），直连 GPU 不走 PCIe；统一内存平台（Jetson、核显）没有显存，CPU/GPU 共享系统内存 |
+| **FMA** | Fused Multiply-Add，融合乘加：一条指令完成 `a×b+c`，中间不舍入，更快更准。矩阵乘法的原子操作；1 次 FMA = 2 FLOP，算力 = 核心数 × 2 × 频率 |
 | **DLA** | Deep Learning Accelerator，深度学习加速器。SoC 内部独立于 GPU 的 CNN 专用推理硬件，功耗极低。不支持 Transformer，可并行跑 ViT 不占 GPU |
 | **ISP** | Image Signal Processor，图像信号处理器。SoC 内专用硬件，负责把相机 RAW 图（Bayer）处理成彩色图，不占 GPU |
 | **零拷贝（NVMM buffer）** | Jetson 统一内存下，ISP 输出的相机帧 GPU 可直接读取，无需 memcpy/PCIe 搬运 |
