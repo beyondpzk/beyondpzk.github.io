@@ -1040,7 +1040,9 @@ NVIDIA 的 GPU 架构按代际命名（每代以一位科学家命名），CUDA 
 | **Orin Nano / NX / AGX Orin** | **Ampere** | 第三代（同 RTX 30） |
 | Thor | Blackwell | 第五代 |
 
-**实用结论**：一块 Jetson 支持什么特性，查架构代数就知道。Orin NX 是 Ampere = 第三代 Tensor Core，支持 FP16/BF16/INT8/INT4 和 2:4 稀疏，但**没有 FP8/FP4**（那是 Ada/Blackwell 才引入的）——这也是为什么 Orin 上做不了 FP8 量化推理，INT8 就是它的精度下限了。
+**实用结论**：一块 Jetson 支持什么特性，查架构代数就知道。Orin NX 是 Ampere = 第三代 Tensor Core，支持 FP16/BF16/INT8/INT4（甚至 INT1）和 2:4 稀疏。要分清两条精度线的下限：**整数精度下限是 INT4**（Tensor Core 原生加速，见 4.3 节），**浮点精度下限是 FP16/BF16**——它**没有 FP8/FP4 硬件**（FP8 由 Ada/Hopper 引入，FP4 由 Blackwell 引入），所以 Orin 上做不了 FP8 量化推理。
+
+> **既然支持 INT4，为什么第十节还推荐 W8？** INT4 在 Orin NX 上确实能跑（TensorRT-LLM 的 W4A16：权重量化到 4bit、激活保持 FP16），decode 阶段权重搬运再减半，带宽瓶颈理论上从 39 ms 降到 ~19.5 ms/token。但 4bit 权重量化的精度损失明显变大，对 1-4B 小模型尤其敏感，通常要 AWQ/GPTQ 这类带校准的算法加分组量化才压得住；而且只有 GEMM 部分受益，softmax/LayerNorm 等 CUDA Core 算子不受影响。W8 是"精度几乎无损 + 带宽减半"的稳妥甜点，不是硬件能力上限。
 
 ---
 
