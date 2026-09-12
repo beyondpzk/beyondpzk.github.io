@@ -701,9 +701,23 @@ ViT 要求 448×448 的固定输入，所以要在 GPU 上跑几个 CUDA kernel�
 
 全是逐元素操作——正是 4.1.3 节说的 CUDA Core 杂活，总共不到 1-2 ms。
 
-### 12.5 ViT 视觉编码（Tensor Core，~80-90 ms）
+### 12.5 ViT 视觉编码（Tensor Core 为主，~80-90 ms）
 
-图片被切成 14×14 像素的 patch（448÷14 = 32×32 = 1024 个 patch；很多 VLM 再做一次 pixel shuffle，压缩到 ~256 个 visual token），经过 patch embedding + 多层 Transformer，输出 visual tokens。这一段的矩阵乘法全部走 Tensor Core——这就是第八节 TTFT 里那 80-90 ms 的去处。
+图片被切成 14×14 像素的 patch（448÷14 = 32×32 = 1024 个 patch；很多 VLM 再做一次 pixel shuffle，压缩到 ~256 个 visual token），经过 patch embedding + 多层 Transformer，输出 visual tokens。这就是第八节 TTFT 里那 80-90 ms 的去处。
+
+**注意：标题里的"Tensor Core"是简写，并不是整个 ViT 都在 Tensor Core 上跑。** Tensor Core 只会做一种操作——矩阵乘加（GEMM）；Transformer 里的其余算子全在 CUDA Core 上执行：
+
+| 算子 | 执行硬件 | 说明 |
+|---|---|---|
+| Q/K/V 投影、QK^T、Attn×V、输出投影、FFN 全连接、patch embedding | **Tensor Core** | 都是矩阵乘法，占 95% 以上的乘加计算量 |
+| Softmax（exp / 求和 / 除法） | **CUDA Core** | 逐元素 + 归约；exp 由 CUDA Core 里的特殊函数单元（SFU）计算 |
+| LayerNorm（均值 / 方差 / 归一化） | **CUDA Core** | 归约 + 逐元素 |
+| GELU 激活 | **CUDA Core** | 逐元素非线性，tanh/erf 近似走 SFU |
+| 残差相加、bias 相加、patch 重排 | **CUDA Core** | 逐元素 / 纯内存搬运 |
+
+所以准确的分工是：**Tensor Core 干绝大多数"计算量"（FLOPs），CUDA Core 干所有"非矩阵乘"的算子**。softmax/LayerNorm/GELU 的 FLOPs 占比很小，但属于访存密集型（大张量读一遍写一遍），实际耗时占比高于其 FLOPs 占比。
+
+工程上还有个细节：TensorRT 会把 GELU、bias、残差这些算子**融合（kernel fusion）**进前一个 GEMM kernel 的尾巴（epilogue）——Tensor Core 算出的 tile 还在寄存器里，CUDA Core 直接在同一个 kernel 里接着做完，省掉一次写回内存再读出的往返。但"融合"不等于"softmax 在 Tensor Core 上算"，执行单元仍是 CUDA Core。同理，第八节 decode 流程里的"softmax 采样"也是在 CUDA Core 上做的。
 
 ### 12.6 多模态投影 + LLM prefill（Tensor Core，~36 ms）
 
@@ -734,7 +748,7 @@ token id 流式地查 BPE 词表，还原成 UTF-8 字符串片段，拼成你�
 | CSI-2 传输 + ISP 处理 | SoC 内专用 ISP 硬件 | <5 ms |
 | 帧 buffer 交接 | 统一内存零拷贝 | ~0 |
 | 预处理（resize/归一化） | CUDA Core | 1-2 ms |
-| ViT 视觉编码 | Tensor Core | 80-90 ms |
+| ViT 视觉编码 | Tensor Core（GEMM）+ CUDA Core（softmax/LayerNorm/GELU） | 80-90 ms |
 | 投影 + LLM prefill | Tensor Core | ~36 ms |
 | decode × 63 token | Tensor Core，受 LPDDR5 带宽限制 | ~5,809 ms |
 | detokenize | CPU | ≈0 |
