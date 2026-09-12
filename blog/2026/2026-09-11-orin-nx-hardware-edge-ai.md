@@ -36,6 +36,8 @@ Orin NX 是 NVIDIA 在 2022 年发布的一款面向**嵌入式与边缘端**的
 >
 > **那 DLA 能跑 ViT 吗？——纸面上部分可以，工程上不行。** ViT 的 QKV 投影、FFN 等线性层本质是 GEMM，理论上能映射到 DLA；但每层 self-attention 里的 Softmax、LayerNorm、GELU 都必须回退 GPU——每层在 DLA↔GPU 之间来回切换好几次，每次切换都要同步等待，**切换开销通常比省下的算力还大**，实际没人这么部署。所以 ViT 的"自注意力"决定了它离不开 GPU，DLA 的正确用法是并行跑 **CNN 类视觉模型**（YOLO 检测、ResNet 等），把 GPU 留给 LLM/ViT。这也是两份 Orin NX 报告把 Vision 全部走 GPU TensorRT 的更根本原因——不只是"未经 DLA 量化适配"，而是 ViT 在 DLA 上根本切不干净。
 
+> **GEMM** = **GE**neral **M**atrix **M**ultiply，通用矩阵乘法，线性代数标准库 BLAS 的术语，指标准运算 `C = α·A×B + β·C`（矩阵乘矩阵再加权累加）。BLAS 按数据复用程度分三级：Level 1 向量×向量、Level 2 矩阵×向量、Level 3 矩阵×矩阵（即 GEMM）——级数越高，每搬一次数据能做的运算越多（算术强度越高），越能喂饱计算单元。GEMM 的首字母变体表精度：**S**GEMM（FP32）、**D**GEMM（FP64）、**H**GEMM（FP16）、**I**GEMM（INT8）；NVIDIA 的实现库是 **cuBLAS**——你调 `torch.matmul()` 底层走的就是它。深度学习里遍地是 GEMM：全连接层是 GEMM，卷积经 im2col 展开后变成 GEMM，Transformer 的 QKV 投影和 FFN 全是 GEMM。可以说"LLM 推理 ≈ 一连串 GEMM + 少量杂活"——这正是 Tensor Core 专为矩阵乘加而生、以及 DLA 把 GEMM 列进算子集的原因。
+
 ## 二、统一内存架构——为什么 Orin NX 没有"显存"这个概念
 
 这是理解 Orin NX 最重要的起点。
@@ -965,6 +967,7 @@ Decode 每步只处理 1 个 token（算术强度 = 2，带宽瓶颈）；而 VL
 | **DRAM vs SRAM** | DRAM（动态）：1 比特 = 1 电容 + 1 晶体管，电容漏电需定期刷新，用于主存（LPDDR5/HBM 都是 DRAM）；SRAM（静态）：1 比特 = 6 晶体管，快而贵，用于 SoC 内部的寄存器和 L1/L2 缓存 |
 | **VRAM（显存）** | Video RAM，独立显卡上专属于 GPU 的 DRAM（GDDR6X 等），直连 GPU 不走 PCIe；统一内存平台（Jetson、核显）没有显存，CPU/GPU 共享系统内存 |
 | **FMA** | Fused Multiply-Add，融合乘加：一条指令完成 `a×b+c`，中间不舍入，更快更准。矩阵乘法的原子操作；1 次 FMA = 2 FLOP，算力 = 核心数 × 2 × 频率 |
+| **GEMM** | GEneral Matrix Multiply，通用矩阵乘法（BLAS Level 3 术语）：`C = α·A×B + β·C`。变体按精度分 SGEMM/HGEMM/IGEMM；NVIDIA 实现库为 cuBLAS。全连接、卷积（im2col）、QKV/FFN 本质都是 GEMM |
 | **DLA** | Deep Learning Accelerator，深度学习加速器。SoC 内部独立于 GPU 的 CNN 专用推理硬件，功耗极低。不支持 Softmax/LayerNorm 等 Transformer 算子，ViT 切给它会在 DLA↔GPU 间频繁回退、得不偿失；适合并行跑 CNN（检测等）不占 GPU |
 | **ISP** | Image Signal Processor，图像信号处理器。SoC 内专用硬件，负责把相机 RAW 图（Bayer）处理成彩色图，不占 GPU |
 | **零拷贝（NVMM buffer）** | Jetson 统一内存下，ISP 输出的相机帧 GPU 可直接读取，无需 memcpy/PCIe 搬运 |
