@@ -96,6 +96,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'π₀-FAST：用动作压缩加速 VLA 训练，以及它通向 π₀.₅ 的线索 (2026-09-18)',
+                  link: '/blog/2026/2026-09-18-pi0-fast',
+                },
+                {
                   text: 'Athena-Brain-8B (2026-07-30)',
                   link: '/blog/2026/2026-07-30-athena-brain',
                 },
@@ -1221,6 +1225,10 @@ export default defineConfig({
               text: '📂 VLA',
               collapsed: true,
               items: [
+                {
+                  text: 'π₀-FAST：用动作压缩加速 VLA 训练，以及它通向 π₀.₅ 的线索 (2026-09-18)',
+                  link: '/blog/2026/2026-09-18-pi0-fast',
+                },
                 {
                   text: 'DA-Nav (2026-07-16)',
                   link: '/blog/2026/2026-07-16-da-nav',
