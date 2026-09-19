@@ -2,6 +2,9 @@
 title: SmoothQuant：把激活 Outlier 平滑进权重的 W8A8 量化
 date: 2022-11-18
 categories: [Deploy]
+topic: deployment
+type: 论文精读
+tags: ["TensorRT","INT8"]
 ---
 
 # SmoothQuant：把激活 Outlier 平滑进权重的 W8A8 量化

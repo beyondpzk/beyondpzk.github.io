@@ -1,7 +1,7 @@
 {
-  "name": "my-blog",
+  "name": "beyond-notes",
   "version": "1.0.0",
-  "description": "My personal blog powered by VitePress",
+  "description": "BEYOND — AI research notes, reading paths and engineering practice",
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev",
@@ -10,7 +10,10 @@
     "sync": "node scripts/generate-sidebar.js",
     "preview": "bash scripts/preview.sh",
     "migrate": "node scripts/migrate-from-jekyll.js",
-    "cleanup": "node scripts/cleanup-migrated-posts.js"
+    "cleanup": "node scripts/cleanup-migrated-posts.js",
+    "test": "node --test tests/*.test.js",
+    "check": "npm run test && node scripts/check-content.js",
+    "check:output": "node scripts/check-output.js"
   },
   "keywords": [
     "blog",
@@ -20,7 +23,15 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
     "markdown-it-mathjax3": "^4.3.2",
     "vitepress": "^1.6.4"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12"
   }
 }

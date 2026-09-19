@@ -2,23 +2,26 @@
 title: LearningLatentActionWM
 date: 2026-01-08
 categories: [others]
+topic: world-models
+type: 论文精读
+tags: ["JEPA"]
 ---
 
 # LearningLatentActionWM
 
 [paper link](https://arxiv.org/abs/2601.05230)
 
-# 摘要深度解读
+## 摘要深度解读
 
-## 一、摘要结构拆解
+### 一、摘要结构拆解
 
 这篇摘要采用了经典的**"问题-方法-发现-意义"**四段式结构，我来逐句解读：
 
 ---
 
-## 二、逐句解析
+### 二、逐句解析
 
-### 📌 第一层：研究动机（第1-2句）
+#### 📌 第一层：研究动机（第1-2句）
 
 > *"Agents capable of reasoning and planning in the real world require the ability of predicting the consequences of their actions. While world models possess this capability, they most often require action labels, that can be complex to obtain at scale."*
 
@@ -31,7 +34,7 @@ categories: [others]
 
 ---
 
-### 📌 第二层：问题定义（第3-4句）
+#### 📌 第二层：问题定义（第3-4句）
 
 > *"This motivates the learning of latent action models, that can learn an action space from videos alone. Our work addresses the problem of learning latent actions world models on in-the-wild videos, expanding the scope of existing works that focus on simple robotics simulations, video games, or manipulation data."*
 
@@ -51,7 +54,7 @@ categories: [others]
 
 ---
 
-### 📌 第三层：挑战与方法（第5-6句）
+#### 📌 第三层：挑战与方法（第5-6句）
 
 > *"While this allows us to capture richer actions, it also introduces challenges stemming from the video diversity, such as environmental noise, or the lack of a common embodiment across videos. To address some of the challenges, we discuss properties that actions should follow as well as relevant architectural choices and evaluations."*
 
@@ -68,7 +71,7 @@ categories: [others]
 
 ---
 
-### 📌 第四层：核心发现（第7-10句）
+#### 📌 第四层：核心发现（第7-10句）
 
 > *"We find that continuous, but constrained, latent actions are able to capture the complexity of actions from in-the-wild videos, something that the common vector quantization does not."*
 
@@ -105,7 +108,7 @@ categories: [others]
 
 ---
 
-### 📌 第五层：实际验证（第11句）
+#### 📌 第五层：实际验证（第11句）
 
 > *"Nonetheless, we are able to train a controller that maps known actions to latent ones, allowing us to use latent actions as a universal interface and solve planning tasks with our world model with similar performance as action-conditioned baselines."*
 
@@ -127,7 +130,7 @@ categories: [others]
 
 ---
 
-### 📌 第六层：总体贡献（最后一句）
+#### 📌 第六层：总体贡献（最后一句）
 
 > *"Our analyses and experiments provide a step towards scaling latent action models to the real world."*
 
@@ -137,7 +140,7 @@ categories: [others]
 
 ---
 
-## 三、摘要背后的核心论点
+### 三、摘要背后的核心论点
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -159,7 +162,7 @@ categories: [others]
 
 ---
 
-## 四、摘要中隐含的关键信息
+### 四、摘要中隐含的关键信息
 
 | 隐含信息 | 解读 |
 |----------|------|
@@ -171,15 +174,15 @@ categories: [others]
 
 ---
 
-## 五、一句话总结摘要精髓
+### 五、一句话总结摘要精髓
 
 > **用海量无标注自然视频学习通用动作空间，连续表示优于离散化，可迁移且能解决真实机器人任务——这是世界模型规模化的可行路径。**
 
 这篇摘要的价值在于：它不是提出一个新架构，而是**系统性验证了一个研究方向**（大规模无标注视频+潜在动作）的可行性，为后续研究指明了道路。
 
-# 论文深度解析：Learning Latent Action World Models In The Wild
+## 论文深度解析：Learning Latent Action World Models In The Wild
 
-## 一、核心贡献提炼
+### 一、核心贡献提炼
 
 **痛点解决**：现有潜在动作模型（LAM）大多在狭窄领域数据上训练（游戏、机器人操作视频），无法泛化到真实世界的丰富动作分布。本文首次系统性研究在**大规模自然场景视频（in-the-wild videos）**上学习潜在动作世界模型，解决了动作标签稀缺和embodiment不一致的核心瓶颈。
 
@@ -192,9 +195,9 @@ categories: [others]
 
 ---
 
-## 二、方法论深挖
+### 二、方法论深挖
 
-### 2.1 整体架构设计
+#### 2.1 整体架构设计
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -263,7 +266,7 @@ categories: [others]
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-### 2.2 关键公式解析
+#### 2.2 关键公式解析
 
 **总训练损失**：
 $$\mathcal{L}_t = \|s_{t+1} - p_\psi(s_{0:t}, z_t)\|_1 + \mathcal{L}_z(z_t), \quad \text{where } z_t = g_\phi(s_t, s_{t+1})$$
@@ -286,9 +289,9 @@ $$\mathcal{L}(z_t) = -\beta D_{KL}(q(z_t|s_t, s_{t+1}) \| \mathcal{N}(0, 1))$$
 
 ---
 
-## 三、训练数据与推理流程
+### 三、训练数据与推理流程
 
-### 3.1 Training Sample 示例
+#### 3.1 Training Sample 示例
 
 ```
 输入视频片段：16帧 @ 4fps (4秒)
@@ -330,7 +333,7 @@ Step 4: 优化
 训练时长：~12小时 (64×H100)
 ```
 
-### 3.2 推理流程（Planning任务）
+#### 3.2 推理流程（Planning任务）
 
 ```
 任务：机器人手臂移动到目标位置
@@ -358,9 +361,9 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 四、实验分析与批判
+### 四、实验分析与批判
 
-### 4.1 关键实验结果
+#### 4.1 关键实验结果
 
 | 实验 | 核心发现 | 数据支撑 |
 |------|----------|----------|
@@ -370,7 +373,7 @@ For 规划迭代 in CEM优化循环:
 | **embodiment分析** | 学习相机相对局部变换 | 图8：动作仅影响空间位置最近的物体 |
 | **数据混合** | 10%领域数据大幅提升 | 表S3：10% DROID数据使Δxyz从0.14降至0.09 |
 
-### 4.2 核心结论分析
+#### 4.2 核心结论分析
 
 **结论1：连续潜在动作优于离散化**
 - VQ在复杂动作场景下码本利用率低，容量饱和
@@ -387,7 +390,7 @@ For 规划迭代 in CEM优化循环:
 - 适度正则化最优（平衡信息量与可识别性）
 - **批判**：未深入分析这一现象的机理，仅归因于"世界模型文献常见挑战"
 
-### 4.3 局限性与未消融因素
+#### 4.3 局限性与未消融因素
 
 | 问题 | 严重程度 | 说明 |
 |------|----------|------|
@@ -398,7 +401,7 @@ For 规划迭代 in CEM优化循环:
 | **计算成本未报告** | 低 | 控制器推理延迟、CEM迭代次数未详细说明 |
 | **VQ超参数搜索不足** | 中 | 仅测试4种码本大小，未探索温度、commitment weight系统搜索 |
 
-### 4.4 潜在改进方向
+#### 4.4 潜在改进方向
 
 **如果延续这项工作，我会优先改进**：
 
@@ -411,9 +414,9 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 五、延伸思考：对你研究的启发
+### 五、延伸思考：对你研究的启发
 
-### 5.1 可结合的技术点
+#### 5.1 可结合的技术点
 
 | 你的研究方向 | 可结合点 | 具体思路 |
 |--------------|----------|----------|
@@ -423,7 +426,7 @@ For 规划迭代 in CEM优化循环:
 | **多模态** | 跨模态动作迁移 | 从视频学习动作，迁移到语言指令条件策略 |
 | **强化学习** | 潜在动作作为skill | 将学习到的潜在动作作为分层RL的高层原语 |
 
-### 5.2 关键启发
+#### 5.2 关键启发
 
 **启发1：数据多样性比标注质量更重要**
 - 仅用10%领域数据+90%自然视频即可达到接近全标注性能
@@ -442,7 +445,7 @@ For 规划迭代 in CEM优化循环:
 - 无过去表示的控制器失效（图S13）
 - 建议：任何潜在动作接口都需包含上下文信息，尤其是相机位姿变化大的场景
 
-### 5.3 可复用的代码/架构组件
+#### 5.3 可复用的代码/架构组件
 
 - **AdaLN-zero条件化机制**：可迁移到其他条件生成任务
 - **VCM正则化**：适用于任何需要信息瓶颈的表示学习
@@ -450,7 +453,7 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 六、总结评价
+### 六、总结评价
 
 **论文质量**：扎实的系统性研究，实验充分，结论可信。
 
@@ -467,17 +470,17 @@ For 规划迭代 in CEM优化循环:
 **一句话总结**：这篇论文证明了**大规模自然视频可以学习出通用且可迁移的潜在动作空间**，为突破动作标注瓶颈提供了可行方向，但距离真正的"通用世界模型"仍有差距。端执行器xyz速度) + 过去表示 sₜ₋₁
 控制器：2层自注意力 +
 
-# 如何衡量一个正则化技术的好坏
+## 如何衡量一个正则化技术的好坏
 
-# 如何评价正则化技术的好坏？
+## 如何评价正则化技术的好坏？
 
 这段话提出了一个**非常规但深刻**的评价标准。让我为你详细解读。
 
 ---
 
-## 一、核心评价标准
+### 一、核心评价标准
 
-### 传统观点 vs 本文观点
+#### 传统观点 vs 本文观点
 
 | 传统观点 | 本文观点 |
 |----------|----------|
@@ -487,9 +490,9 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 二、本文的评价标准（三个维度）
+### 二、本文的评价标准（三个维度）
 
-### 标准1：**可调节性**（Does not saturate easily）
+#### 标准1：**可调节性**（Does not saturate easily）
 
 > *"We will say that a regularization is 'better' if it leads to a variety of achievable performance and does not saturate easily."*
 
@@ -515,7 +518,7 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-### 标准2：**下游任务性能**（Downstream performance）
+#### 标准2：**下游任务性能**（Downstream performance）
 
 > *"achieving the lowest prediction error using the inverse dynamics model is not always desirable, as downstream tasks require a balance between complexity and identifiability of latent actions."*
 
@@ -550,7 +553,7 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-### 标准3：**定性与定量一致**（Qualitative + Quantitative）
+#### 标准3：**定性与定量一致**（Qualitative + Quantitative）
 
 > *"sparse and noisy latent actions are able to capture this action accurately, while the quantization approach shows more of a blob entering the scene."*
 
@@ -567,7 +570,7 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 三、实验结果解读（Figure 4）
+### 三、实验结果解读（Figure 4）
 
 ```
 预测误差
@@ -592,9 +595,9 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 四、为什么VQ表现差？
+### 四、为什么VQ表现差？
 
-### 容量饱和问题
+#### 容量饱和问题
 
 ```
 向量量化的容量限制：
@@ -616,7 +619,7 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 五、核心概念：In-the-wild Prediction Error = 容量代理
+### 五、核心概念：In-the-wild Prediction Error = 容量代理
 
 > *"In the rest of this work, we will talk about this 'in-the-wild prediction error' as capacity of the latent actions."*
 
@@ -640,7 +643,7 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 六、关键洞察：抽象信息 vs 像素细节
+### 六、关键洞察：抽象信息 vs 像素细节
 
 > *"Interestingly, the exact shirt color is not captured in the latent action, highlighting that it captures a more abstract information than the exact pixels changing."*
 
@@ -663,9 +666,9 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-## 七、总结：如何评价正则化技术
+### 七、总结：如何评价正则化技术
 
-### 完整评价框架
+#### 完整评价框架
 
 | 评价维度 | 具体问题 | 本文结论 |
 |----------|----------|----------|
@@ -678,13 +681,13 @@ For 规划迭代 in CEM优化循环:
 
 ---
 
-### 一句话总结
+#### 一句话总结
 
 > **好的正则化不是追求最低预测误差，而是能在"信息量"和"可识别性"之间找到可调节的平衡点，使下游任务性能最优。**
 
 ---
 
-### 对研究的启发
+#### 对研究的启发
 
 如果你在设计自己的正则化方案，应该问：
 
@@ -698,17 +701,17 @@ For 规划迭代 in CEM优化循环:
 
 最终得到的结论是 "VQ 在简单、封闭的动作空间（游戏、机器人）中有效，但在复杂、开放的自然视频动作空间中容量不足；连续表示配合可调节正则化可以灵活适应不同复杂度，是更优选择。"
 
-# 未来泄漏(future leakage)
+## 未来泄漏(future leakage)
 
-# 如何衡量未来泄漏（Future Leakage）的影响？
+## 如何衡量未来泄漏（Future Leakage）的影响？
 
 你提出了一个**非常关键的问题**！这确实是潜在动作模型（LAM）训练中的核心挑战。论文明确讨论了这个问题，并提出了巧妙的衡量方法。
 
 ---
 
-## 一、问题本质：为什么存在未来泄漏风险？
+### 一、问题本质：为什么存在未来泄漏风险？
 
-### 训练时的因果泄露
+#### 训练时的因果泄露
 
 ```
 标准训练流程：
@@ -740,9 +743,9 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-## 二、论文提出的衡量方法
+### 二、论文提出的衡量方法
 
-### 方法 1：场景切换测试（Scene Cut Test）
+#### 方法 1：场景切换测试（Scene Cut Test）
 
 **论文位置**：Section 6, Figure 5a
 
@@ -787,7 +790,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-### 方法 2：循环一致性测试（Cycle Consistency Test）
+#### 方法 2：循环一致性测试（Cycle Consistency Test）
 
 **论文位置**：Section 6, Figure 5b
 
@@ -855,7 +858,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-### 方法 3：定性视觉检查（Qualitative Visual Inspection）
+#### 方法 3：定性视觉检查（Qualitative Visual Inspection）
 
 **论文位置**：Figure 6
 
@@ -882,7 +885,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-## 三、为什么未来泄漏不严重？
+### 三、为什么未来泄漏不严重？
 
 论文提出了一个假设：
 
@@ -907,9 +910,9 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-## 四、批判性分析：这些衡量方法足够吗？
+### 四、批判性分析：这些衡量方法足够吗？
 
-### 优点
+#### 优点
 
 | 方法 | 优点 |
 |------|------|
@@ -917,7 +920,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 | 循环一致性 | 检测可转移性，与下游任务相关 |
 | 视觉检查 | 定性验证，发现定量方法遗漏的问题 |
 
-### 局限性
+#### 局限性
 
 | 问题 | 说明 |
 |------|------|
@@ -928,11 +931,11 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-## 五、补充衡量方法（论文未使用）
+### 五、补充衡量方法（论文未使用）
 
 如果你要做类似研究，可以考虑以下补充方法：
 
-### 1. 潜在动作 - 未来帧互信息
+#### 1. 潜在动作 - 未来帧互信息
 
 ```
 计算 I(zₜ; sₜ₊₁) - 潜在动作与未来帧的互信息
@@ -941,7 +944,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 低互信息 → 潜在动作编码的是动作 → 泄漏轻微
 ```
 
-### 2. 潜在动作 - 过去帧预测
+#### 2. 潜在动作 - 过去帧预测
 
 ```
 训练一个解码器：sₜ₊₁_pred = Decoder(zₜ)
@@ -950,7 +953,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 如果 Decoder 无法重建 → 泄漏轻微
 ```
 
-### 3. 梯度阻断测试
+#### 3. 梯度阻断测试
 
 ```
 在 IDM 输出 zₜ 上添加 stop_gradient，只训练前向模型
@@ -959,7 +962,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 如果性能变化不大 → IDM 学习的是真正的动作
 ```
 
-### 4. 潜在动作扰动测试
+#### 4. 潜在动作扰动测试
 
 ```
 对 zₜ 添加噪声：zₜ' = zₜ + ε
@@ -971,7 +974,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-## 六、总结：如何全面评估未来泄漏
+### 六、总结：如何全面评估未来泄漏
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -1003,7 +1006,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-## 七、核心结论
+### 七、核心结论
 
 | 问题 | 答案 |
 |------|------|
@@ -1015,7 +1018,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-## 八、对你研究的启发
+### 八、对你研究的启发
 
 如果你在做类似工作：
 
@@ -1027,7 +1030,7 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 未来泄漏是潜在动作模型的核心挑战，但这篇论文的实验表明：**在复杂自然视频上训练 + 适度正则化**可以有效缓解这个问题。
 
-# 为什么完美泄漏时,场景切换后测试误差仍然接近正常
+## 为什么完美泄漏时,场景切换后测试误差仍然接近正常
 
 这里的核心是要理解"未来泄漏", 以学生考试为例, 不管用什么考题来考,A学生总能对答如流得满分,那毫无疑问,A学习偷看了答案;
 而其他学生不是,难的不会,没学过的不会. 这就是通过自己的学习在思考做题.
@@ -1035,9 +1038,9 @@ zₜ ≈ 编码(sₜ₊₁)  ← 直接把下一帧编码进潜在动作！
 
 ---
 
-## 一、核心逻辑：完美泄漏意味着什么
+### 一、核心逻辑：完美泄漏意味着什么
 
-### 完美泄漏的定义
+#### 完美泄漏的定义
 
 ```
 完美泄漏 = IDM 直接把下一帧的完整信息编码进潜在动作 zₜ
@@ -1051,9 +1054,9 @@ zₜ ≈ Encoder(sₜ₊₁)  ← zₜ 几乎就是 sₜ₊₁ 的压缩版本
 
 ---
 
-## 二、场景切换测试的详细流程
+### 二、场景切换测试的详细流程
 
-### 正常情况 vs 场景切换
+#### 正常情况 vs 场景切换
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -1079,9 +1082,9 @@ zₜ ≈ Encoder(sₜ₊₁)  ← zₜ 几乎就是 sₜ₊₁ 的压缩版本
 
 ---
 
-## 三、为什么完美泄漏时误差不变？
+### 三、为什么完美泄漏时误差不变？
 
-### 关键洞察
+#### 关键洞察
 
 ```
 完美泄漏情况下：
@@ -1102,7 +1105,7 @@ zₜ ≈ Encoder(sₜ₊₁)  ← zₜ 几乎就是 sₜ₊₁ 的压缩版本
 
 ---
 
-## 四、可视化对比
+### 四、可视化对比
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -1132,7 +1135,7 @@ zₜ ≈ Encoder(sₜ₊₁)  ← zₜ 几乎就是 sₜ₊₁ 的压缩版本
 
 ---
 
-## 五、数值示例
+### 五、数值示例
 
 假设我们用 LPIPS 衡量预测误差：
 
@@ -1148,7 +1151,7 @@ zₜ ≈ Encoder(sₜ₊₁)  ← zₜ 几乎就是 sₜ₊₁ 的压缩版本
 
 ---
 
-## 六、论文实际结果
+### 六、论文实际结果
 
 ```
 Table 1 结果（Kinetics 场景切换测试）：
@@ -1175,7 +1178,7 @@ Table 1 结果（Kinetics 场景切换测试）：
 
 ---
 
-## 七、类比理解
+### 七、类比理解
 
 ```
 想象一个学生参加考试：
@@ -1200,7 +1203,7 @@ Table 1 结果（Kinetics 场景切换测试）：
 
 ---
 
-## 八、总结
+### 八、总结
 
 | 问题 | 答案 |
 |------|------|
@@ -1210,7 +1213,7 @@ Table 1 结果（Kinetics 场景切换测试）：
 
 ---
 
-## 九、关键公式总结
+### 九、关键公式总结
 
 ```
 完美泄漏：

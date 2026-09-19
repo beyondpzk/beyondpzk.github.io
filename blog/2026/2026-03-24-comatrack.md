@@ -2,6 +2,9 @@
 title: CoMaTrack
 date: 2026-03-24
 categories: [VLA]
+topic: vla
+type: 论文精读
+tags: ["LoRA","Flow Matching","Sim-to-Real"]
 ---
 
 # CoMaTrack: Competitive Multi-Agent Game-Theoretic Tracking with Vision-Language-Action Models

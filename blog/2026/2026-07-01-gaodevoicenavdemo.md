@@ -2,6 +2,9 @@
 title: 高德地图语音导航逻辑与纯 Python Demo
 date: 2026-07-01
 categories: [others]
+topic: navigation
+type: 工程实践
+tags: []
 ---
 
 # 高德地图语音导航逻辑与纯 Python Demo

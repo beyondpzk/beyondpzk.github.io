@@ -2,6 +2,9 @@
 title: NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏
 date: 2026-07-08
 categories: [Deploy]
+topic: deployment
+type: 技术分析
+tags: ["Transformer","TensorRT","INT8","PyTorch"]
 ---
 
 # NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏

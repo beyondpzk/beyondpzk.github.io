@@ -2,6 +2,9 @@
 title: 模型部署中的 Engine：从推理后端到生产落地
 date: 2026-07-02
 categories: [Deploy]
+topic: deployment
+type: 工程实践
+tags: ["TensorRT","CUDA","INT8","INT4","PyTorch"]
 ---
 
 # 模型部署中的 Engine：从推理后端到生产落地

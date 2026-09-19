@@ -2,6 +2,9 @@
 title: SelfForcing
 date: 2024-10-02
 categories: [Understandings]
+topic: generation
+type: 技术分析
+tags: ["Transformer","Diffusion","Flow Matching"]
 ---
 
 # SelfForcing

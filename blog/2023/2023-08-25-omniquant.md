@@ -2,6 +2,9 @@
 title: OmniQuant：可学习裁剪与等价变换的全方位 LLM 量化
 date: 2023-08-25
 categories: [Deploy]
+topic: deployment
+type: 论文精读
+tags: ["Transformer","INT4"]
 ---
 
 # OmniQuant：可学习裁剪与等价变换的全方位 LLM 量化

@@ -2,6 +2,9 @@
 title: Qwen-RobotNav
 date: 2026-06-17
 categories: [VLA]
+topic: navigation
+type: 技术分析
+tags: []
 ---
 
 # Qwen-RobotNav: 面向 Agentic 系统的可扩展导航基础模型

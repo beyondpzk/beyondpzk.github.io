@@ -2,6 +2,9 @@
 title: StreamVLN
 date: 2025-07-07
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: ["Transformer"]
 ---
 
 # StreamVLN：面向流式视觉-语言导航的 SlowFast 上下文建模

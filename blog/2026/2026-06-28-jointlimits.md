@@ -2,6 +2,9 @@
 title: 关节限位
 date: 2026-06-28
 categories: [机器人]
+topic: vla
+type: 技术分析
+tags: []
 ---
 
 # 关节限位（Joint Limits）

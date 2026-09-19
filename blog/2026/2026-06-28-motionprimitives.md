@@ -2,6 +2,9 @@
 title: 运动原语：机器人动作世界的"字母表"
 date: 2026-06-28
 categories: [机器人]
+topic: navigation
+type: 技术分析
+tags: ["Diffusion"]
 ---
 
 # 运动原语：机器人动作世界的"字母表"

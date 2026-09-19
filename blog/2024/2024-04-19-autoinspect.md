@@ -2,6 +2,9 @@
 title: AutoInspect：面向长期自主工业巡检的足式机器人系统
 date: 2024-04-19
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: []
 ---
 
 # AutoInspect：面向长期自主工业巡检的足式机器人系统

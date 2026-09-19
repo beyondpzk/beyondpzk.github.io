@@ -2,6 +2,9 @@
 title: MotionWAM
 date: 2026-06-08
 categories: [WAM]
+topic: world-models
+type: 论文精读
+tags: []
 ---
 
 # MotionWAM：面向实时人形 loco-manipulation 的基础世界动作模型

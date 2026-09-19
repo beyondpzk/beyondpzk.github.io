@@ -3,6 +3,9 @@ name: Deploy VitePress to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -18,24 +21,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Sync sidebar
-        run: npm run sync
+      - name: Check content
+        run: npm run check
 
       - name: Build
         run: npm run docs:build
+
+      - name: Check published output
+        run: npm run check:output
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
@@ -43,6 +49,7 @@ jobs:
           path: .vitepress/dist
 
   deploy:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

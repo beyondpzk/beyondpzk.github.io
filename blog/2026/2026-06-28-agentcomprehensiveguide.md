@@ -2,6 +2,9 @@
 title: Agent 全景解析：从概念、架构到具身智能的工程实践
 date: 2026-06-28
 categories: [Agents]
+topic: agents
+type: 工程实践
+tags: []
 ---
 
 # Agent 全景解析：从概念、架构到具身智能的工程实践

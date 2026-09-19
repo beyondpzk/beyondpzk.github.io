@@ -2,6 +2,9 @@
 title: ZeroQuant：面向大规模 Transformer 的高效后训练量化
 date: 2022-06-04
 categories: [Deploy]
+topic: deployment
+type: 论文精读
+tags: ["Transformer","INT8","INT4"]
 ---
 
 # ZeroQuant：面向大规模 Transformer 的高效后训练量化

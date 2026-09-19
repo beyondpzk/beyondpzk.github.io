@@ -1,245 +1,62 @@
-# 我的博客
+# BEYOND
 
-用 [VitePress](https://vitepress.dev/) 搭建的个人博客，部署在 GitHub Pages 上。
+使用 VitePress 的技术博客：研究主题、专题路线、全文搜索与可筛选文章目录。线上地址：https://beyondpzk.github.io/
 
-## 特点
+## 本地运行
 
-- 📖 **像书一样阅读**：左侧侧边栏按主题分卷，方便系统浏览
-- ⚡ **极速体验**：基于 Vite，开发时热更新，生产环境纯静态
-- ✍️ **Markdown 写作**：专注内容，支持代码高亮、公式、表格
-- 🖼️ **图片友好**：支持 `public` 目录和相对路径两种图片引用方式
-- 🌓 **明暗主题**：自动适配系统主题
-- 🔍 **本地搜索**：内置搜索，快速定位文章
-
-## 快速开始
-
-### 1. 安装依赖
+使用 Node.js 22（见 `.nvmrc`）：
 
 ```bash
-cd my-blog
-npm install
-```
-
-### 2. 本地预览
-
-```bash
+npm ci
 npm run docs:dev
 ```
 
-然后打开 <http://localhost:5173/my-blog/>（如果 base 配置为 `/my-blog/`）
+打开终端显示的地址，默认是 http://localhost:5173/ 。
 
-### 3. 构建
+## 写一篇文章
+
+复制 `templates/article.md` 到 `blog/<年份>/<日期>-<slug>.md`，填写标题、日期、主题、类型和摘要。模板默认 `draft: true`；准备发布时改成 `false` 或移除该字段。不要在复制模板后立即提交尚未检查的私人内容。
+
+- `date`：笔记日期；老文章保留原有含义，不能自动当作论文发表日期。
+- `paperDate`：可选的论文发表日期，只有核实后才填写。
+- `publishedAt`：可选的首次收录日期；不填写则使用 Git 首次加入的日期。
+- `updatedAt`：可选的实际修订日期；不填写则使用最新 Git 修改日期。
+- `topic`：在 `lib/taxonomy.js` 的主题中选择一个 ID。
+- `type`：`论文精读`、`技术分析` 或 `工程实践`。
+- `tags`：具体技术名称数组，如 `[PPO, LoRA]`。
+- `summary`：推荐手写一到两句摘要。不填写时从正文提取普通文本。
+- `featured: true`：进入首页精选候选，首页按笔记日期展示前三篇。
+
+正文只保留一个一级标题；其他章节使用二级及以下标题。代码块中的 `#` 不受影响。图片放在 `public/images/<slug>/`，用 `/images/<slug>/...` 引用，并写明 alt 与来源。
+
+## 公开与本地内容
+
+`draft: true` 或 `visibility: private` 会同时从页面、首页、文章索引、搜索、专题和站点地图排除；这是网站发布开关，**不能阻止 Git 提交源文件**。
+
+只保留在本地的文件，应同时加入 `.gitignore` 和 `scripts/local-only-posts.js`。已经跟踪的文件还需先取消 Git 跟踪。不要把私人附件放进 `public/`，该目录会直接复制到发布产物中。
+
+## 内容结构
+
+`lib/content.js` 是文章索引的唯一入口：解析 Markdown 元数据、生成摘要和真实日期，并应用公开范围规则。
+
+- 首页、文章目录和专题使用 `posts.data.js` 调用它。
+- VitePress 配置从同一索引生成文章元数据与相关文章。
+- `lib/taxonomy.js` 定义主题；历史分类保留兼容映射，新文章显式填写 topic/type/tags。
+- `content/collections.js` 定义专题阅读顺序和每一步的说明。
+- `.vitepress/book-sidebar.js` 单独维护书籍章节顺序。
+
+不再手工编辑文章侧边栏。`npm run sync` 作为兼容命令只检查索引，不修改文件。
+
+## 检查与发布
 
 ```bash
+npm run check
 npm run docs:build
+npm run check:output
 ```
 
-构建结果在 `.vitepress/dist` 目录。
+构建会检查站内死链；内容检查会验证主题、日期、专题引用和主标题；产物检查会确认排除的文章没有进入发布页面或数据。
 
-## 如何写作
+明确选择需要提交的文件，检查差异后提交并推送到 `main`。GitHub Actions 使用相同检查，成功后部署 GitHub Pages。`push.sh` 只推送已有提交，不会自动 `git add .`。
 
-### 新建文章
-
-在 `blog/` 下的对应主题目录创建 Markdown 文件：
-
-```bash
-blog/tech/my-new-post.md
-```
-
-文件开头加上 frontmatter：
-
-```markdown
----
-title: 文章标题
-date: 2026-06-12
----
-
-# 文章标题
-
-正文内容...
-```
-
-### 添加图片
-
-#### 方法 1：放入 public 目录（适合全局复用图片）
-
-```bash
-public/my-image.jpg
-```
-
-```markdown
-![说明](/my-image.jpg)
-```
-
-#### 方法 2：与文章同目录（适合文章专属图片）
-
-```bash
-blog/tech/my-new-post.md
-blog/tech/my-image.jpg
-```
-
-```markdown
-![说明](./my-image.jpg)
-```
-
-### 复制粘贴图片
-
-推荐使用以下编辑器实现"复制粘贴图片"：
-
-- **[Obsidian](https://obsidian.md/)**：设置附件文件夹后，粘贴图片自动保存
-- **[Typora](https://typora.io/)**：偏好设置中指定图片保存路径
-- **VS Code + 插件**：安装 `Markdown Paste` 等插件
-
-### 更新侧边栏
-
-新增文章后，在 `.vitepress/config.mjs` 的 `sidebar` 中添加链接，读者才能在侧边栏看到。
-
-## 部署到 GitHub Pages
-
-### 1. 创建 GitHub 仓库
-
-在 GitHub 上创建一个名为 `my-blog` 的仓库（或 `username.github.io`）。
-
-### 2. 修改 base 配置
-
-打开 `.vitepress/config.mjs`，根据实际情况修改 `base`：
-
-- 如果仓库名为 `my-blog`：
-  ```js
-  base: '/my-blog/',
-  ```
-- 如果仓库名为 `username.github.io`：
-  ```js
-  base: '/',
-  ```
-
-### 3. 创建 GitHub Actions 工作流
-
-创建文件 `.github/workflows/deploy.yml`：
-
-```yaml
-name: Deploy VitePress to GitHub Pages
-
-on:
-  push:
-    branches: [main]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run docs:build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .vitepress/dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-```
-
-### 4. 启用 GitHub Pages
-
-1. 进入仓库 **Settings → Pages**
-2. **Source** 选择 **GitHub Actions**
-3. 推送代码到 `main` 分支
-
-### 5. 访问博客
-
-部署完成后，访问：
-
-- `https://yourusername.github.io/my-blog/`
-- 或 `https://yourusername.github.io/`
-
-## 自定义
-
-### 修改头像
-
-替换 `public/avatar.svg` 为你自己的头像图片，并更新：
-
-- `index.md` 中的 `hero.image.src`
-- `about.md` 中的头像引用
-
-### 修改站点信息
-
-编辑 `.vitepress/config.mjs`：
-
-- `title`：站点标题
-- `description`：站点描述
-- `nav`：顶部导航
-- `sidebar`：侧边栏书式目录
-- `socialLinks`：社交媒体链接
-
-### 修改个人信息
-
-编辑 `about.md` 和 `resume.md`，替换为你的真实信息。
-
-## 目录结构
-
-```
-my-blog/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml       # GitHub Actions 部署配置
-├── .vitepress/
-│   ├── config.mjs           # 站点配置
-│   └── theme/
-│       ├── index.js         # 主题入口
-│       └── style.css        # 自定义样式
-├── blog/
-│   ├── index.md             # 博客目录页
-│   ├── tech/                # 技术思考
-│   ├── life/                # 生活随笔
-│   ├── reading/             # 读书笔记
-│   └── notes/               # 写作约定等
-├── public/
-│   └── avatar.svg           # 头像
-├── about.md                 # 关于我
-├── resume.md                # 简历
-├── index.md                 # 首页
-├── package.json
-└── README.md
-```
-
-## 学习资源
-
-- [VitePress 官方文档](https://vitepress.dev/)
-- [Markdown 语法](https://vitepress.dev/guide/markdown)
-- [GitHub Pages 文档](https://docs.github.com/en/pages)
-
----
-
-祝你写作愉快！📝
+首页和专题为精选入口；`/blog/` 提供主题、类型、年份、标签和关键词筛选，分页与筛选保存在 URL 中。文章图片可点击或用 Enter 放大，Esc 关闭。

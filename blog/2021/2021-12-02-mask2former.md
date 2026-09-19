@@ -2,6 +2,9 @@
 title: Mask2Former
 date: 2021-12-02
 categories: [Segmentation]
+topic: perception
+type: 论文精读
+tags: ["Transformer"]
 ---
 
 <!--more-->

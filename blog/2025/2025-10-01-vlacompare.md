@@ -2,6 +2,9 @@
 title: VLACompare
 date: 2025-10-01
 categories: [Understandings]
+topic: vla
+type: 技术分析
+tags: ["LoRA","Diffusion","Flow Matching"]
 ---
 
 # 自动驾驶,机器人,无人机VLA有什么不同

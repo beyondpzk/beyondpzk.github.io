@@ -2,6 +2,9 @@
 title: Survey_Occupancy
 date: 2024-05-08
 categories: [Occupancy]
+topic: perception
+type: 论文精读
+tags: ["Transformer"]
 ---
 
 <!--more-->

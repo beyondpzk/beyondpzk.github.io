@@ -2,6 +2,9 @@
 title: SocialNav
 date: 2025-11-26
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: ["Transformer","Diffusion","Flow Matching","Sim-to-Real"]
 ---
 
 # SocialNav：面向社交感知具身导航的人本启发式基础模型

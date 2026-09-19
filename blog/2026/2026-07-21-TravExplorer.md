@@ -2,6 +2,9 @@
 title: TravExplorer
 date: 2026-07-21
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: []
 ---
 
 # TravExplorer：基于可通行感知 3D 规划的跨楼层具身探索

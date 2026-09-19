@@ -2,6 +2,9 @@
 title: StableVLA：不增加数据，把 VLA 的视觉鲁棒性提升 30%
 date: 2026-07-06
 categories: [VLA]
+topic: vla
+type: 论文精读
+tags: []
 ---
 
 # StableVLA：不增加数据，把 VLA 的视觉鲁棒性提升 30%

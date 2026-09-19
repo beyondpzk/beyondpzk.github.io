@@ -2,6 +2,9 @@
 title: CalibQuant：多模态 LLM 的 1-Bit KV Cache 量化
 date: 2025-02-15
 categories: [Deploy]
+topic: deployment
+type: 论文精读
+tags: []
 ---
 
 # CalibQuant：多模态 LLM 的 1-Bit KV Cache 量化

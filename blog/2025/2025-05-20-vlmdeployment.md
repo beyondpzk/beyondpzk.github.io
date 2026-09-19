@@ -2,6 +2,9 @@
 title: VLM 模型部署实战：推理流水线、预处理与 Token 拼接
 date: 2025-05-20
 categories: [Deploy]
+topic: deployment
+type: 工程实践
+tags: ["Transformer","TensorRT","INT8","INT4","PyTorch"]
 ---
 
 # VLM 模型部署实战：推理流水线、预处理与 Token 拼接

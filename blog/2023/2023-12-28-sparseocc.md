@@ -2,6 +2,9 @@
 title: SparseOcc
 date: 2023-12-28
 categories: [Occupancy]
+topic: perception
+type: 论文精读
+tags: ["Transformer"]
 ---
 
 <!--more-->

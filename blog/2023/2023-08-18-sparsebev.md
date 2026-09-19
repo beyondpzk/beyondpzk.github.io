@@ -1,7 +1,10 @@
 ---
 title: SparseBEV
-date: 2023-8-18
+date: 2023-08-18
 categories: [Perception]
+topic: perception
+type: 论文精读
+tags: []
 ---
 
 <!--more-->

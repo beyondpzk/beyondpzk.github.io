@@ -5,7 +5,7 @@ title: 关于我
 # 关于我
 
 <div style="text-align: center; margin: 32px 0;">
-  <img src="/assets/img/prof_pic.jpg" alt="头像" class="avatar" />
+  <img src="/assets/img/prof_pic.jpg" alt="墙缝里生长的小草" class="avatar" />
   <h2 style="margin-top: 16px; margin-bottom: 8px;">P. K. Zheng</h2>
   <!-- <p style="color: var(--vp-c-text-2);">AI Applied Scientist · Tenacious life, proud journey</p> -->
   <p style="color: var(--vp-c-text-2);">Tenacious life, proud journey</p>
@@ -18,7 +18,7 @@ On May 27, 2017, feeling dizzy and groggy from sitting too long in the office, I
 
 After nearly a decade of study and research in mathematics, I have found my professional calling in the field of AI. My career goal is to become an AI Applied Scientist, dedicated to gaining a deep understanding of AI technologies, leveraging them to solve real-world problems, and ultimately creating tangible social value.
 
-## 关于这个博客
+## 关于 BEYOND
 
 我在这里记录：
 
@@ -26,7 +26,9 @@ After nearly a decade of study and research in mathematics, I have found my prof
 - **技术思考**：心得
 - **学习札记**：阅读、课程、项目总结
 
-所有文章按主题分卷整理，像一本书一样方便阅读和回顾。
+文章按研究主题、内容类型与技术标签组织；专题路线将相关笔记串成有顺序的阅读路径。
+
+[查看简历](/resume.html)
 
 ## 联系我
 

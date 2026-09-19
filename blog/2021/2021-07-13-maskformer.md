@@ -2,6 +2,9 @@
 title: MaskFormer
 date: 2021-07-13
 categories: [reading]
+topic: perception
+type: 论文精读
+tags: ["Transformer"]
 ---
 
 <!--more-->

@@ -6,6 +6,9 @@ authors:
   - InternRobotics (Shanghai AI Lab)
 affiliation: Shanghai Artificial Intelligence Laboratory
 license: CC BY-NC-SA 4.0
+topic: navigation
+type: 论文精读
+tags: ["Transformer","Diffusion"]
 ---
 
 # InternData-N1：面向通用视觉-语言导航的大规模统一数据集

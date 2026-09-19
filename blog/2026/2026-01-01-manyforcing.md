@@ -2,6 +2,9 @@
 title: ManyForcing
 date: 2026-01-01
 categories: [Understandings]
+topic: world-models
+type: 技术分析
+tags: ["Transformer","Diffusion"]
 ---
 
 # 各种Forcing 技术

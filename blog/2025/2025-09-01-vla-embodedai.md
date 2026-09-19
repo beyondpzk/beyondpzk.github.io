@@ -2,6 +2,9 @@
 title: VLA_embodedAI
 date: 2025-09-01
 categories: [Thinking]
+topic: vla
+type: 技术分析
+tags: ["Transformer","Sim-to-Real"]
 ---
 
 # VLA_embodedAI

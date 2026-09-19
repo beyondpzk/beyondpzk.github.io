@@ -2,6 +2,9 @@
 title: INT8 Engine 构建实战：从 PyTorch 到 TensorRT 的量化、校准与部署
 date: 2026-06-25
 categories: [Deploy]
+topic: deployment
+type: 工程实践
+tags: ["Transformer","TensorRT","CUDA","INT8","PyTorch"]
 ---
 
 # INT8 Engine 构建实战：从 PyTorch 到 TensorRT 的量化、校准与部署

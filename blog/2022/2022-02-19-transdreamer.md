@@ -2,6 +2,9 @@
 title: TransDreamer
 date: 2022-02-19
 categories: [WorldModels]
+topic: world-models
+type: 论文精读
+tags: ["PPO","Transformer"]
 ---
 
 # TransDreamer
@@ -10,13 +13,13 @@ categories: [WorldModels]
 
 ---
 
-# TransDreamer —— 基于 Transformer 世界模型的强化学习
+## TransDreamer —— 基于 Transformer 世界模型的强化学习
 
 ---
 
-## 第一部分：背景与动机 (Background & Motivation)
+### 第一部分：背景与动机 (Background & Motivation)
 
-### 1.1 从 Model-Free 到 Model-Based RL
+#### 1.1 从 Model-Free 到 Model-Based RL
 
 在强化学习的图谱中，我们长期面临着**样本效率 (Sample Efficiency)** 的挑战。Model-Free 方法（如 DQN, PPO）通常需要与环境进行数百万次的交互才能收敛。
 
@@ -26,7 +29,7 @@ categories: [WorldModels]
     2.  **知识复用**：世界模型捕捉了环境的物理规律，这些知识是任务无关的 (Task-agnostic)。
     3.  **安全规划**：在执行动作前可以在脑海中预演结果。
 
-### 1.2 Dreamer 范式的回顾
+#### 1.2 Dreamer 范式的回顾
 
 要理解 TransDreamer，首先必须理解其前身 —— **Dreamer (Hafner et al., 2019, 2020)**。
 
@@ -40,7 +43,7 @@ $$z_t \sim P(z_t | h_t)$$
 **RNN 的局限性**：
 尽管 RSSM 取得了巨大成功，但 RNN 固有的**梯度消失**和**记忆瓶颈**问题，限制了其处理**长程依赖 (Long-term Dependency)** 和**复杂记忆推理 (Memory-based Reasoning)** 的能力。
 
-### 1.3 核心动机：Why Transformer?
+#### 1.3 核心动机：Why Transformer?
 
 Transformer 架构在 NLP 和 CV 领域已经证明了其处理长序列和直接访问历史记忆的优越性。本论文的核心问题是：**我们能否用 Transformer 替换 RNN 来构建一个更强大的世界模型？**
 
@@ -50,22 +53,22 @@ Transformer 架构在 NLP 和 CV 领域已经证明了其处理长序列和直�
 
 ---
 
-## 第二部分：TransDreamer 架构详解 (Architecture Deep Dive)
+### 第二部分：TransDreamer 架构详解 (Architecture Deep Dive)
 
 TransDreamer 是首个完全基于 Transformer 的 MBRL 智能体。其核心创新在于提出了 **TSSM (Transformer State-Space Model)**。
 
-### 2.1 Transformer State-Space Model (TSSM)
+#### 2.1 Transformer State-Space Model (TSSM)
 
 TSSM 旨在替代 RSSM 中的 RNN 组件。在 RSSM 中，RNN 的隐状态 $h_t$ 充当了历史信息的压缩摘要。而在 TSSM 中，我们通过**注意力机制 (Attention Mechanism)** 直接访问历史轨迹。
 
-#### 2.1.1 状态定义与输入表示
+##### 2.1.1 状态定义与输入表示
 
 TSSM 不再维护一个递归的隐状态 $h_t$。相反，它在每个时间步 $t$，将之前的随机状态 $z$ 和动作 $a$ 的序列作为输入。
 
 *   **输入序列**：在时间步 $t$，模型的输入是历史序列 $\{(\hat{z}_1, a_1), (\hat{z}_2, a_2), \dots, (\hat{z}_{t-1}, a_{t-1})\}$。
 *   **位置编码**：为了引入时序信息，必须加上位置嵌入 (Positional Embeddings)。
 
-#### 2.1.2 动力学预测 (Dynamics Prediction)
+##### 2.1.2 动力学预测 (Dynamics Prediction)
 
 TSSM 利用 Transformer 预测下一时刻的随机状态 $z_t$。这对应于 Dreamer 中的**先验网络 (Prior Network)**。
 
@@ -82,13 +85,13 @@ $$ \hat{H}_t = \text{Transformer}(\{(\hat{z}_i, a_i)\}_{i=1}^{t-1}) $$
     $$ z_t \sim Q_\phi(z_t | \hat{H}_t, e_t) $$
     注意：观测编码器 (Encoder) 通常是卷积神经网络 (CNN)。
 
-#### 2.1.3 并行训练 (Parallel Training)
+##### 2.1.3 并行训练 (Parallel Training)
 
 与 RNN 必须按时间步顺序展开不同，TSSM 利用了 Transformer 的并行性。在训练阶段，给定一个完整的轨迹，我们可以利用 **Masked Self-Attention (因果掩码)** 一次性计算出所有时间步的先验和后验状态。
 
 这意味着训练速度在长序列上可能比 RNN 更具优势，但也带来了显存消耗的增加。
 
-### 2.2 完整的训练目标 (Training Objectives)
+#### 2.2 完整的训练目标 (Training Objectives)
 
 TransDreamer 的训练目标与 Dreamer 类似，都是最大化**证据下界 (ELBO)**。
 
@@ -98,7 +101,7 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 2.  **奖励预测**：预测当前步的奖励 $r_t$。
 3.  **KL 散度**：拉近先验（预测的未来）和后验（实际看到的未来）的距离，这是学习动力学的关键。
 
-### 2.3 策略学习 (Policy Learning)
+#### 2.3 策略学习 (Policy Learning)
 
 这部分是 MBRL 的核心：**在想象中学习 (Learning in Imagination)**。
 
@@ -110,21 +113,21 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 
 ---
 
-## 第三部分：实现细节与工程挑战 (Implementation & Challenges)
+### 第三部分：实现细节与工程挑战 (Implementation & Challenges)
 
 在将 Transformer 应用于 RL 时，细节决定成败。
 
-### 3.1 记忆机制与滑动窗口
+#### 3.1 记忆机制与滑动窗口
 
 由于显存限制，我们无法让 Transformer 关注无限长的历史。TransDreamer 采用了类似 Transformer-XL 的机制或简单的滑动窗口。
 *   **训练时**：从 Replay Buffer 采样固定长度的片段（例如 50-100 步）。
 *   **想象时**：需要维护一个 KV-Cache 或历史 buffer，以便 Transformer 能处理超出训练长度的上下文。
 
-### 3.2 训练稳定性
+#### 3.2 训练稳定性
 
 论文指出，直接训练 Transformer 策略网络非常困难。但在 MBRL 框架下，由于有重构损失和 KL 损失作为辅助任务，TSSM 的训练相对稳定。
 
-### 3.3 计算开销对比
+#### 3.3 计算开销对比
 
 *   **RSSM (RNN)**：
     *   训练：$O(T)$ (时间), $O(T)$ (内存)。
@@ -137,11 +140,11 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 
 ---
 
-## 第四部分：实验与分析 (Experiments & Analysis)
+### 第四部分：实验与分析 (Experiments & Analysis)
 
 论文设计了专门的实验来验证 Transformer 在长程记忆上的优势。
 
-### 4.1 核心实验：Hidden Order Discovery (隐藏顺序发现)
+#### 4.1 核心实验：Hidden Order Discovery (隐藏顺序发现)
 
 这是一个专门设计的任务，用于测试“长程记忆”和“逻辑推理”。
 
@@ -155,7 +158,7 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
     *   2D Grid：上帝视角，相对简单。
     *   3D Room：第一人称视角 (Unity)，存在严重的**部分可观测性 (Partial Observability)**。
 
-### 4.2 实验结果分析
+#### 4.2 实验结果分析
 
 1.  **胜率对比**：
     在 3D 4-Ball 任务中，TransDreamer 达到了 **18%** 的成功率，而 Dreamer 仅为 **10%**。在更难的 5-Ball 任务中，Dreamer 几乎无法成功 (0%)，而 TransDreamer 仍有表现。
@@ -163,13 +166,13 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 2.  **为什么 TransDreamer 赢了？**
     这验证了 Transformer 的注意力机制能够有效地从遥远的过去提取信息（例如：“我 50 步之前试过先拿红球，结果失败了，所以现在不能拿红球”）。RNN 很难在长序列中保持这种离散的、精确的逻辑信息。
 
-### 4.3 图像生成与世界模型质量
+#### 4.3 图像生成与世界模型质量
 
 论文定性地展示了“想象”的轨迹。
 *   **TransDreamer** 的想象更加清晰，且能准确预测长时后的物体颜色和奖励。
 *   **Dreamer** 在长时预测后，物体颜色开始混乱，甚至消失，导致奖励预测失败。
 
-### 4.4 标准基准测试 (DMC & Atari)
+#### 4.4 标准基准测试 (DMC & Atari)
 
 在 DeepMind Control Suite (DMC) 和 Atari 上：
 *   TransDreamer 的表现与 Dreamer **相当 (Comparable)**。
@@ -178,21 +181,21 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 
 ---
 
-## 第五部分：总结与讨论 (Conclusion & Discussion)
+### 第五部分：总结与讨论 (Conclusion & Discussion)
 
-### 5.1 核心结论
+#### 5.1 核心结论
 
 1.  **可行性**：TransDreamer 证明了在 MBRL 框架下，Transformer 完全可以替代 RNN 作为世界模型，且训练稳定。
 2.  **长程优势**：在需要记忆推理 (Memory-based Reasoning) 的部分可观测任务中，TransDreamer 显著优于基于 RNN 的 Dreamer。
 3.  **通用性代价**：在简单任务上，Transformer 的优势不明显，且计算成本更高。
 
-### 5.2 开放性问题 (课堂讨论)
+#### 5.2 开放性问题 (课堂讨论)
 
 *   **计算效率问题**：在实际机器人应用中，推理延迟至关重要。Transformer 的 $O(T^2)$ 或 $O(T)$ 复杂度是否可以通过 Linear Attention 或 State Space Models (如 S4, Mamba) 来优化？
 *   **世界模型的本质**：世界模型究竟应该记住所有的历史细节（Transformer 方式），还是应该学习一个紧凑的状态压缩（RNN 方式）？
 *   **多模态扩展**：Transformer 架构天然适合多模态（文本 + 图像）。TransDreamer 是否是通向通才智能体 (Generalist Agent) 的一步？
 
-### 5.3 课后思考
+#### 5.3 课后思考
 
 请同学们思考：如果我们将 TSSM 中的 Transformer 换成最近流行的 **Mamba (State Space Model)** 架构，预期会有什么变化？（提示：Mamba 结合了 RNN 的推理速度和 Transformer 的训练并行性）。
 
@@ -200,13 +203,13 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 
 **结束语**：TransDreamer 是 MBRL 领域的一个重要里程碑，它打破了 RNN 在世界模型中的统治地位，为利用更强大的序列模型架构打开了大门。希望大家通过这篇论文，能深刻理解模型架构对强化学习智能体能力的根本性影响。
 
-## RSSM 与 TSSM的区别
+### RSSM 与 TSSM的区别
 
 我们将公式分为三个关键部分来解析：**确定性路径 (Deterministic Path)**、**后验表示 (Posterior / Representation)** 和 **先验预测 (Prior / Transition)**。
 
 ---
 
-### 预备知识：符号定义
+#### 预备知识：符号定义
 
 在深入公式前，我们要对齐符号（Notation）：
 *   $x_t$：当前时刻的观测图像（Image Observation）。
@@ -217,7 +220,7 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 
 ---
 
-### 1. 确定性路径 (Deterministic Path)：如何聚合历史？
+#### 1. 确定性路径 (Deterministic Path)：如何聚合历史？
 
 这是 Table 1 中最根本的区别，决定了模型如何“记忆”过去。
 
@@ -240,7 +243,7 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 
 ---
 
-### 2. 后验表示 (Posterior / Representation Model)：这是什么？
+#### 2. 后验表示 (Posterior / Representation Model)：这是什么？
 
 这个公式描述了：**“当我看到了当前的图像 $x_t$，我认为我现在处于什么状态 $z_t$？”** 这通常用于训练阶段，为模型提供“真值”监督。
 
@@ -256,7 +259,7 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 
 ---
 
-### 3. 先验预测 (Prior / Transition Model)：接下来会发生什么？
+#### 3. 先验预测 (Prior / Transition Model)：接下来会发生什么？
 
 这个公式描述了：**“闭上眼睛（没有图像 $x_t$），仅凭记忆，我认为我现在处于什么状态 $z_t$？”** 这是模型进行**想象 (Imagination)** 和 **规划 (Planning)** 的基础。
 
@@ -271,7 +274,7 @@ $$ \mathcal{L} = \mathbb{E} \left[ \sum_{t} \underbrace{\ln p(x_t | z_t, \hat{H}
 
 ---
 
-### 总结 Table 1 的核心逻辑
+#### 总结 Table 1 的核心逻辑
 
 | 组件 | 数学本质 (RSSM) | 数学本质 (TSSM) | 核心差异 |
 | :--- | :--- | :--- | :--- |

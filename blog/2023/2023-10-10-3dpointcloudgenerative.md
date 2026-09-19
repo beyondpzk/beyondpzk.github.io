@@ -2,21 +2,24 @@
 title: 3DpointCloudGenerative
 date: 2023-10-10
 categories: [Understandings]
+topic: generation
+type: 技术分析
+tags: ["Transformer","Diffusion"]
 ---
 
 # 3DpointCloudGenerative
 
-# Copilot4D 训练流程详解
+## Copilot4D 训练流程详解
 
-### 整体架构概览
+#### 整体架构概览
 
 Copilot4D 的训练分为两个阶段：**Tokenizer 训练**和**World Model 训练**。整体流程是先将点云观测token化，然后在离散token空间上应用离散扩散模型预测未来。
 
 ---
 
-## 1. Tokenizer 训练
+### 1. Tokenizer 训练
 
-### 输入数据维度
+#### 输入数据维度
 
 - **输入**: 点云观测，覆盖区域为 $[-80\text{m}, 80\text{m}] \times [-80\text{m}, 80\text{m}] \times [-4.5\text{m}, 4.5\text{m}]$
 - **体素大小**: $15.625\text{cm} \times 15.625\text{cm} \times 14.0625\text{cm}$
@@ -24,7 +27,7 @@ Copilot4D 的训练分为两个阶段：**Tokenizer 训练**和**World Model 训
 - **BEV 特征图**: $128 \times 128 \times 256$ (经过 Swin Transformer 编码和下采样后)
 - **输出**: $128 \times 128$ 个离散 token，每个 token 是 codebook 中的一个索引 [Tokenizer Architecture](https://alphaxiv.org/abs/2311.01017?page=16)
 
-### 训练目标
+#### 训练目标
 
 Tokenizer 的损失函数由两部分组成:
 
@@ -40,7 +43,7 @@ $$\mathcal{L}_{\text{render}} = \mathbb{E}_r \left[ \|D(r, \hat{z}) - D_{\text{g
 
 包含深度渲染的 L1 损失和空间跳跃分支的二元交叉熵损失 [Rendering Loss](https://alphaxiv.org/abs/2311.01017?page=5)
 
-### 训练超参数
+#### 训练超参数
 
 | 参数 | 值 |
 |------|-----|
@@ -52,9 +55,9 @@ $$\mathcal{L}_{\text{render}} = \mathbb{E}_r \left[ \|D(r, \hat{z}) - D_{\text{g
 
 ---
 
-## 2. World Model 训练
+### 2. World Model 训练
 
-### 输入输出维度
+#### 输入输出维度
 
 - **输入序列**: 过去 $T_{\text{past}}$ 帧的 token + 未来 $T_{\text{future}}$ 帧的 token
 - **每帧 token 数**: $128 \times 128 = 16384$ 个离散 token
@@ -62,7 +65,7 @@ $$\mathcal{L}_{\text{render}} = \mathbb{E}_r \left[ \|D(r, \hat{z}) - D_{\text{g
   - **NuScenes**: 1s 预测 = 2 帧过去 + 2 帧未来; 3s 预测 = 6 帧过去 + 6 帧未来
   - **KITTI/Argoverse2**: 1s/3s 预测 = 5 帧过去 + 5 帧未来 [Dataset Settings](https://alphaxiv.org/abs/2311.01017?page=8)
 
-### 离散扩散算法
+#### 离散扩散算法
 
 Copilot4D 将 MaskGIT 改进为离散扩散模型，关键改进如下:
 
@@ -80,7 +83,7 @@ Copilot4D 将 MaskGIT 改进为离散扩散模型，关键改进如下:
    - 在非 mask 位置设 $l_k \leftarrow +\infty$
    - 选择 top-$M$ 个位置解码 ($M = \lceil \gamma(k/K)N \rceil$) [Sampling Algorithm](https://alphaxiv.org/abs/2311.01017?page=5)
 
-### 混合训练目标
+#### 混合训练目标
 
 World Model 使用三种训练目标的混合 (见 Figure 4):
 
@@ -93,7 +96,7 @@ World Model 使用三种训练目标的混合 (见 Figure 4):
 数学形式为最大化:
 $$\mathbb{E}_{q(\tau), k_1,\cdots,k_T \sim \text{SampleObj}(\cdot)} \left[ \log p_\theta(x_0^{(1)}, \cdots, x_0^{(T)} | x_{k_1}^{(1)}, \cdots, x_{k_T}^{(T)}, a^{(1)}, \cdots, a^{(T-1)}) \right]$$
 
-### World Model 训练超参数
+#### World Model 训练超参数
 
 | 参数 | 值 |
 |------|-----|
@@ -108,7 +111,7 @@ $$\mathbb{E}_{q(\tau), k_1,\cdots,k_T \sim \text{SampleObj}(\cdot)} \left[ \log 
 
 ---
 
-## 3. 推理流程
+### 3. 推理流程
 
 推理时使用**自回归预测** + **Classifier-Free Diffusion Guidance (CFG)**:
 
@@ -119,7 +122,7 @@ $$\mathbb{E}_{q(\tau), k_1,\cdots,k_T \sim \text{SampleObj}(\cdot)} \left[ \log 
 
 ---
 
-## 关键创新点总结
+### 关键创新点总结
 
 1. **Tokenization**: 用 VQVAE 将复杂点云空间转换为离散 token 序列
 2. **离散扩散改进**: 在 MaskGIT 基础上增加噪声注入和 token 重采样机制，Chamfer 距离降低 29%

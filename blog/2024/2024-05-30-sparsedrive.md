@@ -2,6 +2,9 @@
 title: SparseDrive
 date: 2024-05-30
 categories: [e2e]
+topic: driving
+type: 论文精读
+tags: []
 ---
 
 <!--more-->
@@ -126,7 +129,7 @@ loss 函数中除了每个任务的loss外,在训练sparse perception 的时候�
 
 L = Ldet + Lmap + Lmotion + Lplan + Ldepth .
 
-# Review and reflection
+## Review and reflection
 
 核心思想是 用sparse query 替代 dense futures 往下游送. 对于backbone的计算确实快了很多, 这也给出了一种和其他模态的token相融合的方法.不过这里没有使用occ, 可能用sparese的方式来做occ太难了.
 如何自监督地训练 sparse perception ?

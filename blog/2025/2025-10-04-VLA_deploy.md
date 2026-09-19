@@ -2,6 +2,9 @@
 title: 从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战
 date: 2025-10-04
 categories: [Deploy]
+topic: deployment
+type: 工程实践
+tags: ["Transformer","TensorRT","CUDA","INT8","INT4"]
 ---
 
 # 从 PyTorch InternVL2.5-1B 到 Jetson Orin NX 16GB 的 VLA/VLM 嵌入式部署实战

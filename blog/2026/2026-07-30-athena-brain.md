@@ -2,6 +2,9 @@
 title: Athena-Brain-8B
 date: 2026-07-30
 categories: [Agents]
+topic: agents
+type: 论文精读
+tags: []
 ---
 
 # Athena-Brain-8B：小鹏的端侧机器人"大脑"模型
@@ -131,7 +134,7 @@ Athena-Brain-8B 是一个 8B 规模的纯语言模型，定位是**机器人的�
 
 ### 4.1 定位判断：这是"大脑皮层"，不是"全身"
 
-Athena 明确选择了**模块化架构中的认知层**：输入是结构化观测（文本），输出是工具调用，不碰原始传感器和电机。这与本仓库之前记录的 [TairosAgent](2026-07-18-tairosagent.md) 的分层思想（RxBrain 做规划、VLM 做感知、VLA 做执行）完全一致——**LLM 当大脑，感知与低层控制交给专门模块**。对车厂出身的小鹏来说，这个选择很务实：纯文本具身环境是低成本、可程序化验证的训练场，先在"脑"上把闭环决策练出来，再接感知与本体。
+Athena 明确选择了**模块化架构中的认知层**：输入是结构化观测（文本），输出是工具调用，不碰原始传感器和电机。这与本仓库之前记录的 TairosAgent 的分层思想（RxBrain 做规划、VLM 做感知、VLA 做执行）完全一致——**LLM 当大脑，感知与低层控制交给专门模块**。对车厂出身的小鹏来说，这个选择很务实：纯文本具身环境是低成本、可程序化验证的训练场，先在"脑"上把闭环决策练出来，再接感知与本体。
 
 ### 4.2 真正的贡献在方法论而非刷分
 
@@ -160,4 +163,4 @@ Athena-Brain-8B 一句话概括：
 
 ---
 
-*参考：[Athena-Brain Technical Report (arXiv:2607.18985)](https://arxiv.org/abs/2607.18985)、[DeepInsight 评测平台 (arXiv:2606.17574)](https://arxiv.org/abs/2606.17574)、[Engagement Process (arXiv:2605.11484)](https://arxiv.org/abs/2605.11484)。相关笔记：[TairosAgent](2026-07-18-tairosagent.md)、[Hy-Embodied-VLM-1.0](2026-07-14-Hy-Embodied-VLM-1.0.md)。*
+*参考：[Athena-Brain Technical Report (arXiv:2607.18985)](https://arxiv.org/abs/2607.18985)、[DeepInsight 评测平台 (arXiv:2606.17574)](https://arxiv.org/abs/2606.17574)、[Engagement Process (arXiv:2605.11484)](https://arxiv.org/abs/2605.11484)。相关笔记：TairosAgent、[Hy-Embodied-VLM-1.0](2026-07-14-Hy-Embodied-VLM-1.0.md)。*

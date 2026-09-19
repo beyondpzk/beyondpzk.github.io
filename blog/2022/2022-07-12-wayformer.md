@@ -2,6 +2,9 @@
 title: Wayformer
 date: 2022-07-12
 categories: [Prediction]
+topic: driving
+type: 论文精读
+tags: []
 ---
 
 <!--more-->

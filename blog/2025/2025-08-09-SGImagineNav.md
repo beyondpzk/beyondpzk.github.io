@@ -2,6 +2,9 @@
 title: SGImagineNav
 date: 2025-08-09
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: []
 ---
 
 # SGImagineNav：基于场景图想象世界模型的具身导航

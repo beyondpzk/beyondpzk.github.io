@@ -2,6 +2,9 @@
 title: 具身智能机器狗 Agent 架构设计
 date: 2026-01-22
 categories: [Agents]
+topic: agents
+type: 技术分析
+tags: []
 ---
 
 # 具身智能机器狗 Agent 架构设计

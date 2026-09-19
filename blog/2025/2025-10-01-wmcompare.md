@@ -2,6 +2,9 @@
 title: WMcompare
 date: 2025-10-01
 categories: [Understandings]
+topic: world-models
+type: 技术分析
+tags: ["Transformer","Diffusion","JEPA"]
 ---
 
 # 自驾WM，具身WM，无人机WM的区别与联系

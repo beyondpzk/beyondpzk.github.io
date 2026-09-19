@@ -2,6 +2,9 @@
 title: SpinQuant：用学习旋转进一步提升 4-Bit LLM 量化
 date: 2024-05-26
 categories: [Deploy]
+topic: deployment
+type: 论文精读
+tags: []
 ---
 
 # SpinQuant：用学习旋转进一步提升 4-Bit LLM 量化

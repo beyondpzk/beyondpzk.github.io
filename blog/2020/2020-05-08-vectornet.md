@@ -2,6 +2,9 @@
 title: VectorNet
 date: 2020-05-08
 categories: [Prediction]
+topic: driving
+type: 论文精读
+tags: []
 ---
 
 <!--more-->

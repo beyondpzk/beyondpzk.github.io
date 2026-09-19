@@ -2,6 +2,9 @@
 title: NVIDIA Orin NX 硬件原理与边缘 AI 芯片通识
 date: 2026-09-11
 categories: [Deploy]
+topic: deployment
+type: 技术分析
+tags: ["Transformer","TensorRT","CUDA","INT8"]
 ---
 
 # NVIDIA Orin NX 硬件原理与边缘 AI 芯片通识

@@ -2,6 +2,9 @@
 title: MultiPath
 date: 2019-10-12
 categories: [Prediction]
+topic: driving
+type: 论文精读
+tags: []
 ---
 
 <!--more-->

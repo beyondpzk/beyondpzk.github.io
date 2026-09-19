@@ -2,6 +2,9 @@
 title: offlineonlineworldmodel
 date: 2023-01-01
 categories: [Understandings]
+topic: world-models
+type: 技术分析
+tags: ["Transformer","Diffusion"]
 ---
 
 # offline VS online worldmodel

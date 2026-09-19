@@ -2,6 +2,11 @@
 title: DriveZero 深读：用强化学习教师与视觉蒸馏，突破人类驾驶轨迹的限制
 date: 2026-09-19
 categories: [自动驾驶]
+topic: driving
+type: 论文精读
+tags: ["PPO", "LoRA", "Transformer", "知识蒸馏"]
+featured: true
+summary: 小米如何把闭环强化学习教师蒸馏成视觉驾驶策略？从六张方法图、关键消融与公开代码，拆解 DriveRL、DriveVFM 和 DriveZero 的能力边界。
 ---
 
 # DriveZero 深读：用强化学习教师与视觉蒸馏，突破人类驾驶轨迹的限制
