@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="760" viewBox="0 0 1160 760" role="img" aria-labelledby="title desc">
+  <title id="title">DriveZero 的三阶段训练与部署边界</title>
+  <desc id="desc">DriveRL 在结构化仿真中做闭环强化学习；DriveVFM 蒸馏四类视觉教师；视觉学生使用日志图像和 RL 教师轨迹做离线训练。学生部署时只保留视觉骨干、轨迹生成和评分分支。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#64748b" stroke-width="1.6"/></marker>
+    <style>text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif;fill:#172638}.title{font-size:28px;font-weight:700}.head{font-size:23px;font-weight:700}.body{font-size:19px}.small{font-size:17px;fill:#475569}.arrow{fill:none;stroke:#64748b;stroke-width:2.5;marker-end:url(#arrow)}.box{stroke-width:1.5;rx:15}</style>
+  </defs>
+  <rect width="1160" height="760" rx="20" fill="#f8fafc"/>
+  <text x="40" y="48" class="title">DriveZero：先分别学会“行动”和“看”，再蒸馏到视觉策略</text>
+  <rect x="35" y="78" width="525" height="244" class="box" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="58" y="115" class="head">① 行动教师 DriveRL · 闭环训练</text>
+  <text x="58" y="155" class="body">日志 → 结构化场景 + 导航目标</text>
+  <text x="58" y="192" class="body">PPO 策略 ⇄ 混合交通仿真器</text>
+  <text x="58" y="229" class="body">观察状态 → 控制动作 → 新状态 → 奖励</text>
+  <text x="58" y="283" class="small">输出：冻结的策略教师，可按新目标生成轨迹</text>
+  <rect x="595" y="78" width="530" height="244" class="box" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="618" y="115" class="head">② 视觉骨干 DriveVFM · 特征蒸馏</text>
+  <text x="618" y="155" class="body">通用图像 + 驾驶图像</text>
+  <text x="618" y="192" class="body">DINOv3 / SigLIP2 / SAM / DA2</text>
+  <text x="618" y="229" class="body">冻结教师 → 匹配特征 → 共享 ViT</text>
+  <text x="618" y="283" class="small">输出：视觉骨干；部署时移除四类教师</text>
+  <path d="M298 322 V372" class="arrow"/>
+  <path d="M860 322 V372" class="arrow"/>
+  <rect x="35" y="382" width="1090" height="197" class="box" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="58" y="420" class="head">③ 视觉学生 DriveZero · 在配对日志帧上离线训练</text>
+  <text x="58" y="461" class="body">同一时刻的结构化状态 → 教师 rollout → 轨迹标签（可改变目标）</text>
+  <text x="58" y="497" class="body">同一时刻的四路图像 + 自车状态 + 匹配指令 → 64 条候选轨迹 + 评分</text>
+  <text x="58" y="551" class="small">WTA 轨迹监督 + PDM 评分监督；视觉学生本身不进入交互环境做 RL</text>
+  <path d="M580 579 V620" class="arrow"/>
+  <rect x="35" y="631" width="1090" height="88" class="box" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="58" y="665" class="head">学生部署：相机 → DriveVFM + LoRA → 候选轨迹 → 评分选择</text>
+  <text x="58" y="697" class="small">移除 DriveRL 教师；实车章节另行展示的是接感知模块的 DriveRL，不能与此混同。</text>
+  <text x="40" y="746" class="small">按论文 §2 重绘 · 基础日志帧蒸馏无需新渲染；Scale 版本另加入 SimScale 仿真数据</text>
+</svg>

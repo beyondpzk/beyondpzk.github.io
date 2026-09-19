@@ -99,6 +99,10 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: 'DriveZero 深读：用强化学习教师与视觉蒸馏，突破人类驾驶轨迹的限制 (2026-09-19)',
+                  link: '/blog/2026/2026-09-19-drivezero',
+                },
+                {
                   text: 'π₀-FAST：用动作压缩加速 VLA 训练，以及它通向 π₀.₅ 的线索 (2026-09-18)',
                   link: '/blog/2026/2026-09-18-pi0-fast',
                 },
@@ -1942,6 +1946,10 @@ export default defineConfig({
               text: '📂 自动驾驶',
               collapsed: true,
               items: [
+                {
+                  text: 'DriveZero 深读：用强化学习教师与视觉蒸馏，突破人类驾驶轨迹的限制 (2026-09-19)',
+                  link: '/blog/2026/2026-09-19-drivezero',
+                },
                 {
                   text: 'PrepareData (2023-05-02)',
                   link: '/blog/2023/2023-05-02-PrepareData',

@@ -24,6 +24,7 @@ title: 博客目录
 
 按时间顺序整理的论文阅读笔记。
 
+- [DriveZero：强化学习教师、视觉蒸馏与代码解读](/blog/2026/2026-09-19-drivezero)
 - [π*₀.₆：从经验中学习的 VLA](/blog/2025/pi0.6)
 - [World Models](/blog/2018/WorldModels)
 - [PlaNet](/blog/2018/PlaNet)
