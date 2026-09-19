@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { localOnlyPosts } from '../scripts/local-only-posts.js'
 
 // 根据文件路径生成一个稳定的伪随机整数
 function hashString(str) {
@@ -56,6 +57,8 @@ export default defineConfig({
   // 因为是 username.github.io 仓库，base 用 '/'
   base: '/',
 
+  srcExclude: localOnlyPosts,
+
   // 忽略死链检查（blog/index.md 中存在历史遗留的失效链接）
   ignoreDeadLinks: true,
 
@@ -110,10 +113,6 @@ export default defineConfig({
                 {
                   text: 'NavVerse (2026-07-23)',
                   link: '/blog/2026/2026-07-23-NavVerse',
-                },
-                {
-                  text: '户外长距离导航技术方案（专注高德集成与导盲场景） (2026-07-23)',
-                  link: '/blog/2026/2026-07-23-outdoor-long-range-navigation-solution',
                 },
                 {
                   text: 'TravExplorer (2026-07-21)',
@@ -1366,10 +1365,6 @@ export default defineConfig({
                 {
                   text: 'NavVerse (2026-07-23)',
                   link: '/blog/2026/2026-07-23-NavVerse',
-                },
-                {
-                  text: '户外长距离导航技术方案（专注高德集成与导盲场景） (2026-07-23)',
-                  link: '/blog/2026/2026-07-23-outdoor-long-range-navigation-solution',
                 },
                 {
                   text: 'TravExplorer (2026-07-21)',

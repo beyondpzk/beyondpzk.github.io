@@ -25,3 +25,6 @@ pnpm-debug.log*
 # Paper PDFs and extracted text files
 *.pdf
 *.txt
+
+# Local-only notes
+/blog/2026/2026-07-23-outdoor-long-range-navigation-solution.md

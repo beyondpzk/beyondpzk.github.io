@@ -3,6 +3,7 @@
 // 支持按年份和按分类两种视图
 import fs from 'fs'
 import path from 'path'
+import { localOnlyPosts } from './local-only-posts.js'
 
 const BLOG_DIR = path.resolve('blog')
 const CONFIG_PATH = path.resolve('.vitepress/config.mjs')
@@ -57,6 +58,8 @@ function scanPosts(dir, urlPrefix = '') {
 
   files.forEach(file => {
     const filePath = path.join(dir, file.name)
+    const relativePath = path.relative(process.cwd(), filePath).split(path.sep).join('/')
+    if (localOnlyPosts.includes(relativePath)) return
     const meta = getFrontmatter(filePath)
     const name = file.name.replace('.md', '')
     const link = `${urlPrefix}/${name}`
