@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img"><title>量产集成建议：将语义决策和实时运动保护分开</title><desc>本文工程建议，非论文已实现架构；各层的周期和阈值必须在具体机器人上实测。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#52657b"/></marker></defs><rect width="100%" height="100%" fill="#f8fafc"/><g font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+<text x="40" y="48" font-size="28" font-weight="700" fill="#102a43">量产集成建议：将语义决策和实时运动保护分开</text>
+<text x="40" y="82" font-size="17" fill="#52657b">本文工程建议，非论文已实现架构；各层的周期和阈值必须在具体机器人上实测。</text>
+<rect x="40" y="120" width="340" height="200" rx="14" fill="#e8f0fe" stroke="#b8c7d9"/>
+<text x="60" y="155" font-size="21" font-weight="700" fill="#16395c">语义任务层</text>
+<text x="60" y="185" font-size="17" fill="#334e68">任务指令 / 用户澄清</text>
+<text x="60" y="212" font-size="17" fill="#334e68">MLLM + 事件记忆 + ST Graph</text>
+<text x="60" y="239" font-size="17" fill="#334e68">输出有版本的目标提案</text>
+<text x="60" y="266" font-size="17" fill="#334e68">可本地部署，也可受控远程调用</text>
+<rect x="430" y="120" width="340" height="200" rx="14" fill="#e5f5ec" stroke="#b8c7d9"/>
+<text x="450" y="155" font-size="21" font-weight="700" fill="#16395c">确定性校验与仲裁</text>
+<text x="450" y="185" font-size="17" fill="#334e68">任务 ID / 证据 ID / 位姿版本</text>
+<text x="450" y="212" font-size="17" fill="#334e68">可达性、目标时效和执行预算</text>
+<text x="450" y="239" font-size="17" fill="#334e68">超时取消、幂等派发、旧响应丢弃</text>
+<text x="450" y="266" font-size="17" fill="#334e68">成功、失败、放弃分别报告</text>
+<rect x="820" y="120" width="340" height="200" rx="14" fill="#e8f0fe" stroke="#b8c7d9"/>
+<text x="840" y="155" font-size="21" font-weight="700" fill="#16395c">本地导航与运动层</text>
+<text x="840" y="185" font-size="17" fill="#334e68">定位 + 局部地图 + 避障</text>
+<text x="840" y="212" font-size="17" fill="#334e68">全身包络 / 地形 / 运动约束</text>
+<text x="840" y="239" font-size="17" fill="#334e68">执行 waypoints 或受控速度</text>
+<text x="840" y="266" font-size="17" fill="#334e68">持续反馈实际进展</text>
+<polyline points="380,220 430,220" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<polyline points="770,220 820,220" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="40" y="400" width="520" height="140" rx="14" fill="#e8f0fe" stroke="#b8c7d9"/>
+<text x="60" y="435" font-size="21" font-weight="700" fill="#16395c">观测与时间同步</text>
+<text x="60" y="465" font-size="17" fill="#334e68">相机 / 深度 / LiDAR / IMU / 里程计</text>
+<text x="60" y="492" font-size="17" fill="#334e68">传感器标定、健康监控、跨帧关联</text>
+<text x="60" y="519" font-size="17" fill="#334e68">采集时间与动作完成时间都要可追溯</text>
+<rect x="630" y="400" width="530" height="140" rx="14" fill="#ffe9e5" stroke="#b8c7d9"/>
+<text x="650" y="435" font-size="21" font-weight="700" fill="#16395c">独立运动保护与急停链</text>
+<text x="650" y="465" font-size="17" fill="#334e68">直接使用新鲜传感器和控制器状态</text>
+<text x="650" y="492" font-size="17" fill="#334e68">限制速度 / 停车 / 地形或姿态异常保护</text>
+<text x="650" y="519" font-size="17" fill="#334e68">大模型无权绕过；不能等待网络推理</text>
+<polyline points="300,400 300,350 990,350 990,320" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<polyline points="895,400 895,320" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="910" y="382" font-size="16" fill="#52657b">约束实际运动</text>
+<rect x="40" y="600" width="1120" height="100" rx="14" fill="#edf0f7" stroke="#b8c7d9"/>
+<text x="60" y="635" font-size="21" font-weight="700" fill="#16395c">可观测性与发布闭环</text>
+<text x="60" y="665" font-size="17" fill="#334e68">记录证据、模型版本、工具调用、取消原因与任务结果；故障回放 → 回归评测 → 小流量发布 → 回滚</text>
+</g></svg>
