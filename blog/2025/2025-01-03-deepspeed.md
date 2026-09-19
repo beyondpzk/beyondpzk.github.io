@@ -2,7 +2,7 @@
 title: DeepSpeed
 date: 2025-01-03
 categories: [Understandings]
-topic: deployment
+topic: thinking
 type: 技术分析
 tags: ["Transformer","TensorRT","INT8","INT4","PyTorch"]
 ---

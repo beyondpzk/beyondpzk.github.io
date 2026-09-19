@@ -2,7 +2,7 @@
 title: offlineonlineworldmodel
 date: 2023-01-01
 categories: [Understandings]
-topic: world-models
+topic: thinking
 type: 技术分析
 tags: ["Transformer","Diffusion"]
 ---

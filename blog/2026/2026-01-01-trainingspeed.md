@@ -2,7 +2,7 @@
 title: TrainingSpeed
 date: 2026-01-01
 categories: [Understandings]
-topic: deployment
+topic: thinking
 type: 技术分析
 tags: ["Transformer","PyTorch"]
 ---

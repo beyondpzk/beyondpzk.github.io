@@ -2,7 +2,7 @@
 title: 仿真数据的两种命运
 date: 2026-07-09
 categories: [Understandings]
-topic: world-models
+topic: thinking
 type: 技术分析
 tags: ["Sim-to-Real"]
 ---

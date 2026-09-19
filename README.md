@@ -22,7 +22,7 @@ npm run docs:dev
 - `publishedAt`：可选的首次收录日期；不填写则使用 Git 首次加入的日期。
 - `updatedAt`：可选的实际修订日期；不填写则使用最新 Git 修改日期。
 - `topic`：在 `lib/taxonomy.js` 的主题中选择一个 ID。
-- 个人思考使用 `topic: thinking`，在「Thinking · 思考」中单独展示；历史分类 `Thinking` 和 `Thinkings` 统一兼容。
+- 个人思考与理解笔记使用 `topic: thinking`，在「Thinking · 思考」中单独展示；历史分类 `Thinking`、`Thinkings`、`Understanding` 和 `Understandings` 统一兼容，原分类字段保留供追溯。
 - `type`：`论文精读`、`技术分析` 或 `工程实践`。
 - `tags`：具体技术名称数组，如 `[PPO, LoRA]`。
 - `summary`：推荐手写一到两句摘要。不填写时从正文提取普通文本。

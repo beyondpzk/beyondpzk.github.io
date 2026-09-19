@@ -2,7 +2,7 @@
 title: 3DpointCloudGenerative
 date: 2023-10-10
 categories: [Understandings]
-topic: generation
+topic: thinking
 type: 技术分析
 tags: ["Transformer","Diffusion"]
 ---

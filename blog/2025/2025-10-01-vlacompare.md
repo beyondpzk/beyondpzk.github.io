@@ -2,7 +2,7 @@
 title: VLACompare
 date: 2025-10-01
 categories: [Understandings]
-topic: vla
+topic: thinking
 type: 技术分析
 tags: ["LoRA","Diffusion","Flow Matching"]
 ---

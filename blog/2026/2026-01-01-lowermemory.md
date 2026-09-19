@@ -2,7 +2,7 @@
 title: LowerMemory
 date: 2026-01-01
 categories: [Understandings]
-topic: deployment
+topic: thinking
 type: 技术分析
 tags: ["LoRA","Transformer","CUDA","INT8","INT4"]
 ---
