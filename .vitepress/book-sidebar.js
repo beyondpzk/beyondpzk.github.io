@@ -62,6 +62,10 @@ export const bookSidebar = {
           text: '番外六 与高压型上级建立信任',
           link: '/books/management-way/extra-06',
         },
+        {
+          text: '番外七 从接住要求到拿出结果',
+          link: '/books/management-way/extra-07',
+        },
       ],
     },
   ],
