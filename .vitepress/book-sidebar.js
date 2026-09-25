@@ -66,6 +66,10 @@ export const bookSidebar = {
           text: '番外七 从接住要求到拿出结果',
           link: '/books/management-way/extra-07',
         },
+        {
+          text: '番外八 授权与决策效率',
+          link: '/books/management-way/extra-08',
+        },
       ],
     },
   ],
