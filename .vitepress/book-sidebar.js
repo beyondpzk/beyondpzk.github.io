@@ -58,6 +58,10 @@ export const bookSidebar = {
           text: '番外五 收拾四类难搞下属的阳谋',
           link: '/books/management-way/extra-05',
         },
+        {
+          text: '番外六 与高压型上级建立信任',
+          link: '/books/management-way/extra-06',
+        },
       ],
     },
   ],
