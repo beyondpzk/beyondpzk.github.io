@@ -96,6 +96,74 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
+                  text: '改进与变革：PDCA、5 Whys 与 ADKAR (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-continuous-improvement',
+                },
+                {
+                  text: '目标与优先级：SMART、OKR 与四象限 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-goals-and-priorities',
+                },
+                {
+                  text: '从视觉复走到自主巡检：GuideNav 的十项能力扩展 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-guidenav-capability-gaps',
+                },
+                {
+                  text: 'GuideNav 源码解读：从示教关键帧到视觉复走 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-guidenav-code-walkthrough',
+                },
+                {
+                  text: 'GuideNav 用于园区巡检：能力边界与系统设计 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-guidenav-park-patrol',
+                },
+                {
+                  text: 'GuideNav 与 VLA 融合：记忆、目标接口与局部执行 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-guidenav-vla-integration',
+                },
+                {
+                  text: '室内巡逻执行流程：从示教建图到局部绕障 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-indoor-patrol-execution',
+                },
+                {
+                  text: '室内轻地图导航：Teach-and-Repeat 与语义记忆 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-indoor-teach-repeat-navigation',
+                },
+                {
+                  text: '带人与反馈：情境领导、GROW 与 SBI (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-leadership-and-feedback',
+                },
+                {
+                  text: '主持会议：早会、进展会、周会与复盘会 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-meeting-facilitation',
+                },
+                {
+                  text: '导航基础模型对比：DualVLN、ABot、Qwen-RobotNav 与 LightNav-0 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-navigation-foundation-model-comparison',
+                },
+                {
+                  text: 'RACI 责任分工：谁执行、谁负责、征询谁、告知谁 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-raci-responsibility',
+                },
+                {
+                  text: 'SRU：面向长程无地图导航的空间循环记忆 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-sru-spatial-memory',
+                },
+                {
+                  text: 'NVIDIA Orin NX 硬件原理与边缘 AI 芯片通识 (2026-09-11)',
+                  link: '/blog/2026/2026-09-11-orin-nx-hardware-edge-ai',
+                },
+                {
+                  text: 'Habitat-GS 与 InteriorGS / SAGE-3D：3DGS 如何变成可执行的导航环境 (2026-09-01)',
+                  link: '/blog/2026/2026-09-01-habitatgs-interiorgs-sage3d',
+                },
+                {
+                  text: 'LightNav-0：把 VLM 的空间智能“直接变成”通用导航 (2026-09-01)',
+                  link: '/blog/2026/2026-09-01-lightnav-0',
+                },
+                {
+                  text: '户外长距离导航：全局路由、局部策略与数据闭环 (2026-08-03)',
+                  link: '/blog/2026/2026-08-03-outdoor-long-range-navigation',
+                },
+                {
                   text: 'Athena-Brain-8B (2026-07-30)',
                   link: '/blog/2026/2026-07-30-athena-brain',
                 },
@@ -144,11 +212,11 @@ export default defineConfig({
                   link: '/blog/2026/2026-07-13-abot-c0',
                 },
                 {
-                  text: 'ABot-AgentOS (2026-07-11)',
+                  text: 'ABot-AgentOS：具备终身多模态记忆的通用机器人 Agent 操作系统 (2026-07-11)',
                   link: '/blog/2026/2026-07-11-ABot-AgentOS',
                 },
                 {
-                  text: 'ABot-N1 (2026-07-11)',
+                  text: 'ABot-N1：面向通用视觉-语言导航的慢-快解耦基础模型 (2026-07-11)',
                   link: '/blog/2026/2026-07-11-ABot-N1',
                 },
                 {
@@ -240,7 +308,7 @@ export default defineConfig({
                   link: '/blog/2026/2026-06-13-farm',
                 },
                 {
-                  text: 'MotionWAM (2026-06-08)',
+                  text: 'MotionWAM：让世界动作模型实时驱动人形机器人全身移动操作 (2026-06-08)',
                   link: '/blog/2026/2026-06-08-MotionWAM',
                 },
                 {
@@ -608,7 +676,7 @@ export default defineConfig({
                   link: '/blog/2024/2024-12-11-flip',
                 },
                 {
-                  text: 'Reloc3r：大规模训练的相对位姿回归网络，让"两张图相对位姿"变成一个前向推理 (2024-12-11)',
+                  text: 'Reloc3r：大规模训练的相对位姿回归网络，让\"两张图相对位姿\"变成一个前向推理 (2024-12-11)',
                   link: '/blog/2024/2024-12-11-reloc3r',
                 },
                 {
@@ -1068,9 +1136,171 @@ export default defineConfig({
           collapsed: false,
           items: [
             {
+              text: '📂 VLN',
+              collapsed: true,
+              items: [
+                {
+                  text: '从视觉复走到自主巡检：GuideNav 的十项能力扩展 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-guidenav-capability-gaps',
+                },
+                {
+                  text: 'GuideNav 源码解读：从示教关键帧到视觉复走 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-guidenav-code-walkthrough',
+                },
+                {
+                  text: 'GuideNav 用于园区巡检：能力边界与系统设计 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-guidenav-park-patrol',
+                },
+                {
+                  text: 'GuideNav 与 VLA 融合：记忆、目标接口与局部执行 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-guidenav-vla-integration',
+                },
+                {
+                  text: '室内巡逻执行流程：从示教建图到局部绕障 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-indoor-patrol-execution',
+                },
+                {
+                  text: '室内轻地图导航：Teach-and-Repeat 与语义记忆 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-indoor-teach-repeat-navigation',
+                },
+                {
+                  text: '导航基础模型对比：DualVLN、ABot、Qwen-RobotNav 与 LightNav-0 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-navigation-foundation-model-comparison',
+                },
+                {
+                  text: 'SRU：面向长程无地图导航的空间循环记忆 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-sru-spatial-memory',
+                },
+                {
+                  text: '户外长距离导航：全局路由、局部策略与数据闭环 (2026-08-03)',
+                  link: '/blog/2026/2026-08-03-outdoor-long-range-navigation',
+                },
+                {
+                  text: 'EA-Nav (2026-07-30)',
+                  link: '/blog/2026/2026-07-30-ea-nav',
+                },
+                {
+                  text: 'NavVerse (2026-07-23)',
+                  link: '/blog/2026/2026-07-23-NavVerse',
+                },
+                {
+                  text: '户外长距离导航技术方案（专注高德集成与导盲场景） (2026-07-23)',
+                  link: '/blog/2026/2026-07-23-outdoor-long-range-navigation-solution',
+                },
+                {
+                  text: 'TravExplorer (2026-07-21)',
+                  link: '/blog/2026/2026-07-21-TravExplorer',
+                },
+                {
+                  text: 'FARM：用关系空间记忆找到任何东西——物体级认知地图的在线构建与语言检索 (2026-06-13)',
+                  link: '/blog/2026/2026-06-13-farm',
+                },
+                {
+                  text: 'Uni-LaViRA (2026-05-26)',
+                  link: '/blog/2026/2026-05-26-Uni-LaViRA',
+                },
+                {
+                  text: 'LongNav-R1 (2026-02-12)',
+                  link: '/blog/2026/2026-02-12-LongNav-R1',
+                },
+                {
+                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
+                  link: '/blog/2026/2026-01-10-finegrainedalignmentedvln',
+                },
+                {
+                  text: 'GuideNav：纯视觉公里级导盲导航的 VT&R 技术解析 (2025-12-05)',
+                  link: '/blog/2025/2025-12-05-guidenav',
+                },
+                {
+                  text: 'NavForesee (2025-12-01)',
+                  link: '/blog/2025/2025-12-01-NavForesee',
+                },
+                {
+                  text: 'SocialNav (2025-11-26)',
+                  link: '/blog/2025/2025-11-26-SocialNav',
+                },
+                {
+                  text: 'OmniVLA (2025-09-23)',
+                  link: '/blog/2025/2025-09-23-OmniVLA',
+                },
+                {
+                  text: 'NavFoM (2025-09-15)',
+                  link: '/blog/2025/2025-09-15-NavFoM',
+                },
+                {
+                  text: 'SGImagineNav (2025-08-09)',
+                  link: '/blog/2025/2025-08-09-SGImagineNav',
+                },
+                {
+                  text: 'StreamVLN (2025-07-07)',
+                  link: '/blog/2025/2025-07-07-StreamVLN',
+                },
+                {
+                  text: 'NavDP：特权信息引导的纯仿真导航扩散策略，零样本跨本体迁移 (2025-05-13)',
+                  link: '/blog/2025/2025-05-13-navdp',
+                },
+                {
+                  text: 'RaceVLA (2025-03-04)',
+                  link: '/blog/2025/2025-03-04-RaceVLA',
+                },
+                {
+                  text: 'VL-Nav (2025-02-02)',
+                  link: '/blog/2025/2025-02-02-vlnav',
+                },
+                {
+                  text: 'UniNaVid (2024-12-07)',
+                  link: '/blog/2024/2024-12-07-UniNaVid',
+                },
+                {
+                  text: 'NaVILA (2024-12-05)',
+                  link: '/blog/2024/2024-12-05-NaVILA',
+                },
+                {
+                  text: 'CityWalker (2024-11-26)',
+                  link: '/blog/2024/2024-11-26-CityWalker',
+                },
+                {
+                  text: 'PoliFormer (2024-06-28)',
+                  link: '/blog/2024/2024-06-28-PoliFormer',
+                },
+                {
+                  text: 'AutoInspect：面向长期自主工业巡检的足式机器人系统 (2024-04-19)',
+                  link: '/blog/2024/2024-04-19-autoinspect',
+                },
+                {
+                  text: 'NaVid (2024-02-24)',
+                  link: '/blog/2024/2024-02-24-NaVid',
+                },
+                {
+                  text: 'NoMaD (2023-10-11)',
+                  link: '/blog/2023/2023-10-11-NoMaD',
+                },
+                {
+                  text: 'ViNT (2023-06-26)',
+                  link: '/blog/2023/2023-06-26-ViNT',
+                },
+                {
+                  text: 'GNM (2022-10-07)',
+                  link: '/blog/2022/2022-10-07-GNM',
+                },
+                {
+                  text: 'LM-Nav (2022-07-10)',
+                  link: '/blog/2022/2022-07-10-LM-Nav',
+                },
+                {
+                  text: 'ViNG (2020-12-17)',
+                  link: '/blog/2020/2020-12-17-ving',
+                },
+              ],
+            },
+            {
               text: '📂 Deploy',
               collapsed: true,
               items: [
+                {
+                  text: 'NVIDIA Orin NX 硬件原理与边缘 AI 芯片通识 (2026-09-11)',
+                  link: '/blog/2026/2026-09-11-orin-nx-hardware-edge-ai',
+                },
                 {
                   text: 'NVIDIA Sparse TOPS 与 Dense TOPS：部署时必须看懂的算力数字游戏 (2026-07-08)',
                   link: '/blog/2026/2026-07-08-nvidiasparsetopsvsdensetops',
@@ -1238,7 +1468,7 @@ export default defineConfig({
                   link: '/blog/2026/2026-07-13-abot-c0',
                 },
                 {
-                  text: 'ABot-N1 (2026-07-11)',
+                  text: 'ABot-N1：面向通用视觉-语言导航的慢-快解耦基础模型 (2026-07-11)',
                   link: '/blog/2026/2026-07-11-ABot-N1',
                 },
                 {
@@ -1344,128 +1574,6 @@ export default defineConfig({
                 {
                   text: 'Talk2Nav (2019-10-04)',
                   link: '/blog/2019/2019-10-04-Talk2Nav',
-                },
-              ],
-            },
-            {
-              text: '📂 VLN',
-              collapsed: true,
-              items: [
-                {
-                  text: 'EA-Nav (2026-07-30)',
-                  link: '/blog/2026/2026-07-30-ea-nav',
-                },
-                {
-                  text: 'NavVerse (2026-07-23)',
-                  link: '/blog/2026/2026-07-23-NavVerse',
-                },
-                {
-                  text: '户外长距离导航技术方案（专注高德集成与导盲场景） (2026-07-23)',
-                  link: '/blog/2026/2026-07-23-outdoor-long-range-navigation-solution',
-                },
-                {
-                  text: 'TravExplorer (2026-07-21)',
-                  link: '/blog/2026/2026-07-21-TravExplorer',
-                },
-                {
-                  text: 'FARM：用关系空间记忆找到任何东西——物体级认知地图的在线构建与语言检索 (2026-06-13)',
-                  link: '/blog/2026/2026-06-13-farm',
-                },
-                {
-                  text: 'Uni-LaViRA (2026-05-26)',
-                  link: '/blog/2026/2026-05-26-Uni-LaViRA',
-                },
-                {
-                  text: 'LongNav-R1 (2026-02-12)',
-                  link: '/blog/2026/2026-02-12-LongNav-R1',
-                },
-                {
-                  text: 'FineGrainedAlignmentedVLN (2026-01-10)',
-                  link: '/blog/2026/2026-01-10-finegrainedalignmentedvln',
-                },
-                {
-                  text: 'GuideNav：纯视觉公里级导盲导航的 VT&R 技术解析 (2025-12-05)',
-                  link: '/blog/2025/2025-12-05-guidenav',
-                },
-                {
-                  text: 'NavForesee (2025-12-01)',
-                  link: '/blog/2025/2025-12-01-NavForesee',
-                },
-                {
-                  text: 'SocialNav (2025-11-26)',
-                  link: '/blog/2025/2025-11-26-SocialNav',
-                },
-                {
-                  text: 'OmniVLA (2025-09-23)',
-                  link: '/blog/2025/2025-09-23-OmniVLA',
-                },
-                {
-                  text: 'NavFoM (2025-09-15)',
-                  link: '/blog/2025/2025-09-15-NavFoM',
-                },
-                {
-                  text: 'SGImagineNav (2025-08-09)',
-                  link: '/blog/2025/2025-08-09-SGImagineNav',
-                },
-                {
-                  text: 'StreamVLN (2025-07-07)',
-                  link: '/blog/2025/2025-07-07-StreamVLN',
-                },
-                {
-                  text: 'NavDP：特权信息引导的纯仿真导航扩散策略，零样本跨本体迁移 (2025-05-13)',
-                  link: '/blog/2025/2025-05-13-navdp',
-                },
-                {
-                  text: 'RaceVLA (2025-03-04)',
-                  link: '/blog/2025/2025-03-04-RaceVLA',
-                },
-                {
-                  text: 'VL-Nav (2025-02-02)',
-                  link: '/blog/2025/2025-02-02-vlnav',
-                },
-                {
-                  text: 'UniNaVid (2024-12-07)',
-                  link: '/blog/2024/2024-12-07-UniNaVid',
-                },
-                {
-                  text: 'NaVILA (2024-12-05)',
-                  link: '/blog/2024/2024-12-05-NaVILA',
-                },
-                {
-                  text: 'CityWalker (2024-11-26)',
-                  link: '/blog/2024/2024-11-26-CityWalker',
-                },
-                {
-                  text: 'PoliFormer (2024-06-28)',
-                  link: '/blog/2024/2024-06-28-PoliFormer',
-                },
-                {
-                  text: 'AutoInspect：面向长期自主工业巡检的足式机器人系统 (2024-04-19)',
-                  link: '/blog/2024/2024-04-19-autoinspect',
-                },
-                {
-                  text: 'NaVid (2024-02-24)',
-                  link: '/blog/2024/2024-02-24-NaVid',
-                },
-                {
-                  text: 'NoMaD (2023-10-11)',
-                  link: '/blog/2023/2023-10-11-NoMaD',
-                },
-                {
-                  text: 'ViNT (2023-06-26)',
-                  link: '/blog/2023/2023-06-26-ViNT',
-                },
-                {
-                  text: 'GNM (2022-10-07)',
-                  link: '/blog/2022/2022-10-07-GNM',
-                },
-                {
-                  text: 'LM-Nav (2022-07-10)',
-                  link: '/blog/2022/2022-07-10-LM-Nav',
-                },
-                {
-                  text: 'ViNG (2020-12-17)',
-                  link: '/blog/2020/2020-12-17-ving',
                 },
               ],
             },
@@ -1664,7 +1772,7 @@ export default defineConfig({
                   link: '/blog/2026/2026-07-14-Hy-Embodied-VLM-1.0',
                 },
                 {
-                  text: 'ABot-AgentOS (2026-07-11)',
+                  text: 'ABot-AgentOS：具备终身多模态记忆的通用机器人 Agent 操作系统 (2026-07-11)',
                   link: '/blog/2026/2026-07-11-ABot-AgentOS',
                 },
                 {
@@ -1698,7 +1806,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: 'Reloc3r：大规模训练的相对位姿回归网络，让"两张图相对位姿"变成一个前向推理 (2024-12-11)',
+                  text: 'Reloc3r：大规模训练的相对位姿回归网络，让\"两张图相对位姿\"变成一个前向推理 (2024-12-11)',
                   link: '/blog/2024/2024-12-11-reloc3r',
                 },
                 {
@@ -1762,7 +1870,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  text: 'MotionWAM (2026-06-08)',
+                  text: 'MotionWAM：让世界动作模型实时驱动人形机器人全身移动操作 (2026-06-08)',
                   link: '/blog/2026/2026-06-08-MotionWAM',
                 },
                 {
@@ -1780,6 +1888,32 @@ export default defineConfig({
                 {
                   text: 'NWM (2024-12-04)',
                   link: '/blog/2024/2024-12-04-nwm',
+                },
+              ],
+            },
+            {
+              text: '📂 管理',
+              collapsed: true,
+              items: [
+                {
+                  text: '改进与变革：PDCA、5 Whys 与 ADKAR (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-continuous-improvement',
+                },
+                {
+                  text: '目标与优先级：SMART、OKR 与四象限 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-goals-and-priorities',
+                },
+                {
+                  text: '带人与反馈：情境领导、GROW 与 SBI (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-leadership-and-feedback',
+                },
+                {
+                  text: '主持会议：早会、进展会、周会与复盘会 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-meeting-facilitation',
+                },
+                {
+                  text: 'RACI 责任分工：谁执行、谁负责、征询谁、告知谁 (2026-09-29)',
+                  link: '/blog/2026/2026-09-29-raci-responsibility',
                 },
               ],
             },
@@ -1898,6 +2032,20 @@ export default defineConfig({
                 {
                   text: '运动原语：机器人动作世界的"字母表 (2026-06-28)',
                   link: '/blog/2026/2026-06-28-motionprimitives',
+                },
+              ],
+            },
+            {
+              text: '📂 具身智能',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Habitat-GS 与 InteriorGS / SAGE-3D：3DGS 如何变成可执行的导航环境 (2026-09-01)',
+                  link: '/blog/2026/2026-09-01-habitatgs-interiorgs-sage3d',
+                },
+                {
+                  text: 'LightNav-0：把 VLM 的空间智能“直接变成”通用导航 (2026-09-01)',
+                  link: '/blog/2026/2026-09-01-lightnav-0',
                 },
               ],
             },
@@ -2177,6 +2325,11 @@ export default defineConfig({
             { text: '番外三 当众发言能力', link: '/books/management-way/extra-03' },
             { text: '番外四 管理者的阳谋', link: '/books/management-way/extra-04' },
             { text: '番外五 收拾四类难搞下属的阳谋', link: '/books/management-way/extra-05' },
+            { text: '番外六 如何开会', link: '/books/management-way/extra-06' },
+            { text: '番外七 RACI 责任分工实战', link: '/books/management-way/extra-07' },
+            { text: '番外八 目标与优先级', link: '/books/management-way/extra-08' },
+            { text: '番外九 带人与反馈', link: '/books/management-way/extra-09' },
+            { text: '番外十 改进与变革', link: '/books/management-way/extra-10' },
           ],
         },
       ],
