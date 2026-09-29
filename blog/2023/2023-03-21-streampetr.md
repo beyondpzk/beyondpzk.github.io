@@ -2,6 +2,9 @@
 title: StreamPETR
 date: 2023-03-21
 categories: [Perception]
+topic: perception
+type: 论文精读
+tags: []
 ---
 
 <!--more-->

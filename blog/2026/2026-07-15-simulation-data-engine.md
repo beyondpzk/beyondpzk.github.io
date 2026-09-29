@@ -2,6 +2,9 @@
 title: 如何构建一个 VLA 导航仿真数据引擎
 date: 2026-07-15
 categories: [仿真]
+topic: world-models
+type: 技术分析
+tags: ["PyTorch"]
 ---
 
 # 如何构建一个 VLA 导航仿真数据引擎

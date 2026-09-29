@@ -3,6 +3,9 @@ title: "GuideNav 用于园区巡检：能力边界与系统设计"
 date: 2026-09-29
 categories: [VLN]
 description: "从视觉示教复走出发，分析园区巡检的传感器、执行器、地图更新与分阶段验证。"
+topic: navigation
+type: 工程实践
+summary: "从视觉示教复走出发，分析园区巡检的传感器、执行器、地图更新与分阶段验证。"
 ---
 
 # GuideNav 用于园区巡检：能力边界与系统设计

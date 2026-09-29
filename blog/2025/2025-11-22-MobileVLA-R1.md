@@ -11,6 +11,9 @@ authors:
   - Hao Tang
 affiliation: Peking University
 arxiv_id: "2511.17889v1"
+topic: navigation
+type: 论文精读
+tags: ["PPO","Transformer"]
 ---
 
 # MobileVLA-R1：基于强化学习的视觉-语言-行动框架

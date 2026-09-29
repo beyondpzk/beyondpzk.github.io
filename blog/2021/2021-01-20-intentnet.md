@@ -2,6 +2,9 @@
 title: IntentNet
 date: 2021-01-20
 categories: [Prediction]
+topic: driving
+type: 论文精读
+tags: []
 ---
 
 <!--more-->

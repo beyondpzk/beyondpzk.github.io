@@ -3,6 +3,9 @@ title: "室内轻地图导航：Teach-and-Repeat 与语义记忆"
 date: 2026-09-29
 categories: [VLN]
 description: "用关键帧拓扑图、局部几何与语义记忆组织跨房间导航，说明组件分工与验证路径。"
+topic: navigation
+type: 工程实践
+summary: "用关键帧拓扑图、局部几何与语义记忆组织跨房间导航，说明组件分工与验证路径。"
 ---
 
 # 室内轻地图导航：Teach-and-Repeat 与语义记忆

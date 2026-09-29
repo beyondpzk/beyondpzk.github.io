@@ -2,6 +2,9 @@
 title: Uni-LaViRA
 date: 2026-05-26
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: []
 ---
 
 # Uni-LaViRA：以语言-视觉-机器人动作翻译统一具身导航

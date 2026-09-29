@@ -3,8 +3,12 @@ title: "改进与变革：PDCA、5 Whys 与 ADKAR"
 date: 2026-09-29
 categories: [管理]
 description: "从原因验证到改进试点，再到新流程采用，组织持续改善的完整过程。"
+topic: management
+type: 工程实践
+summary: "从原因验证到改进试点，再到新流程采用，组织持续改善的完整过程。"
 ---
 
+<!-- #region article -->
 # 改进与变革：PDCA、5 Whys 与 ADKAR
 
 > 文中的人物、项目、时间和指标均为教学示例，不对应真实个人或组织。
@@ -13,7 +17,7 @@ description: "从原因验证到改进试点，再到新流程采用，组织持
 
 > 适用对象：需要复盘问题、改善流程、推广新工具或推动团队工作方式变化的管理者。
 > 解决的痛点：同类问题重复出现；整改只剩口号；新制度发了通知，却没有真正运行。
-> 相关章节：[第八章 总结复盘](/books/management-way/chapter-08) · [番外六 如何开会](/books/management-way/extra-06) · [番外七 RACI 责任分工](/books/management-way/extra-07)。
+> 相关章节：[第八章 总结复盘](/books/management-way/chapter-08) · [番外九 如何开会](/books/management-way/extra-09) · [番外十 RACI 责任分工](/books/management-way/extra-10)。
 > 本篇案例、数据与时间安排均为教学示例，不代表真实项目成效。
 
 ---
@@ -221,3 +225,4 @@ ADKAR 是 Prosci 提出的个人变革模型，关注五个要素：**Awareness 
 ## 日常练习方法
 
 选择一个最近重复发生的问题，写出清楚的问题事实和一条有证据的原因链。安排一个范围受控的改进试点，事先约定效果与成本的检查方式。如果措施需要别人改变工作习惯，再列出最可能的采用障碍及负责人应提供的支持。
+<!-- #endregion article -->

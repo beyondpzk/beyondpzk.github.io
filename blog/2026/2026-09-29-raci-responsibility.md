@@ -3,8 +3,12 @@ title: "RACI 责任分工：谁执行、谁负责、征询谁、告知谁"
 date: 2026-09-29
 categories: [管理]
 description: "从角色定义到责任矩阵，说明跨部门协作中的交付、验收与升级机制。"
+topic: management
+type: 工程实践
+summary: "从角色定义到责任矩阵，说明跨部门协作中的交付、验收与升级机制。"
 ---
 
+<!-- #region article -->
 # RACI 责任分工：谁执行、谁负责、征询谁、告知谁
 
 > 文中的人物、项目、时间和指标均为教学示例，不对应真实个人或组织。
@@ -14,8 +18,8 @@ description: "从角色定义到责任矩阵，说明跨部门协作中的交付
 > 适用对象：团队负责人、项目负责人，以及经常需要跨部门推进事情的人。
 > 解决的痛点：多人参与却无人收口；执行人没有决策权；所有人都要过一遍，事情迟迟推进不了。
 > 阅读方式：先理解四种角色，再照着案例填一张自己的责任表。
-> 相关章节：[第四章 同级博弈](/books/management-way/chapter-04) · [番外六 如何开会](/books/management-way/extra-06) · [第九章 临场应急控场](/books/management-way/chapter-09)。
-> 配套工具：[目标与优先级](/books/management-way/extra-08) · [带人与反馈](/books/management-way/extra-09) · [改进与变革](/books/management-way/extra-10)。
+> 相关章节：[第四章 同级博弈](/books/management-way/chapter-04) · [番外九 如何开会](/books/management-way/extra-09) · [第九章 临场应急控场](/books/management-way/chapter-09)。
+> 配套工具：[目标与优先级](/books/management-way/extra-11) · [带人与反馈](/books/management-way/extra-12) · [改进与变革](/books/management-way/extra-13)。
 
 ---
 
@@ -269,3 +273,4 @@ A 对结果负责，不意味着可以忽略其他人的专业职责；R、C、I
 第一轮检查每行是否有且只有一个 A、是否至少有一个 R。第二轮让当事人确认职责、资源、期限和交接。运行一周后，对照实际发生的等待、返工和无人接收的问题，修改对应条目。
 
 复盘时重点问三件事：**有没有无人交付的工作？有没有缺少授权的负责人？有没有该征询或通知却漏掉的人？** 用具体问题修正表格，才能让分工真正有效。
+<!-- #endregion article -->

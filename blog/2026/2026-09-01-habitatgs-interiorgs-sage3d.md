@@ -3,6 +3,9 @@ title: "Habitat-GS 与 InteriorGS / SAGE-3D：3DGS 如何变成可执行的导�
 date: 2026-09-01
 categories: [具身智能]
 description: "围绕Habitat-GS 与 InteriorGS / SAGE-3D：3DGS 如何变成可执行的导航环境整理研究背景、核心方法、实验结果与应用边界。"
+topic: navigation
+type: 论文精读
+summary: "围绕Habitat-GS 与 InteriorGS / SAGE-3D：3DGS 如何变成可执行的导航环境整理研究背景、核心方法、实验结果与应用边界。"
 ---
 
 # Habitat-GS 与 InteriorGS / SAGE-3D：3DGS 如何变成可执行的导航环境

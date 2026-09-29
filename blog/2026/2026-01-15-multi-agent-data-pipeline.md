@@ -2,6 +2,9 @@
 title: 多 Agent 数据工程流水线架构分析
 date: 2026-01-15
 categories: [Agents]
+topic: agents
+type: 技术分析
+tags: []
 ---
 
 # 多 Agent 数据工程流水线架构分析

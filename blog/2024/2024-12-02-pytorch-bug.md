@@ -2,6 +2,9 @@
 title: pytorch_bug
 date: 2024-12-02
 categories: [pytorch]
+topic: foundations
+type: 技术分析
+tags: ["CUDA","PyTorch"]
 ---
 
 <!--more-->

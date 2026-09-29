@@ -2,6 +2,9 @@
 title: 从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战
 date: 2019-10-04
 categories: [Deploy]
+topic: deployment
+type: 工程实践
+tags: ["TensorRT","CUDA","INT8","PyTorch"]
 ---
 
 # 从 PyTorch YOLO 到 Jetson Orin 的完整嵌入式部署实战
@@ -1377,9 +1380,9 @@ sudo systemctl start nvwatchdog.service
 
 希望这篇文章能帮到你。有问题欢迎在评论区讨论。
 
-# Other补充
+## Other补充
 
-## 什么是onnx?
+### 什么是onnx?
 
 
 ONNX（**Open Neural Network Exchange**，开放神经网络交换格式）是一个**开放的、跨平台的神经网络模型表示标准**。简单说，它就是深度学习模型的"通用文件格式"，类似图片界的 JPEG、文档界的 PDF。
@@ -1499,7 +1502,7 @@ ORT 本身是个"壳"，真正的计算交给不同的后端：
 
 五、典型工作流
 
-### 模型训练 → 部署的完整流程
+#### 模型训练 → 部署的完整流程
 ```
 1. 训练模型（PyTorch/TF/...）
         ↓
@@ -1584,7 +1587,7 @@ output = session.run(None, {"input": input_data})
 **ONNX 就是深度学习模型的"通用语言"**——不管你用什么框架训练的模型，导出成 ONNX 格式，就能在任何支持 ONNX 的硬件和推理引擎上跑。它是现在模型部署领域**事实标准**的中间格式。
 
 
-## 不一定非得转trt
+### 不一定非得转trt
 
 ONNX 转 TRT 只是 NVIDIA GPU 上的性能优化选项，不是必选项。
 

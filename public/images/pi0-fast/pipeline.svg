@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="440" viewBox="0 0 1100 440" role="img" aria-labelledby="title desc">
+  <title id="title">FAST 动作编码与 π₀-FAST 推理流程</title>
+  <desc id="desc">动作块依次归一化、沿时间轴做 DCT、缩放取整、按低频优先展平并经 BPE 编码。推理时 VLA 自回归预测 token，再解码恢复连续动作块。DCT 可逆，量化有损，BPE 无损。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#64748b"/></marker></defs>
+  <rect width="1100" height="440" rx="20" fill="#f8fafc"/>
+  <g font-family="sans-serif" fill="#0f172a">
+    <text x="34" y="43" font-size="23" font-weight="700">FAST：把一段轨迹编码成较短的动作 token 序列</text>
+    <text x="34" y="76" font-size="15" fill="#475569">训练标签的构造 · 归一化统计量来自训练集</text>
+    <g stroke="#cbd5e1" fill="#ffffff">
+      <rect x="30" y="104" width="170" height="92" rx="12"/>
+      <rect x="245" y="104" width="170" height="92" rx="12"/>
+      <rect x="460" y="104" width="170" height="92" rx="12" fill="#fff7ed" stroke="#fdba74"/>
+      <rect x="675" y="104" width="170" height="92" rx="12"/>
+      <rect x="890" y="104" width="180" height="92" rx="12" fill="#eff6ff" stroke="#93c5fd"/>
+    </g>
+    <g text-anchor="middle" font-size="18" font-weight="600">
+      <text x="115" y="137">归一化动作</text><text x="330" y="137">时间轴 DCT</text>
+      <text x="545" y="137">缩放与取整</text><text x="760" y="137">低频优先展平</text><text x="980" y="137">BPE 编码</text>
+    </g>
+    <g text-anchor="middle" font-size="14" fill="#475569">
+      <text x="115" y="170">H × D 个连续数值</text><text x="330" y="170">可逆，系数仍有 H × D 个</text>
+      <text x="545" y="170">有损，产生大量零系数</text><text x="760" y="170">同一频率交错各动作维度</text><text x="980" y="170">无损合并 → L 个 token</text>
+    </g>
+    <g stroke="#64748b" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M203 150 H238"/><path d="M418 150 H453"/><path d="M633 150 H668"/><path d="M848 150 H883"/>
+    </g>
+    <path d="M30 233 H1070" stroke="#cbd5e1" stroke-dasharray="5 5"/>
+    <text x="34" y="269" font-size="20" font-weight="700">策略推理 · token 的顺序对应频率结构，不对应执行时间</text>
+    <g stroke="#cbd5e1" fill="#ffffff">
+      <rect x="30" y="293" width="250" height="80" rx="12"/><rect x="330" y="293" width="320" height="80" rx="12"/>
+      <rect x="700" y="293" width="370" height="80" rx="12" fill="#ecfdf5" stroke="#6ee7b7"/>
+    </g>
+    <g text-anchor="middle" font-size="17" font-weight="600">
+      <text x="155" y="324">图像 + 指令 + 本体状态</text><text x="490" y="324">VLM 自回归预测动作 token</text><text x="885" y="324">BPE 解码 → IDCT → 反归一化</text>
+    </g>
+    <g text-anchor="middle" font-size="14" fill="#475569">
+      <text x="155" y="350">条件输入</text><text x="490" y="350">逐 token 生成，存在串行依赖</text><text x="885" y="350">恢复 H × D 动作块，再交给控制器执行</text>
+    </g>
+    <g stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"><path d="M283 333 H323"/><path d="M653 333 H693"/></g>
+    <text x="34" y="409" font-size="14" fill="#64748b">依据 FAST 论文 §V 重绘；推理解码框省略了恢复系数矩阵与除以量化尺度的细节。</text>
+  </g>
+</svg>

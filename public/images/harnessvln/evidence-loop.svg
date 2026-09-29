@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="790" viewBox="0 0 1200 790" role="img"><title>把一句导航指令变成有证据的状态变化</title><desc>依据 HarnessVLN §3 重绘；下方门被挡住的情节为本文解释性示例。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#52657b"/></marker></defs><rect width="100%" height="100%" fill="#f8fafc"/><g font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+<text x="40" y="48" font-size="28" font-weight="700" fill="#102a43">把一句导航指令变成有证据的状态变化</text>
+<text x="40" y="82" font-size="17" fill="#52657b">依据 HarnessVLN §3 重绘；下方门被挡住的情节为本文解释性示例。</text>
+<rect x="40" y="120" width="340" height="145" rx="14" fill="#e8f0fe" stroke="#b8c7d9"/>
+<text x="60" y="155" font-size="21" font-weight="700" fill="#16395c">1. 观察与检索</text>
+<text x="60" y="185" font-size="17" fill="#334e68">RGB-D + 位姿 + 时间戳</text>
+<text x="60" y="212" font-size="17" fill="#334e68">取回当前子目标相关空间证据</text>
+<text x="60" y="239" font-size="17" fill="#334e68">近期工具结果 + TODO 状态</text>
+<rect x="430" y="120" width="330" height="145" rx="14" fill="#e8f0fe" stroke="#b8c7d9"/>
+<text x="450" y="155" font-size="21" font-weight="700" fill="#16395c">2. 模型提出操作</text>
+<text x="450" y="185" font-size="17" fill="#334e68">“向左侧门口导航”</text>
+<text x="450" y="212" font-size="17" fill="#334e68">给出目标及其证据引用</text>
+<text x="450" y="239" font-size="17" fill="#334e68">这里只产生提案，不直接驱动</text>
+<rect x="810" y="120" width="350" height="145" rx="14" fill="#e8f0fe" stroke="#b8c7d9"/>
+<text x="830" y="155" font-size="21" font-weight="700" fill="#16395c">3. Harness 校验</text>
+<text x="830" y="185" font-size="17" fill="#334e68">证据是否仍对应当前位姿？</text>
+<text x="830" y="212" font-size="17" fill="#334e68">目标是否可达、符合子目标？</text>
+<text x="830" y="239" font-size="17" fill="#334e68">是否重复已知失败？</text>
+<polyline points="380,192 430,192" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<polyline points="760,192 810,192" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="810" y="340" width="350" height="140" rx="14" fill="#e5f5ec" stroke="#b8c7d9"/>
+<text x="830" y="375" font-size="21" font-weight="700" fill="#16395c">4. 工具执行与反馈</text>
+<text x="830" y="405" font-size="17" fill="#334e68">导航 / 重新观察 / 回退</text>
+<text x="830" y="432" font-size="17" fill="#334e68">返回 arrived / blocked 等状态</text>
+<text x="830" y="459" font-size="17" fill="#334e68">request_stop 也必须经过校验</text>
+<polyline points="985,265 985,340" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1000" y="308" font-size="16" fill="#52657b">通过后派发</text>
+<rect x="40" y="340" width="720" height="140" rx="14" fill="#e5f5ec" stroke="#b8c7d9"/>
+<text x="60" y="375" font-size="21" font-weight="700" fill="#16395c">5. 更新两类记忆，再决定下一步</text>
+<text x="60" y="405" font-size="17" fill="#334e68">事件记忆：记录哪一步失败、证据与子目标状态</text>
+<text x="60" y="432" font-size="17" fill="#334e68">空间图：给相应地点或边附失败标记，引用完整事件</text>
+<text x="60" y="459" font-size="17" fill="#334e68">新的观察可以修正旧失败，避免把临时障碍永久封死</text>
+<polyline points="810,410 760,410" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<polyline points="210,340 210,265" fill="none" stroke="#52657b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="55" y="310" font-size="16" fill="#52657b">形成下一轮上下文</text>
+<rect x="40" y="545" width="1120" height="177" rx="14" fill="#fff3dd" stroke="#b8c7d9"/>
+<text x="60" y="580" font-size="21" font-weight="700" fill="#16395c">示例：门口被推车挡住</text>
+<text x="60" y="610" font-size="17" fill="#334e68">模型提议去门口 → 局部执行器报告 blocked → 当前 TODO 保持 active 或转 blocked</text>
+<text x="60" y="637" font-size="17" fill="#334e68">事件记忆记录失败全过程；空间图记录“此时、此任务下，该通道受阻”</text>
+<text x="60" y="664" font-size="17" fill="#334e68">检索时降低该分支优先级 → 观察其他通路或回退 → 推车移开后用新证据解除旧惩罚</text>
+</g></svg>

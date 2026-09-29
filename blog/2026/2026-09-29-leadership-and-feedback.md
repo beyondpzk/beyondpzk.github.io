@@ -3,8 +3,12 @@ title: "带人与反馈：情境领导、GROW 与 SBI"
 date: 2026-09-29
 categories: [管理]
 description: "根据具体任务调整指导方式，以结构化对话和行为反馈支持成员成长。"
+topic: management
+type: 工程实践
+summary: "根据具体任务调整指导方式，以结构化对话和行为反馈支持成员成长。"
 ---
 
+<!-- #region article -->
 # 带人与反馈：情境领导、GROW 与 SBI
 
 > 文中的人物、项目、时间和指标均为教学示例，不对应真实个人或组织。
@@ -13,7 +17,7 @@ description: "根据具体任务调整指导方式，以结构化对话和行为
 
 > 适用对象：正在带新人、培养骨干、开展一对一沟通或处理协作问题的管理者。
 > 解决的痛点：对新人放任、对熟手盯太细；成员事事请示；批评容易变成人身评价。
-> 相关章节：[第七章 差异化带团队](/books/management-way/chapter-07) · [第二章 问责与批评下属](/books/management-way/chapter-02) · [番外七 RACI 责任分工](/books/management-way/extra-07)。
+> 相关章节：[第七章 差异化带团队](/books/management-way/chapter-07) · [第二章 问责与批评下属](/books/management-way/chapter-02) · [番外十 RACI 责任分工](/books/management-way/extra-10)。
 > 以下案例为教学示例。人员判断应依据具体任务、可观察行为和本人反馈，随情况变化重新评估。
 
 ---
@@ -201,3 +205,4 @@ SBI 是 Situation、Behavior、Impact，即**情境、行为、影响**。先说
 ## 日常练习方法
 
 选择一名成员和一项具体任务，分别写下其能力证据与所需支持；下一次一对一用 GROW 完成一个真实决定。再把近期一句笼统评价改成 SBI，检查是否包含了事实之外的动机猜测。
+<!-- #endregion article -->

@@ -2,6 +2,9 @@
 title: AI Agent 实践案例集
 date: 2026-01-08
 categories: [Agents]
+topic: agents
+type: 技术分析
+tags: []
 ---
 
 # AI Agent 实践案例集

@@ -2,6 +2,9 @@
 title: LingBot-Vision 与 LingBot-Depth 2.0：具身智能的空间视觉基座再升级
 date: 2026-07-07
 categories: [Vision]
+topic: perception
+type: 论文精读
+tags: []
 ---
 
 # LingBot-Vision 与 LingBot-Depth 2.0：具身智能的空间视觉基座再升级

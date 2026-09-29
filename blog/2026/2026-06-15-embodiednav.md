@@ -2,6 +2,9 @@
 title: EmbodiedNav
 date: 2026-06-15
 categories: [VLA]
+topic: navigation
+type: 技术分析
+tags: ["Flow Matching"]
 ---
 
 # EmbodiedNav：具身导航统一基础模型演进综述

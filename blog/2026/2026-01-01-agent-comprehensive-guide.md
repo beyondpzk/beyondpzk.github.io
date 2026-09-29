@@ -2,6 +2,9 @@
 title: AI Agent 全面学习指南
 date: 2026-01-01
 categories: [Agents]
+topic: agents
+type: 工程实践
+tags: ["Transformer"]
 ---
 
 # AI Agent 全面学习指南

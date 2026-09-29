@@ -2,6 +2,9 @@
 title: Hy-Embodied-VLM-1.0
 date: 2026-07-14
 categories: [Agents]
+topic: agents
+type: 论文精读
+tags: []
 ---
 
 # Hy-Embodied-VLM-1.0：面向物理世界 Agent 的高效具身基础模型

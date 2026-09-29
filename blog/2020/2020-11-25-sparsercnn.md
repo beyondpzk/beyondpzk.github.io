@@ -2,6 +2,9 @@
 title: SparseRCNN
 date: 2020-11-25
 categories: [Detection]
+topic: perception
+type: 论文精读
+tags: []
 ---
 
 <!--more-->

@@ -2,21 +2,24 @@
 title: DayDreamer
 date: 2022-06-28
 categories: [others]
+topic: world-models
+type: 论文精读
+tags: ["PPO","Sim-to-Real"]
 ---
 
 # DayDreamer
 
 [paper link](https://arxiv.org/abs/2206.14176)
 
-# DayDreamer——物理机器人学习的世界模型
+## DayDreamer——物理机器人学习的世界模型
 
 **核心文献**：Wu, P., Escontrela, A., Hafner, D., Goldberg, K., & Abbeel, P. (2022). [DayDreamer: World Models for Physical Robot Learning](https://arxiv.org/abs/2206.14176v1). arXiv preprint arXiv:2206.14176.
 
 ---
 
-## 第一部分：研究背景
+### 第一部分：研究背景
 
-### 1.1 机器人学习的痛点：样本效率与虚实鸿沟
+#### 1.1 机器人学习的痛点：样本效率与虚实鸿沟
 在引入DayDreamer之前，我们需要理解当前机器人强化学习（RL）面临的两大核心挑战：
 
 1.  **样本效率低下（Sample Inefficiency）**：
@@ -31,7 +34,7 @@ categories: [others]
     *   需要繁琐的领域随机化（Domain Randomization）。
     *   不仅行为难以适应，且一旦环境发生变化（如机器人关节受损），基于仿真的策略往往失效。
 
-### 1.2 世界模型（World Models）的理念
+#### 1.2 世界模型（World Models）的理念
 人类并不是通过成千上万次撞墙来学会走路的。我们拥有一个“心理模型”（Mental Model），能够在脑海中推演行为的后果。
 
 *   **核心思想**：智能体应该从过去的经验中学习一个环境的动态模型（即“世界模型”），然后在这个学到的模型中进行“想象”训练。
@@ -40,26 +43,26 @@ categories: [others]
     *   **想象规划**：在潜空间（Latent Space）中进行规划，不消耗物理时间。
     *   **通用性**：学到的物理规律可以泛化。
 
-### 1.3 本文的核心贡献
+#### 1.3 本文的核心贡献
 DayDreamer 这篇论文的里程碑意义在于：它打破了“世界模型只能在游戏或仿真中有效”的刻板印象。它证明了 Dreamer 算法可以直接在真实机器人上进行**在线学习（Online Learning）**，无需任何仿真器预训练。
 
 > In this paper, we apply Dreamer to 4 robots to learn online and directly in the real world, without any simulators.
 
 ---
 
-## 第二部分：理论核心——Dreamer 模型架构详解
+### 第二部分：理论核心——Dreamer 模型架构详解
 
 深入剖析 Dreamer（基于 DreamerV2）的内部构造。它主要由两部分组成：**世界模型学习（World Model Learning）** 和 **行为学习（Behavior Learning）**。
 
-### 2.1 循环状态空间模型 (RSSM)
+#### 2.1 循环状态空间模型 (RSSM)
 Dreamer 的核心是一个循环状态空间模型（Recurrent State-Space Model, RSSM）。它的设计目的是为了解决部分可观测性（Partial Observability）和随机性（Stochasticity）。
 
-#### 2.1.1 结构组件
+##### 2.1.1 结构组件
 RSSM 将状态分解为两个部分：
 1.  **确定性状态（Deterministic State, $h_t$）**：由循环神经网络（GRU）建模，负责记忆长期的历史信息。
 2.  **随机状态（Stochastic State, $z_t$）**：由后验/先验网络建模，负责捕捉环境本身的不确定性（如未知的摩擦力、传感器噪声）。
 
-#### 2.1.2 模型的四个核心网络
+##### 2.1.2 模型的四个核心网络
 我们需要关注方程 (1) 中的定义：
 
 1.  **编码器（Encoder）**：
@@ -79,14 +82,14 @@ RSSM 将状态分解为两个部分：
     $$\text{rew}_{\theta}(s_{t+1}) \approx r_t$$
     > The reward network learns to predict. Using manually specified rewards as a function of the decoded sensory inputs is also possible.
 
-### 2.2 潜空间中的行为学习 (Actor-Critic)
+#### 2.2 潜空间中的行为学习 (Actor-Critic)
 一旦我们拥有了世界模型，我们就不再需要与真实环境交互来更新策略，而是在“梦境”（Latent Space）中进行。
 
-#### 2.2.1 想象展开 (Imagination Rollouts)
+##### 2.2.1 想象展开 (Imagination Rollouts)
 从当前的真实状态出发，使用动态网络（Prior）预测未来 $H$ 步的状态序列。
 这个过程完全在 GPU 上并行进行，速度极快（Batch size 可达 16K）。
 
-#### 2.2.2 演员-评论家 (Actor-Critic) 更新
+##### 2.2.2 演员-评论家 (Actor-Critic) 更新
 *   **Critic ($v(s_t)$)**: 学习预测从状态 $s_t$ 开始的预期回报（Value Function）。这里使用了 $\lambda$-return 来平衡偏差和方差：
     $$V_t^{\lambda} \doteq r_t + \gamma \left( (1 - \lambda) v(s_{t+1}) + \lambda V_{t+1}^{\lambda} \right)$$
     > To avoid the choice of an arbitrary value for N , we instead compute λ-returns
@@ -95,17 +98,17 @@ RSSM 将状态分解为两个部分：
     对于连续动作（如关节角度），使用重参数化技巧（Reparameterization Trick）直接通过动态模型的梯度反向传播来优化策略。
     对于离散动作（如抓取开/关），使用 REINFORCE 梯度估算。
 
-### 2.3 关键技术细节
+#### 2.3 关键技术细节
 *   **离散潜变量 (Discrete Latents)**：DreamerV2 使用 Categorical 分布而不是 Gaussian 分布来表示随机状态 $z_t$。这在处理非平滑动态时更鲁棒。
 *   **KL Balancing**：为了防止后验（Posterior）和先验（Prior）分离，损失函数包含 KL 散度项。DayDreamer 使用特殊的加权方式，让先验更快地逼近后验，而不是让后验坍缩向先验。
 
 ---
 
-## 第三部分：面向物理机器人的工程实现
+### 第三部分：面向物理机器人的工程实现
 
 将理论模型部署到物理机器人上涉及大量的工程挑战。
 
-### 3.1 异步训练架构 (Asynchronous Architecture)
+#### 3.1 异步训练架构 (Asynchronous Architecture)
 这是在真实世界能够实时运行的关键。
 *   **问题**：神经网络的更新（反向传播）通常很慢，如果等待更新完成再执行动作，会造成控制延迟，导致机器人抖动或不稳定。
 *   **解决方案**：分离 **Actor 线程** 和 **Learner 线程**。
@@ -113,7 +116,7 @@ RSSM 将状态分解为两个部分：
     *   **Learner 线程**：在后台不断从 Buffer 采样并更新 World Model 和 Actor/Critic 网络。
     > We parallelize data collection and neural network learning so learning steps can continue while the robot is moving and to enable low-latency action computation.
 
-### 3.2 多模态传感器融合 (Sensor Fusion)
+#### 3.2 多模态传感器融合 (Sensor Fusion)
 物理机器人通常有多种传感器：RGB 摄像头、深度图、关节角度（Proprioception）、力矩传感器等。
 Dreamer 的编码器设计天然支持融合：
 *   图像通过 CNN 编码。
@@ -122,11 +125,11 @@ Dreamer 的编码器设计天然支持融合：
 
 ---
 
-## 第四部分：
+### 第四部分：
 
 我们将深入探讨论文中的四个核心实验，展示该方法的通用性和鲁棒性。
 
-### 4.1 案例一：A1 四足机器人行走 (Locomotion)
+#### 4.1 案例一：A1 四足机器人行走 (Locomotion)
 *   **任务**：从背部朝下躺着开始，学会翻身、站立并以目标速度行走。
 *   **输入**：本体感知（关节角度、速度）。
 *   **结果**：
@@ -151,7 +154,7 @@ Dreamer 的编码器设计天然支持融合：
 
 > Dreamer trains a quadruped robot to roll off its back, stand up, and walk from scratch and without resets in only 1 hour.
 
-### 4.2 案例二：UR5 与 xArm 视觉抓取 (Manipulation)
+#### 4.2 案例二：UR5 与 xArm 视觉抓取 (Manipulation)
 *   **挑战**：稀疏奖励（只有抓到物体才得分）、视觉定位、手眼协调。
 *   **设置**：UR5（工业级）和 xArm（低成本）。RGB 图像 + 本体感知。
 *   **结果**：
@@ -173,7 +176,7 @@ Dreamer 的编码器设计天然支持融合：
 
 > The learned behavior outperforms model-free agents and approaches human performance.
 
-### 4.3 案例三：Sphero 导航 (Navigation)
+#### 4.3 案例三：Sphero 导航 (Navigation)
 *   **任务**：仅凭 RGB 图像导航到固定目标。
 *   **难点**：
     *   部分可观测：单张图像无法判断机器人的朝向（对称球体），必须依赖历史信息（Temporal Context）。
@@ -182,33 +185,33 @@ Dreamer 的编码器设计天然支持融合：
 
 ---
 
-## 第五部分：总结与讨论
+### 第五部分：总结与讨论
 
-### 5.1 核心结论
+#### 5.1 核心结论
 1.  **无需仿真**：世界模型具有足够高的样本效率，使得直接在真机上从零训练成为可能。
 2.  **通用性强**：同一套超参数（Hyperparameters）适用于轮式、足式、机械臂等多种形态的机器人。
     > Using the same hyperparameters across all experiments, we find that Dreamer is capable of online learning in the real world
 3.  **多模态融合**：潜空间自然地融合了视觉和触觉/本体感知信息。
 
-### 5.2 局限性与未来方向
+#### 5.2 局限性与未来方向
 *   **安全性**：虽然效率高，但在线探索初期的随机动作可能损坏硬件（虽然文中使用了滤波器保护电机）。
 *   **长期记忆**：目前的 RSSM 主要处理短期动态，对于需要长期记忆（如在此房间拿钥匙去彼房间开门）的任务仍有挑战。
 *   **未来**：结合预训练模型（Foundation Models）或离线数据（Offline RL）来进一步加速初始阶段的学习。
 
-### 5.3 思考
+#### 5.3 思考
 *   为什么在视觉任务中，Dreamer 相比 Model-Free 方法（如 Rainbow）优势如此巨大？请从表征学习（Representation Learning）的角度分析。
 *   如果在训练过程中不仅有 RGB 图像，还有触觉传感器数据，你会如何修改 Encoder 架构？
 
 ---
 
-## DayDreamer相比于DreamerV2
+### DayDreamer相比于DreamerV2
 
 **从算法原理（数学公式、损失函数、网络结构）上讲，DayDreamer 的核心确实就是 DreamerV2**。
 但是，理论上“不需要仿真器”和工程上“能在真机上跑通”之间存在巨大的鸿沟。DayDreamer 这篇论文的核心贡献在于**解决了将 DreamerV2 部署到物理机器人上时面临的实际挑战**。
 
 以下是 DayDreamer 与原始 DreamerV2 在实现和应用层面上的几个关键区别：
 
-### 1. 异步并行架构 (Asynchronous Actor-Learner Architecture)
+#### 1. 异步并行架构 (Asynchronous Actor-Learner Architecture)
 这是最本质的区别。
 
 *   **原始 DreamerV2 (仿真环境)**：
@@ -222,7 +225,7 @@ Dreamer 的编码器设计天然支持融合：
     *   **Learner 线程**：在后台利用 GPU 进行繁重的反向传播和模型更新。
     > We parallelize data collection and neural network learning so learning steps can continue while the robot is moving and to enable low-latency action computation.
 
-### 2. 多模态传感器融合 (Sensor Fusion)
+#### 2. 多模态传感器融合 (Sensor Fusion)
 *   **原始 DreamerV2**：
     大多在 Atari 或 DM Control Suite 上测试，输入通常是纯图像（Pixels）或纯状态（State）。
 
@@ -234,25 +237,25 @@ Dreamer 的编码器设计天然支持融合：
     *   两者的特征被拼接（Concatenate）后输入 RSSM。
     > The encoder network fuses all sensory inputs $x_t$ together into the stochastic representations $z_t$.
 
-### 3. 样本效率的“实战验证” (Empirical Validation of Sample Efficiency)
+#### 3. 样本效率的“实战验证” (Empirical Validation of Sample Efficiency)
 “Dreamer 不需要仿真器也能训练”在理论上是对的，但在此之前，没人敢保证它在真机上的**收敛速度**快到具有实用价值。
 
 *   **区别在于验证**：在此之前，Dreamer 被认为是一个“在视频游戏里表现很好的算法”。DayDreamer 证明了它**不需要数百万步**，只需要**几万步**（约 1 小时）就能在真实物理世界从零学会走路。
 *   这一点非常重要，因为如果一个算法虽然不需要仿真器，但需要真机运行 100 小时才能收敛，那它在机械磨损和时间成本上是不可接受的。DayDreamer 确立了它是目前**样本效率最高**的真机学习基线之一。
     > Dreamer trains a quadruped robot to roll off its back, stand up, and walk from scratch and without resets in only 1 hour.
 
-### 4. 动作平滑与安全性 (Action Smoothing)
+#### 4. 动作平滑与安全性 (Action Smoothing)
 *   在仿真中，高频震荡的动作可能只会导致分数低。
 *   在真机上，高频震荡会烧坏电机。
 *   DayDreamer 在输出端增加了一些工程处理（如 Butterworth 滤波器）来保护硬件，这是原始算法研究中往往忽略的细节。
     > To protect the motors, we filter out high-frequency motor commands through a Butterworth filter.
 
-### 总结
+#### 总结
 **DayDreamer = DreamerV2 算法 + 异步低延迟架构 + 多模态融合工程 + 真实世界鲁棒性验证。**
 
 它的贡献不在于发明了新的数学模型，而在于打通了从“理论算法”到“物理实体”的最后一公里，证明了世界模型在机器人领域的巨大潜力。
 
-## 在物理真机上面,reward是如何获得的
+### 在物理真机上面,reward是如何获得的
 
 在仿真器（Simulator）里，我们有一个上帝视角的函数可以直接返回 reward，但在真实物理世界中，**Reward 必须是可以被测量或计算的**。
 
@@ -260,7 +263,7 @@ Dreamer 的编码器设计天然支持融合：
 
 以下是具体的计算方式：
 
-### 1. A1 四足机器人（Locomotion）：基于本体感知的密集奖励
+#### 1. A1 四足机器人（Locomotion）：基于本体感知的密集奖励
 对于行走任务，Reward 完全由机器人身上的传感器（IMU 和关节编码器）实时计算得出。不需要外部动作捕捉系统（MoCap）。
 
 奖励函数由五个部分组成，是一个**密集奖励（Dense Reward）**：
@@ -272,7 +275,7 @@ Dreamer 的编码器设计天然支持融合：
 
 这个奖励函数的设计非常巧妙，它使用了**分级激活（Curriculum）**机制：只有当机器人学会“翻身”和“站立”（即前几项奖励达到阈值 0.7）之后，“速度奖励”才会生效。这引导了机器人先学站、后学走。
 
-### 2. UR5 和 xArm 机械臂（Manipulation）：基于逻辑状态的稀疏奖励
+#### 2. UR5 和 xArm 机械臂（Manipulation）：基于逻辑状态的稀疏奖励
 对于抓取任务，计算 Reward 不需要视觉判断“是否抓到”，而是通过**机械爪的物理状态**来推断。这是一个**稀疏奖励（Sparse Reward）**。
 
 具体的判断逻辑如下：
@@ -284,7 +287,7 @@ Dreamer 的编码器设计天然支持融合：
 
 这种方法非常鲁棒，不需要复杂的计算机视觉算法去判断物体是否在爪子上，直接用电机反馈即可。
 
-### 3. Sphero 小球（Navigation）：基于位置的距离奖励
+#### 3. Sphero 小球（Navigation）：基于位置的距离奖励
 对于导航任务，Reward 是**负的 L2 距离**（即距离目标越近，惩罚越小/奖励越大）。
 
 > The robot is provided with a dense reward equal to the negative L2 distance.
@@ -295,7 +298,7 @@ Dreamer 的编码器设计天然支持融合：
 
 考虑到 Sphero 是在一个固定围栏内运动，通常使用的是外部观测设备来提供这个“上帝视角”的坐标用于计算训练时的 Reward。
 
-### 总结：World Model 的角色
+#### 总结：World Model 的角色
 这里有一个关键点需要区分：
 *   **训练时（Interaction）**：机器人通过上述传感器/逻辑获得真实的 Reward值 ($r_t$)，存入 Replay Buffer。
 *   **学习后（Dreaming）**：Dreamer 的**奖励网络（Reward Network）** $\text{rew}_\theta(s_{t+1})$ 会学习去**预测**这些传感器数值。

@@ -2,6 +2,9 @@
 title: PoliFormer
 date: 2024-06-28
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: ["PPO","Transformer"]
 ---
 
 # PoliFormer：基于大规模 On-Policy RL 的 Transformer 导航器

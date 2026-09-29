@@ -2,6 +2,9 @@
 title: RenderOcc
 date: 2023-09-18
 categories: [Occupancy]
+topic: perception
+type: 论文精读
+tags: []
 ---
 
 <!--more-->

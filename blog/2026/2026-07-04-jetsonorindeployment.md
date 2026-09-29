@@ -2,6 +2,9 @@
 title: Jetson Orin 部署实战：算力、显存与模型切分的决策
 date: 2026-07-04
 categories: [Deploy]
+topic: deployment
+type: 工程实践
+tags: ["Transformer","Diffusion","TensorRT","CUDA","INT8"]
 ---
 
 # Jetson Orin 部署实战：算力、显存与模型切分的决策

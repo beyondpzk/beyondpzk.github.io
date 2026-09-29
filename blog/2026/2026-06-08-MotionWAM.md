@@ -3,6 +3,9 @@ title: "MotionWAM：让世界动作模型实时驱动人形机器人全身移动
 date: 2026-06-08
 categories: [WAM]
 description: "围绕MotionWAM：让世界动作模型实时驱动人形机器人全身移动操作整理研究背景、核心方法、实验结果与应用边界。"
+topic: world-models
+type: 论文精读
+tags: []
 ---
 
 # MotionWAM：让世界动作模型实时驱动人形机器人全身移动操作

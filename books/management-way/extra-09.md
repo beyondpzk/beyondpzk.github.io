@@ -1,5 +1,5 @@
 ---
-title: "带人与反馈：情境领导、GROW 与 SBI"
+title: "主持会议：早会、进展会、周会与复盘会"
 ---
 
-<!--@include: ../../blog/2026/2026-09-29-leadership-and-feedback.md{8,} -->
+<!--@include: ../../blog/2026/2026-09-29-meeting-facilitation.md#article -->

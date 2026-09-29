@@ -2,6 +2,9 @@
 title: Neovim + iTerm2 工作流
 date: 2026-06-12
 categories: [工具与约定]
+topic: foundations
+type: 工程实践
+tags: []
 ---
 
 # Neovim + iTerm2 工作流
@@ -116,9 +119,9 @@ categories: [工具与约定]
 
 我已经在 `scripts/` 目录下准备了两个脚本：
 
-### 2.1 `scripts/generate-sidebar.js` —— 自动生成侧边栏
+### 2.1 `scripts/generate-sidebar.js` —— 检查文章索引
 
-扫描 `blog/` 目录，自动更新 `.vitepress/config.mjs` 中的侧边栏。
+检查统一文章索引和专题引用。首页与导航在构建时读取同一索引，不再改写配置文件。
 
 ```bash
 npm run sync
@@ -126,7 +129,7 @@ npm run sync
 
 ### 2.2 `scripts/preview.sh` —— 一键预览
 
-自动同步侧边栏并启动 VitePress 开发服务器。
+启动 VitePress 开发服务器。使用 Node.js 22，项目内的 `.nvmrc` 指定了版本。
 
 ```bash
 chmod +x scripts/preview.sh
@@ -190,6 +193,11 @@ nvim blog/2026/my-new-article.md
 ---
 title: 文章标题
 date: 2026-06-12
+topic: foundations
+type: 工程实践
+tags: []
+summary: 用一两句话概括问题和关键发现。
+draft: true
 ---
 
 # 文章标题
@@ -205,7 +213,7 @@ date: 2026-06-12
 2. 按 `<leader>p`（如果你按上面的配置）
 3. 自动生成：`![image](./my-new-article.assets/2026-06-12-xxx.png)`
 
-### 4.4 同步侧边栏并预览
+### 4.4 检查索引并预览
 
 ```bash
 # 方式一：分别执行
@@ -221,12 +229,15 @@ npm run docs:dev
 ### 4.5 发布
 
 ```bash
-git add .
+npm run check
+npm run docs:build
+npm run check:output
+git add blog/2026/my-new-article.md
 git commit -m "add: 新文章"
 git push origin main
 ```
 
-GitHub Actions 会自动部署到 GitHub Pages。
+准备公开时先移除 `draft: true`，并明确选择文章和所需图片。GitHub Actions 会运行同样的检查，成功后部署到 GitHub Pages。
 
 ---
 
@@ -354,7 +365,7 @@ return {
 Neovim + iTerm2 写博客的核心是：
 
 1. **`img-clip.nvim`** 解决图片粘贴
-2. **`npm run sync`** 自动同步侧边栏
+2. **`npm run sync`** 检查统一文章索引
 3. **`npm run docs:dev`** 实时预览
 4. **Tmux / iTerm2 Profile** 管理写作环境
 

@@ -2,6 +2,9 @@
 title: CityWalker
 date: 2024-11-26
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: ["Transformer"]
 ---
 
 # CityWalker：从网络规模视频中学习具身城市导航

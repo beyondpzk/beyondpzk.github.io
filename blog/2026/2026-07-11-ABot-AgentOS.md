@@ -3,6 +3,9 @@ title: "ABot-AgentOS：具备终身多模态记忆的通用机器人 Agent 操�
 date: 2026-07-11
 categories: [Agents]
 description: "围绕ABot-AgentOS：具备终身多模态记忆的通用机器人 Agent 操作系统整理研究背景、核心方法、实验结果与应用边界。"
+topic: agents
+type: 论文精读
+summary: "围绕ABot-AgentOS：具备终身多模态记忆的通用机器人 Agent 操作系统整理研究背景、核心方法、实验结果与应用边界。"
 ---
 
 # ABot-AgentOS：具备终身多模态记忆的通用机器人 Agent 操作系统

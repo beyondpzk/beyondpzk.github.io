@@ -3,6 +3,9 @@ title: "户外长距离导航：全局路由、局部策略与数据闭环"
 date: 2026-08-03
 categories: [VLN]
 description: "结合 ABot、Qwen-RobotNav 与 DualVLN，讨论地图路由、任务编排、数据采集与部署验证。"
+topic: navigation
+type: 工程实践
+summary: "结合 ABot、Qwen-RobotNav 与 DualVLN，讨论地图路由、任务编排、数据采集与部署验证。"
 ---
 
 # 户外长距离导航：全局路由、局部策略与数据闭环

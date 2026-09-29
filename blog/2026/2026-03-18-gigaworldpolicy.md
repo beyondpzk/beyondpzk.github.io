@@ -2,6 +2,9 @@
 title: GigaWorldPolicy
 date: 2026-03-18
 categories: [others]
+topic: world-models
+type: 论文精读
+tags: ["Transformer","Flow Matching"]
 ---
 
 # GigaWorldPolicy

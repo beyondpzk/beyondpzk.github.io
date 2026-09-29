@@ -3,6 +3,9 @@ title: "从视觉复走到自主巡检：GuideNav 的十项能力扩展"
 date: 2026-09-29
 categories: [VLN]
 description: "围绕避障、检查点、语义目标、地图维护与重定位，比较不同复杂度的工程实现。"
+topic: navigation
+type: 工程实践
+summary: "围绕避障、检查点、语义目标、地图维护与重定位，比较不同复杂度的工程实现。"
 ---
 
 # 从视觉复走到自主巡检：GuideNav 的十项能力扩展

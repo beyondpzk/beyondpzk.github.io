@@ -2,6 +2,9 @@
 title: 世界模型与VLA对比
 date: 2026-07-14
 categories: [VLA]
+topic: vla
+type: 技术分析
+tags: ["Transformer","Diffusion","JEPA"]
 ---
 
 # 世界模型与VLA对比

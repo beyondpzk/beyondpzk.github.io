@@ -1,5 +1,5 @@
 ---
-title: "改进与变革：PDCA、5 Whys 与 ADKAR"
+title: "RACI 责任分工：谁执行、谁负责、征询谁、告知谁"
 ---
 
-<!--@include: ../../blog/2026/2026-09-29-continuous-improvement.md{8,} -->
+<!--@include: ../../blog/2026/2026-09-29-raci-responsibility.md#article -->

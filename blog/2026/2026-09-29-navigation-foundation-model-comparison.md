@@ -3,6 +3,9 @@ title: "导航基础模型对比：DualVLN、ABot、Qwen-RobotNav 与 LightNav-0
 date: 2026-09-29
 categories: [VLN]
 description: "按任务比较导航模型的观测配置、评测指标和训练数据，并说明横向比较的边界。"
+topic: navigation
+type: 技术分析
+summary: "按任务比较导航模型的观测配置、评测指标和训练数据，并说明横向比较的边界。"
 ---
 
 # 导航基础模型对比：DualVLN、ABot、Qwen-RobotNav 与 LightNav-0

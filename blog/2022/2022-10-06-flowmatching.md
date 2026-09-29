@@ -2,21 +2,24 @@
 title: FlowMatching
 date: 2022-10-06
 categories: [AIGC]
+topic: generation
+type: 论文精读
+tags: ["Diffusion","Flow Matching"]
 ---
 
 # FlowMatching
 
 - [paper地址](https://arxiv.org/abs/2210.02747)
 
-# Flow Matching for Generative Modeling
+## Flow Matching for Generative Modeling
 
 **论文**：*Flow Matching for Generative Modeling* (ICLR 2023)
 
 ---
 
-## 第一部分：生成模型的演进与 CNF 的困境 (Introduction & Context)
+### 第一部分：生成模型的演进与 CNF 的困境 (Introduction & Context)
 
-### 1.1 全景图
+#### 1.1 全景图
 这篇论文之前，我们需要先理清两条并行的技术路线：
 
 1.  **Diffusion Models (扩散模型)**：大家都很熟悉，Stable Diffusion, DALL-E 2 背后的技术。它们基于随机微分方程 (SDE)，通过去噪来生成数据。优点是训练极其稳定（这就是为什么它们火了），但缺点是采样极其低效，路径弯曲复杂。
@@ -24,7 +27,7 @@ categories: [AIGC]
 
 **核心问题**：在 Flow Matching 出现之前，CNF 虽然数学形式优美（确定性、可逆），但几乎无法在大规模数据上训练。为什么？
 
-### 1.2 CNF 的数学定义回顾
+#### 1.2 CNF 的数学定义回顾
 让我们回顾一下 CNF。CNF 也是将简单的噪声分布 $p_0$ (如高斯) 变换为复杂的数据分布 $p_1$ (如 ImageNet)。
 这个变换是通过一个随时间变化的向量场 $v_t(x)$ 定义的 ODE 来实现的：
 $$ \frac{d\phi_t(x)}{dt} = v_t(\phi_t(x)) $$
@@ -34,15 +37,15 @@ $$ \frac{d\phi_t(x)}{dt} = v_t(\phi_t(x)) $$
 $$ \frac{\partial \log p_t(x)}{\partial t} = -\text{Tr}\left( \frac{\partial v_t}{\partial x} \right) = -\text{div}(v_t(x)) $$
 要训练这个模型，最大化似然需要计算雅可比矩阵的迹（Trace of Jacobian）。对于高维图像，这个计算复杂度是 $O(d^2)$ 甚至 $O(d^3)$。虽然有 Hutchinson Trace Estimator 可以近似，但在训练中需要求解整个 ODE 积分，这不仅慢，而且数值不稳定。
 
-### 1.3 本文的突破口
+#### 1.3 本文的突破口
 这篇文章的作者 Lipman 等人提出：**我们要放弃极大似然训练 (Maximum Likelihood Training)**。
 不要去解那个昂贵的 ODE 积分来计算似然。相反，我们要用一种 **“无需模拟 (Simulation-Free)”** 的回归方法。我们直接告诉模型：“在这个时刻 $t$，你应该往哪个方向流”，这就是 **Flow Matching**。
 
 ---
 
-## 第二部分：Flow Matching 核心理论 (The Theory of Flow Matching)
+### 第二部分：Flow Matching 核心理论 (The Theory of Flow Matching)
 
-### 2.1 目标：回归向量场
+#### 2.1 目标：回归向量场
 假设存在一个理想的概率路径 $p_t(x)$，它从噪声 $p_0$ 平滑过渡到数据 $p_1$。既然有概率路径，这就意味着必然存在一个**生成这一路径的向量场** $u_t(x)$。
 这由连续性方程 (Continuity Equation) 保证。 (这里需要补充一些东西.)
 
@@ -53,7 +56,7 @@ $$ \mathcal{L}_{FM}(\theta) = \mathbb{E}_{t \sim U[0,1], x \sim p_t(x)} \| v_t(x
 这看起来很简单，但有一个巨大的陷阱：**我们根本不知道 $u_t(x)$ 是什么！**
 我们只有数据 $x_1$ (来自目标数据分布 $q(x)$) 和噪声 $x_0$ (来自高斯 $p(x)$)。我们不知道中间的 $p_t$ 长什么样，更不知道生成它的宏观向量场 $u_t$ 是什么。对于复杂的数据集（如 ImageNet），这个 $u_t$ 是 intractable（不可计算）的。
 
-### 2.2 破局：Conditional Flow Matching (CFM)
+#### 2.2 破局：Conditional Flow Matching (CFM)
 这是整篇论文最天才的一步。
 既然宏观的 $p_t$ 搞不定，我们把问题分解到**微观**层面。
 
@@ -84,11 +87,11 @@ $$ u_t(x) = \mathbb{E}_{x_1 \sim p(x_1|x)} [u_t(x|x_1)] $$
 
 ---
 
-## 第三部分：如何设计路径？ (Instantiations of Probability Paths)
+### 第三部分：如何设计路径？ (Instantiations of Probability Paths)
 
 现在我们有了 CFM 框架，剩下的问题就是：我们选什么样的微观路径 $p_t(x|x_1)$？
 
-### 3.1 扩散路径 (Diffusion Paths) —— 连接过去
+#### 3.1 扩散路径 (Diffusion Paths) —— 连接过去
 论文首先展示了 Flow Matching 可以完全兼容并包含扩散模型。
 对于扩散模型，条件分布通常是：
 $$ p_t(x|x_1) = \mathcal{N}(x | \alpha_t x_1, \beta_t^2 I) $$
@@ -97,7 +100,7 @@ $$ p_t(x|x_1) = \mathcal{N}(x | \alpha_t x_1, \beta_t^2 I) $$
 $$ u_t(x|x_1) = \frac{\sigma'_t(x_1) (x - \mu_t(x_1))}{\sigma_t(x_1)} + \mu'_t(x_1) $$
 结论是：如果我们用 FM 框架去训练扩散路径，得到的模型效果比传统的 Score Matching 还要好，训练更稳定。但这并没有解决根本问题——**路径依然是弯曲的**。
 
-### 3.2 最优传输路径 (Optimal Transport Paths) —— 通向未来
+#### 3.2 最优传输路径 (Optimal Transport Paths) —— 通向未来
 这是本文最想推销的方案。既然我们可以自定义路径，为什么不定义一个最简单的？
 两点之间，直线最短。
 
@@ -123,19 +126,19 @@ $$ u_t(x|x_1) = \frac{x_1 - (1-\sigma_{min})x}{1 - (1-\sigma_{min})t} $$
 
 ---
 
-## 第四部分：实验与结果分析 (Experiments & Analysis)
+### 第四部分：实验与结果分析 (Experiments & Analysis)
 
-### 4.1 训练效率
+#### 4.1 训练效率
 看 Figure 2 和 Figure 3。
 *   **Diffusion Vector Field**：你看那个场，是随时间剧烈变化的，中间还要绕弯。
 *   **OT Vector Field**：方向几乎不变，只是模长在变。
 这导致神经网络更容易学习 OT 场。论文提到 FM 的收敛速度显著快于 Diffusion。
 
-### 4.2 ImageNet 上的 SOTA
+#### 4.2 ImageNet 上的 SOTA
 在 ImageNet 64x64 和 128x128 上，Flow Matching (FM-OT) 在 NLL (Negative Log Likelihood) 和 FID (Fréchet Inception Distance) 上都击败了当时的顶尖扩散模型（如 ADM）。
 这一点很重要，因为这是第一次证明 CNF 这种基于 ODE 的方法，在生成质量上可以和基于 SDE 的扩散模型硬碰硬。
 
-### 4.3 采样速度 (NFE Analysis)
+#### 4.3 采样速度 (NFE Analysis)
 这是工业界最看重的。看 **Figure 7**。
 *   横轴是 NFE (Number of Function Evaluations)，即调用神经网络的次数。
 *   纵轴是 FID (越低越好)。
@@ -145,18 +148,18 @@ $$ u_t(x|x_1) = \frac{x_1 - (1-\sigma_{min})x}{1 - (1-\sigma_{min})t} $$
 
 ---
 
-## 第五部分：总结与展望 (Conclusion)
+### 第五部分：总结与展望 (Conclusion)
 
-### 5.1 Takeaways
+#### 5.1 Takeaways
 1.  **Simulation-Free Training**：FM 让我们不再需要解 ODE 就能训练 ODE 模型。
 2.  **Unified View**：FM 把 Diffusion 降级为一种特殊的、非最优的路径选择。
 3.  **Optimal Transport**：直线路径是生成模型的未来（这一点已经被后续的 Stable Diffusion 3, Flux 等模型证实，它们都转向了 Rectified Flow / Flow Matching 架构）。
 
-### 5.2 潜在的局限性
+#### 5.2 潜在的局限性
 *   **训练时的随机性**：虽然路径是直的，但我们需要对 $t$ 进行采样。如果 $t$ 接近 1，且 $\sigma_{min}$ 很小，向量场的数值可能会很大（除以接近0的数），这在工程实现上需要注意（通常设置 $\sigma_{min}=1e-5$）。
 *   **模型容量**：虽然任务简单了，但要在大分辨率上拟合高频细节，依然需要巨大的神经网络参数量。
 
-# 为什么公式(21)意味着让粒子走直线
+## 为什么公式(21)意味着让粒子走直线
 
 理解公式 (21) 为什么代表直线运动，我们可以从**物理直观**和**数学推导**两个层面来理解。
 
@@ -164,7 +167,7 @@ $$ u_t(x|x_1) = \frac{x_1 - (1-\sigma_{min})x}{1 - (1-\sigma_{min})t} $$
 
 ---
 
-### 1. 物理直观：剩余距离 / 剩余时间
+#### 1. 物理直观：剩余距离 / 剩余时间
 
 当 $\sigma_{min} = 0$ 时，公式 (21) 简化为：
 $$ u_t(x|x_1) = \frac{x_1 - x}{1 - t} $$
@@ -187,7 +190,7 @@ $$ u_t(x|x_1) = \frac{x_1 - x}{1 - t} $$
 
 ---
 
-### 2. 数学推导：从结果反推原因
+#### 2. 数学推导：从结果反推原因
 
 在论文中，作者的逻辑是反过来的：**不是因为有了这个向量场才走出了直线，而是因为我们定义了直线路径，才推导出了这个向量场。**
 
@@ -221,7 +224,7 @@ $$ v_t = \frac{x_1 - x}{1 - t} $$
 这就是公式 (21) 的由来。
 所以，公式 (21) 仅仅是“匀速直线运动”这个物理过程在欧拉视角（Eulerian viewpoint，即向量场视角）下的数学表达。
 
-### 3. 稍微复杂一点的情况 ($\sigma_{min} > 0$)
+#### 3. 稍微复杂一点的情况 ($\sigma_{min} > 0$)
 
 如果加上 $\sigma_{min}$（论文原版公式），逻辑是一样的，只是“直线”没变，“匀速”变成了“变速直线”。
 
@@ -231,7 +234,7 @@ $$ x_t = (1 - (1 - \sigma_{min})t)x_0 + t x_1 $$
 $$ x_t = A \cdot t + B $$
 只要位置 $x$ 是时间 $t$ 的一次函数，轨迹在空间中就一定是一条直线。
 
-### 总结
+#### 总结
 
 1.  **几何上**：分子 $x_1 - (1-\sigma_{min})x$ 主要是 $x_1 - x$ 的变体，保证了向量场方向始终指向目标与当前位置的连线方向。
 2.  **动力学上**：这个公式就是通过强行定义 $x(t)$ 为线性函数，$u_t = \dot{x}(t)$ 反推出来的结果。它保证了 Optimal Transport 的核心属性——路径最短（直线）且运输成本最低。

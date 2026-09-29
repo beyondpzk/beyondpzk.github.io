@@ -3,8 +3,12 @@ title: "目标与优先级：SMART、OKR 与四象限"
 date: 2026-09-29
 categories: [管理]
 description: "用 SMART 写清目标，用 OKR 对齐成果，用四象限安排时间与注意力。"
+topic: management
+type: 工程实践
+summary: "用 SMART 写清目标，用 OKR 对齐成果，用四象限安排时间与注意力。"
 ---
 
+<!-- #region article -->
 # 目标与优先级：SMART、OKR 与四象限
 
 > 文中的人物、项目、时间和指标均为教学示例，不对应真实个人或组织。
@@ -13,7 +17,7 @@ description: "用 SMART 写清目标，用 OKR 对齐成果，用四象限安排
 
 > 适用对象：需要定目标、分配资源、安排团队工作与向上沟通取舍的管理者。
 > 阅读顺序：SMART 检查目标表达，OKR 对齐重点成果，四象限安排注意力。
-> 相关章节：[第三章 向上汇报](/books/management-way/chapter-03) · [番外七 RACI 责任分工](/books/management-way/extra-07)。
+> 相关章节：[第三章 向上汇报](/books/management-way/chapter-03) · [番外十 RACI 责任分工](/books/management-way/extra-10)。
 > 本篇案例与数字均为教学示例，实际指标应根据基线、资源和业务要求协商确定。
 
 ---
@@ -203,3 +207,4 @@ OKR 是 Objectives and Key Results，即**目标与关键结果**。O 说明要�
 ## 日常练习方法
 
 从本周选一句模糊要求，用 SMART 重写；再检查团队最重要的一项 KR 是否只是任务数量。最后审视日历：至少为一项重要但不紧急的工作落实时间，并明确为此推迟、简化或停止什么。
+<!-- #endregion article -->

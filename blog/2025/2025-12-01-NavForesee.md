@@ -2,6 +2,9 @@
 title: NavForesee
 date: 2025-12-01
 categories: [VLN]
+topic: navigation
+type: 论文精读
+tags: ["Transformer"]
 ---
 
 # NavForesee：统一 VLM 世界模型，分层规划 + 双视界导航预测

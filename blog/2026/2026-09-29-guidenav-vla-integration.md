@@ -3,6 +3,9 @@ title: "GuideNav 与 VLA 融合：记忆、目标接口与局部执行"
 date: 2026-09-29
 categories: [VLN]
 description: "讨论视觉示教复走与导航策略的分层组合，以及尺度、坐标变换、异步执行和失效回退。"
+topic: navigation
+type: 工程实践
+summary: "讨论视觉示教复走与导航策略的分层组合，以及尺度、坐标变换、异步执行和失效回退。"
 ---
 
 # GuideNav 与 VLA 融合：记忆、目标接口与局部执行

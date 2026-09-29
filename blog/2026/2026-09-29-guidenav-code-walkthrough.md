@@ -3,6 +3,9 @@ title: "GuideNav 源码解读：从示教关键帧到视觉复走"
 date: 2026-09-29
 categories: [VLN]
 description: "沿着 Teach 与 Repeat 两条链路，解析关键帧选择、视觉定位、相对位姿估计与控制器。"
+topic: navigation
+type: 工程实践
+summary: "沿着 Teach 与 Repeat 两条链路，解析关键帧选择、视觉定位、相对位姿估计与控制器。"
 ---
 
 # GuideNav 源码解读：从示教关键帧到视觉复走

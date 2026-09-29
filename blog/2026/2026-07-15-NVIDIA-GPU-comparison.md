@@ -2,6 +2,9 @@
 title: NVIDIA主流AI显卡价格与算力对比
 date: 2026-07-15
 categories: [others]
+topic: deployment
+type: 技术分析
+tags: ["LoRA","Transformer","CUDA","INT4"]
 ---
 
 # NVIDIA主流AI显卡价格与算力对比
