@@ -358,6 +358,148 @@ $$
 
 ---
 
+#### 策略熵正则：高斯动作与有界动作的区别
+
+最后一项是**策略熵正则**，用于鼓励 Actor 保持一定探索性。它不是有人工 GT 标签的监督损失。
+
+在这个代码里，Actor 先从高斯分布采样未限幅动作 $u_t$，再通过 $\tanh$ 得到有界动作 $a_t=\tanh(u_t)$。因此要区分高斯动作 $u_t$ 的熵，和实际动作 $a_t$ 的熵。以下分布均以当前观测和循环状态为条件，为简洁省略部分条件记号。
+
+##### 不经过 tanh 时：高斯策略的熵
+
+若策略是对角高斯分布：
+
+$$
+u_t\sim\mathcal{N}\bigl(\mu_t,\operatorname{diag}(\sigma_t^2)\bigr),
+$$
+
+它的微分熵有解析形式：
+
+$$
+\mathcal{H}(u_t)
+= \frac{1}{2}\sum_j
+\log\left(2\pi e\,\sigma_{t,j}^2\right).
+\tag{14}
+$$
+
+标准差越大，熵越大，策略分布越分散，探索通常也越强。这个熵不依赖均值 $\mu_t$。
+
+##### 经过 tanh 后：动作熵要考虑变换
+
+代码把高斯采样通过 $\tanh$ 限制到 $(-1,1)$。由于这个变换会改变概率密度：
+
+$$
+\log \pi(a_t\mid o_t)
+= \sum_j\log\mathcal{N}(u_{t,j};\mu_{t,j},\sigma_{t,j}^2)
+-
+\sum_j\log(1-a_{t,j}^2),
+\qquad
+a_t=\tanh(u_t).
+\tag{15}
+$$
+
+因此，变换后策略的熵是：
+
+$$
+\mathcal{H}(a_t)
+= \mathcal{H}(u_t)
++
+\mathbb{E}_{u_t\sim\mathcal{N}(\mu_t,\operatorname{diag}(\sigma_t^2))}
+\left[
+\sum_j \log\left(1-\tanh^2(u_{t,j})\right)
+\right].
+\tag{16}
+$$
+
+因为 $\log(1-\tanh^2(u))\leq 0$，在这里的动作坐标下，经过 $\tanh$ 后的微分熵不高于未变换高斯的熵。这个期望通常用 Monte Carlo 采样近似：
+
+$$
+\widehat{\mathcal{H}}(a_t)
+= -\log\pi(a_t\mid o_t),
+\qquad a_t\sim\pi.
+\tag{17}
+$$
+
+式 (17) 是单样本估计，训练时再对批次取平均。微分熵可以为负，不能用其正负判断实现是否正确。
+
+##### 它怎样进入总损失？
+
+代码通过**最小化**总损失来训练：
+
+$$
+\mathcal{L}_{\mathrm{total}}
+= \mathcal{L}_{\mathrm{policy}}
++c_v\mathcal{L}_{\mathrm{value}}
+-c_e\mathcal{H}(\pi_\theta),
+\qquad c_e\geq0.
+\tag{18}
+$$
+
+这与式 (13) 是同一个目标。前面有负号，是因为优化器在最小化损失；最小化 $-c_e\mathcal{H}$ 等价于**鼓励策略熵变大**。$c_e$ 越大，探索激励越强；但太大可能让策略长期过于随机。
+
+##### 与论文训练设计的关系
+
+**这是 PPO 实现中常见的熵正则项，不是这篇论文独有的设计。**严格说，熵项不是 PPO clipped policy objective 必不可少的一部分；它是常加进去、用来鼓励探索的可选项。式 (18) 展示的是这种常见的组合目标，不同 PPO 实现可能使用、调整或省略其中的熵项。
+
+**就当前笔记所依据的材料，尚不能确认作者在 PPO 损失中用了显式熵奖励。**已有论文笔记记录了 PPO、任务/平滑/安全相关奖励，以及 DML 和时间一致 Dropout，但没有给出可核实的熵系数或包含 $-c_e\mathcal{H}$ 的作者配置。因此，不能仅凭本文教学示例推断论文采用了这一项。进一步核对可参照[论文奖励设计（第 8 页）](https://www.alphaxiv.org/abs/2506.05997v2?page=8)与[训练正则（第 9 页）](https://www.alphaxiv.org/abs/2506.05997v2?page=9)；这两个页码入口为补充材料，本次整理未重新核验页面内容。
+
+还要区分两个容易混淆的“正则”：
+
+- $-c_e\mathcal{H}(\pi_\theta)$：**策略分布的熵正则**，影响 Actor 的探索程度。
+- 论文的 $r_{\mathrm{reg}}$：**环境奖励中的动作平滑与关节加速度等惩罚**，鼓励机器人动作平稳，参见[动作平滑奖励](https://www.alphaxiv.org/abs/2506.05997v2?page=8)。本文简化环境使用的动作幅值惩罚也不等同于论文的完整奖励设计。
+
+因此，示例代码里的最后一项可以保留为**标准 PPO 工程中常用的可选项**，但不应称为“本文提出的损失”。严格复现前，应确认作者实现或完整配置是否包含熵系数；若确认未使用，可设 $c_e=0$。若暂时无法确认，则应明确记录这一不确定性，将是否启用熵正则作为单独的消融设置，而不是把“未确认”当作“未使用”。
+
+##### 修正示例：用当前策略的新样本估计熵
+
+原稿的实现是：
+
+```python
+entropy = (
+    dist.entropy()
+    + torch.log(1.0 - action.square() + 1e-6)
+).sum(dim=-1)
+```
+
+如果 `action` 是**从当前策略分布新采样**的，这可以作为式 (16) 的 Monte Carlo 数值估计；若还要通过采样路径计算熵正则梯度，则应使用可重参数化采样。PPO 更新时，`action_for_eval` 是 rollout 阶段保存的旧动作；经过多个 PPO epoch 后，这些动作不再是当前策略新采样的样本。因此，用它们估算当前策略熵并不合适。
+
+更清楚的写法是：计算 PPO 概率时仍评估 rollout 里保存的动作；计算熵时另外从**当前策略**重新采样：
+
+```python
+# PPO 更新时：评估 rollout 保存的 action_for_eval
+# 反变换和 Jacobian 修正使用同一个限幅后的动作
+a_eval = action_for_eval.clamp(-0.999999, 0.999999)
+u_eval = torch.atanh(a_eval)
+logp_eval = (
+    dist.log_prob(u_eval)
+    - torch.log(1.0 - a_eval.square() + 1e-6)
+).sum(dim=-1)
+
+# 熵项：从当前策略另行采样，用式 (17) 做 Monte Carlo 估计
+u_entropy = dist.rsample()       # 可重参数化采样，保留梯度路径
+a_entropy = torch.tanh(u_entropy)
+
+logp_entropy = (
+    dist.log_prob(u_entropy)
+    - torch.log(1.0 - a_entropy.square() + 1e-6)
+).sum(dim=-1)
+
+entropy = -logp_entropy
+```
+
+然后总损失写成：
+
+```python
+total_loss = (
+    policy_loss
+    + value_coef * value_loss
+    - entropy_coef * entropy.mean()
+)
+```
+
+这项熵正则的目的只是帮助策略探索；它没有像 Critic 的 `returns` 那样的回归目标。下方完整示例已同步采用当前策略的新样本估计熵。代码中的 `1e-6` 是数值稳定近似；动作接近饱和时，正式实现还应考虑从未限幅动作直接计算稳定的 log-Jacobian。
+
+---
+
 #### PPO 训练示例：`train_ppo_sru.py`
 
 ```python
@@ -550,7 +692,14 @@ class AsymmetricActorCritic(nn.Module):
 
         # Eq. (5): 对数概率修正
         log_prob = (dist.log_prob(pre_tanh) - torch.log(1.0 - action.square() + 1e-6)).sum(dim=-1)
-        entropy = (dist.entropy() + torch.log(1.0 - action.square() + 1e-6)).sum(dim=-1)
+        # Eq. (17): 熵使用当前策略的新样本，不复用 rollout 保存的动作
+        u_entropy = dist.rsample()
+        a_entropy = torch.tanh(u_entropy)
+        logp_entropy = (
+            dist.log_prob(u_entropy)
+            - torch.log(1.0 - a_entropy.square() + 1e-6)
+        ).sum(dim=-1)
+        entropy = -logp_entropy
         return action, log_prob, entropy, next_actor_state
 
     def forward_critic_step(self, critic_obs, critic_state, episode_start):
