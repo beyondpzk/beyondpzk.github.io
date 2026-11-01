@@ -993,3 +993,58 @@ if __name__ == "__main__":
 
 - 原论文：[Spatially-Enhanced Recurrent Memory for Long-Range Mapless Navigation via End-to-End Reinforcement Learning](https://arxiv.org/abs/2506.05997)。本文以已有笔记为背景，未单独核验论文版本。
 - 相关本地笔记：[SRU：面向长程无地图导航的空间循环记忆](/blog/2026/2026-09-29-sru-spatial-memory)。论文实验与项目入口见该文；本文示例不作官方代码版本分析。
+
+> **Actor 和 Critic 的参数是否共享**，与 **Actor 和 Critic 看到的观测是否相同**，是两件不同的事。
+当然。关于 **Asymmetric Actor–Critic（非对称 Actor–Critic）**，最重要的是区分两个常被混在一起的问题：
+
+
+## 1. “非对称”主要指观测信息不对称
+
+Actor 负责输出动作，最终会部署到机器人上；Critic 负责估计状态价值，帮助 PPO 训练。
+
+如果两者看到相同的信息，例如：
+
+```text
+Actor：当前深度、机器人状态、目标
+Critic：当前深度、机器人状态、目标
+```
+
+这通常称为**观测对称**。Actor 和 Critic 仍然可以使用完全独立的网络参数。
+
+如果 Critic 还看到 Actor 没有的信息，例如：
+
+```text
+Actor：前向相机深度、机器人状态、目标
+Critic：以上信息 + 仿真器给出的全局高度图
+```
+
+这就是**观测非对称**，也就是通常所说的 Asymmetric Actor–Critic。Critic 获得的额外信息常称为特权信息，因为它在仿真训练时可用，但真机部署时未必能获得。论文中，Critic 除了深度输入，还使用额外的 360° 高度扫描；Actor 则基于部署时可用的观测做决策。[Actor与Critic输入](https://www.alphaxiv.org/abs/2506.05997v2?page=22)
+
+## 2. 参数是否共享是另一个独立选择
+
+这两种结构都可能是 Asymmetric Actor–Critic：
+
+**参数独立，观测不对称：**
+
+```text
+Actor 的输入 → Actor 网络 → 动作
+Critic 的特权输入 → 独立 Critic 网络 → 价值
+```
+
+**部分共享参数，观测不对称：**
+
+```text
+Actor 输入 → 共享编码器 ─→ Actor 头 → 动作
+Critic 特权输入 → 特权编码器 ─→ Critic 头 → 价值
+```
+
+因此，“Actor 和 Critic 参数不同”本身并不意味着非对称；反过来，是否共享一部分编码器，也不能单独决定它是否非对称。判断标准主要是：**Critic 是否使用了 Actor 不可获得的额外观测信息。**
+
+## 3. Critic 为什么可以看更多信息？
+
+Actor 的任务是学会在有限传感器信息下作决策；Critic 的任务是评估当前处境和动作结果，以便给 PPO 提供较好的价值基线。
+
+在仿真里，环境可能提供全局地形、精确状态或全向扫描。将这些信息给 Critic，可以帮助它更准确地预测未来回报；这些信息并不一定需要进入部署时的 Actor。
+
+可以把它想成：**机器人只能用自己的相机看路；训练时，评估者还可以查看仿真器里的地形数据，帮助判断这一步行动的长期价值。**Critic 的价值估计会通过优势函数影响 Actor 更新，但 Critic 不会直接替 Actor 输出动作。
+
